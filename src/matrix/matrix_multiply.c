@@ -21,7 +21,7 @@ t_matrix	matrix_multiply(t_matrix a, t_matrix b)
 
 	if (a.dimension != b.dimension)
 	{
-		write(1, ERR_MTX_SAME_DIMENSION, 49);
+		write(2, ERR_MTX_SAME_DIMENSION, 49);
 		exit(EXIT_FAILURE);
 	}
 

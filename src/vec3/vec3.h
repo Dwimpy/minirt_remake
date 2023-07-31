@@ -36,6 +36,7 @@ typedef struct s_vec3
 }				t_vec3;
 
 t_vec3	vec3_zero(void);
+t_vec3	vec3_create(t_real x, t_real y, t_real z);
 t_vec3	vec3_add(t_vec3 v1, t_vec3 v2);
 t_vec3	vec3_subtract(t_vec3 v1, t_vec3 v2);
 t_vec3	vec3_multiply(t_vec3 v1, t_vec3 v2);
@@ -45,8 +46,11 @@ t_vec3	vec3_division_s(t_vec3 v1, t_real s);
 t_vec3	vec3_negate(t_vec3 v);
 t_vec3	vec3_clamp(t_vec3 v, t_real min, t_real max);
 t_vec3	vec3_cross(t_vec3 v1, t_vec3 v2);
+t_vec3	vec3_normalize(t_vec3 v);
 t_real	vec3_dot(t_vec3 v1, t_vec3 v2);
 t_real	vec3_magnitude(t_vec3 v);
+t_real	vec3_magnitude_squared(t_vec3 v);
+
 t_real	clamp(t_real n, double min, double max);
 
 bool	vec3_equal(t_vec3 v, t_vec3 res);

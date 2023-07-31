@@ -12,7 +12,7 @@
 
 #include "vec3.h"
 
-t_vec3	vec3_zero(void)
+inline t_vec3	vec3_zero(void)
 {
 	return ((t_vec3){0.0, 0.0, 0.0});
 }

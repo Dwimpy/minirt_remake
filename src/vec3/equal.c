@@ -12,7 +12,7 @@
 
 #include "vec3.h"
 
-bool	vec3_equal(t_vec3 v, t_vec3 res)
+inline bool	vec3_equal(t_vec3 v, t_vec3 res)
 {
 	if (!is_approx_equal(v.x, res.x, M_EPSILON) || \
 	!is_approx_equal(v.y, res.y, M_EPSILON) || \
@@ -21,7 +21,7 @@ bool	vec3_equal(t_vec3 v, t_vec3 res)
 	return (true);
 }
 
-bool	vec3_equal_s(t_vec3 v, t_real s)
+inline bool	vec3_equal_s(t_vec3 v, t_real s)
 {
 	if (!is_approx_equal(v.x, s, M_EPSILON) || \
 	!is_approx_equal(v.y, s, M_EPSILON) || \

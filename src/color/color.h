@@ -10,11 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef COLOR_H
+# define COLOR_H
+
 #include "vec3.h"
+#include <stdint.h>
 
 typedef t_vec3	t_color;
 
-t_color	color_add(t_color a, t_color b);
-t_color	color_subtract(t_color a, t_color b);
-t_color	color_multiply(t_color a, t_color b);
-t_color color_multiply_s(t_color c, t_real s);
+t_color		color_create(t_real r, t_real g, t_real b);
+t_color		color_division(t_color a, t_color b);
+t_color		color_division_s(t_color a, t_real s);
+t_color		color_add(t_color a, t_color b);
+t_color		color_subtract(t_color a, t_color b);
+t_color		color_multiply(t_color a, t_color b);
+t_color		color_multiply_s(t_color c, t_real s);
+t_color		color_clamp(t_color c);
+uint32_t	get_rgba(uint32_t r, uint32_t g, uint32_t b);
+
+#endif

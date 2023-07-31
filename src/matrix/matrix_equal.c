@@ -26,10 +26,10 @@ bool	matrix_equal(t_matrix a, t_matrix b)
 	while ((row - 1) < a.dimension)
 	{
 		col = 1;
-		a_val = matrix_get_element_at(a, row, col);
+		a_val = matrix_get(a, row, col);
 		while ((col - 1) < a.dimension)
 		{
-			b_val =  matrix_get_element_at(b, row, col);
+			b_val = matrix_get(b, row, col);
 			if (is_approx_equal(a_val, b_val, M_EPSILON))
 				return (false);
 			col++;

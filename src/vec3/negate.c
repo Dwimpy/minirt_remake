@@ -12,7 +12,7 @@
 
 #include "vec3.h"
 
-t_vec3	vec3_negate(t_vec3 v)
+inline t_vec3	vec3_negate(t_vec3 v)
 {
 	return ((t_vec3){-1.0 * v.x, -1.0 * v.y, -1.0 * v.z});
 }

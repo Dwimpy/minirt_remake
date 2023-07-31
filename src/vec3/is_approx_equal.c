@@ -12,7 +12,7 @@
 
 #include "vec3.h"
 
-bool	is_approx_equal(t_real a, t_real b, t_real epsilon)
+inline bool	is_approx_equal(t_real a, t_real b, t_real epsilon)
 {
 	return (fabs(a - b) < epsilon);
 }

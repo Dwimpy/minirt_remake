@@ -10,66 +10,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "image.h"
+#include "onb.h"
+#include "rng.h"
 #include "vec3.h"
-#include "matrix.h"
+#include "window.h"
+#include "vector.h"
+#include <stdlib.h>
 
-int	main(void)
+void	run_tests()
 {
-	t_matrix	mat;
-	t_matrix	mat2;
-	t_matrix 	mult;
-
-	mat = matrix_init(4);
-	mat2 = matrix_init(4);
-
 	vec3_test();
-	matrix_set_element_at(mat, 1, 1, 1);
-	matrix_set_element_at(mat, 1, 2, 2);
-	matrix_set_element_at(mat, 1, 3, 3);
-	matrix_set_element_at(mat, 1, 4, 4);
-	matrix_set_element_at(mat, 2, 1, 5);
-	matrix_set_element_at(mat, 2, 2, 6);
-	matrix_set_element_at(mat, 2, 3, 7);
-	matrix_set_element_at(mat, 2, 4, 8);
-	matrix_set_element_at(mat, 3, 1, 9);
-	matrix_set_element_at(mat, 3, 2, 8);
-	matrix_set_element_at(mat, 3, 3, 7);
-	matrix_set_element_at(mat, 3, 4, 6);
-	matrix_set_element_at(mat, 4, 1, 5);
-	matrix_set_element_at(mat, 4, 2, 4);
-	matrix_set_element_at(mat, 4, 3, 3);
-	matrix_set_element_at(mat, 4, 4, 2);
+	onb_tests();
+}
 
-	matrix_set_element_at(mat2, 1, 1, -2);
-	matrix_set_element_at(mat2, 1, 2, 1);
-	matrix_set_element_at(mat2, 1, 3, 2);
-	matrix_set_element_at(mat2, 1, 4, 3);
-	matrix_set_element_at(mat2, 2, 1, 3);
-	matrix_set_element_at(mat2, 2, 2, 2);
-	matrix_set_element_at(mat2, 2, 3, 1);
-	matrix_set_element_at(mat2, 2, 4, -1);
-	matrix_set_element_at(mat2, 3, 1, 4);
-	matrix_set_element_at(mat2, 3, 2, 3);
-	matrix_set_element_at(mat2, 3, 3, 6);
-	matrix_set_element_at(mat2, 3, 4, 5);
-	matrix_set_element_at(mat2, 4, 1, 1);
-	matrix_set_element_at(mat2, 4, 2, 2);
-	matrix_set_element_at(mat2, 4, 3, 7);
-	matrix_set_element_at(mat2, 4, 4, 8);
+int main(void) {
+	t_window window;
+	t_image canvas;
+	t_vector			vector;
+	t_vector_iterator	it;
+	t_vector_iterator	end;
+	vector = vector_init(5, sizeof(int));
+	int a = 125;
+	int b = 225;
+	int c = 33;
+	int d = 1;
+	int e = 5;
+	int f = 7;
+	int g = 9;
 
-	mult = matrix_multiply(mat, mat2);
-	int i = 0;
-	while (i < 4)
+	vector_pushback(&vector, &a);
+	vector_pushback(&vector, &b);
+	vector_pushback(&vector, &c);
+	vector_pushback(&vector, &d);
+	vector_pushback(&vector, &e);
+	vector_pushback(&vector, &f);
+	vector_pushback(&vector, &g);
+
+	vector_iterator_begin(&it, &vector);
+	while (!it.end(&it))
 	{
-		int j = 0;
-		while (j < 4)
-		{
-			printf("%f ", mult.matrix[i * mult.dimension + j]);
-			j++;
-		}
-		printf("\n");
-		i++;
+		printf("%d\n", *(int *)it.get(&it));
+		it.next(&it);
 	}
-	printf("Equal: %d\n", matrix_equal(mat, mat2));
+//	run_tests();
+	srand48(time(NULL));
+	vec3_print(random_in_unit_sphere());
+//	window_create(&window, 1024, 1024);
+//	window_add_image(window.mlx, &canvas);
+//	window_draw_loop(window.mlx);
 	return (0);
 }

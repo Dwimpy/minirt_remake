@@ -14,11 +14,11 @@
 #include "stdbool.h"
 #include "matrix_internal.h"
 
-void	matrix_set_element_at(t_matrix mtx, int row, int column, double value)
+void	matrix_set(t_matrix mtx, int row, int column, double value)
 {
 	if (is_elem_out_of_range(row, column, mtx.dimension))
 	{
-		write(1, ERR_MTX_OUT_OF_RANGE, 35);
+		write(2, ERR_MTX_OUT_OF_RANGE, 35);
 		exit (EXIT_FAILURE);
 	}
 	mtx.matrix[(row - 1) * mtx.dimension + (column - 1)] = value;

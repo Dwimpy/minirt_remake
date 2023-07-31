@@ -13,6 +13,6 @@
 #include "vec3.h"
 #include <math.h>
 
-t_real vec3_magnitude(t_vec3 v) {
+inline t_real vec3_magnitude(t_vec3 v) {
 	return (sqrt(vec3_dot(v, v)));
 }

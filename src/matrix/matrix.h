@@ -29,8 +29,8 @@ typedef struct s_matrix
 
 t_matrix	matrix_init(int dimension);
 t_matrix	matrix_multiply(t_matrix a, t_matrix b);
-void		matrix_set_element_at(t_matrix mtx, int row, int column, double value);
-double		matrix_get_element_at(t_matrix mtx, int row, int column);
+void		matrix_set(t_matrix mtx, int row, int column, double value);
+double		matrix_get(t_matrix mtx, int row, int column);
 bool		matrix_equal(t_matrix m1, t_matrix m2);
 
 #endif

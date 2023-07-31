@@ -19,7 +19,7 @@ t_matrix matrix_init(int dimension) {
 	mtx.matrix = (double *) malloc(sizeof(double) * dimension * dimension);
 	mtx.dimension = dimension;
 	if (!mtx.matrix) {
-		write(1, ERR_MTX_ALLOC_FAILED, 35);
+		write(2, ERR_MTX_ALLOC_FAILED, 35);
 		exit(EXIT_FAILURE);
 	}
 	ft_bzero(mtx.matrix, sizeof(double) * dimension * dimension);

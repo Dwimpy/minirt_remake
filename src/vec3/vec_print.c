@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "vec3.h"
 
-void vec3_print(t_vec3 v) {
+inline void vec3_print(t_vec3 v)
+{
 	printf("[ %.6f, %.6f, %.6f ]\n", v.x, v.y, v.z);
 }

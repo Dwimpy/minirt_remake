@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MATRIX_INTERNAL_H
+# define MATRIX_INTERNAL_H
+
 #include "stdbool.h"
 
 static bool	is_elem_out_of_range(int row, int column, int dimension)
@@ -19,3 +22,5 @@ static bool	is_elem_out_of_range(int row, int column, int dimension)
 			(row - 1) < 0 || \
 			(column - 1) < 0);
 }
+
+#endif

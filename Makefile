@@ -13,13 +13,19 @@
 # Variables
 NAME			= minirt
 
-VPATH			= ./src/vec3 ./src/ray ./src/color ./src/matrix
+VPATH			= ./src/vec3 ./src/ray ./src/color ./src/matrix ./src/window ./src/image \
+				  ./src/rng ./src/ortho_basis ./src/vector ./src/vector/iterator
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/vec3
 INCLUDE			+= -I ./src/ray
 INCLUDE			+= -I ./src/color
 INCLUDE			+= -I ./src/matrix
+INCLUDE			+= -I ./src/window
+INCLUDE			+= -I ./src/image
+INCLUDE			+= -I ./src/rng
+INCLUDE			+= -I ./src/ortho_basis
+INCLUDE			+= -I ./src/vector
 
 
 DSYM			= ./minirt.dSYM

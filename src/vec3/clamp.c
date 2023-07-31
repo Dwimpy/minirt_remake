@@ -12,7 +12,7 @@
 
 #include "vec3.h"
 
-t_real clamp(t_real n, double min, double max)
+inline t_real clamp(t_real n, double min, double max)
 {
 	if (n < min)
 		return (min);
@@ -21,7 +21,7 @@ t_real clamp(t_real n, double min, double max)
 	return (n);
 }
 
-t_vec3	vec3_clamp(t_vec3 v, double min, double max)
+inline t_vec3	vec3_clamp(t_vec3 v, double min, double max)
 {
 	t_vec3	clamped;
 

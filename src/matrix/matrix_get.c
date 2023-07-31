@@ -13,11 +13,11 @@
 #include "matrix.h"
 #include "matrix_internal.h"
 
-double	matrix_get_element_at(t_matrix mtx, int row, int column)
+double	matrix_get(t_matrix mtx, int row, int column)
 {
 	if (is_elem_out_of_range(row, column, mtx.dimension))
 	{
-		write(1, ERR_MTX_OUT_OF_RANGE, 35);
+		write(2, ERR_MTX_OUT_OF_RANGE, 35);
 		exit (EXIT_FAILURE);
 	}
 	return (mtx.matrix[(row - 1) * mtx.dimension + (column - 1)]);
