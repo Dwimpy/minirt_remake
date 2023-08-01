@@ -14,5 +14,5 @@
 
 t_color	color_add(t_color a, t_color b)
 {
-	return (vec3_add(a, b));
+	return (tuple_add(a, b));
 }

@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "color.h"
-#include "vec3.h"
+#include "tuple.h"
 
-t_color color_create(t_real r, t_real g, t_real b)
+t_color color_new(t_real r, t_real g, t_real b)
 {
-	return (vec3_create(r, g, b));
+	return (tuple_new_vector(r, g, b));
 }

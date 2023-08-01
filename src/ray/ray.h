@@ -13,12 +13,14 @@
 #ifndef RAY_H
 # define RAY_H
 
-#include "vec3.h"
+#include "tuple.h"
 
 typedef struct s_ray
 {
-	t_vec3		origin;
-	t_vec3		direction;
+	t_tuple		origin;
+	t_tuple		direction;
 }				t_ray;
+
+t_tuple	ray_value_at(t_ray ray, double t);
 
 #endif

@@ -214,7 +214,7 @@ About uivector, ucvector and string:
 
 #ifdef LODEPNG_COMPILE_ZLIB
 #ifdef LODEPNG_COMPILE_ENCODER
-/*dynamic vec3 of unsigned ints*/
+/*dynamic tuple of unsigned ints*/
 typedef struct uivector {
   unsigned* data;
   size_t size; /*size in number of unsigned longs*/
@@ -259,7 +259,7 @@ static unsigned uivector_push_back(uivector* p, unsigned c) {
 
 /* /////////////////////////////////////////////////////////////////////////// */
 
-/*dynamic vec3 of unsigned chars*/
+/*dynamic tuple of unsigned chars*/
 typedef struct ucvector {
   unsigned char* data;
   size_t size; /*used size*/
@@ -1459,7 +1459,7 @@ static size_t searchCodeIndex(const unsigned* array, size_t array_size, size_t v
 }
 
 static void addLengthDistance(uivector* values, size_t length, size_t distance) {
-  /*values in encoded vec3 are those used by deflate:
+  /*values in encoded tuple are those used by deflate:
   0-255: literal bytes
   256: end
   257-285: length/distance pair (length code, followed by extra length bits, distance code, extra distance bits)
@@ -6257,7 +6257,7 @@ cleanup:
   lodepng_free(data);
   lodepng_color_mode_cleanup(&auto_color);
 
-  /*instead of cleaning the vec3 up, give it to the output*/
+  /*instead of cleaning the tuple up, give it to the output*/
   *out = outv.data;
   *outsize = outv.size;
 
@@ -6467,7 +6467,7 @@ const char* lodepng_error_text(unsigned code) {
 namespace lodepng {
 
 #ifdef LODEPNG_COMPILE_DISK
-unsigned load_file(std::vec3<unsigned char>& buffer, const std::string& filename) {
+unsigned load_file(std::tuple<unsigned char>& buffer, const std::string& filename) {
   long size = lodepng_filesize(filename.c_str());
   if(size < 0) return 78;
   buffer.resize((size_t)size);
@@ -6475,14 +6475,14 @@ unsigned load_file(std::vec3<unsigned char>& buffer, const std::string& filename
 }
 
 /*write given buffer to the file, overwriting the file, it doesn't append to it.*/
-unsigned save_file(const std::vec3<unsigned char>& buffer, const std::string& filename) {
+unsigned save_file(const std::tuple<unsigned char>& buffer, const std::string& filename) {
   return lodepng_save_file(buffer.empty() ? 0 : &buffer[0], buffer.size(), filename.c_str());
 }
 #endif /* LODEPNG_COMPILE_DISK */
 
 #ifdef LODEPNG_COMPILE_ZLIB
 #ifdef LODEPNG_COMPILE_DECODER
-unsigned decompress(std::vec3<unsigned char>& out, const unsigned char* in, size_t insize,
+unsigned decompress(std::tuple<unsigned char>& out, const unsigned char* in, size_t insize,
                     const LodePNGDecompressSettings& settings) {
   unsigned char* buffer = 0;
   size_t buffersize = 0;
@@ -6494,14 +6494,14 @@ unsigned decompress(std::vec3<unsigned char>& out, const unsigned char* in, size
   return error;
 }
 
-unsigned decompress(std::vec3<unsigned char>& out, const std::vec3<unsigned char>& in,
+unsigned decompress(std::tuple<unsigned char>& out, const std::tuple<unsigned char>& in,
                     const LodePNGDecompressSettings& settings) {
   return decompress(out, in.empty() ? 0 : &in[0], in.size(), settings);
 }
 #endif /* LODEPNG_COMPILE_DECODER */
 
 #ifdef LODEPNG_COMPILE_ENCODER
-unsigned compress(std::vec3<unsigned char>& out, const unsigned char* in, size_t insize,
+unsigned compress(std::tuple<unsigned char>& out, const unsigned char* in, size_t insize,
                   const LodePNGCompressSettings& settings) {
   unsigned char* buffer = 0;
   size_t buffersize = 0;
@@ -6513,7 +6513,7 @@ unsigned compress(std::vec3<unsigned char>& out, const unsigned char* in, size_t
   return error;
 }
 
-unsigned compress(std::vec3<unsigned char>& out, const std::vec3<unsigned char>& in,
+unsigned compress(std::tuple<unsigned char>& out, const std::tuple<unsigned char>& in,
                   const LodePNGCompressSettings& settings) {
   return compress(out, in.empty() ? 0 : &in[0], in.size(), settings);
 }
@@ -6543,7 +6543,7 @@ State& State::operator=(const State& other) {
 
 #ifdef LODEPNG_COMPILE_DECODER
 
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h, const unsigned char* in,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h, const unsigned char* in,
                 size_t insize, LodePNGColorType colortype, unsigned bitdepth) {
   unsigned char* buffer = 0;
   unsigned error = lodepng_decode_memory(&buffer, &w, &h, in, insize, colortype, bitdepth);
@@ -6558,12 +6558,12 @@ unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h, const u
   return error;
 }
 
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
-                const std::vec3<unsigned char>& in, LodePNGColorType colortype, unsigned bitdepth) {
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
+                const std::tuple<unsigned char>& in, LodePNGColorType colortype, unsigned bitdepth) {
   return decode(out, w, h, in.empty() ? 0 : &in[0], (unsigned)in.size(), colortype, bitdepth);
 }
 
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
                 State& state,
                 const unsigned char* in, size_t insize) {
   unsigned char* buffer = NULL;
@@ -6576,16 +6576,16 @@ unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
   return error;
 }
 
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
                 State& state,
-                const std::vec3<unsigned char>& in) {
+                const std::tuple<unsigned char>& in) {
   return decode(out, w, h, state, in.empty() ? 0 : &in[0], in.size());
 }
 
 #ifdef LODEPNG_COMPILE_DISK
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h, const std::string& filename,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h, const std::string& filename,
                 LodePNGColorType colortype, unsigned bitdepth) {
-  std::vec3<unsigned char> buffer;
+  std::tuple<unsigned char> buffer;
   /* safe output values in case error happens */
   w = h = 0;
   unsigned error = load_file(buffer, filename);
@@ -6596,7 +6596,7 @@ unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h, const s
 #endif /* LODEPNG_COMPILE_DISK */
 
 #ifdef LODEPNG_COMPILE_ENCODER
-unsigned encode(std::vec3<unsigned char>& out, const unsigned char* in, unsigned w, unsigned h,
+unsigned encode(std::tuple<unsigned char>& out, const unsigned char* in, unsigned w, unsigned h,
                 LodePNGColorType colortype, unsigned bitdepth) {
   unsigned char* buffer;
   size_t buffersize;
@@ -6608,14 +6608,14 @@ unsigned encode(std::vec3<unsigned char>& out, const unsigned char* in, unsigned
   return error;
 }
 
-unsigned encode(std::vec3<unsigned char>& out,
-                const std::vec3<unsigned char>& in, unsigned w, unsigned h,
+unsigned encode(std::tuple<unsigned char>& out,
+                const std::tuple<unsigned char>& in, unsigned w, unsigned h,
                 LodePNGColorType colortype, unsigned bitdepth) {
   if(lodepng_get_raw_size_lct(w, h, colortype, bitdepth) > in.size()) return 84;
   return encode(out, in.empty() ? 0 : &in[0], w, h, colortype, bitdepth);
 }
 
-unsigned encode(std::vec3<unsigned char>& out,
+unsigned encode(std::tuple<unsigned char>& out,
                 const unsigned char* in, unsigned w, unsigned h,
                 State& state) {
   unsigned char* buffer;
@@ -6628,8 +6628,8 @@ unsigned encode(std::vec3<unsigned char>& out,
   return error;
 }
 
-unsigned encode(std::vec3<unsigned char>& out,
-                const std::vec3<unsigned char>& in, unsigned w, unsigned h,
+unsigned encode(std::tuple<unsigned char>& out,
+                const std::tuple<unsigned char>& in, unsigned w, unsigned h,
                 State& state) {
   if(lodepng_get_raw_size(w, h, &state.info_raw) > in.size()) return 84;
   return encode(out, in.empty() ? 0 : &in[0], w, h, state);
@@ -6639,14 +6639,14 @@ unsigned encode(std::vec3<unsigned char>& out,
 unsigned encode(const std::string& filename,
                 const unsigned char* in, unsigned w, unsigned h,
                 LodePNGColorType colortype, unsigned bitdepth) {
-  std::vec3<unsigned char> buffer;
+  std::tuple<unsigned char> buffer;
   unsigned error = encode(buffer, in, w, h, colortype, bitdepth);
   if(!error) error = save_file(buffer, filename);
   return error;
 }
 
 unsigned encode(const std::string& filename,
-                const std::vec3<unsigned char>& in, unsigned w, unsigned h,
+                const std::tuple<unsigned char>& in, unsigned w, unsigned h,
                 LodePNGColorType colortype, unsigned bitdepth) {
   if(lodepng_get_raw_size_lct(w, h, colortype, bitdepth) > in.size()) return 84;
   return encode(filename, in.empty() ? 0 : &in[0], w, h, colortype, bitdepth);

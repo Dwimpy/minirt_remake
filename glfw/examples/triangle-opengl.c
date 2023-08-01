@@ -51,9 +51,9 @@ static const Vertex vertices[3] =
 static const char* vertex_shader_text =
 "#version 330\n"
 "uniform mat4 MVP;\n"
-"in vec3 vCol;\n"
+"in tuple vCol;\n"
 "in vec2 vPos;\n"
-"out vec3 color;\n"
+"out tuple color;\n"
 "void main()\n"
 "{\n"
 "    gl_Position = MVP * vec4(vPos, 0.0, 1.0);\n"
@@ -62,7 +62,7 @@ static const char* vertex_shader_text =
 
 static const char* fragment_shader_text =
 "#version 330\n"
-"in vec3 color;\n"
+"in tuple color;\n"
 "out vec4 fragment;\n"
 "void main()\n"
 "{\n"

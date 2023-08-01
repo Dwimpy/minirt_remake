@@ -13,11 +13,11 @@
 #ifndef RNG_H
 # define RNG_H
 # include <stdlib.h>
-# include "vec3.h"
+# include "tuple.h"
 # include <time.h>
 
 double	random_double();
-t_vec3	random_vec3();
-t_vec3	random_in_unit_sphere();
+t_tuple	random_vec3();
+t_tuple	random_in_unit_sphere();
 
 #endif

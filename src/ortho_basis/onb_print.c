@@ -14,7 +14,7 @@
 
 void	onb_print(t_onb onb)
 {
-	vec3_print(onb.u);
-	vec3_print(onb.v);
-	vec3_print(onb.w);
+	tuple_print(onb.u);
+	tuple_print(onb.v);
+	tuple_print(onb.w);
 }

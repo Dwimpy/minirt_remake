@@ -5,36 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 01:53:31 by arobu             #+#    #+#             */
-/*   Updated: 2023/07/31 01:53:31 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/01 19:20:36 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/01 19:20:36 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
-#include "vec3.h"
+#include <sys/_types/_size_t.h>
 
-bool	matrix_equal(t_matrix a, t_matrix b)
+bool	matrix_equal(t_matrix m1, t_matrix m2)
 {
-	int		row;
-	int		col;
-	double	a_val;
-	double	b_val;
+	size_t	i;
+	size_t	j;
 
-	if (a.dimension != b.dimension)
+	if (m1.rows != m2.rows && m1.cols != m2.cols)
 		return (false);
-	row = 1;
-	while ((row - 1) < a.dimension)
+	i = 0;
+	while (i < m1.rows)
 	{
-		col = 1;
-		a_val = matrix_get(a, row, col);
-		while ((col - 1) < a.dimension)
+		j = 0;
+		while (j < m2.cols)
 		{
-			b_val = matrix_get(b, row, col);
-			if (is_approx_equal(a_val, b_val, M_EPSILON))
+			if (m1.data[i][j] != m2.data[i][j])
 				return (false);
-			col++;
+			j++;
 		}
-		row++;
+		i++;
 	}
 	return (true);
 }

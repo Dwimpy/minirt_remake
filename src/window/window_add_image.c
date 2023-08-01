@@ -14,7 +14,7 @@
 #include "window.h"
 
 void window_add_image(mlx_t *mlx, t_image *image) {
-	image_create(mlx, image, 1024, 1024);
-	ft_memset(image->buffer->pixels, 255, sizeof(uint32_t) * image->width * image->height);
+	image_create(mlx, image, mlx->width, mlx->height);
+	ft_memset(image->buffer->pixels, 0, sizeof(uint32_t) * image->width * image->height);
 	mlx_image_to_window(mlx, image->buffer, 0, 0);
 }

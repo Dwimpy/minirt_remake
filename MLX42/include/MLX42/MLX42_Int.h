@@ -165,7 +165,7 @@ typedef struct mlx_hook
  * lets us know where to draw a copy of the image.
  *
  * Texture contexts are kept in a struct alongside the capacity
- * of the array of instances, since the array is realloced like a vec3.
+ * of the array of instances, since the array is realloced like a tuple.
  */
 
 // MLX instance context.

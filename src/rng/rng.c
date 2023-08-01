@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #include "rng.h"
-#include "vec3.h"
+#include "tuple.h"
 
 double random_double() {
 	return (drand48());
 }
 
-t_vec3 random_vec3() {
-	return ((t_vec3) {random_double(), random_double(), random_double()});
+t_tuple random_vec3() {
+	return ((t_tuple) {random_double(), random_double(), random_double()});
 }
 
-t_vec3 random_in_unit_sphere() {
-	t_vec3 vec;
+t_tuple random_in_unit_sphere() {
+	t_tuple vec;
 	while (1) {
 		vec = random_vec3();
-		if (vec3_magnitude_squared(vec) >= 1)
+		if (tuple_magnitude_squared(vec) >= 1)
 			continue ;
 		return (vec);
 	}

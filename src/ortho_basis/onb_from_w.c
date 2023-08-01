@@ -12,17 +12,17 @@
 
 #include "onb.h"
 
-t_onb onb_init_from_w(t_vec3 w) {
+t_onb onb_init_from_w(t_tuple w) {
 	t_onb	onb;
-	t_vec3	x_axis;
-	t_vec3	y_axis;
+	t_tuple	x_axis;
+	t_tuple	y_axis;
 
-	x_axis = vec3_create(1.0, 0.0, 0.0);
-	y_axis = vec3_create(0.0, 1.0, 0.0);
-	onb.w = vec3_normalize(w);
-	onb.u = vec3_cross(onb.w, x_axis);
-	if (vec3_magnitude(onb.u) < ONB_EPSILON)
-		onb.v = vec3_cross(onb.w, y_axis);
-	onb.v = vec3_cross(onb.w, onb.u);
+	x_axis = tuple_new_vector(1.0, 0.0, 0.0);
+	y_axis = tuple_new_vector(0.0, 1.0, 0.0);
+	onb.w = tuple_normalize(w);
+	onb.u = tuple_cross(onb.w, x_axis);
+	if (tuple_magnitude(onb.u) < ONB_EPSILON)
+		onb.v = tuple_cross(onb.w, y_axis);
+	onb.v = tuple_cross(onb.w, onb.u);
 	return (onb);
 }

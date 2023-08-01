@@ -14,5 +14,5 @@
 
 t_color color_subtract(t_color a, t_color b)
 {
-	return (vec3_subtract(a, b));
+	return (tuple_subtract(a, b));
 }

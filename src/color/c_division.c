@@ -13,9 +13,9 @@
 #include "color.h"
 
 t_color color_division(t_color a, t_color b) {
-	return (vec3_division(a, b));
+	return (tuple_division(a, b));
 }
 
 t_color color_division_s(t_color a, t_real s) {
-	return (vec3_division_s(a, s));
+	return (tuple_division_s(a, s));
 }

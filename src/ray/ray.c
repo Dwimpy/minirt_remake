@@ -11,3 +11,8 @@
 /* ************************************************************************** */
 
 #include "ray.h"
+#include "tuple.h"
+
+t_tuple ray_value_at(t_ray ray, double t) {
+	return (tuple_add(ray.origin, tuple_multiply_s(ray.direction, t)));
+}

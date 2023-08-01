@@ -109,7 +109,7 @@ or comment out LODEPNG_COMPILE_CPP below*/
 #endif
 
 #ifdef LODEPNG_COMPILE_CPP
-#include <vec3>
+#include <tuple>
 #include <string>
 #endif /*LODEPNG_COMPILE_CPP*/
 
@@ -247,13 +247,13 @@ unsigned lodepng_encode24_file(const char* filename,
 #ifdef LODEPNG_COMPILE_CPP
 namespace lodepng {
 #ifdef LODEPNG_COMPILE_DECODER
-/*Same as lodepng_decode_memory, but decodes to an std::vec3. The colortype
+/*Same as lodepng_decode_memory, but decodes to an std::tuple. The colortype
 is the format to output the pixels to. Default is RGBA 8-bit per channel.*/
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
                 const unsigned char* in, size_t insize,
                 LodePNGColorType colortype = LCT_RGBA, unsigned bitdepth = 8);
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
-                const std::vec3<unsigned char>& in,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
+                const std::tuple<unsigned char>& in,
                 LodePNGColorType colortype = LCT_RGBA, unsigned bitdepth = 8);
 #ifdef LODEPNG_COMPILE_DISK
 /*
@@ -263,20 +263,20 @@ Same as the other decode functions, but instead takes a filename as input.
 NOTE: Wide-character filenames are not supported, you can use an external method
 to handle such files and decode in-memory.
 */
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
                 const std::string& filename,
                 LodePNGColorType colortype = LCT_RGBA, unsigned bitdepth = 8);
 #endif /* LODEPNG_COMPILE_DISK */
 #endif /* LODEPNG_COMPILE_DECODER */
 
 #ifdef LODEPNG_COMPILE_ENCODER
-/*Same as lodepng_encode_memory, but encodes to an std::vec3. colortype
+/*Same as lodepng_encode_memory, but encodes to an std::tuple. colortype
 is that of the raw input data. The output PNG color type will be auto chosen.*/
-unsigned encode(std::vec3<unsigned char>& out,
+unsigned encode(std::tuple<unsigned char>& out,
                 const unsigned char* in, unsigned w, unsigned h,
                 LodePNGColorType colortype = LCT_RGBA, unsigned bitdepth = 8);
-unsigned encode(std::vec3<unsigned char>& out,
-                const std::vec3<unsigned char>& in, unsigned w, unsigned h,
+unsigned encode(std::tuple<unsigned char>& out,
+                const std::tuple<unsigned char>& in, unsigned w, unsigned h,
                 LodePNGColorType colortype = LCT_RGBA, unsigned bitdepth = 8);
 #ifdef LODEPNG_COMPILE_DISK
 /*
@@ -292,7 +292,7 @@ unsigned encode(const std::string& filename,
                 const unsigned char* in, unsigned w, unsigned h,
                 LodePNGColorType colortype = LCT_RGBA, unsigned bitdepth = 8);
 unsigned encode(const std::string& filename,
-                const std::vec3<unsigned char>& in, unsigned w, unsigned h,
+                const std::tuple<unsigned char>& in, unsigned w, unsigned h,
                 LodePNGColorType colortype = LCT_RGBA, unsigned bitdepth = 8);
 #endif /* LODEPNG_COMPILE_DISK */
 #endif /* LODEPNG_COMPILE_ENCODER */
@@ -1100,63 +1100,63 @@ class State : public LodePNGState {
 
 #ifdef LODEPNG_COMPILE_DECODER
 /* Same as other lodepng::decode, but using a State for more settings and information. */
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
                 State& state,
                 const unsigned char* in, size_t insize);
-unsigned decode(std::vec3<unsigned char>& out, unsigned& w, unsigned& h,
+unsigned decode(std::tuple<unsigned char>& out, unsigned& w, unsigned& h,
                 State& state,
-                const std::vec3<unsigned char>& in);
+                const std::tuple<unsigned char>& in);
 #endif /*LODEPNG_COMPILE_DECODER*/
 
 #ifdef LODEPNG_COMPILE_ENCODER
 /* Same as other lodepng::encode, but using a State for more settings and information. */
-unsigned encode(std::vec3<unsigned char>& out,
+unsigned encode(std::tuple<unsigned char>& out,
                 const unsigned char* in, unsigned w, unsigned h,
                 State& state);
-unsigned encode(std::vec3<unsigned char>& out,
-                const std::vec3<unsigned char>& in, unsigned w, unsigned h,
+unsigned encode(std::tuple<unsigned char>& out,
+                const std::tuple<unsigned char>& in, unsigned w, unsigned h,
                 State& state);
 #endif /*LODEPNG_COMPILE_ENCODER*/
 
 #ifdef LODEPNG_COMPILE_DISK
 /*
-Load a file from disk into an std::vec3.
+Load a file from disk into an std::tuple.
 return value: error code (0 means ok)
 
 NOTE: Wide-character filenames are not supported, you can use an external method
 to handle such files and decode in-memory
 */
-unsigned load_file(std::vec3<unsigned char>& buffer, const std::string& filename);
+unsigned load_file(std::tuple<unsigned char>& buffer, const std::string& filename);
 
 /*
-Save the binary data in an std::vec3 to a file on disk. The file is overwritten
+Save the binary data in an std::tuple to a file on disk. The file is overwritten
 without warning.
 
 NOTE: Wide-character filenames are not supported, you can use an external method
 to handle such files and encode in-memory
 */
-unsigned save_file(const std::vec3<unsigned char>& buffer, const std::string& filename);
+unsigned save_file(const std::tuple<unsigned char>& buffer, const std::string& filename);
 #endif /* LODEPNG_COMPILE_DISK */
 #endif /* LODEPNG_COMPILE_PNG */
 
 #ifdef LODEPNG_COMPILE_ZLIB
 #ifdef LODEPNG_COMPILE_DECODER
 /* Zlib-decompress an unsigned char buffer */
-unsigned decompress(std::vec3<unsigned char>& out, const unsigned char* in, size_t insize,
+unsigned decompress(std::tuple<unsigned char>& out, const unsigned char* in, size_t insize,
                     const LodePNGDecompressSettings& settings = lodepng_default_decompress_settings);
 
-/* Zlib-decompress an std::vec3 */
-unsigned decompress(std::vec3<unsigned char>& out, const std::vec3<unsigned char>& in,
+/* Zlib-decompress an std::tuple */
+unsigned decompress(std::tuple<unsigned char>& out, const std::tuple<unsigned char>& in,
                     const LodePNGDecompressSettings& settings = lodepng_default_decompress_settings);
 #endif /* LODEPNG_COMPILE_DECODER */
 
 #ifdef LODEPNG_COMPILE_ENCODER
 /* Zlib-compress an unsigned char buffer */
-unsigned compress(std::vec3<unsigned char>& out, const unsigned char* in, size_t insize,
+unsigned compress(std::tuple<unsigned char>& out, const unsigned char* in, size_t insize,
                   const LodePNGCompressSettings& settings = lodepng_default_compress_settings);
 
-/* Zlib-compress an std::vec3 */
-unsigned compress(std::vec3<unsigned char>& out, const std::vec3<unsigned char>& in,
+/* Zlib-compress an std::tuple */
+unsigned compress(std::tuple<unsigned char>& out, const std::tuple<unsigned char>& in,
                   const LodePNGCompressSettings& settings = lodepng_default_compress_settings);
 #endif /* LODEPNG_COMPILE_ENCODER */
 #endif /* LODEPNG_COMPILE_ZLIB */
@@ -1822,14 +1822,14 @@ int main(int argc, char *argv[]) {
   const char* filename = argc > 1 ? argv[1] : "test.png";
 
   //load and decode
-  std::vec3<unsigned char> image;
+  std::tuple<unsigned char> image;
   unsigned width, height;
   unsigned error = lodepng::decode(image, width, height, filename);
 
   //if there's an error, display it
   if(error) std::cout << "decoder error " << error << ": " << lodepng_error_text(error) << std::endl;
 
-  //the pixels are now in the vec3 "image", 4 bytes per pixel, ordered RGBARGBA..., use it as texture, draw it, ...
+  //the pixels are now in the tuple "image", 4 bytes per pixel, ordered RGBARGBA..., use it as texture, draw it, ...
 }
 
 10.2. decoder C example
@@ -2011,7 +2011,7 @@ https://github.com/lvandeve/lodepng
 *) 21 jul 2007: deflate code placed in new namespace separate from zlib code
 *) 08 jun 2007: fixed bug with 2- and 4-bit color, and small interlaced images
 *) 04 jun 2007: improved support for Visual Studio 2005: crash with accessing
-    invalid std::vec3 element [0] fixed, and level 3 and 4 warnings removed
+    invalid std::tuple element [0] fixed, and level 3 and 4 warnings removed
 *) 02 jun 2007: made the encoder add a tag with version by default
 *) 27 may 2007: zlib and png code separated (but still in the same file),
     simple encoder/decoder functions added for more simple usage cases
@@ -2049,15 +2049,15 @@ https://github.com/lvandeve/lodepng
 *) 30 jul 2006: (!) LodePNG_InfoPng , width and height are now retrieved in different
     way. Renamed decodePNG to decodePNGGeneric.
 *) 29 jul 2006: (!) Changed the interface: image info is now returned as a
-    struct of type LodePNG::LodePNG_Info, instead of a vec3, which was a bit clumsy.
+    struct of type LodePNG::LodePNG_Info, instead of a tuple, which was a bit clumsy.
 *) 28 jul 2006: Cleaned the code and added new error checks.
     Corrected terminology "deflate" into "inflate".
 *) 23 jun 2006: Added SDL example in the documentation in the header, this
     example allows easy debugging by displaying the PNG and its transparency.
 *) 22 jun 2006: (!) Changed way to obtain error value. Added
     loadFile function for convenience. Made decodePNG32 faster.
-*) 21 jun 2006: (!) Changed type of info vec3 to unsigned.
-    Changed position of palette in info vec3. Fixed an important bug that
+*) 21 jun 2006: (!) Changed type of info tuple to unsigned.
+    Changed position of palette in info tuple. Fixed an important bug that
     happened on PNGs with an uncompressed block.
 *) 16 jun 2006: Internally changed unsigned into unsigned where
     needed, and performed some optimizations.
@@ -2065,7 +2065,7 @@ https://github.com/lvandeve/lodepng
     in LodePNG namespace. Changed the order of the parameters. Rewrote the
     documentation in the header. Renamed files to lodepng.cpp and lodepng.h
 *) 22 apr 2006: Optimized and improved some code
-*) 07 sep 2005: (!) Changed to std::vec3 interface
+*) 07 sep 2005: (!) Changed to std::tuple interface
 *) 12 aug 2005: Initial release (C++, decoder only)
 
 

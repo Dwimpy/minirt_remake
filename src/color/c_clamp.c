@@ -14,5 +14,5 @@
 
 t_color	color_clamp(t_color c)
 {
-	return (vec3_clamp(c, 0, 0.999));
+	return (tuple_clamp(c, 0, 0.999));
 }

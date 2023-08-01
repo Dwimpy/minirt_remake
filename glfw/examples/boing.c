@@ -150,7 +150,7 @@ double cos_deg( double deg )
 }
 
 /*****************************************************************************
- * Compute a cross product (for a normal vec3).
+ * Compute a cross product (for a normal tuple).
  *
  * c = a x b
  *****************************************************************************/

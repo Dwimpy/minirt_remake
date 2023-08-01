@@ -11,18 +11,19 @@
 /* ************************************************************************** */
 
 #include "onb.h"
+#include "tuple.h"
 
-t_onb onb_init_from_u(t_vec3 u) {
+t_onb onb_init_from_u(t_tuple u) {
 	t_onb	onb;
-	t_vec3	x_axis;
-	t_vec3	y_axis;
+	t_tuple	x_axis;
+	t_tuple	y_axis;
 
-	x_axis = vec3_create(1.0, 0.0, 0.0);
-	y_axis = vec3_create(0.0, 1.0, 0.0);
-	onb.u = vec3_normalize(u);
-	onb.v = vec3_cross(onb.u, x_axis);
-	if (vec3_magnitude(onb.v) < ONB_EPSILON)
-		onb.v = vec3_cross(onb.u, y_axis);
-	onb.w = vec3_cross(onb.u, onb.v);
+	x_axis = tuple_new_vector(1.0, 0.0, 0.0);
+	y_axis = tuple_new_vector(0.0, 1.0, 0.0);
+	onb.u = tuple_normalize(u);
+	onb.v = tuple_cross(onb.u, x_axis);
+	if (tuple_magnitude(onb.v) < ONB_EPSILON)
+		onb.v = tuple_cross(onb.u, y_axis);
+	onb.w = tuple_cross(onb.u, onb.v);
 	return (onb);
 }

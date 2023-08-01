@@ -12,22 +12,22 @@
 
 #include "onb.h"
 
-t_onb	onb_init_from_vw(t_vec3 v, t_vec3 w)
+t_onb	onb_init_from_vw(t_tuple v, t_tuple w)
 {
 	t_onb	onb;
 
-	onb.v = vec3_normalize(v);
-	onb.u = vec3_normalize(vec3_cross(v, w));
-	onb.w = vec3_cross(onb.u, onb.v);
+	onb.v = tuple_normalize(v);
+	onb.u = tuple_normalize(tuple_cross(v, w));
+	onb.w = tuple_cross(onb.u, onb.v);
 	return (onb);
 }
 
-t_onb	onb_init_from_wv(t_vec3 w, t_vec3 v)
+t_onb	onb_init_from_wv(t_tuple w, t_tuple v)
 {
 	t_onb	onb;
 
-	onb.w = vec3_normalize(w);
-	onb.u = vec3_normalize(vec3_cross(v, w));
-	onb.v = vec3_cross(onb.w, onb.u);
+	onb.w = tuple_normalize(w);
+	onb.u = tuple_normalize(tuple_cross(v, w));
+	onb.v = tuple_cross(onb.w, onb.u);
 	return (onb);
 }
