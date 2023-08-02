@@ -14,8 +14,8 @@
 NAME			= minirt
 
 VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/image \
-				  ./src/rng ./src/ortho_basis ./src/vector ./src/vector/iterator ./src/objects/shape \
-				  ./src/objects/sphere
+				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
+				  ./src/objects/shape ./src/objects/sphere
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -27,6 +27,7 @@ INCLUDE			+= -I ./src/image
 INCLUDE			+= -I ./src/rng
 INCLUDE			+= -I ./src/ortho_basis
 INCLUDE			+= -I ./src/vector
+INCLUDE			+= -I ./src/transform
 INCLUDE			+= -I ./src/objects/shape
 INCLUDE			+= -I ./src/objects/sphere
 

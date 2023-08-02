@@ -13,7 +13,7 @@
 #include "matrix.h"
 #include <sys/_types/_size_t.h>
 
-bool	matrix_equal(t_matrix m1, t_matrix m2)
+inline bool	matrix_equal(t_matrix m1, t_matrix m2)
 {
 	size_t	i;
 	size_t	j;

@@ -14,7 +14,7 @@
 
 static void matrix_multiply_loop(t_matrix *result, t_matrix m1, t_matrix m2);
 
-t_matrix matrix_multiply(t_matrix m1, t_matrix m2)
+inline t_matrix matrix_multiply(t_matrix m1, t_matrix m2)
 {
 	t_matrix	result;
 	double		sum;

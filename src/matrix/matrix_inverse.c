@@ -13,56 +13,123 @@
 #include "matrix.h"
 #include <sys/_types/_size_t.h>
 
-static void compute_upper_triangular_matrix(t_matrix *lu, t_matrix m);
+void		matrix_set_aug_elements(t_matrix *mat, t_matrix m);
+void		interchange_rows(t_matrix *m);
+void		replace_row(t_matrix *m);
+void		finalize_inverse(t_matrix *m);
 
-t_matrix	matrix_inverse(t_matrix m)
+t_matrix	matrix_inverse(t_matrix mat)
 {
-	t_matrix	lu_decomp_matrix;
+	t_matrix	aug_mtx;
+	t_matrix	inverse_mtx;
+	size_t		i;
+	size_t		j;
 
-	lu_decomp_matrix = matrix_init(m.rows, m.rows);
-	compute_upper_triangular_matrix(&lu_decomp_matrix, m);
-	matrix_print(lu_decomp_matrix);
-	return (lu_decomp_matrix);
+	aug_mtx = matrix_init(mat.rows, mat.cols * 2);
+	inverse_mtx = matrix_init(mat.rows, mat.cols);
+	matrix_set_aug_elements(&aug_mtx, mat);
+	interchange_rows(&aug_mtx);
+	replace_row(&aug_mtx);
+	finalize_inverse(&aug_mtx);
+	i = 0;
+	while (i < mat.rows)
+	{
+		j = 0;
+		while (j < mat.rows)
+		{
+			inverse_mtx.data[i][j] = aug_mtx.data[i][j + mat.rows];
+			++j;
+		}
+		++i;
+	}
+	matrix_free(aug_mtx);
+	return (inverse_mtx);
 }
 
-static void compute_upper_triangular_matrix(t_matrix *lu, t_matrix m)
+void	matrix_set_aug_elements(t_matrix *mat,t_matrix m)
 {
 	size_t	i;
 	size_t	j;
-	size_t	k;
-	double	sum;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	sum = 0.0;
-	while (i < m.rows)
+	while (i < mat->rows)
 	{
-		k = i;
-		while (k < m.rows)
-		{
-			j = 0;
-			while (j < i)
-			{
-				sum += m.data[i][j] * m.data[j][k];
-				j++;
-			}
-			lu->data[i][k] = m.data[i][k] - sum;
-			k++;
-		}
-		i++;
-	}
-	k = i + 1;
-	while (k < m.rows)
-	{
-		sum = 0.0;
 		j = 0;
-		while (j < i)
+		while (j < mat->cols)
 		{
-			sum += m.data[k][j] * m.data[j][i];
-			j++;
+			if (j < m.rows)
+				mat->data[i][j] = m.data[i][j];
+			else if (j >= m.rows && j == i + m.rows)
+				mat->data[i][j] = 1;
+			++j;
 		}
-		lu->data[k][i] = (m.data[k][i] - sum) / m.data[i][i];
-		k++;
+		++i;
+	}
+}
+
+void	interchange_rows(t_matrix *m)
+{
+	size_t	i;
+	double	*tmp_arr;
+
+	i = m->rows - 1;
+	while (i > 0)
+	{
+		if (m->data[i - 1][0] < m->data[i][0])
+		{
+			tmp_arr = m->data[i];
+			m->data[i] = m->data[i - 1];
+			m->data[i - 1] = tmp_arr;
+		}
+		--i;
+	}
+}
+
+void	replace_row(t_matrix *m)
+{
+	size_t		i;
+	size_t		j;
+	size_t		k;
+	double	temp;
+
+	i = -1;
+	while (++i < m->rows)
+	{
+		j = -1;
+		while (++j < m->rows)
+		{
+			k = -1;
+			if (j != i)
+			{
+				if (m->data[i][i] == 0)
+					m->data[i][i] = M_EPSILON;
+				temp = m->data[j][i] / (m->data[i][i]);
+				while (++k < 2 * m->rows)
+				{
+					m->data[j][k] -= m->data[i][k] * temp;
+				}
+			}
+		}
+	}
+}
+
+void	finalize_inverse(t_matrix *m)
+{
+	size_t	i;
+	size_t	j;
+	double	tmp;
+
+	i = 0;
+	tmp = 0;
+	while (i < m->rows)
+	{
+		tmp = m->data[i][i];
+		j = 0;
+		while (j < 2 * m->rows)
+		{
+			m->data[i][j] = m->data[i][j] / tmp;
+			++j;
+		}
+		++i;
 	}
 }

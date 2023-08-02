@@ -13,7 +13,7 @@
 #include "matrix.h"
 #include "tuple.h"
 
-t_tuple matrix_multiply_tuple(t_matrix m, t_tuple t)
+inline t_tuple matrix_multiply_tuple(t_matrix m, t_tuple t)
 {
 	t_tuple 	result;
 	t_matrix	tmp;
@@ -26,7 +26,6 @@ t_tuple matrix_multiply_tuple(t_matrix m, t_tuple t)
 	matrix_set(tmp, 2, 0, t.z);
 	matrix_set(tmp, 3, 0, t.w);
 	mult = matrix_multiply(m, tmp);
-	matrix_print(mult);
 	result.x = matrix_get(mult, 0, 0);
 	result.y = matrix_get(mult, 1, 0);
 	result.z = matrix_get(mult, 2, 0);

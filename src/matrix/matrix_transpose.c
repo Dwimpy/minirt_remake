@@ -12,7 +12,7 @@
 
 #include "matrix.h"
 
-t_matrix	matrix_transpose(t_matrix m)
+inline t_matrix	matrix_transpose(t_matrix m)
 {
 	t_matrix	transpose;
 	size_t		i;

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_multiply_identity.c                         :+:      :+:    :+:   */
+/*   t_translation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 21:49:00 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/01 21:49:00 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/02 18:17:09 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/02 18:17:09 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "matrix.h"
+#include "transform.h"
 
-t_matrix matrix_identity(void) {
-	t_matrix	matrix;
-	size_t		i;
+inline t_transform tf_translate(double x, double y, double z) {
+	t_transform transform;
 
-	i = 0;
-	matrix = matrix_init(4, 4);
-	while (i < matrix.rows)
-	{
-		matrix.data[i][i] = 1.0;
-		i++;
-	}
-	return (matrix);
+	transform.tf = matrix_identity();
+	matrix_set(transform.tf, 0, 3, x);
+	matrix_set(transform.tf, 1, 3, y);
+	matrix_set(transform.tf, 2, 3, z);
+	transform.inv_tf = matrix_inverse(transform.tf);
+	return (transform);
 }

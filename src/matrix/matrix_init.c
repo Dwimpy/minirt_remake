@@ -14,7 +14,7 @@
 #include "matrix.h"
 #include <stdint.h>
 
-t_matrix matrix_init(size_t rows, size_t cols) {
+inline t_matrix matrix_init(size_t rows, size_t cols) {
 	t_matrix	matrix;
 	size_t		i;
 

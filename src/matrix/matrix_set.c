@@ -12,7 +12,7 @@
 
 #include "matrix.h"
 
-void	matrix_set(t_matrix m, size_t row, size_t col, double value)
+inline void	matrix_set(t_matrix m, size_t row, size_t col, double value)
 {
 	if (row >= m.rows || col >= m.cols)
 	{

@@ -22,6 +22,7 @@
 #include "vector.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include "transform.h"
 
 void run_tests() {
 	tuple_tests();
@@ -125,48 +126,38 @@ int main(void) {
 	matrix = matrix_init(4, 4);
 	matrix2 = matrix_init(4, 4);
 
-	matrix_set(matrix, 0, 0, 1);
+	matrix_set(matrix, 0, 0, -5);
 	matrix_set(matrix, 0, 1, 2);
-	matrix_set(matrix, 0, 2, 3);
-	matrix_set(matrix, 0, 3, 4);
+	matrix_set(matrix, 0, 2, 6);
+	matrix_set(matrix, 0, 3, -8);
 
-	matrix_set(matrix, 1, 0, 5);
-	matrix_set(matrix, 1, 1, 6);
-	matrix_set(matrix, 1, 2, 7);
+	matrix_set(matrix, 1, 0, 1);
+	matrix_set(matrix, 1, 1, -5);
+	matrix_set(matrix, 1, 2, 1);
 	matrix_set(matrix, 1, 3, 8);
 
-	matrix_set(matrix, 2, 0, 9);
-	matrix_set(matrix, 2, 1, 8);
-	matrix_set(matrix, 2, 2, 7);
-	matrix_set(matrix, 2, 3, 6);
+	matrix_set(matrix, 2, 0, 7);
+	matrix_set(matrix, 2, 1, 7);
+	matrix_set(matrix, 2, 2, -6);
+	matrix_set(matrix, 2, 3, -7);
 
-	matrix_set(matrix, 3, 0, 5);
-	matrix_set(matrix, 3, 1, 4);
-	matrix_set(matrix, 3, 2, 3);
-	matrix_set(matrix, 3, 3, 2);
+	matrix_set(matrix, 3, 0, 1);
+	matrix_set(matrix, 3, 1, -3);
+	matrix_set(matrix, 3, 2, 7);
+	matrix_set(matrix, 3, 3, 4);
 
+	t_matrix inverse;
+	t_tuple point;
+	t_tuple vector;
+	t_transform	translate;
+	translate = tf_shear(1, 1, 1, 1, 1, 1);
+	point = tuple_new_point(0, 1, 0);
+	tuple_print(point);
+	translate = tf_rotate(45, 0, 0);
+	matrix_print(translate.tf);
+	point = matrix_multiply_tuple(translate.tf, point);
+	tuple_print(point);
 
-	matrix_set(matrix2, 0, 0, -2);
-	matrix_set(matrix2, 0, 1, 1);
-	matrix_set(matrix2, 0, 2, 2);
-	matrix_set(matrix2, 0, 3, 3);
-
-	matrix_set(matrix2, 1, 0, 3);
-	matrix_set(matrix2, 1, 1, 2);
-	matrix_set(matrix2, 1, 2, 1);
-	matrix_set(matrix2, 1, 3, -1);
-
-	matrix_set(matrix2, 2, 0, 4);
-	matrix_set(matrix2, 2, 1, 3);
-	matrix_set(matrix2, 2, 2, 6);
-	matrix_set(matrix2, 2, 3, 5);
-
-	matrix_set(matrix2, 3, 0, 1);
-	matrix_set(matrix2, 3, 1, 2);
-	matrix_set(matrix2, 3, 2, 7);
-	matrix_set(matrix2, 3, 3, 8);
-
-	matrix_inverse(matrix);
 //	projectile_test(canvas);
 //	run_sphere_test(canvas);
 	window_draw_loop(window.mlx);

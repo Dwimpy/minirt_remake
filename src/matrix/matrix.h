@@ -38,7 +38,7 @@ t_matrix	matrix_init(size_t rows, size_t cols);
 t_matrix	matrix_identity(void);
 t_matrix	matrix_multiply(t_matrix a, t_matrix b);
 t_matrix	matrix_transpose(t_matrix m);
-t_matrix	matrix_inverse(t_matrix m);
+t_matrix	matrix_inverse(t_matrix mat);
 t_tuple		matrix_multiply_tuple(t_matrix m, t_tuple t);
 void		matrix_set(t_matrix mtx, size_t row, size_t column, double value);
 double		matrix_get(t_matrix mtx, size_t row, size_t column);

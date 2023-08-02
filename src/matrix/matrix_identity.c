@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_get.c                                       :+:      :+:    :+:   */
+/*   matrix_multiply_identity.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 20:36:15 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/01 20:36:15 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/01 21:49:00 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/01 21:49:00 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "matrix.h"
 
-inline double	matrix_get(t_matrix m, size_t row, size_t col)
-{
-	if (row >= m.rows || col >= m.cols)
+inline t_matrix matrix_identity(void) {
+	t_matrix	matrix;
+	size_t		i;
+
+	i = 0;
+	matrix = matrix_init(4, 4);
+	while (i < matrix.rows)
 	{
-		write(2, ERR_MTX_OUT_OF_RANGE, 36);
-		exit (EXIT_FAILURE);
+		matrix.data[i][i] = 1.0;
+		i++;
 	}
-	return (m.data[row][col]);
+	return (matrix);
 }

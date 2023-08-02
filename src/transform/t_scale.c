@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_get.c                                       :+:      :+:    :+:   */
+/*   t_scale.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 20:36:15 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/01 20:36:15 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/02 19:49:11 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/02 19:49:11 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "matrix.h"
+#include "transform.h"
 
-inline double	matrix_get(t_matrix m, size_t row, size_t col)
-{
-	if (row >= m.rows || col >= m.cols)
-	{
-		write(2, ERR_MTX_OUT_OF_RANGE, 36);
-		exit (EXIT_FAILURE);
-	}
-	return (m.data[row][col]);
+inline t_transform tf_scale(double x, double y, double z) {
+	t_transform transform;
+
+	transform.tf = matrix_identity();
+	matrix_set(transform.tf, 0, 0, x);
+	matrix_set(transform.tf, 1, 1, y);
+	matrix_set(transform.tf, 2, 2, z);
+	transform.inv_tf = matrix_inverse(transform.tf);
+	return (transform);
 }

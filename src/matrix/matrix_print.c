@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "matrix.h"
+#include <math.h>
 
-void	matrix_print(t_matrix m)
+inline void	matrix_print(t_matrix m)
 {
 	size_t	i;
 	size_t	j;
@@ -23,7 +24,10 @@ void	matrix_print(t_matrix m)
 		j = 0;
 		while (j < m.cols)
 		{
-			printf("%f ", m.data[i][j]);
+			if (fabs(m.data[i][j]) < M_EPSILON)
+				printf("0.000000 ");
+			else
+				printf("%.6f ", m.data[i][j]);
 			j++;
 		}
 		printf("\n");

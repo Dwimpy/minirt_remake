@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_get.c                                       :+:      :+:    :+:   */
+/*   t_rad_to_deg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 20:36:15 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/01 20:36:15 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/02 19:55:43 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/02 19:55:43 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "matrix.h"
+#include "transform.h"
 
-inline double	matrix_get(t_matrix m, size_t row, size_t col)
+inline double	tf_rad_to_deg(double rad)
 {
-	if (row >= m.rows || col >= m.cols)
-	{
-		write(2, ERR_MTX_OUT_OF_RANGE, 36);
-		exit (EXIT_FAILURE);
-	}
-	return (m.data[row][col]);
+	return ((rad / 180.0) * M_PI);
+}
+
+inline double	tf_deg_to_rad(double deg)
+{
+	return (deg * (M_PI / 180.0));
 }
