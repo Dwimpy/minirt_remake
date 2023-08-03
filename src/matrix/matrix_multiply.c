@@ -12,46 +12,27 @@
 
 #include "matrix.h"
 
-static void matrix_multiply_loop(t_matrix *result, t_matrix m1, t_matrix m2);
 
 inline t_matrix matrix_multiply(t_matrix m1, t_matrix m2)
 {
 	t_matrix	result;
-	double		sum;
 
-	if (m1.cols != m2.rows)
-	{
-		write(2, ERR_MTX_SAME_DIMENSION, 51);
-		exit(EXIT_FAILURE);
-	}
 	result = matrix_init(m1.rows, m2.cols);
-	matrix_multiply_loop(&result, m1, m2);
+	result.data[0][0] = m1.data[0][0]*m2.data[0][0] + m1.data[0][1]*m2.data[1][0] + m1.data[0][2]*m2.data[2][0] + m1.data[0][3]*m2.data[3][0];
+	result.data[0][1] = m1.data[0][0]*m2.data[0][1] + m1.data[0][1]*m2.data[1][1] + m1.data[0][2]*m2.data[2][1] + m1.data[0][3]*m2.data[3][1];
+	result.data[0][2] = m1.data[0][0]*m2.data[0][2] + m1.data[0][1]*m2.data[1][2] + m1.data[0][2]*m2.data[2][2] + m1.data[0][3]*m2.data[3][2];
+	result.data[0][3] = m1.data[0][0]*m2.data[0][3] + m1.data[0][1]*m2.data[1][3] + m1.data[0][2]*m2.data[2][3] + m1.data[0][3]*m2.data[3][3];
+	result.data[1][0] = m1.data[1][0]*m2.data[0][0] + m1.data[1][1]*m2.data[1][0] + m1.data[1][2]*m2.data[2][0] + m1.data[1][3]*m2.data[3][0];
+	result.data[1][1] = m1.data[1][0]*m2.data[0][1] + m1.data[1][1]*m2.data[1][1] + m1.data[1][2]*m2.data[2][1] + m1.data[1][3]*m2.data[3][1];
+	result.data[1][2] = m1.data[1][0]*m2.data[0][2] + m1.data[1][1]*m2.data[1][2] + m1.data[1][2]*m2.data[2][2] + m1.data[1][3]*m2.data[3][2];
+	result.data[1][3] = m1.data[1][0]*m2.data[0][3] + m1.data[1][1]*m2.data[1][3] + m1.data[1][2]*m2.data[2][3] + m1.data[1][3]*m2.data[3][3];
+	result.data[2][0] = m1.data[2][0]*m2.data[0][0] + m1.data[2][1]*m2.data[1][0] + m1.data[2][2]*m2.data[2][0] + m1.data[2][3]*m2.data[3][0];
+	result.data[2][1] = m1.data[2][0]*m2.data[0][1] + m1.data[2][1]*m2.data[1][1] + m1.data[2][2]*m2.data[2][1] + m1.data[2][3]*m2.data[3][1];
+	result.data[2][2] = m1.data[2][0]*m2.data[0][2] + m1.data[2][1]*m2.data[1][2] + m1.data[2][2]*m2.data[2][2] + m1.data[2][3]*m2.data[3][2];
+	result.data[2][3] = m1.data[2][0]*m2.data[0][3] + m1.data[2][1]*m2.data[1][3] + m1.data[2][2]*m2.data[2][3] + m1.data[2][3]*m2.data[3][3];
+	result.data[3][0] = m1.data[3][0]*m2.data[0][0] + m1.data[3][1]*m2.data[1][0] + m1.data[3][2]*m2.data[2][0] + m1.data[3][3]*m2.data[3][0];
+	result.data[3][1] = m1.data[3][0]*m2.data[0][1] + m1.data[3][1]*m2.data[1][1] + m1.data[3][2]*m2.data[2][1] + m1.data[3][3]*m2.data[3][1];
+	result.data[3][2] = m1.data[3][0]*m2.data[0][2] + m1.data[3][1]*m2.data[1][2] + m1.data[3][2]*m2.data[2][2] + m1.data[3][3]*m2.data[3][2];
+	result.data[3][3] = m1.data[3][0]*m2.data[0][3] + m1.data[3][1]*m2.data[1][3] + m1.data[3][2]*m2.data[2][3] + m1.data[3][3]*m2.data[3][3];
 	return (result);
-}
-
-static void matrix_multiply_loop(t_matrix *result, t_matrix m1, t_matrix m2)
-{
-	size_t		i;
-	size_t		j;
-	size_t		k;
-	double		sum;
-
-	i = 0;
-	while (i < m1.rows)
-	{
-		j = 0;
-		while (j < m2.cols)
-		{
-			k = 0;
-			sum = 0.0;
-			while (k < m1.rows)
-			{
-				sum += m1.data[i][k] * m2.data[k][j];
-				k++;
-			}
-			result->data[i][j] = sum;
-			j++;
-		}
-		i++;
-	}
 }

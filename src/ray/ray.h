@@ -13,6 +13,7 @@
 #ifndef RAY_H
 # define RAY_H
 
+#include "transform.h"
 #include "tuple.h"
 
 typedef struct s_ray
@@ -21,6 +22,7 @@ typedef struct s_ray
 	t_tuple		direction;
 }				t_ray;
 
-t_tuple	ray_value_at(t_ray ray, double t);
-
+t_ray	ray_new(t_tuple origin, t_tuple direction);
+t_tuple	ray_at(t_ray ray, t_real t);
+t_ray	 ray_transform(t_ray ray, t_transform tf);
 #endif

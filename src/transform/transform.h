@@ -21,7 +21,7 @@ typedef struct s_transform
 	t_matrix	inv_tf;
 }				t_transform;
 
-// Rotate -> Scale -> Translation for chained transformations
+// Rotate -> Scale -> Translate for chained transformations
 
 t_transform	tf_translate(double x, double y, double z);
 t_transform tf_scale(double x, double y, double z);

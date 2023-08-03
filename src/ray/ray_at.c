@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_print.c                                        :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 18:36:49 by arobu             #+#    #+#             */
-/*   Updated: 2023/07/30 18:36:49 by arobu            ###   ########.fr       */
+/*   Created: 2023/07/30 23:32:22 by arobu             #+#    #+#             */
+/*   Updated: 2023/07/30 23:32:22 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ray.h"
 #include "tuple.h"
 
-inline void tuple_print(t_tuple v)
-{
-	printf("[ %.6f, %.6f, %.6f, %.6f]\n", v.x, v.y, v.z, v.w);
+t_tuple ray_at(t_ray ray, t_real t) {
+	return (tuple_add(ray.origin, tuple_multiply_s(ray.direction, t)));
 }

@@ -20,17 +20,9 @@ inline t_tuple matrix_multiply_tuple(t_matrix m, t_tuple t)
 	t_matrix	mult;
 
 	result = tuple_vector_zero();
-	tmp = matrix_init(4, 1);
-	matrix_set(tmp, 0, 0, t.x);
-	matrix_set(tmp, 1, 0, t.y);
-	matrix_set(tmp, 2, 0, t.z);
-	matrix_set(tmp, 3, 0, t.w);
-	mult = matrix_multiply(m, tmp);
-	result.x = matrix_get(mult, 0, 0);
-	result.y = matrix_get(mult, 1, 0);
-	result.z = matrix_get(mult, 2, 0);
-	result.w = matrix_get(mult, 3, 0);
-	matrix_free(tmp);
-	matrix_free(mult);
+	result.x = m.data[0][0]*t.x + m.data[0][1]*t.y + m.data[0][2]*t.z + m.data[0][3]*t.w;
+	result.y = m.data[1][0]*t.x + m.data[1][1]*t.y + m.data[1][2]*t.z + m.data[1][3]*t.w;
+	result.z = m.data[2][0]*t.x + m.data[2][1]*t.y + m.data[2][2]*t.z + m.data[2][3]*t.w;
+	result.w = m.data[3][0]*t.x + m.data[3][1]*t.y + m.data[3][2]*t.z + m.data[3][3]*t.w;
 	return (result);
 }

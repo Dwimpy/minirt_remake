@@ -11,4 +11,9 @@
 /* ************************************************************************** */
 
 #include "shape.h"
+#include "transform.h"
 
+void	shape_set_transform(t_shape *shape, t_transform tf)
+{
+	shape->transform = tf;
+}

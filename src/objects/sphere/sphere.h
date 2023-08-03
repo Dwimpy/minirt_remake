@@ -19,7 +19,7 @@
 
 typedef struct s_sphere
 {
-	t_tuple 		origin;
+	t_tuple 	origin;
 	t_real		radius;
 	t_color		color;
 } 				t_sphere;
@@ -27,7 +27,8 @@ typedef struct s_sphere
 t_shape 	shape_new_sphere(t_tuple origin, t_real radius, t_color color);
 void		sphere_print(t_shape *shape);
 void		*get_sphere_data(t_shape *shape);
-bool		sphere_hit(t_ray ray, t_real tmin, t_real tmax, t_hit_record *hit_rec);
-bool		sphere_shadow_hit(t_ray ray, t_real tmin, t_real tmax, t_hit_record *hit_rec);
+bool		sphere_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
+t_color		get_sphere_color(t_shape *shape);
+bool		sphere_shadow_hit(t_shape *shape, t_ray ray, t_vector *intersections);
 
 #endif
