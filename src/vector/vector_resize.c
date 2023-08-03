@@ -21,7 +21,7 @@ int vector_resize(t_vector *vector) {
 		new_buffer = malloc(vector->capacity * 2 * vector->item_size);
 		if (!new_buffer)
 		{
-			write(2, VECTOR_RESIZE_FAILED, 49);
+			write(2, VECTOR_RESIZE_FAILED, 48);
 			return (2);
 		}
 		vector->capacity *= 2;

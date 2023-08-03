@@ -24,7 +24,6 @@
 #include "vector.h"
 #include <stdint.h>
 #include <stdlib.h>
-#include <sys/_types/_size_t.h>
 #include "intersect.h"
 #include "transform.h"
 
@@ -130,10 +129,7 @@ void sphere_test(t_image canvas) {
 	t_tuple ray_origin;
 	t_vector intersections;
 	t_transform tf;
-	double t;
-	size_t	icount;
 
-	icount = 0;
 	wall_size = 10;
 	wall_z = 10;
 	half = wall_z / 2;
@@ -150,11 +146,9 @@ void sphere_test(t_image canvas) {
 			world_x = -half + (pixel_size) * (t_real) i;
 			pos = tuple_new_point(world_x, world_y, wall_z);
 			ray = ray_new(ray_origin, tuple_normalize(tuple_subtract(pos, ray.origin)));
-			sphere.vtable.intersect(&sphere, ray, &intersections);
-			if (intersections.size != 0 && intersect_hit((t_intersect *) vector_at(&intersections, 0), &t)) {
+			if (sphere.vtable.intersect(&sphere, ray, &intersections) && \
+			intersect_hit((t_intersect *) vector_back(&intersections)))
 				image_set_pixel(canvas, sphere.vtable.get_color(&sphere), i, j);
-			}
-			vector_clear(&intersections);
 			i++;
 		}
 		j++;

@@ -12,7 +12,7 @@
 
 #include "vector.h"
 
-void	vector_free(t_vector *vector)
+inline void	vector_free(t_vector *vector)
 {
 	if (vector->buffer)
 		free(vector->buffer);

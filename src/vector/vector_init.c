@@ -12,7 +12,7 @@
 
 #include "vector.h"
 
-t_vector vector_init(size_t capacity, size_t n_size) {
+inline t_vector vector_init(size_t capacity, size_t n_size) {
 	t_vector vector;
 
 	vector.buffer = ft_calloc(capacity, n_size);

@@ -47,16 +47,15 @@ NORM_INCLUDE	= ./include
 
 # Modules
 
-
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
-#CFLAGS		=  -march=nocona
+CFLAGS		=  -march=native
 ASAN		= #-fsanitize=address #-g3
-CFLAGS		= -g3 -Ofast#-fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
-FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
-LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
-LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
-#LIBFLAGS	= -lft -L ./libft/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
+CFLAGS		=  -Ofast# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
+#FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
+#LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
+#LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
+LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
 
 #Archive and Remove
 RM			= rm -f

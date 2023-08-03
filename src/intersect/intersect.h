@@ -30,6 +30,6 @@ typedef struct s_intersect
 	t_shape		*obj;
 }				t_intersect;
 
-bool	intersect_hit(t_intersect *intersection, double *t);
+bool	intersect_hit(t_intersect *intersection);
 
 #endif

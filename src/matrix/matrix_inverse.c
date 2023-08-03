@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "matrix.h"
-#include <sys/_types/_size_t.h>
+#include <stdlib.h>
 
 void		matrix_set_aug_elements(t_matrix *mat, t_matrix m);
 void		interchange_rows(t_matrix *m);

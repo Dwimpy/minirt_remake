@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "matrix.h"
-#include <sys/_types/_size_t.h>
 
 inline bool	matrix_equal(t_matrix m1, t_matrix m2)
 {

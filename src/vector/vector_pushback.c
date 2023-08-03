@@ -12,7 +12,7 @@
 
 #include "vector.h"
 
-bool vector_pushback(t_vector *vector, void *data) {
+inline bool vector_pushback(t_vector *vector, void *data) {
 	void	*buf;
 	int 	resized;
 

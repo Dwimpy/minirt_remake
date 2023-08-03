@@ -12,7 +12,7 @@
 
 #include "vector.h"
 
-void	*vector_at(t_vector *vector, size_t index)
+inline void	*vector_at(t_vector *vector, size_t index)
 {
 	if (vector->size > 0 && index > vector->size) {
 		write(2, VECTOR_IDX_OUT_OF_BOUNDS, 40);

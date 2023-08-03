@@ -17,7 +17,6 @@
 #define VECTOR_RESIZE_FAILED "Vector resize buffer memory allocation failed.\n"
 
 # include <stdlib.h>
-# include <sys/_types/_size_t.h>
 # include <stdbool.h>
 # include "libft.h"
 //# include "vector_iterator.h"

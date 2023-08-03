@@ -12,7 +12,7 @@
 
 #include "vector.h"
 
-void	*vector_back(t_vector *vector)
+inline void	*vector_back(t_vector *vector)
 {
 	if (vector->size == 0)
 		return (NULL);

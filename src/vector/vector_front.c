@@ -12,7 +12,7 @@
 
 #include "vector.h"
 
-void	*vector_front(t_vector *vector)
+inline void	*vector_front(t_vector *vector)
 {
 	return (vector_at(vector, 0));
 }
