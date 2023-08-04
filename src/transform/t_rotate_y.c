@@ -24,5 +24,7 @@ inline t_transform tf_rotate_y(double degrees) {
 	matrix_set(transform.tf, 2, 0, -sin(rads));
 	matrix_set(transform.tf, 2, 2, cos(rads));
 	transform.inv_tf = matrix_inverse(transform.tf);
+	transform.tf_transpose = matrix_transpose(transform.tf);
+	transform.inv_tf_transpose = matrix_transpose(transform.inv_tf);
 	return (transform);
 }

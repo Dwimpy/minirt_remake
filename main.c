@@ -10,22 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
 #include "color.h"
 #include "image.h"
+#include "intersect.h"
+#include "material.h"
 #include "matrix.h"
 #include "onb.h"
 #include "ray.h"
-#include "rng.h"
 #include "shape.h"
 #include "sphere.h"
 #include "tuple.h"
 #include "window.h"
-#include "vector.h"
-#include <stdint.h>
-#include <stdlib.h>
-#include "intersect.h"
-#include "transform.h"
+#include "light.h"
+#include "time.h"
 
 void run_tests() {
 	tuple_tests();
@@ -48,7 +45,7 @@ void run_tests() {
 //	bool is_hit;
 //	double tmax;
 //	t_ray ray;
-//	t_color color = color_new(0.2, 0.2, 0.8);
+//	t_color color = color_new(0.2, 0.2, 0.8)	;
 //
 //	origin = tuple_new_point(960.0, 540.0, -1000.0);
 //	origin2 = tuple_new_point(255.0, 255.0, -1000.0);
@@ -115,6 +112,7 @@ void projectile_test(t_image canvas) {
 
 void sphere_test(t_image canvas) {
 	t_shape sphere;
+	t_shape sphere2;
 	t_real wall_z;
 	t_real wall_size;
 	t_real half;
@@ -127,71 +125,85 @@ void sphere_test(t_image canvas) {
 	size_t j;
 	t_ray ray;
 	t_tuple ray_origin;
-	t_vector intersections;
+	t_intersections intersections;
+	t_intersections intersections_test;
+	t_vector world;
 	t_transform tf;
+	clock_t t;
+	t_light	light;
+	t_tuple isec_point;
+	t_tuple normal;
+	t_tuple	eye;
+	t_color	color;
+	t_shape shape;
 
+	aspect_ratio = 16.0 / 9.0;
 	wall_size = 10;
 	wall_z = 10;
 	half = wall_z / 2;
 	aspect_ratio = (double) canvas.width / (double) canvas.height;
 	pixel_size = wall_size / canvas.height;
 	ray_origin = tuple_new_point(0, 0, -5.0);
-	sphere = shape_new_sphere(tuple_new_point(0, 0, 0), 1, color_new(1, 0, 0));
-	intersections = vector_init(100, sizeof(t_intersect));
+	sphere = shape_new_sphere(tuple_new_point(0, 0, 2), 1, color_new(1, 0, 0));
+	sphere2 = shape_new_sphere(tuple_new_point(0.0, 0, 3), 1, color_new(1, 0, 0));
+	world = vector_init(10, sizeof(t_shape));
 	j = 0;
+	t = clock();
+	sphere.material = default_material(color_new(1, 0.2, 1));
+	sphere2.material = default_material(color_new(0.0, 0.5, 0.7));
+	light.origin = tuple_new_point(-10.0, 10, 10.0);
+	light.intensity = color_new(1, 1, 1);
+	vector_pushback(&world, &sphere);
+	vector_pushback(&world, &sphere2);
+	initialize_intersections(&intersections);
 	while (j < canvas.height - 1) {
 		world_y = half - pixel_size * (t_real) j;
 		i = 0;
 		while (i < canvas.width - 1) {
+			intersections_test = intersections;
 			world_x = -half + (pixel_size) * (t_real) i;
-			pos = tuple_new_point(world_x, world_y, wall_z);
-			ray = ray_new(ray_origin, tuple_normalize(tuple_subtract(pos, ray.origin)));
-			if (sphere.vtable.intersect(&sphere, ray, &intersections) && \
-			intersect_hit((t_intersect *) vector_back(&intersections)))
-				image_set_pixel(canvas, sphere.vtable.get_color(&sphere), i, j);
+			tuple_set(&pos, world_x, world_y, wall_z);
+			ray_set(&ray, ray_origin, tuple_normalize(tuple_subtract(pos, ray.origin)));
+			intersect_world(&world, ray, &intersections_test, &intersections);
+			if (intersect_hit(&intersections_test, &ray, &isec_point, &normal, &shape))
+			{
+				eye = tuple_negate(ray.direction);
+				color = light_lightning(shape.material, light, isec_point, eye, normal);
+				image_set_pixel(canvas, color, i, j);
+			}
+
 			i++;
 		}
 		j++;
 	}
+	t = clock() - t;
+	double time_taken = ((double) t) / CLOCKS_PER_SEC; // in seconds
+	printf("fun() took %f seconds to execute \n", time_taken);
 }
 
 int main(void) {
 	t_window window;
 	t_image canvas;
-	t_matrix matrix;
-	t_matrix matrix2;
-	t_ray ray;
-	t_vector vector;
-	t_vector intersections;
+	t_light point_light;
+	t_tuple	eye;
+	t_tuple	normal;
 	t_shape sphere;
-	double	t;
-	t_transform	scale;
-	t_transform	translate;
-
-//	scale = tf_scale(2, 2, 2);
-//	translate = tf_translate(5, 0, 0);
-//	t_tuple origin = tuple_new_point(0.0, 0.0, 0.0);
-//	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 0, 1));
-//	sphere = shape_new_sphere(origin, 1, color_new(1, 0, 0));
-//	vector = vector_init(5, sizeof(int));
-//	intersections = vector_init(10, sizeof(t_intersect));
-//	shape_set_transform(&sphere, scale);
-//	sphere.vtable.intersect(&sphere, ray, &intersections);
-//	tuple_print(ray.origin);
-//	tuple_print(ray.direction);
-//	if (intersections.size != 0)
-//	{
-//		printf("%f\t", (*(t_intersect *)vector_at(&intersections, 0)).t[0]);
-//		printf("%f\t", (*(t_intersect *)vector_at(&intersections, 0)).t[1]);
-//		printf("%zu\t", (*(t_intersect *)vector_at(&intersections, 0)).count);
-//		printf("Hit: %d\t", intersect_hit((*(t_intersect *)vector_at(&intersections, 0)), &t));
-//		printf("t: %f\n", t);
-//	}
+	t_tuple	point;
 
 //	run_tests();
-
+//	sphere = shape_new_sphere(tuple_new_point(0, 0, 0), 1, color_new(1, 0, 0));
+//	point = tuple_new_point(0, 0, 0);
+//	sphere.material = default_material(color_new(1, 1, 1));
+//	point_light.origin = tuple_new_point(0, 0, 10);
+//	point_light.intensity = color_new(1, 1, 1);
+//	eye = tuple_new_vector(0, 0, -1);
+//	normal = tuple_new_vector(0, 0, -1);
+//	tuple_print(light_lightning(sphere.material, point_light, point, eye, normal));
 //	projectile_test(canvas);
 //	run_sphere_test(canvas);
+
+
+
 	window_create(&window, 1920, 1080);
 	window_add_image(window.mlx, &canvas);
 	sphere_test(canvas);

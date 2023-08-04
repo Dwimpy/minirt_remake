@@ -35,5 +35,7 @@ t_transform tf_rotate(double deg_x, double deg_y, double deg_z) {
 	matrix_set(final.tf, 1, 2, sin(a) * sin(b) * cos(g) - cos(a) * sin(g));
 	matrix_set(final.tf, 2, 2, cos(b) * cos(g));
 	final.inv_tf = matrix_inverse(final.tf);
+	final.tf_transpose = matrix_transpose(final.tf);
+	final.inv_tf_transpose = matrix_transpose(final.inv_tf);
 	return (final);
 }

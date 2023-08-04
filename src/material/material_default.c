@@ -1,0 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   material_default.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/04 18:47:03 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/04 18:47:03 by arobu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "material.h"
+
+t_material	default_material(t_color color)
+{
+	t_material material;
+
+	material.ambient = 0.1;
+	material.diffuse = 0.9;
+	material.specular = 0.9;
+	material.shininess = 200;
+	material.emission = 0.0;
+	material.color = color;
+	return (material);
+}

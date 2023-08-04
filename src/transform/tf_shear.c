@@ -25,5 +25,7 @@ inline t_transform tf_shear(double xy, double xz, double yx, double yz, double z
 	matrix_set(transform.tf, 2, 0, zx);
 	matrix_set(transform.tf, 2, 1, zy);
 	transform.inv_tf = matrix_inverse(transform.tf);
+	transform.tf_transpose = matrix_transpose(transform.tf);
+	transform.inv_tf_transpose = matrix_transpose(transform.inv_tf);
 	return (transform);
 }

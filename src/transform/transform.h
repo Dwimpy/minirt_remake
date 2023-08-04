@@ -19,6 +19,8 @@ typedef struct s_transform
 {
 	t_matrix	tf;
 	t_matrix	inv_tf;
+	t_matrix	tf_transpose;
+	t_matrix	inv_tf_transpose;
 }				t_transform;
 
 // Rotate -> Scale -> Translate for chained transformations
