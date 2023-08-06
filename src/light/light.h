@@ -23,6 +23,6 @@ typedef struct s_light
 	t_color		intensity;
 }				t_light;
 
-t_color	light_lightning(t_material material, t_light light, t_tuple point, t_tuple eye, t_tuple normal);
+t_color light_lightning(t_light *light, t_computations *comps);
 
 #endif

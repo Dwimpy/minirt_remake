@@ -28,8 +28,8 @@ typedef struct s_shape_vtable
 	void		(*print)(t_shape *shape);
 	t_color		(*get_color)(t_shape *shape);
 	t_tuple		(*normal_at)(t_shape *shape, t_tuple isec_point);
-	bool		(*intersect)(t_shape *shape, t_ray ray, t_intersections *intersections);
-	bool		(*shadow_hit)(t_shape *shape, t_ray ray, t_intersections *intersections);
+	bool		(*intersect)(t_shape *shape, t_ray ray, t_vector *intersections);
+	bool		(*shadow_hit)(t_shape *shape, t_ray ray, t_vector *intersections);
 }				t_shape_vtable;
 
 typedef struct s_shape

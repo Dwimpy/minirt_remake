@@ -16,13 +16,15 @@
 #include "material.h"
 #include "matrix.h"
 #include "onb.h"
-#include "ray.h"
 #include "shape.h"
 #include "sphere.h"
+#include "transform.h"
 #include "tuple.h"
+#include "vector.h"
 #include "window.h"
 #include "light.h"
 #include "time.h"
+#include "camera.h"
 
 void run_tests() {
 	tuple_tests();
@@ -112,66 +114,127 @@ void projectile_test(t_image canvas) {
 
 void sphere_test(t_image canvas) {
 	t_shape sphere;
-	t_shape sphere2;
+	t_shape sphere1;
 	t_real wall_z;
 	t_real wall_size;
 	t_real half;
 	t_real pixel_size;
 	t_real world_y;
 	t_real world_x;
-	t_real aspect_ratio;
 	t_tuple pos;
 	size_t i;
 	size_t j;
 	t_ray ray;
 	t_tuple ray_origin;
-	t_intersections intersections;
-	t_intersections intersections_test;
 	t_vector world;
-	t_transform tf;
 	clock_t t;
-	t_light	light;
-	t_tuple isec_point;
-	t_tuple normal;
-	t_tuple	eye;
-	t_color	color;
-	t_shape shape;
+	t_light light;
+	t_computations comps;
 
-	aspect_ratio = 16.0 / 9.0;
 	wall_size = 10;
 	wall_z = 10;
 	half = wall_z / 2;
-	aspect_ratio = (double) canvas.width / (double) canvas.height;
 	pixel_size = wall_size / canvas.height;
+	world = vector_init(2, sizeof(t_shape));
+	comps.intersections = vector_init(2, sizeof(t_intersect));
 	ray_origin = tuple_new_point(0, 0, -5.0);
-	sphere = shape_new_sphere(tuple_new_point(0, 0, 2), 1, color_new(1, 0, 0));
-	sphere2 = shape_new_sphere(tuple_new_point(0.0, 0, 3), 1, color_new(1, 0, 0));
-	world = vector_init(10, sizeof(t_shape));
+	sphere = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(1, 0, 0));
+	sphere1 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 0.5, color_new(1, 0, 0));
 	j = 0;
-	t = clock();
 	sphere.material = default_material(color_new(1, 0.2, 1));
-	sphere2.material = default_material(color_new(0.0, 0.5, 0.7));
-	light.origin = tuple_new_point(-10.0, 10, 10.0);
+	sphere1.material = default_material(color_new(0.5, 0.2, 1));
+	light.origin = tuple_new_point(-10.0, 10, -10.0);
 	light.intensity = color_new(1, 1, 1);
 	vector_pushback(&world, &sphere);
-	vector_pushback(&world, &sphere2);
-	initialize_intersections(&intersections);
+	t = clock();
 	while (j < canvas.height - 1) {
 		world_y = half - pixel_size * (t_real) j;
 		i = 0;
 		while (i < canvas.width - 1) {
-			intersections_test = intersections;
 			world_x = -half + (pixel_size) * (t_real) i;
 			tuple_set(&pos, world_x, world_y, wall_z);
 			ray_set(&ray, ray_origin, tuple_normalize(tuple_subtract(pos, ray.origin)));
-			intersect_world(&world, ray, &intersections_test, &intersections);
-			if (intersect_hit(&intersections_test, &ray, &isec_point, &normal, &shape))
-			{
-				eye = tuple_negate(ray.direction);
-				color = light_lightning(shape.material, light, isec_point, eye, normal);
-				image_set_pixel(canvas, color, i, j);
-			}
+			image_set_pixel(canvas, intersect_color_at(&world, ray, &comps, &light), i, j);
+			vector_clear(&comps.intersections);
+			i++;
+		}
+		j++;
+	}
 
+	t = clock() - t;
+	double time_taken = ((double) t) / CLOCKS_PER_SEC; // in seconds
+	printf("fun() took %f seconds to execute \n", time_taken);
+}
+
+void inside_sphere_test() {
+
+	t_shape sph1;
+	t_shape sph2;
+	t_vector world;
+	t_light light;
+	t_ray ray;
+	t_computations comps;
+	sph1 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(1, 0, 0));
+	sph2 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 0.5, color_new(1, 0, 0));
+//	run_tests();
+	sph1.material = default_material(color_new(1, 0.2, 1));
+	sph2.material = default_material(color_new(0.5, 0.2, 1));
+	light.origin = tuple_new_point(-10.0, 10, -10.0);
+	light.intensity = color_new(1, 1, 1);
+	world = vector_init(10, sizeof(t_shape));
+	comps.intersections = vector_init(10, sizeof(t_intersect));
+	vector_pushback(&world, &sph1);
+	vector_pushback(&world, &sph2);
+	ray.origin = tuple_new_point(0, 0, 0.75);
+	ray.direction = tuple_new_vector(0, 0, -1);
+	tuple_print(intersect_color_at(&world, ray, &comps, &light));
+}
+
+int main(void) {
+	t_window window;
+	t_image canvas;
+	t_camera camera;
+
+	window_create(&window, 1920, 1080);
+	window_add_image(window.mlx, &canvas);
+
+	t_shape sph1;
+	t_shape floor;
+	t_vector world;
+	t_light light;
+	t_ray ray;
+	t_computations comps;
+	size_t			i;
+	size_t			j;
+	sph1 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(1, 0, 0));
+	floor = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(0, 1, 0));
+//	run_tests();
+	sph1.material = default_material(color_new(0.8, 1, 0.6));
+	sph1.material.diffuse = 0.7;
+	sph1.material.specular = 0.2;
+	floor.material = default_material(color_new(0.5, 0.2, 1));
+	floor.material.specular = 0;
+	shape_set_transform(&sph1, tf_translate(0, 2, 0));
+	shape_set_transform(&floor, tf_scale(10, 0.01, 10));
+	light.origin = tuple_new_point(-10.0, 10, -10.0);
+	light.intensity = color_new(1, 1, 1);
+	world = vector_init(25, sizeof(t_shape));
+	comps.intersections = vector_init(25, sizeof(t_intersect));
+	comps.shadow_intersections = vector_init(25, sizeof(t_intersect));
+	vector_pushback(&world, &sph1);
+	vector_pushback(&world, &floor);
+	camera = camera_new(canvas.width, canvas.height, M_PI_2);
+	camera.tf = camera_view_transform(tuple_new_point(0.0, 5.0, -10), tuple_new_point(0, 0, 0));
+	j = 0;
+	clock_t t;
+	t = clock();
+	while (j < canvas.height - 1) {
+		i = 0;
+		while (i < canvas.width - 1) {
+			ray = camera_get_ray(&camera, i, j);
+			image_set_pixel(canvas, intersect_color_at(&world, ray, &comps, &light), i, j);
+			vector_clear(&comps.intersections);
+			vector_clear(&comps.shadow_intersections);
 			i++;
 		}
 		j++;
@@ -179,34 +242,12 @@ void sphere_test(t_image canvas) {
 	t = clock() - t;
 	double time_taken = ((double) t) / CLOCKS_PER_SEC; // in seconds
 	printf("fun() took %f seconds to execute \n", time_taken);
-}
-
-int main(void) {
-	t_window window;
-	t_image canvas;
-	t_light point_light;
-	t_tuple	eye;
-	t_tuple	normal;
-	t_shape sphere;
-	t_tuple	point;
-
-//	run_tests();
-//	sphere = shape_new_sphere(tuple_new_point(0, 0, 0), 1, color_new(1, 0, 0));
-//	point = tuple_new_point(0, 0, 0);
-//	sphere.material = default_material(color_new(1, 1, 1));
-//	point_light.origin = tuple_new_point(0, 0, 10);
-//	point_light.intensity = color_new(1, 1, 1);
-//	eye = tuple_new_vector(0, 0, -1);
-//	normal = tuple_new_vector(0, 0, -1);
-//	tuple_print(light_lightning(sphere.material, point_light, point, eye, normal));
-//	projectile_test(canvas);
-//	run_sphere_test(canvas);
-
-
-
-	window_create(&window, 1920, 1080);
-	window_add_image(window.mlx, &canvas);
-	sphere_test(canvas);
+//	sphere_test(canvas);
+//	inside_sphere_test();
+	tf_free(camera.tf);
+	vector_free(&comps.intersections);
+	vector_free(&world);
 	window_draw_loop(window.mlx);
+//	system("leaks minirt");
 	return (0);
 }

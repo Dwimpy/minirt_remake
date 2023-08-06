@@ -25,6 +25,8 @@ typedef struct s_transform
 
 // Rotate -> Scale -> Translate for chained transformations
 
+t_transform tf_new(void);
+t_transform	tf_transform(t_transform rotate, t_transform scale, t_transform translate);
 t_transform	tf_translate(double x, double y, double z);
 t_transform tf_scale(double x, double y, double z);
 t_transform	tf_shear(double xy, double xz, double yx, double yz, double zx, double zy);

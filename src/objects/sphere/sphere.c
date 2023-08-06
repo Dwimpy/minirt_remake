@@ -38,15 +38,15 @@ t_shape shape_new_sphere(t_tuple origin, t_real radius, t_color color) {
 	shape.transform.tf_transpose = matrix_identity();
 	shape.transform.inv_tf_transpose = matrix_identity();
 	shape.vtable.print = sphere_print;
-	shape.vtable.get_data = get_sphere_data;
+	shape.vtable.get_data = sphere_get_data;
 	shape.vtable.intersect = sphere_intersect;
-	shape.vtable.get_color = get_sphere_color;
+	shape.vtable.get_color = sphere_get_color;
 	shape.vtable.normal_at = sphere_normal_at;
 //	shape.vtable.shadow_hit = sphere_shadow_hit;
 	return (shape);
 }
 
-void *get_sphere_data(t_shape *shape) {
+void *sphere_get_data(t_shape *shape) {
 	return (shape->data);
 }
 
@@ -58,7 +58,7 @@ void sphere_print(t_shape *shape) {
 	tuple_print(sphere->origin);
 }
 
-t_color	get_sphere_color(t_shape *shape)
+t_color	sphere_get_color(t_shape *shape)
 {
 	t_sphere	*sphere;
 
@@ -71,7 +71,6 @@ t_tuple sphere_normal_at(t_shape *shape, t_tuple isec_point)
 	t_transform	*tf;
 	t_tuple		object_point;
 	t_tuple		object_normal;
-	t_tuple		world_point;
 	t_tuple		world_normal;
 
 	tf = &shape->transform;
@@ -82,13 +81,13 @@ t_tuple sphere_normal_at(t_shape *shape, t_tuple isec_point)
 	return (tuple_normalize(world_normal));
 }
 
-bool sphere_intersect(t_shape *shape, t_ray ray, t_intersections *intersections) {
+bool sphere_intersect(t_shape *shape, t_ray ray, t_vector *intersections) {
 	t_tuple		sph_to_ray;
 	t_sphere	*sphere;
 	t_quadratic params;
 
 	sphere = (t_sphere *) shape->data;
-	ray = ray_transform(ray, shape->transform);
+	ray = ray_transform(&ray, shape->transform);
 	sph_to_ray = tuple_subtract(ray.origin, sphere->origin);
 	params.a = tuple_dot(ray.direction, ray.direction);
 	params.b = 2 * tuple_dot(ray.direction, sph_to_ray);
@@ -98,19 +97,12 @@ bool sphere_intersect(t_shape *shape, t_ray ray, t_intersections *intersections)
 		return (false);
 	params.t1 = (-params.b - sqrt(params.disc)) / (2 * params.a);
 	params.t2 = (-params.b + sqrt(params.disc)) / (2 * params.a);
-	if (params.t1 < params.t2) {
-		intersections->buffer[0].t = params.t1;
-		intersections->buffer[1].t = params.t2;
-	} else {
-		intersections->buffer[0].t = params.t2;
-		intersections->buffer[1].t = params.t1;
-	}
-	if (params.t1 != params.t2)
-		intersections->count += 2;
+	if (is_approx_equal(params.t1, params.t2, M_EPSILON))
+		vector_pushback_intersect(intersections, params.t1, shape);
 	else
-		intersections->count += 1;
-	intersections->buffer[0].obj = shape;
-	intersections->buffer[1].obj = shape;
-//	vector_pushback(intersections, &intersect);
+	{
+		vector_pushback_intersect(intersections, params.t1, shape);
+		vector_pushback_intersect(intersections, params.t2, shape);
+	}
 	return (true);
 }

@@ -14,7 +14,6 @@
 
 inline void	vector_clear(t_vector *vector)
 {
-	ft_memset(vector->buffer, 0, vector->item_size * vector->size);
 	vector->size = 0;
 }
 

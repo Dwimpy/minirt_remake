@@ -15,7 +15,8 @@ NAME			= minirt
 
 VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/image \
 				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
-				  ./src/objects/shape ./src/objects/sphere ./src/intersect ./src/material ./src/light
+				  ./src/objects/shape ./src/objects/sphere ./src/intersect ./src/material ./src/light \
+				  ./src/camera
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -33,6 +34,7 @@ INCLUDE			+= -I ./src/objects/shape
 INCLUDE			+= -I ./src/objects/sphere
 INCLUDE			+= -I ./src/material
 INCLUDE			+= -I ./src/light
+INCLUDE			+= -I ./src/camera
 
 DSYM			= ./minirt.dSYM
 SRC_DIR			= ./src
@@ -50,7 +52,7 @@ NORM_INCLUDE	= ./include
 
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
-CFLAGS		=  -march=native
+CFLAGS		=  #-march=nocona
 ASAN		= #-fsanitize=address #-g3
 CFLAGS		=  -Ofast# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit

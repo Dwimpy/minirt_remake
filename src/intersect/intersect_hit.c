@@ -11,25 +11,42 @@
 /* ************************************************************************** */
 
 #include "intersect.h"
-#include "ray.h"
 #include "shape.h"
-#include "tuple.h"
 
-bool intersect_hit(t_intersections *intersections, t_ray *ray, t_tuple *isec_point, t_tuple *normal, t_shape *shape) {
-	int i;
 
-	i = 0;
-	if (intersections->count == 0)
-		return (false);
-	while (i < intersections->count) {
-		if (intersections->buffer[i].t > 0) {
-			*isec_point = ray_at(*ray, intersections->buffer[i].t);
-			*normal = intersections->buffer[i].obj->vtable.normal_at(intersections->buffer[i].obj, *isec_point);
-//			tuple_print(intersections->buffer[i].obj->material.color);
-			*shape = *intersections->buffer[i].obj;
-			return (true);
+bool intersect_hit(t_ray *ray, t_computations *comps) {
+	t_vector_iterator	it;
+	t_intersect			*intersect;
+
+	vector_iterator_begin(&it, &comps->intersections);
+	while (!it.end(&it)) {
+		intersect = it.get(&it);
+		if (intersect->t > 0) {
+			comps->point = ray_at(*ray, intersect->t);
+			return (intersect_compute(intersect, ray, comps));
 		}
-		i++;
+		it.next(&it);
+	}
+	return (false);
+}
+
+bool intersect_shadow_hit(t_ray *ray, t_computations *comps, const t_real *distance) {
+	t_vector_iterator	it;
+	t_intersect			*intersect;
+
+	vector_iterator_begin(&it, &comps->shadow_intersections);
+	while (!it.end(&it)) {
+		intersect = it.get(&it);
+		if (intersect->t > 0) {
+			if (intersect->t < *distance)
+			{
+				comps->is_shadowed = true;
+				return (true);
+			}
+			else
+				return (false);
+		}
+		it.next(&it);
 	}
 	return (false);
 }

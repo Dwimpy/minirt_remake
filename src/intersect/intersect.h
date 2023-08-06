@@ -16,7 +16,11 @@
 # define MAX_INTERSECTIONS_PER_OBJECT 10
 # include "vector.h"
 # include "ray.h"
+# include <stdbool.h>
+# include "color.h"
+
 typedef struct s_shape	t_shape;
+typedef struct s_light	t_light;
 
 typedef struct s_quadratic
 {
@@ -27,6 +31,19 @@ typedef struct s_quadratic
 	double		t1;
 	double		t2;
 }				t_quadratic;
+
+typedef struct s_computations
+{
+	t_tuple		point;
+	t_tuple		normal;
+	t_tuple		eye;
+	t_shape 	*shape;
+	t_vector	intersections;
+	t_vector	shadow_intersections;
+	t_tuple		over_point;
+	bool		inside;
+	bool		is_shadowed;
+}				t_computations;
 
 typedef struct s_intersect
 {
@@ -40,8 +57,12 @@ typedef struct s_intersections
 	t_intersect buffer[MAX_INTERSECTIONS_PER_OBJECT];
 }				t_intersections;
 
-void	initialize_intersections(t_intersections *intersections);
-void	intersect_world(t_vector *world, t_ray ray, t_intersections *isect_ptr, t_intersections *intersections);
-bool intersect_hit(t_intersections *intersections, t_ray *ray, t_tuple *isec_point, t_tuple *normal, t_shape *shape);
-
+void	intersect_world(t_vector *world, t_ray ray, t_vector *intersections);
+void	intersect_set_normal(t_computations *comps);
+bool	intersect_hit(t_ray *ray, t_computations *comps);
+bool	intersect_shadow_hit(t_ray *ray, t_computations *comps, const t_real *distance);
+bool	intersect_compute(t_intersect *intersect, t_ray *ray, t_computations *comps);
+bool	intersect_is_shadowed(t_vector *world, t_light *light, t_computations *comps);
+t_color	intersect_shade_hit(t_vector *world, t_light *light, t_computations *comps);
+t_color	intersect_color_at(t_vector *world, t_ray ray, t_computations *comps, t_light *light);
 #endif
