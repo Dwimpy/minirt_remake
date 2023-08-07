@@ -13,8 +13,10 @@
 #include "intersect.h"
 #include "tuple.h"
 
-void intersect_set_normal(t_computations *comps) {
-	if (tuple_dot(comps->normal, comps->eye) < 0) {
+void	intersect_set_normal(t_computations *comps)
+{
+	if (tuple_dot(comps->normal, comps->eye) < 0)
+	{
 		comps->normal = tuple_negate(comps->normal);
 		comps->inside = true;
 	}

@@ -13,23 +13,23 @@
 #ifndef SHAPE_H
 # define SHAPE_H
 
-#include <stdbool.h>
-#include "ray.h"
-#include "color.h"
-#include "transform.h"
-#include "vector.h"
-#include "intersect.h"
-#include "material.h"
+# include <stdbool.h>
+# include "ray.h"
+# include "color.h"
+# include "transform.h"
+# include "vector.h"
+# include "intersect.h"
+# include "material.h"
+
+
 typedef struct s_shape	t_shape;
 
 typedef struct s_shape_vtable
 {
-	void		*(*get_data)(t_shape *shape);
 	void		(*print)(t_shape *shape);
-	t_color		(*get_color)(t_shape *shape);
-	t_tuple		(*normal_at)(t_shape *shape, t_tuple isec_point);
-	bool		(*intersect)(t_shape *shape, t_ray ray, t_vector *intersections);
-	bool		(*shadow_hit)(t_shape *shape, t_ray ray, t_vector *intersections);
+	t_tuple		(*normal_at)(t_shape * shape, t_tuple isec_point);
+	bool		(*intersect)(t_shape * shape, t_ray ray, \
+					t_vector *intersections);
 }				t_shape_vtable;
 
 typedef struct s_shape
@@ -40,6 +40,9 @@ typedef struct s_shape
 	t_material		material;
 }				t_shape;
 
-void	shape_set_transform(t_shape *shape, t_transform tf);
+void		shape_set_transform(t_shape *shape, t_transform tf);
+void		*shape_get_data(const t_shape *shape);
+t_material	shape_get_material(const t_shape *shape);
+t_color		shape_get_color(const t_shape *shape);
 
 #endif

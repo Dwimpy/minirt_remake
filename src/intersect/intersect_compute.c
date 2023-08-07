@@ -17,10 +17,12 @@
 
 bool intersect_compute(t_intersect *intersect, t_ray *ray, t_computations *comps)
 {
-	comps->normal = intersect->obj->vtable.normal_at(intersect->obj, comps->point);
+	comps->normal = \
+		intersect->obj->vtable.normal_at(intersect->obj, comps->point);
 	comps->shape = intersect->obj;
 	comps->eye = tuple_negate(ray->direction);
 	intersect_set_normal(comps);
-	comps->over_point = tuple_add(comps->point, tuple_multiply_s(comps->normal, M_EPSILON));
+	comps->over_point = \
+		tuple_add(comps->point, tuple_multiply_s(comps->normal, M_EPSILON));
 	return (true);
 }

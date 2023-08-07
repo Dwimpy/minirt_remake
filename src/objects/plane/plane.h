@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   plane.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 23:32:22 by arobu             #+#    #+#             */
-/*   Updated: 2023/07/30 23:32:22 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/07 15:00:13 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/07 15:00:13 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-
-# include "transform.h"
+#ifndef PLANE_H
+# define PLANE_H
+# define PLANE_MEM_ALLOCATION_FAILED\
+			"Plane memory allocation failed. Exiting.\n"
+# include "shape.h"
 # include "tuple.h"
 
-typedef struct s_ray
+typedef struct s_plane
 {
 	t_tuple		origin;
-	t_tuple		direction;
-}				t_ray;
+	t_tuple		normal;
+}				t_plane;
 
-t_ray	ray_new(t_tuple origin, t_tuple direction);
-t_tuple	ray_at(t_ray ray, t_real t);
-t_ray	ray_to_object_space(t_ray *ray, t_transform tf);
-void	ray_set(t_ray *ray, t_tuple origin, t_tuple direction);
+t_shape		shape_new_plane(void);
+void		plane_print(t_shape *shape);
+bool		plane_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
+t_tuple		plane_normal_at(t_shape *shape, t_tuple isec_point);
 
 #endif

@@ -16,6 +16,7 @@
 #include "material.h"
 #include "matrix.h"
 #include "onb.h"
+#include "quaternion.h"
 #include "shape.h"
 #include "sphere.h"
 #include "transform.h"
@@ -25,6 +26,7 @@
 #include "light.h"
 #include "time.h"
 #include "camera.h"
+#include "plane.h"
 
 void run_tests() {
 	tuple_tests();
@@ -138,8 +140,8 @@ void sphere_test(t_image canvas) {
 	world = vector_init(2, sizeof(t_shape));
 	comps.intersections = vector_init(2, sizeof(t_intersect));
 	ray_origin = tuple_new_point(0, 0, -5.0);
-	sphere = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(1, 0, 0));
-	sphere1 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 0.5, color_new(1, 0, 0));
+	sphere = shape_new_sphere(1.0);
+	sphere1 = shape_new_sphere(1.0);
 	j = 0;
 	sphere.material = default_material(color_new(1, 0.2, 1));
 	sphere1.material = default_material(color_new(0.5, 0.2, 1));
@@ -174,8 +176,8 @@ void inside_sphere_test() {
 	t_light light;
 	t_ray ray;
 	t_computations comps;
-	sph1 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(1, 0, 0));
-	sph2 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 0.5, color_new(1, 0, 0));
+	sph1 = shape_new_sphere(1.0);
+	sph2 = shape_new_sphere(1.0);
 //	run_tests();
 	sph1.material = default_material(color_new(1, 0.2, 1));
 	sph2.material = default_material(color_new(0.5, 0.2, 1));
@@ -200,44 +202,50 @@ int main(void) {
 
 	t_shape sph1;
 	t_shape floor;
+	t_shape	plane;
 	t_vector world;
 	t_light light;
 	t_ray ray;
 	t_computations comps;
 	size_t			i;
 	size_t			j;
-	sph1 = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(1, 0, 0));
-	floor = shape_new_sphere(tuple_new_point(0, 0, 0.0), 1.0, color_new(0, 1, 0));
+	t_quaternion	q;
+
+	sph1 = shape_new_sphere(5.0);
+	floor = shape_new_sphere(5.0);
+	plane = shape_new_plane();
 //	run_tests();
 	sph1.material = default_material(color_new(0.8, 1, 0.6));
 	sph1.material.diffuse = 0.7;
 	sph1.material.specular = 0.2;
 	floor.material = default_material(color_new(0.5, 0.2, 1));
 	floor.material.specular = 0;
-	shape_set_transform(&sph1, tf_translate(0, 2, 0));
-	shape_set_transform(&floor, tf_scale(10, 0.01, 10));
+	plane.material = default_material(color_new(0.5, 0.2, 1));
+	plane.material.specular = 0;
+	plane_print(&plane);
 	light.origin = tuple_new_point(-10.0, 10, -10.0);
 	light.intensity = color_new(1, 1, 1);
 	world = vector_init(25, sizeof(t_shape));
 	comps.intersections = vector_init(25, sizeof(t_intersect));
 	comps.shadow_intersections = vector_init(25, sizeof(t_intersect));
-	vector_pushback(&world, &sph1);
-	vector_pushback(&world, &floor);
 	camera = camera_new(canvas.width, canvas.height, M_PI_2);
-	camera.tf = camera_view_transform(tuple_new_point(0.0, 5.0, -10), tuple_new_point(0, 0, 0));
-	j = 0;
+	camera.tf = camera_view_transform(tuple_new_point(0, 0.01, -25), tuple_new_point(0.0, 0, 0));
+	shape_set_transform(&sph1, tf_translate(0, 5, 0));
 	clock_t t;
 	t = clock();
-	while (j < canvas.height - 1) {
-		i = 0;
-		while (i < canvas.width - 1) {
+	vector_pushback(&world, &sph1);
+	vector_pushback(&world, &plane);
+	j = -1;
+	while (++j < canvas.height - 1)
+	{
+		i = -1;
+		while (++i < canvas.width - 1)
+		{
 			ray = camera_get_ray(&camera, i, j);
 			image_set_pixel(canvas, intersect_color_at(&world, ray, &comps, &light), i, j);
 			vector_clear(&comps.intersections);
 			vector_clear(&comps.shadow_intersections);
-			i++;
 		}
-		j++;
 	}
 	t = clock() - t;
 	double time_taken = ((double) t) / CLOCKS_PER_SEC; // in seconds

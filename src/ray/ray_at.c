@@ -13,6 +13,7 @@
 #include "ray.h"
 #include "tuple.h"
 
-t_tuple ray_at(t_ray ray, t_real t) {
+inline t_tuple	ray_at(t_ray ray, t_real t)
+{
 	return (tuple_add(ray.origin, tuple_multiply_s(ray.direction, t)));
 }

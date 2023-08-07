@@ -13,7 +13,8 @@
 #include "intersect.h"
 #include "light.h"
 
-t_color	intersect_shade_hit(t_vector *world, t_light *light, t_computations *comps)
+t_color	intersect_shade_hit(\
+	t_vector *world, t_light *light, t_computations *comps)
 {
 	intersect_is_shadowed(world, light, comps);
 	return (light_lightning(light, comps));

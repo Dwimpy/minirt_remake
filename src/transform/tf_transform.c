@@ -13,7 +13,7 @@
 #include "matrix.h"
 #include "transform.h"
 
-t_transform tf_transform(t_transform rotate, t_transform scale, t_transform translate) {
+inline t_transform tf_transform(t_transform rotate, t_transform scale, t_transform translate) {
 	t_transform transform;
 	t_matrix	rot_scale;
 

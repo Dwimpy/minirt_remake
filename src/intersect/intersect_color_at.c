@@ -16,14 +16,15 @@
 #include "shape.h"
 #include "tuple.h"
 
-t_color intersect_color_at(t_vector *world, t_ray ray, t_computations *comps, t_light *light) {
-	t_color color;
+t_color	intersect_color_at(\
+	t_vector *world, t_ray ray, t_computations *comps, t_light *light)
+{
+	t_color	color;
 
 	color = color_new(0, 0, 0);
 	intersect_world(world, ray, &comps->intersections);
 	comps->is_shadowed = false;
-	if (intersect_hit(&ray, comps)) {
+	if (intersect_hit(&ray, comps))
 		return (intersect_shade_hit(world, light, comps));
-	}
 	return (color);
 }

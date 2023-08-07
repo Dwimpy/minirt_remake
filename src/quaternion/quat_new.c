@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_set.c                                          :+:      :+:    :+:   */
+/*   quat_new.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:36:18 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 16:36:18 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/07 22:07:18 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/07 22:07:18 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "quaternion.h"
 
-inline void	ray_set(t_ray *ray, t_tuple origin, t_tuple direction)
+t_quaternion	quaternion_new(t_real x, t_real y, t_real z, t_real w)
 {
-	ray->origin = origin;
-	ray->direction = direction;
+	t_quaternion	q;
+
+	q.x = x;
+	q.y = y;
+	q.z = z;
+	q.w = w;
+	return (q);
 }

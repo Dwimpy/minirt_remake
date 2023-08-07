@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_transform.c                                    :+:      :+:    :+:   */
+/*   ray_to_object_space.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "ray.h"
 #include "transform.h"
 
-t_ray ray_transform(t_ray *ray, t_transform tf)
+inline t_ray	ray_to_object_space(t_ray *ray, t_transform tf)
 {
 	t_ray	new_ray;
 

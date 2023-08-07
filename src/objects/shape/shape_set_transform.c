@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_set.c                                          :+:      :+:    :+:   */
+/*   shape.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:36:18 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 16:36:18 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/01 15:03:31 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/01 15:03:31 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "shape.h"
+#include "transform.h"
 
-inline void	ray_set(t_ray *ray, t_tuple origin, t_tuple direction)
+inline void	shape_set_transform(t_shape *shape, t_transform tf)
 {
-	ray->origin = origin;
-	ray->direction = direction;
+	tf_free(shape->transform);
+	shape->transform = tf;
 }

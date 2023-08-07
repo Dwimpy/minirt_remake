@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   normalize.c                                        :+:      :+:    :+:   */
+/*   tf_orientation_to_rotation.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 18:53:40 by arobu             #+#    #+#             */
-/*   Updated: 2023/07/30 18:53:40 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/07 19:39:34 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/07 19:39:34 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "matrix.h"
+#include "quaternion.h"
+#include "transform.h"
 #include "tuple.h"
 
-inline t_tuple	tuple_normalize(t_tuple v)
+t_transform	tf_shape_to_orientation(t_tuple to)
 {
-	t_real	len;
+	t_transform		tf;
+	t_quaternion	q;
 
-	len = tuple_magnitude(v);
-	if (is_approx_equal(len, 0, M_EPSILON))
-		return (tuple_vector_zero());
-	return ((t_tuple){v.x / len, v.y / len, v.z / len, v.w / len});
+	to.z *= -1;
+	q = quat_rot_from_to(tuple_new_vector(0, 1, 0), to);
+	tf.tf = quat_to_matrix(q);
+	tf.inv_tf = matrix_inverse(tf.tf);
+	tf.tf_transpose = matrix_transpose(tf.tf);
+	tf.inv_tf_transpose = matrix_transpose(tf.inv_tf);
+	return (tf);
 }

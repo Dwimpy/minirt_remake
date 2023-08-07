@@ -12,8 +12,9 @@
 
 #ifndef INTERSECT_H
 # define INTERSECT_H
-#include "tuple.h"
 # define MAX_INTERSECTIONS_PER_OBJECT 10
+
+# include "tuple.h"
 # include "vector.h"
 # include "ray.h"
 # include <stdbool.h>
@@ -37,7 +38,7 @@ typedef struct s_computations
 	t_tuple		point;
 	t_tuple		normal;
 	t_tuple		eye;
-	t_shape 	*shape;
+	t_shape		*shape;
 	t_vector	intersections;
 	t_vector	shadow_intersections;
 	t_tuple		over_point;
@@ -54,7 +55,7 @@ typedef struct s_intersect
 typedef struct s_intersections
 {
 	size_t		count;
-	t_intersect buffer[MAX_INTERSECTIONS_PER_OBJECT];
+	t_intersect	buffer[MAX_INTERSECTIONS_PER_OBJECT];
 }				t_intersections;
 
 void	intersect_world(t_vector *world, t_ray ray, t_vector *intersections);

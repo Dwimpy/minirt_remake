@@ -15,6 +15,7 @@
 #include "transform.h"
 # include "tuple.h"
 # include "ray.h"
+# include "onb.h"
 # include <stdint.h>
 
 typedef struct s_camera
@@ -27,6 +28,7 @@ typedef struct s_camera
 	double		half_height;
 	double		half_view;
 	double		pixel_size;
+	t_onb		onb;
 	t_transform	tf;
 }				t_camera;
 

@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_set.c                                          :+:      :+:    :+:   */
+/*   plane_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:36:18 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 16:36:18 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/07 19:08:26 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/07 19:08:26 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "plane.h"
 
-inline void	ray_set(t_ray *ray, t_tuple origin, t_tuple direction)
+void	plane_print(t_shape *shape)
 {
-	ray->origin = origin;
-	ray->direction = direction;
+	t_plane	*plane;
+
+	plane = shape_get_data(shape);
+	printf("Plane: \n");
+	tuple_print(matrix_multiply_tuple(shape->transform.tf, plane->origin));
+	tuple_print(matrix_multiply_tuple(shape->transform.tf, plane->normal));
+	printf("----------------------\n");
 }

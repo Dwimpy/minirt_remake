@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_set.c                                          :+:      :+:    :+:   */
+/*   shape_get_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 16:36:18 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 16:36:18 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/07 15:35:07 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/07 15:35:07 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "shape.h"
 
-inline void	ray_set(t_ray *ray, t_tuple origin, t_tuple direction)
+inline void	*shape_get_data(const t_shape *shape)
 {
-	ray->origin = origin;
-	ray->direction = direction;
+	return (shape->data);
 }
