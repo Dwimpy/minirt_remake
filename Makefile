@@ -6,7 +6,7 @@
 #    By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/21 14:38:01 by arobu             #+#    #+#              #
-#    Updated: 2023/07/30 16:58:51 by arobu            ###   ########.fr        #
+#    Updated: 2023/08/08 04:00:27 by arobu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,13 +54,13 @@ NORM_INCLUDE	= ./include
 
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
-CFLAGS		=  #-march=nocona
-ASAN		= -fsanitize=address #-g3
+CFLAGS		=  -march=native
+ASAN		= #-fsanitize=leak #-g3
 CFLAGS		=  -Ofast# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
-FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
-LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
-LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
-#LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
+#FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
+#LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
+#LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
+LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
 
 #Archive and Remove
 RM			= rm -f

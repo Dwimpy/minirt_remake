@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 18:49:17 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/07 18:58:54 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/08 03:43:28 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_shape	shape_new_plane(void)
 	plane->origin = tuple_new_point(0, 0, 0);
 	plane->normal = tuple_new_vector(0, 1, 0);
 	shape.data = plane;
-	shape.transform.tf = matrix_identity();
 	shape.transform.inv_tf = matrix_identity();
 	shape.transform.tf_transpose = matrix_identity();
 	shape.transform.inv_tf_transpose = matrix_identity();

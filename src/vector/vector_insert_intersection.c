@@ -6,13 +6,12 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:47:32 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/05 16:47:32 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/08 02:57:24 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "vector.h"
-#include <sys/_types/_size_t.h>
 
 void	vector_pushback_intersect(t_vector *vector, t_real t, t_shape *shape) {
 	size_t			idx;

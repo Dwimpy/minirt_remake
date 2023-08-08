@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/07/30 17:15:29 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/08 03:59:55 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int main(void) {
 	sph1 = shape_new_sphere(5.0);
 	floor = shape_new_sphere(5.0);
 	plane = shape_new_plane();
-//	run_tests();
+	// run_tests();
 	sph1.material = default_material(color_new(0.8, 1, 0.6));
 	sph1.material.diffuse = 0.7;
 	sph1.material.specular = 0.2;
@@ -222,7 +222,6 @@ int main(void) {
 	floor.material.specular = 0;
 	plane.material = default_material(color_new(0.5, 0.2, 1));
 	plane.material.specular = 0;
-	plane_print(&plane);
 	light.origin = tuple_new_point(-10.0, 10, -10.0);
 	light.intensity = color_new(1, 1, 1);
 	world = vector_init(25, sizeof(t_shape));
@@ -252,10 +251,17 @@ int main(void) {
 	printf("fun() took %f seconds to execute \n", time_taken);
 //	sphere_test(canvas);
 //	inside_sphere_test();
+	window_draw_loop(window.mlx);
 	tf_free(camera.tf);
+	free(sph1.data);
+	free(floor.data);
+	free(plane.data);
+	tf_free(sph1.transform);
+	tf_free(floor.transform);
+	tf_free(plane.transform);
+	vector_free(&comps.shadow_intersections);
 	vector_free(&comps.intersections);
 	vector_free(&world);
-	window_draw_loop(window.mlx);
 //	system("leaks minirt");
 	return (0);
 }

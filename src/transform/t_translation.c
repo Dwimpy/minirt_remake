@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:17:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/02 18:17:09 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/08 03:47:15 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 inline t_transform tf_translate(double x, double y, double z) {
 	t_transform transform;
 
-	transform.tf = matrix_identity();
+	transform = tf_new();
 	matrix_set(transform.tf, 0, 3, x);
 	matrix_set(transform.tf, 1, 3, y);
 	matrix_set(transform.tf, 2, 3, z);
