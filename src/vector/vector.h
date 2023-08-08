@@ -12,24 +12,24 @@
 
 #ifndef VECTOR_H
 # define VECTOR_H
-
-#define VECTOR_IDX_OUT_OF_BOUNDS "Index being accessed is out of bounds.\n"
-#define VECTOR_RESIZE_FAILED "Vector resize buffer memory allocation failed.\n"
-#define VECTOR_ADD_INTERSECTION_NULL "vector"
+# define VECTOR_IDX_OUT_OF_BOUNDS "Index being accessed is out of bounds.\n"
+# define VECTOR_RESIZE_FAILED "Vector resize buffer memory allocation failed.\n"
+# define VECTOR_ADD_INTERSECTION_NULL "vector"
 
 # include <stdlib.h>
+# include <sys/_types/_size_t.h>
 # include <stdbool.h>
 # include "libft.h"
 //# include "vector_iterator.h"
 
 typedef struct s_vector_iterator	t_vector_iterator;
 typedef struct s_shape				t_shape;
-typedef double 						t_real;
+typedef double						t_real;
 
 typedef struct s_vector
 {
 	void		*buffer;
-	size_t 		size;
+	size_t		size;
 	size_t		item_size;
 	size_t		capacity;
 }				t_vector;
@@ -54,8 +54,10 @@ int			vector_resize(t_vector *vector);
 size_t		vector_binary_search(t_vector *vector, t_real t);
 void		vector_clear(t_vector *vector);
 void		vector_free(t_vector *vector);
+void		vector_remove_front(t_vector *vector);
+bool		vector_is_empty(t_vector *vector);
 
 
-void 	vector_iterator_begin(t_vector_iterator *it, t_vector *vector);
-void 	vector_iterator_end(t_vector_iterator *it, t_vector *vector);
+void		vector_iterator_begin(t_vector_iterator *it, t_vector *vector);
+void		vector_iterator_end(t_vector_iterator *it, t_vector *vector);
 #endif

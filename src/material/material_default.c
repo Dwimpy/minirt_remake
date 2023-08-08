@@ -12,7 +12,7 @@
 
 #include "material.h"
 
-t_material	default_material(t_color color)
+t_material	material_default(t_color color)
 {
 	t_material material;
 
@@ -20,7 +20,9 @@ t_material	default_material(t_color color)
 	material.diffuse = 0.9;
 	material.specular = 0.9;
 	material.shininess = 200;
-	material.emission = 0.0;
+	material.reflectivity = 0.0;
+	material.refractive_index = 1.0;
+	material.transparency = 0.0;
 	material.color = color;
 	return (material);
 }

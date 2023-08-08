@@ -21,6 +21,7 @@
 # include "intersect.h"
 # include "material.h"
 
+static int id = 0;
 
 typedef struct s_shape	t_shape;
 
@@ -34,6 +35,7 @@ typedef struct s_shape_vtable
 
 typedef struct s_shape
 {
+	int				id;
 	t_shape_vtable	vtable;
 	t_transform		transform;
 	void			*data;

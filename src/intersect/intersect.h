@@ -13,6 +13,7 @@
 #ifndef INTERSECT_H
 # define INTERSECT_H
 # define MAX_INTERSECTIONS_PER_OBJECT 10
+# define MAX_DEPTH 4
 
 # include "tuple.h"
 # include "vector.h"
@@ -41,7 +42,12 @@ typedef struct s_computations
 	t_shape		*shape;
 	t_vector	intersections;
 	t_vector	shadow_intersections;
+	t_vector	ref_index_tracker;
 	t_tuple		over_point;
+	t_tuple		under_point;
+	t_tuple		reflected_dir;
+	t_real		n1;
+	t_real		n2;
 	bool		inside;
 	bool		is_shadowed;
 }				t_computations;
@@ -59,11 +65,14 @@ typedef struct s_intersections
 }				t_intersections;
 
 void	intersect_world(t_vector *world, t_ray ray, t_vector *intersections);
+t_intersect	intersection(t_real t, t_shape *shape);
 void	intersect_set_normal(t_computations *comps);
 bool	intersect_hit(t_ray *ray, t_computations *comps);
 bool	intersect_shadow_hit(t_ray *ray, t_computations *comps, const t_real *distance);
 bool	intersect_compute(t_intersect *intersect, t_ray *ray, t_computations *comps);
 bool	intersect_is_shadowed(t_vector *world, t_light *light, t_computations *comps);
-t_color	intersect_shade_hit(t_vector *world, t_light *light, t_computations *comps);
-t_color	intersect_color_at(t_vector *world, t_ray ray, t_computations *comps, t_light *light);
+t_color	intersect_shade_hit(t_vector *world, t_light *light, t_computations *comps, int depth);
+t_color	intersect_color_at(t_vector *world, t_ray ray, t_computations *comps, t_light *light, int depth);
+t_color	intersect_reflected_color(t_vector *world, t_computations *comps, t_light *light, int depth);
+t_color	intersect_refracted_color(t_vector *world, t_computations *comps, t_light *light, int depth);
 #endif

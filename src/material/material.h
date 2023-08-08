@@ -12,7 +12,7 @@
 
 #ifndef MATERIAL_H
 # define MATERIAL_H
-#include "color.h"
+# include "color.h"
 # include "tuple.h"
 
 typedef struct s_material
@@ -21,10 +21,14 @@ typedef struct s_material
 	t_real		diffuse;
 	t_real		specular;
 	t_real		shininess;
-	t_real		emission;
+	t_real		reflectivity;
+	t_real		refractive_index;
+	t_real		transparency;
+	t_real		n1;
+	t_real		n2;
 	t_color		color;
 }				t_material;
 
-t_material	default_material(t_color color);
-
+t_material	material_default(t_color color);
+t_material	material_glass(t_color color);
 #endif

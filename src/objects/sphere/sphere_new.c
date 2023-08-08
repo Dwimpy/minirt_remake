@@ -27,11 +27,13 @@ t_shape	shape_new_sphere(t_real radius)
 	sphere->origin = tuple_new_point(0, 0, 0);
 	sphere->radius = radius;
 	shape.data = sphere;
+	shape.id = id;
 	shape.transform.inv_tf = matrix_identity();
 	shape.transform.tf_transpose = matrix_identity();
 	shape.transform.inv_tf_transpose = matrix_identity();
 	shape.vtable.print = sphere_print;
 	shape.vtable.intersect = sphere_intersect;
 	shape.vtable.normal_at = sphere_normal_at;
+	id++;
 	return (shape);
 }
