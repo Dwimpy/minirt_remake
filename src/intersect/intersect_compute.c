@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 19:30:00 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/08 18:53:16 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/09 05:24:24 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	handle_refractive_index(t_computations *comps);
 
 bool intersect_compute(t_intersect *intersect, t_ray *ray, t_computations *comps)
 {
+	comps->point = ray_at(*ray, intersect->t);
 	comps->normal = \
 		intersect->obj->vtable.normal_at(intersect->obj, comps->point);
 	comps->shape = intersect->obj;

@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:46:31 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/06 14:46:31 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/09 05:25:28 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_color	intersect_color_at(\
 	t_color	color;
 
 	color = color_new(0, 0, 0);
+	vector_clear(&comps->intersections);
 	intersect_world(world, ray, &comps->intersections);
 	comps->is_shadowed = false;
-	tuple_print(ray.origin);
 	if (intersect_hit(&ray, comps))
 		return (intersect_shade_hit(world, light, comps, depth));
 	return (color);

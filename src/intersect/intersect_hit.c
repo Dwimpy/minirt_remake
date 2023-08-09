@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 20:00:52 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/03 20:00:52 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/09 05:24:17 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	intersect_hit(t_ray *ray, t_computations *comps)
 		intersect = it.get(&it);
 		if (intersect->t > 0)
 		{
-			comps->point = ray_at(*ray, intersect->t);
+
 			return (intersect_compute(intersect, ray, comps));
 		}
 		it.next(&it);

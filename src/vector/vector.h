@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 20:07:43 by arobu             #+#    #+#             */
-/*   Updated: 2023/07/31 20:07:43 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/09 05:02:25 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define VECTOR_ADD_INTERSECTION_NULL "vector"
 
 # include <stdlib.h>
-# include <sys/_types/_size_t.h>
 # include <stdbool.h>
 # include "libft.h"
 //# include "vector_iterator.h"

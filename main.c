@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/08 03:59:55 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/09 05:47:01 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,27 +221,31 @@ void rt_tester(t_image canvas)
 	sph2 = shape_new_sphere(5.0);
 	floor = shape_new_plane();
 	// run_tests();
-	sph1.material = material_glass(color_new(0.5, 0.2, 0.7));
-	floor.material = material_default(color_new(0.5, 0.2, 1));
+	sph1.material = material_glass(color_new(0.0, 0.0, 0.0));
+	floor.material = material_default(color_new(0.2, 0.2, 0.3));
 	sph2.material = material_default(color_new(1, 0, 0.5));
 	shape_set_transform(&sph2, tf_translate(0, 5, 5));
-	sph2.material.specular = 1;
-	sph2.material.shininess = 300;
-	floor.material.specular = 0;
+	sph1.material.ambient = 1.0;
+	sph1.material.diffuse = 0.1;
+	sph1.material.specular = 0.2;
+	sph2.material.specular = 0.0;
+	sph2.material.shininess = 200;
+	floor.material.specular = 0.1;
 	floor.material.transparency = 0.0;
-	floor.material.reflectivity = 0.1;
+	floor.material.reflectivity = 0.05;
 	floor.material.refractive_index = 1.5;
 	floor.material.ambient = 0.2;
-	floor.material.diffuse = 0.02;
-	light.origin = tuple_new_point(-10.0, 10, -10.0);
+	floor.material.diffuse = 0.05;
+	light.origin = tuple_new_point(0.0, 1, -40.0);
 	light.intensity = color_new(1, 1, 1);
 	world = vector_init(25, sizeof(t_shape));
 	comps.intersections = vector_init(25, sizeof(t_intersect));
 	comps.shadow_intersections = vector_init(25, sizeof(t_intersect));
 	comps.ref_index_tracker = vector_init(4, sizeof(t_shape));
 	camera = camera_new(canvas.width, canvas.height, M_PI_2);
-	camera.tf = camera_view_transform(tuple_new_point(0, 10, -25), tuple_new_point(0.0, 0, 0));
+	camera.tf = camera_view_transform(tuple_new_point(0, 7, -10), tuple_new_point(0.0, 5, 0));
 	shape_set_transform(&sph1, tf_translate(0, 5, 0));
+	shape_set_transform(&sph2, tf_translate(10, 5, 10));
 	clock_t t;
 	t = clock();
 	vector_pushback(&world, &sph1);
@@ -254,7 +258,7 @@ void rt_tester(t_image canvas)
 		while (++i < canvas.width - 1)
 		{
 			ray = camera_get_ray(&camera, i, j);
-			image_set_pixel(canvas, intersect_color_at(&world, ray, &comps, &light, MAX_DEPTH), i, j);
+			image_set_pixel(canvas, intersect_color_at(&world, ray, &comps, &light,MAX_DEPTH), i, j);
 			vector_clear(&comps.intersections);
 			vector_clear(&comps.shadow_intersections);
 			vector_clear(&comps.ref_index_tracker);
@@ -313,6 +317,7 @@ void reflect_test()
 	shape->material.ambient = 1;
 	plane.material.reflectivity = 0.5;
 	i = intersection(sqrt(2), &plane);
+	i.obj = &plane;
 	shape_set_transform(&plane, tf_translate(0, -2, 0));
 	vector_pushback(&world.objs, &plane);
 	comps.intersections = vector_init(25, sizeof(t_intersect));
@@ -321,7 +326,7 @@ void reflect_test()
 	vector_pushback(&comps.intersections, &i);
 	intersect_compute(&i, &ray, &comps);
 	tuple_print(comps.reflected_dir);
-	tuple_print(intersect_reflected_color(&world.objs, &comps, &world.light, 5));
+	tuple_print(intersect_reflected_color(&world.objs, &comps, &world.light, 2));
 }
 
 
@@ -330,14 +335,14 @@ int main(void) {
 	t_image		canvas;
 	t_shape		plane;
 
-	window_create(&window, 600, 600);
+	window_create(&window, 1920, 1080);
 	window_add_image(window.mlx, &canvas);
 
 
 //	sphere_test(canvas);
-//	inside_sphere_test();
-//	rt_tester(canvas);
-	reflect_test();
+	// inside_sphere_test();
+	rt_tester(canvas);
+	// reflect_test();
 	window_draw_loop(window.mlx);
 //	system("leaks minirt");
 	return (0);

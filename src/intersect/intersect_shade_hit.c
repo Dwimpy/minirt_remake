@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:59:36 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/06 14:59:36 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/09 05:12:29 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ t_color	intersect_shade_hit(\
 	intersect_is_shadowed(world, light, comps);
 	surface = light_lightning(light, comps);
 	reflected = intersect_reflected_color(world, comps, light, depth);
-	refracted = color_new(0, 0, 0);
-//	refracted = intersect_refracted_color(world, comps, light, depth);
-//	if (material.reflectivity > 0 && material.transparency > 0)
-//	{
-//		reflectance = shlick_method(comps);
-//		return (color_add(\
-//				color_add(surface, \
-//					color_multiply_s(reflected, reflectance)), \
-//						color_multiply_s(refracted, 1 - reflectance)));
-//	}
+	refracted = intersect_refracted_color(world, comps, light, depth);
+	if (material.reflectivity > 0 && material.transparency > 0)
+	{
+		reflectance = shlick_method(comps);
+		return (color_add(\
+				color_add(surface, \
+					color_multiply_s(reflected, reflectance)), \
+						color_multiply_s(refracted, 1 - reflectance)));
+	}
 	return (color_add(color_add(\
 		surface, \
 		reflected), \
