@@ -30,7 +30,7 @@ t_color light_lightning(t_light *light, t_computations *comps) {
 
 	material = comps->shape->material;
 	e_color = color_multiply(material.color, light->intensity);
-	light_v = tuple_normalize(tuple_subtract(light->origin, comps->point));
+	light_v = tuple_normalize(tuple_subtract(light->origin, comps->over_point));
 	light_dot = tuple_dot(light_v, comps->normal);
 	ambient = color_multiply_s(e_color, material.ambient);
 	if (comps->is_shadowed)
