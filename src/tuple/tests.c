@@ -15,77 +15,111 @@
 
 void	tuple_tests(void)
 {
-	t_tuple v = {1.0, 5.0, 10.0};
-	t_tuple v1 = {1.0, 2.0, 3.0};
-	t_tuple v2 = {4.0, 5.0, 6.0};
-	double min = 2.0;
-	double max = 8.0;
+	t_tuple	a;
+	t_tuple norm;
+	t_tuple	cross;
+	double	mag;
+	double	dot;
 
+	a = tuple_new_point(4.3, -4.2, 3.1);
+	assert(a.w == 1);
 
-	// Test tuple_vector_zero()
-	t_tuple zero = tuple_vector_zero();
-	assert(tuple_equal_s(zero, 0.0));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_vector_zero()\n");
+	a = tuple_new_vector(4.3, -4.2, 3.1);
+	assert(a.w == 0);
 
-	// Test tuple_add()
-	t_tuple sum = tuple_add(v1, v2);
-	assert(tuple_equal(sum, (t_tuple) {5.0, 7.0, 9.0}));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_add()\n");
+	a = tuple_subtract(tuple_new_point(3, 2 , 1), tuple_new_point(5, 6, 7));
+	assert(a.w == 0);
+	assert(a.x == -2);
+	assert(a.y == -4);
+	assert(a.z == -6);
 
-	// Test tuple_subtract()
-	t_tuple diff = tuple_subtract(v1, v2);
-	assert(tuple_equal(diff, (t_tuple) {-3.0, -3.0, -3.0}));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_subtract()\n");
+	a = tuple_subtract(tuple_new_point(3, 2 , 1), tuple_new_vector(5, 6, 7));
+	assert(a.w == 1);
+	assert(a.x == -2);
+	assert(a.y == -4);
+	assert(a.z == -6);
 
-	// Test tuple_multiply_s()
-	t_real scalar = 2.0;
-	t_tuple scaled = tuple_multiply_s(v1, scalar);
-	assert(tuple_equal(scaled, (t_tuple) {2.0, 4.0, 6.0}));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_multiply_s()\n");
+		a = tuple_subtract(tuple_new_vector(3, 2 , 1), tuple_new_vector(5, 6, 7));
+	assert(a.w == 0);
+	assert(a.x == -2);
+	assert(a.y == -4);
+	assert(a.z == -6);
 
-	// Test tuple_division_s()
-	t_real divisor = 3.0;
-	t_tuple divided = tuple_division_s(v1, divisor);
-	assert(tuple_equal(divided, (t_tuple) {0.333333, 0.666667, 1.000000}));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_division_s()\n");
+	a = tuple_subtract(tuple_vector_zero(), tuple_new_vector(1, -2, 3));
+	assert(a.w == 0);
+	assert(a.x == -1);
+	assert(a.y == 2);
+	assert(a.z == -3);
 
-	// Test tuple_division()
-	t_tuple v3 = {2.0, 4.0, 8.0};
-	t_tuple result = tuple_division(v3, v1);
-	assert(tuple_equal(result, (t_tuple) {2.0, 2.0, 2.666667}));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_division()\n");
+	a = tuple_negate(tuple_new_point(1, -2, 3));
+	assert(a.w == -1);
+	assert(a.x == -1);
+	assert(a.y == 2);
+	assert(a.z == -3);
 
-	// Test tuple_negate()
-	t_tuple neg_v1 = tuple_negate(v1);
-	assert(tuple_equal(neg_v1, (t_tuple) {-1.0, -2.0, -3.0}));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_negate()\n");
+	a = tuple_multiply_s(tuple_new_point(1, -2, 3), 3.5);
+	assert(a.w == 3.5);
+	assert(a.x == 3.5);
+	assert(a.y == -7);
+	assert(a.z == 10.5);
 
-	// Test tuple_dot()
-	t_real dot_product = tuple_dot(v1, v2);
-	assert(dot_product == 32.0);
-	printf("\033[1;92mTest passed\033[0;39m: tuple_dot()\n");
+	a = tuple_multiply_s(tuple_new_point(1, -2, 3), 0.5);
+	assert(a.w == 0.5);
+	assert(a.x == 0.5);
+	assert(a.y == -1);
+	assert(a.z == 1.5);
 
-	// Test tuple_magnitude()
-	t_real magnitude_v1 = tuple_magnitude(v1);
-	assert(is_approx_equal(magnitude_v1, 3.74165738, M_EPSILON));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_magnitude()\n");
+	a = tuple_division_s(tuple_new_point(1, -2, 3), 2);
+	assert(a.w == 0.5);
+	assert(a.x == 0.5);
+	assert(a.y == -1);
+	assert(a.z == 1.5);
 
-	// Test clamp()
-	t_real res = clamp(3.5, min, max);
-	assert(is_approx_equal(res, 3.5, M_EPSILON));
-	printf("\033[1;92mTest passed\033[0;39m: clamp()\n");
+	mag = tuple_magnitude(tuple_new_vector(0, 1, 0));
+	assert(mag == 1);
 
-	// Test tuple_clamp()
-	t_tuple clamped = tuple_clamp(v, min, max);
-	assert(is_approx_equal(clamped.x, 2.0, M_EPSILON));
-	assert(is_approx_equal(clamped.y, 5.0, M_EPSILON));
-	assert(is_approx_equal(clamped.z, 8.0, M_EPSILON));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_clamp()\n");
+	mag = tuple_magnitude(tuple_new_vector(0, 0, 1));
+	assert(mag == 1);
 
-	// Test tuple_cross()
-	t_tuple cross_product = tuple_cross(v1, v2);
-	t_tuple expected_result = {-3.0, 6.0, -3.0};
-	assert(tuple_equal(cross_product, expected_result));
-	printf("\033[1;92mTest passed\033[0;39m: tuple_cross()\n");
+	mag = tuple_magnitude(tuple_new_vector(1, 2, 3));
+	assert(mag == sqrt(14));
 
+	mag = tuple_magnitude(tuple_new_vector(-1, -2, -3));
+	assert(mag == sqrt(14));
+
+	norm = tuple_normalize(tuple_new_vector(4, 0, 0));
+	assert(norm.x == 1);
+	assert(norm.y == 0);
+	assert(norm.z == 0);
+
+	norm = tuple_normalize(tuple_new_vector(1, 2, 3));
+	assert(is_approx_equal(norm.x, 0.26726, M_EPSILON));
+	assert(is_approx_equal(norm.y, 0.53452, M_EPSILON));
+	assert(is_approx_equal(norm.z, 0.80178, M_EPSILON));
+
+	mag = tuple_magnitude(norm);
+	assert(mag == 1);
+
+	dot = tuple_dot(tuple_new_vector(1, 2, 3), tuple_new_vector(2, 3, 4));
+	assert(dot == 20);
+
+	cross = tuple_cross(tuple_new_vector(1, 2, 3), tuple_new_vector(2, 3, 4));
+	assert(cross.x == -1);
+	assert(cross.y == 2);
+	assert(cross.z == -1);
+
+	cross = tuple_cross(tuple_new_vector(2, 3, 4), tuple_new_vector(1, 2, 3));
+	assert(cross.x == 1);
+	assert(cross.y == -2);
+	assert(cross.z == 1);
+
+	a = tuple_reflect(tuple_new_vector(1, -1, 0), tuple_new_vector(0, 1, 0));
+	assert(is_approx_equal(a.x, 1, M_EPSILON));
+	assert(is_approx_equal(a.y, 1, M_EPSILON));
+	assert(is_approx_equal(a.z, 0, M_EPSILON));
+
+	a = tuple_reflect(tuple_new_vector(0, -1, 0), tuple_new_vector(sqrt(2) / 2, sqrt(2) / 2, 0));
+	assert(is_approx_equal(a.x, 1, M_EPSILON));
+	assert(is_approx_equal(a.y, 0, M_EPSILON));
+	assert(is_approx_equal(a.z, 0, M_EPSILON));
 }

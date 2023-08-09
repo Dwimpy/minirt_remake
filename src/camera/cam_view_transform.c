@@ -18,7 +18,7 @@
 
 static void	camera_vt_set_elements(t_transform *tf, t_tuple left, t_tuple up, t_tuple forward);
 
-t_transform	camera_view_transform(t_tuple from, t_tuple to)
+t_transform	camera_view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
 	t_onb		onb;
 	t_transform	view_transform;
@@ -26,9 +26,11 @@ t_transform	camera_view_transform(t_tuple from, t_tuple to)
 	double		**ptr;
 
 	view_transform = tf_new();
-	onb = onb_init_from_wv(tuple_subtract(to, from), tuple_new_point(0, 1, 0));
+	onb.forward = tuple_normalize(tuple_subtract(to, from));
+	onb.left = tuple_cross(onb.forward, tuple_normalize(up));
+	onb.up = tuple_cross(onb.left, onb.forward);
 	translate = tf_translate(-from.x, -from.y, -from.z);
-	camera_vt_set_elements(&view_transform, tuple_negate(onb.u), onb.v, onb.w);
+	camera_vt_set_elements(&view_transform, onb.left, onb.up, onb.forward);
 	ptr = view_transform.tf.data;
 	view_transform.tf = matrix_multiply(view_transform.tf, translate.tf);
 	view_transform.inv_tf = matrix_inverse(view_transform.tf);

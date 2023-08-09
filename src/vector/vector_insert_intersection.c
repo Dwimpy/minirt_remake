@@ -27,9 +27,8 @@ void	vector_pushback_intersect(t_vector *vector, t_real t, t_shape *shape) {
 	idx = vector_binary_search(vector, t);
 	buffer = vector_at(vector, idx);
 	byte_shift = (vector->size - idx) * vector->item_size;
-	if (byte_shift > 0) {
+	if (byte_shift > 0)
 		ft_memmove(buffer + vector->item_size, buffer, byte_shift);
-	}
 	ft_memcpy(buffer, &t, sizeof(double));
 	ft_memcpy(buffer + sizeof(double), &shape, sizeof(t_shape *));
 	vector->size++;

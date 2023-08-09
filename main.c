@@ -35,10 +35,21 @@ int main(void) {
 	t_image		canvas;
 	t_shape		plane;
 
-	window_create(&window, 1920, 1080);
-	window_add_image(window.mlx, &canvas);
-
-
-	window_draw_loop(window.mlx);
+//	tuple_tests();
+//	matrix_tests();
+//	transform_tests();
+//	ray_tests();
+//	sphere_tests();
+//	scene_test_isect_world();
+//	scene_test_isect_computations();
+//	scene_test_normal_face();
+//	scene_test_shade_hit();
+//	scene_test_color_at();
+	camera_tests();
+//	window_create(&window, 1920, 1080);
+//	window_add_image(window.mlx, &canvas);
+//
+//
+//	window_draw_loop(window.mlx);
 	return (0);
 }

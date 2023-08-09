@@ -25,7 +25,7 @@
 #include "libft.h"
 #include "stdbool.h"
 #include "stdio.h"
-
+#include <assert.h>
 
 typedef struct s_matrix
 {
@@ -44,6 +44,7 @@ void		matrix_set(t_matrix mtx, size_t row, size_t column, double value);
 double		matrix_get(t_matrix mtx, size_t row, size_t column);
 bool		matrix_equal(t_matrix m1, t_matrix m2);
 void		matrix_print(t_matrix m);
+void		matrix_tests(void);
 void		matrix_free(t_matrix m);
 
 #endif

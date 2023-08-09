@@ -38,7 +38,7 @@ t_transform	tf_shape_to_orientation(t_tuple to);
 
 double		tf_rad_to_deg(double deg);
 double		tf_deg_to_rad(double rad);
-
+void		transform_tests();
 void		tf_free(t_transform tf);
 
 #endif

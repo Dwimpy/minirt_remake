@@ -6,11 +6,12 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:45:24 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/06 15:45:24 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/09 21:56:35 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
+#include "transform.h"
 
 t_camera	camera_new(uint32_t width, uint32_t height, double fov)
 {
@@ -18,7 +19,7 @@ t_camera	camera_new(uint32_t width, uint32_t height, double fov)
 
 	cam.width = width;
 	cam.height = height;
-	cam.fov = fov;
+	cam.fov = tf_deg_to_rad(fov);
 	cam.half_view = tan(cam.fov / 2.0);
 	cam.aspect_ratio = (double) cam.width / (double) cam.height;
 	if (is_approx_equal(\
@@ -32,6 +33,10 @@ t_camera	camera_new(uint32_t width, uint32_t height, double fov)
 		cam.half_width = cam.half_view * cam.aspect_ratio;
 		cam.half_height = cam.half_view;
 	}
+	cam.tf = tf_new();
+	cam.tf.inv_tf = matrix_identity();
+	cam.tf.tf_transpose = matrix_identity();
+	cam.tf.inv_tf_transpose = matrix_identity();
 	cam.pixel_size = (cam.half_width * 2.0) / (double)cam.width;
 	return (cam);
 }
