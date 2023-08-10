@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_color_at.c                                       :+:      :+:    :+:   */
+/*   vector_remove_element_if.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 21:21:24 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/09 21:21:24 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/10 19:54:10 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/10 19:54:10 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "color.h"
-#include "intersect.h"
-#include "scene.h"
 #include "vector.h"
-
-t_color	intersect_color_at(t_scene *world, t_ray *ray, int depth)
+#include "stdio.h"
+bool	vector_remove_element_if(t_vector *vector, t_vector_comparator compare, void	*data)
 {
-	t_intersect	*i;
+	size_t	i;
 
-	vector_clear(&world->intersections);
-	intersect_world(world, ray);
-	i = intersect_hit(&world->intersections);
-	if (i)
+	i = 0;
+	if (!data)
+		return (false);
+	while (i < vector->size)
 	{
-		intersect_compute(i, ray, &world->comps, NULL);
-		return (intersect_shade_hit(world, &world->comps, depth));
+		if (compare(vector->buffer + i * vector->item_size, data))
+		{
+			vector_remove_index(vector, i);
+			return (true);
+		}
+		else
+			i++;
 	}
-	return (color_new(0, 0, 0));
+	return (false);
 }

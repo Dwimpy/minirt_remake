@@ -12,9 +12,9 @@
 
 #include "vector.h"
 
-inline bool vector_pushback(t_vector *vector, void *data) {
+inline bool	vector_pushback(t_vector *vector, void *data)
+{
 	void	*buf;
-	int 	resized;
 
 	if (vector_resize(vector) == 2)
 		return (false);

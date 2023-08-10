@@ -13,10 +13,13 @@
 #include "intersect.h"
 #include "shape.h"
 #include "tuple.h"
+#include "vector.h"
+#include "shape.h"
 
 inline static void	intersect_set_normal(t_computations *comps);
+inline static void	handle_refraction_index(t_computations *comps, t_intersect *i, t_vector *isect);
 
-void	intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps)
+void	intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps, t_vector	*intersections)
 {
 	comps->t = i->t;
 	comps->shape = i->obj;
@@ -25,8 +28,51 @@ void	intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps)
 	comps->normal = comps->shape->vtable.normal_at(comps->shape, comps->point);
 	intersect_set_normal(comps);
 	comps->over_point = tuple_add(comps->point, tuple_multiply_s(comps->normal, M_EPSILON));
+	comps->under_point = tuple_subtract(comps->point, tuple_multiply_s(comps->normal, M_EPSILON));
 	comps->reflected_dir = tuple_reflect(ray->direction, comps->normal);
+	handle_refraction_index(comps, i, intersections);
 }
+
+inline static void	handle_refraction_index(t_computations *comps, t_intersect *i, t_vector *isect)
+{
+	size_t		idx;
+	t_vector	vector;
+	t_intersect	*intersect;
+	t_shape		**shape;
+
+	idx = 0;
+	if (!isect)
+		return ;
+	vector_clear(&comps->ref_index_tracker);
+	while (idx < isect->size)
+	{
+		intersect = vector_at(isect, idx);
+		if (intersect->t == i->t)
+		{
+			if (comps->ref_index_tracker.size == 0)
+				comps->n1 = 1.0;
+			else
+			{
+				shape = (t_shape **)vector_back(&comps->ref_index_tracker);
+				comps->n1 = (*shape)->material.refractive_index;
+			}
+		}
+		if (!vector_remove_element_if(&comps->ref_index_tracker, vector_comparator_shape, &intersect->obj))
+			vector_pushback(&comps->ref_index_tracker, &intersect->obj);
+		if (intersect->t == i->t)
+		{
+			if (comps->ref_index_tracker.size == 0)
+				comps->n2 = 1.0;
+			else
+			{
+				shape = (t_shape **)vector_back(&comps->ref_index_tracker);
+				comps->n2 = (*shape)->material.refractive_index;
+			}
+			break ;
+		}
+		idx++;
+	}
+};
 
 inline static void	intersect_set_normal(t_computations *comps)
 {

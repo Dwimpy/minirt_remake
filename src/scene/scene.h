@@ -39,5 +39,8 @@ void	scene_test_shadows(void);
 void	scene_test_reflection_vector(void);
 void	scene_test_reflected_color(void);
 void	scene_test_reflected_shade_hit(void);
+void	scene_test_under_point(void);
+void	scene_test_opaque_surface(void);
+void	scene_test_refracted_color(void);
 
 #endif

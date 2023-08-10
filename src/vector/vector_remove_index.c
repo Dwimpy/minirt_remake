@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_color_at.c                                       :+:      :+:    :+:   */
+/*   vector_remove_index.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 21:21:24 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/09 21:21:24 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/10 19:41:24 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/10 19:41:24 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "color.h"
-#include "intersect.h"
-#include "scene.h"
 #include "vector.h"
-
-t_color	intersect_color_at(t_scene *world, t_ray *ray, int depth)
+#include "stdio.h"
+void	vector_remove_index(t_vector *vector, size_t index)
 {
-	t_intersect	*i;
+	void	*buffer;
+	size_t	bytes_to_shift;
 
-	vector_clear(&world->intersections);
-	intersect_world(world, ray);
-	i = intersect_hit(&world->intersections);
-	if (i)
-	{
-		intersect_compute(i, ray, &world->comps, NULL);
-		return (intersect_shade_hit(world, &world->comps, depth));
-	}
-	return (color_new(0, 0, 0));
+	if (index > vector->size)
+		return ;
+	buffer = vector_at(vector, index);
+	bytes_to_shift = (vector->size - index - 1) * vector->item_size;
+	if (bytes_to_shift > 0)
+		ft_memmove(buffer, buffer + vector->item_size, bytes_to_shift);
+	vector->size--;
 }

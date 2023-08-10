@@ -24,6 +24,7 @@
 typedef struct s_vector_iterator	t_vector_iterator;
 typedef struct s_shape				t_shape;
 typedef double						t_real;
+typedef bool						(*t_vector_comparator)(void *element, void *data);
 
 typedef struct s_vector
 {
@@ -55,8 +56,13 @@ void		vector_clear(t_vector *vector);
 void		vector_free(t_vector *vector);
 void		vector_remove_front(t_vector *vector);
 bool		vector_is_empty(t_vector *vector);
-
-
+void		vector_remove_index(t_vector *vector, size_t index);
+bool		vector_remove_element_if(t_vector *vector, t_vector_comparator compare, void *data);
 void		vector_iterator_begin(t_vector_iterator *it, t_vector *vector);
 void		vector_iterator_end(t_vector_iterator *it, t_vector *vector);
+
+// Comparator functions
+
+bool		vector_comparator_shape(void *element, void *data);
+
 #endif

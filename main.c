@@ -54,6 +54,9 @@ void	run_reflection_tests(void)
 	scene_test_reflection_vector();
 	scene_test_reflected_color();
 	scene_test_reflected_shade_hit();
+	scene_test_refraction();
+	scene_test_under_point();
+	scene_test_opaque_surface();
 }
 
 int	main(void)
@@ -67,26 +70,26 @@ int	main(void)
 
 //	run_tests();
 	run_reflection_tests();
-	world = scene_default();
-	plane = shape_new_plane();
-	plane.material = material_default(color_new(0.3, 0.6, 0.8));
-	plane.material.reflectivity = 0.1;
-	plane.material.diffuse = 0.05;
-	plane.material.specular = 0.07;
-	plane.material.shininess = 300;
-	plane.material.ambient = 0.05;
-	shape_set_transform(&plane, tf_translate(0, -1, 0));
-	vector_pushback(&world.objs, &plane);
-	camera = camera_new(1920, 1080, 60);
-	camera_set_view_transform(&camera, camera_view_transform(\
-				tuple_new_point(0, 0, -15), \
-					tuple_new_point(0, 0, 0), \
-						tuple_new_vector(0, 1, 0)));
-	window_create(&window, 1920, 1080);
-	window_add_image(window.mlx, &canvas);
-	start = clock();
-	scene_render(&world, &camera, &canvas);
-	printf("Rendering took: [ %f ] seconds", (double)(clock() - start) / CLOCKS_PER_SEC);
-	window_draw_loop(window.mlx);
+//	world = scene_default();
+//	plane = shape_new_plane();
+//	plane.material = material_default(color_new(0.3, 0.6, 0.8));
+//	plane.material.reflectivity = 0.1;
+//	plane.material.diffuse = 0.05;
+//	plane.material.specular = 0.07;
+//	plane.material.shininess = 300;
+//	plane.material.ambient = 0.05;
+//	shape_set_transform(&plane, tf_translate(0, -1, 0));
+//	vector_pushback(&world.objs, &plane);
+//	camera = camera_new(1920, 1080, 60);
+//	camera_set_view_transform(&camera, camera_view_transform(\
+//				tuple_new_point(0, 0, -15), \
+//					tuple_new_point(0, 0, 0), \
+//						tuple_new_vector(0, 1, 0)));
+//	window_create(&window, 1920, 1080);
+//	window_add_image(window.mlx, &canvas);
+//	start = clock();
+//	scene_render(&world, &camera, &canvas);
+//	printf("Rendering took: [ %f ] seconds", (double)(clock() - start) / CLOCKS_PER_SEC);
+//	window_draw_loop(window.mlx);
 	return (0);
 }
