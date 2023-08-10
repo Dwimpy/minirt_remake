@@ -65,9 +65,9 @@ t_intersect	intersection(t_real t, t_shape *shape);
 t_intersect	*intersect_hit(t_vector *intersections);
 void		intersect_compute(t_intersect *intersect, t_ray *ray, t_computations *comps);
 bool		intersect_shadow_hit(t_scene *world, t_tuple *point);
-t_color		intersect_shade_hit(t_scene *world, t_computations *comps);
-t_color		intersect_color_at(t_scene *world, t_ray *ray);
+t_color		intersect_shade_hit(t_scene *world, t_computations *comps, int depth);
+t_color		intersect_color_at(t_scene *world, t_ray *ray, int depth);
+t_color		intersect_reflected_color(t_scene *world, t_computations *comps, int depth);
 
-t_color		intersect_reflected_color(t_vector *world, t_computations *comps, t_light *light, int depth);
 t_color		intersect_refracted_color(t_vector *world, t_computations *comps, t_light *light, int depth);
 #endif

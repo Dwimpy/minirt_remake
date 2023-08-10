@@ -94,6 +94,6 @@ void camera_tests(void)
 					tuple_new_point(0, 0, 0), \
 						tuple_new_vector(0, 1, 0)));
 	ray = camera_get_ray(&camera, 5, 5);
-	color = intersect_color_at(&world, &ray);
+	color = intersect_color_at(&world, &ray, 1);
 	assert(tuple_equal(color, tuple_new_vector(0.38066, 0.47583, 0.2855)));
 }

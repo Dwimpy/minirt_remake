@@ -14,6 +14,7 @@
 #include "intersect.h"
 #include "light.h"
 #include "material.h"
+#include "plane.h"
 #include "ray.h"
 #include "scene.h"
 #include "shape.h"
@@ -23,7 +24,7 @@
 #include "vector.h"
 #include <stdio.h>
 
-t_scene scene_default(void)
+t_scene	scene_default(void)
 {
 	t_scene	world;
 	t_shape	s1;
@@ -140,7 +141,7 @@ void	scene_test_shade_hit(void)
 	shape = vector_at(&world.objs, 0);
 	i = intersection(4, shape);
 	intersect_compute(&i, &ray, &world.comps);
-	color = intersect_shade_hit(&world, &world.comps);
+	color = intersect_shade_hit(&world, &world.comps, 1);
 	assert(is_approx_equal(color.x, 0.38066, M_EPSILON));
 	assert(is_approx_equal(color.y, 0.47582, M_EPSILON));
 	assert(is_approx_equal(color.z, 0.2855, M_EPSILON));
@@ -150,7 +151,7 @@ void	scene_test_shade_hit(void)
 	shape = vector_at(&world.objs, 1);
 	i = intersection(0.5, shape);
 	intersect_compute(&i, &ray, &world.comps);
-	color = intersect_shade_hit(&world, &world.comps);
+	color = intersect_shade_hit(&world, &world.comps, 1);
 	assert(is_approx_equal(color.x, 0.90498, M_EPSILON));
 	assert(is_approx_equal(color.y, 0.90498, M_EPSILON));
 	assert(is_approx_equal(color.z, 0.90498, M_EPSILON));
@@ -170,18 +171,18 @@ void	scene_test_color_at(void)
 	shape->material.ambient = 1;
 	shape = vector_at(&world.objs, 1);
 	shape->material.ambient = 1;
-	color = intersect_color_at(&world, &ray);
+	color = intersect_color_at(&world, &ray, 1);
 	assert(tuple_equal(color, shape->material.color));
 
 	world = scene_default();
 	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 1, 0));
 	vector_clear(&world.intersections);
-	color = intersect_color_at(&world, &ray);
+	color = intersect_color_at(&world, &ray, 1);
 	assert(tuple_equal(color, tuple_new_vector(0, 0, 0)));
 
 	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 0, 1));
 	vector_clear(&world.intersections);
-	color = intersect_color_at(&world, &ray);
+	color = intersect_color_at(&world, &ray, 1);
 
 	assert(tuple_equal(color, tuple_new_vector(0.38066, 0.47583, 0.2855)));
 }
@@ -229,7 +230,7 @@ void	scene_test_shadows(void)
 	intersect_compute(&inter, &ray, &world2.comps);
 	vector_pushback(&world2.intersections, &inter);
 	t_color color;
-	color = intersect_shade_hit(&world2, &world2.comps);
+	color = intersect_shade_hit(&world2, &world2.comps, 1);
 	assert(tuple_equal(color, color_new(0.1, 0.1, 0.1)));
 
 	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 0, 1));
@@ -237,4 +238,124 @@ void	scene_test_shadows(void)
 	intersect_compute(&inter, &ray, &world2.comps);
 	assert(world2.comps.over_point.z < -M_EPSILON / 2);
 	assert(world2.comps.point.z > world2.comps.over_point.z);
+}
+
+void	scene_test_reflection_vector(void)
+{
+	t_shape	plane;
+	t_ray	ray;
+	t_intersect i;
+	t_computations comps;
+	t_scene		world;
+	t_shape 	*shape;
+	t_color 	color;
+
+	plane = shape_new_plane();
+	ray = ray_new(tuple_new_point(0, 1, -1), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
+	i = intersection(sqrt(2) / 2, &plane);
+	intersect_compute(&i, &ray, &comps);
+	assert(tuple_equal(comps.reflected_dir, tuple_new_vector(0, sqrt(2) / 2, sqrt(2) /2 )));
+
+	world = scene_default();
+	ray = ray_new(tuple_new_point(0, 0, 0), tuple_new_vector(0, 0, 1));
+	shape = vector_at(&world.objs, 1);
+	shape->material.ambient = 1;
+	i = intersection(1, shape);
+	intersect_compute(&i, &ray, &world.comps);
+	color = intersect_reflected_color(&world, &comps, 1);
+	assert(tuple_equal(color, color_new(0, 0, 0)));
+}
+
+void	scene_test_reflected_color(void)
+{
+	t_shape	plane;
+	t_ray	ray;
+	t_intersect i;
+	t_computations comps;
+	t_scene		world;
+	t_shape 	*shape;
+	t_color 	color;
+
+	world = scene_default();
+	plane = shape_new_plane();
+	color = color_new(0, 0, 0);
+	shape_set_transform(&plane, tf_translate(0, -1, 0));
+	plane.material = material_default(color_new(1, 1, 1));
+	plane.material.reflectivity = 0.5;
+	ray = ray_new(tuple_new_point(0, 0, -3), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
+	i = intersection(sqrt(2), &plane);
+	vector_pushback(&world.objs, &plane);
+	vector_pushback(&world.intersections, &i);
+	intersect_compute(&i, &ray, &world.comps);
+	color = intersect_reflected_color(&world, &world.comps, 1);
+	assert(tuple_equal_p(color, color_new(0.19032, 0.2379, 0.14274), M_EPSILON * 10));
+}
+
+void	scene_test_reflected_shade_hit(void)
+{
+	t_shape	plane;
+	t_ray	ray;
+	t_intersect i;
+	t_computations comps;
+	t_scene		world;
+	t_shape 	*shape;
+	t_color 	color;
+
+	world = scene_default();
+	plane = shape_new_plane();
+	color = color_new(0, 0, 0);
+	ray = ray_new(tuple_new_point(0, 0, -3), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
+	shape_set_transform(&plane, tf_translate(0, -1, 0));
+	plane.material = material_default(color_new(1, 1, 1));
+	plane.material.reflectivity = 0.5;
+	i = intersection(sqrt(2), &plane);
+	vector_pushback(&world.intersections, &i);
+	vector_pushback(&world.objs, &plane);
+	intersect_compute(&i, &ray, &world.comps);
+	color = intersect_shade_hit(&world, &world.comps, 1);
+//	tuple_print(color);
+	assert(tuple_equal_p(color, color_new(0.87677, 0.92436, 0.82918), M_EPSILON * 10));
+}
+
+void	scene_test_refraction(void)
+{
+	t_shape	gs;
+	t_shape	gs1;
+	t_shape	gs2;
+	t_ray	ray;
+	t_vector	isect;
+	t_intersect	i1;
+	t_intersect	i2;
+	t_intersect	i3;
+	t_intersect	i4;
+	t_intersect	i5;
+	t_intersect	i6;
+
+	gs1 = shape_new_sphere(1.0);
+	gs2 = shape_new_sphere(1.0);
+	gs2 = shape_new_sphere(1.0);
+	gs.material = material_glass();
+	gs1.material = material_glass();
+	gs1.material.refractive_index = 2.0;
+	gs2.material = material_glass();
+	gs2.material.refractive_index = 2.5;
+	isect = vector_init(10, sizeof(t_intersect));
+	shape_set_transform(&gs1, tf_scale(2, 2, 2));
+	shape_set_transform(&gs2, tf_translate(0, 0, -0.25));
+	shape_set_transform(&gs1, tf_scale(0, 0, 0.25));
+	i1 = intersection(2, &gs);
+	i2 = intersection(2.75, &gs1);
+	i3 = intersection(3.25, &gs2);
+	i4 = intersection(4.75, &gs1);
+	i5 = intersection(5.25, &gs2);
+	i6 = intersection(6, &gs1);
+	vector_pushback(&isect, &i1);
+	vector_pushback(&isect, &i2);
+	vector_pushback(&isect, &i3);
+	vector_pushback(&isect, &i4);
+	vector_pushback(&isect, &i5);
+	vector_pushback(&isect, &i6);
+	intersect_compute(&i1, &ray, &isect);
+	ray = ray_new(tuple_new_point(0, 0, -4), tuple_new_vector(0, 0, 1));
+
 }

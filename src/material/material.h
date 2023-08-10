@@ -30,6 +30,6 @@ typedef struct s_material
 }				t_material;
 
 t_material	material_default(t_color color);
-t_material	material_glass(t_color color);
+t_material	material_glass(void);
 
 #endif

@@ -15,7 +15,7 @@
 #include "scene.h"
 #include "vector.h"
 
-t_color	intersect_color_at(t_scene *world, t_ray *ray)
+t_color	intersect_color_at(t_scene *world, t_ray *ray, int depth)
 {
 	t_intersect	*i;
 
@@ -25,7 +25,7 @@ t_color	intersect_color_at(t_scene *world, t_ray *ray)
 	if (i)
 	{
 		intersect_compute(i, ray, &world->comps);
-		return (intersect_shade_hit(world, &world->comps));
+		return (intersect_shade_hit(world, &world->comps, depth));
 	}
 	return (color_new(0, 0, 0));
 }

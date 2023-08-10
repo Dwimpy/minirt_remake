@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "color.h"
 #include "material.h"
 
-t_material material_glass(t_color color)
+t_material material_glass(void)
 {
-	t_material	material;
+	t_material material;
 
-	material = material_default(color);
+	material = material_default(color_new(1, 1, 1));
 	material.transparency = 1.0;
 	material.refractive_index = 1.5;
-	material.reflectivity = 1.0;
 	return (material);
 }

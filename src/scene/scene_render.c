@@ -31,7 +31,7 @@ void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 		while (++i < canvas->width - 1)
 		{
 			ray = camera_get_ray(camera, i, j);
-			color = intersect_color_at(world, &ray);
+			color = intersect_color_at(world, &ray, 5);
 			image_set_pixel(*canvas, color, i, j);
 		}
 	}
