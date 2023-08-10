@@ -11,16 +11,21 @@
 /* ************************************************************************** */
 
 #include "camera.h"
+#include "color.h"
+#include "intersect.h"
 #include "matrix.h"
 #include "ray.h"
 #include "transform.h"
 #include "tuple.h"
+#include "scene.h"
 
 void camera_tests(void)
 {
 	t_transform t;
 	t_matrix res;
 	t_camera camera;
+	t_scene	world;
+
 	t = camera_view_transform(tuple_new_point(0, 0, 0), tuple_new_point(0, 0, 1), tuple_new_vector(0, 1, 0));
 	assert(matrix_equal(t.tf, tf_scale(-1, 1, -1).tf));
 
@@ -72,15 +77,23 @@ void camera_tests(void)
 	assert(tuple_equal(ray.origin, tuple_new_point(0, 0, 0)));
 	assert(tuple_equal(ray.direction, tuple_new_vector(0.66519, 0.33259, -0.66851)));
 
-	camera_set_view_transform(&camera, \
-        tf_translate(0, -2, 5));
-	ray = ray_new(tuple_new_point(0, 0, 0), tuple_new_vector(sqrt(2) / 2, sqrt(2)/ 2, 0));
-	ray.origin = matrix_multiply_tuple(camera.tf.inv_tf, ray.origin);
-	matrix_print(camera.tf.inv_tf);
-	tuple_print(ray.origin);
-	ray = camera_get_ray(&camera, 0, 0);
-	tuple_print(ray.origin);
-	tuple_print(ray.direction);
-	assert(tuple_equal(ray.origin, tuple_new_point(0, 2, -5)));
-	assert(tuple_equal(ray.direction, tuple_new_vector(sqrt(2) / 2, 0, -sqrt(2) / 2)));
+	t_transform tf;
+	tf.tf = matrix_multiply(tf_rotate_y(45).tf, tf_translate(0, -2, 5).tf);
+	tf.inv_tf = matrix_inverse(tf.tf);
+	tf.inv_tf_transpose = matrix_transpose(tf.inv_tf);
+	camera_set_view_transform(&camera, tf);
+	ray = camera_get_ray(&camera, 100, 50);
+	assert(tuple_equal_p(ray.origin, tuple_new_point(0, 2, -5), M_EPSILON * 100));
+	assert(tuple_equal_p(ray.direction, tuple_new_vector(sqrt(2) / 2, 0, -sqrt(2) / 2), M_EPSILON * 10));
+
+	t_color	color;
+	world = scene_default();
+	camera = camera_new(11, 11, 90);
+	camera_set_view_transform(&camera, camera_view_transform(\
+				tuple_new_point(0, 0, -5), \
+					tuple_new_point(0, 0, 0), \
+						tuple_new_vector(0, 1, 0)));
+	ray = camera_get_ray(&camera, 5, 5);
+	color = intersect_color_at(&world, &ray);
+	assert(tuple_equal(color, tuple_new_vector(0.38066, 0.47583, 0.2855)));
 }

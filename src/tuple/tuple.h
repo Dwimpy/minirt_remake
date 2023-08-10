@@ -62,6 +62,7 @@ t_real	clamp(t_real n, double min, double max);
 bool	tuple_equal(t_tuple v, t_tuple res);
 bool	tuple_equal_s(t_tuple v, t_real s);
 bool	is_approx_equal(t_real a, t_real b, t_real epsilon);
+bool	tuple_equal_p(t_tuple v, t_tuple res, t_real precision);
 
 void	tuple_print(t_tuple v);
 void	tuple_tests(void);

@@ -30,11 +30,8 @@
 #include "plane.h"
 #include "scene.h"
 
-int main(void) {
-	t_window	window;
-	t_image		canvas;
-	t_shape		plane;
-
+void	run_tests()
+{
 //	tuple_tests();
 //	matrix_tests();
 //	transform_tests();
@@ -45,11 +42,27 @@ int main(void) {
 //	scene_test_normal_face();
 //	scene_test_shade_hit();
 //	scene_test_color_at();
-	camera_tests();
-//	window_create(&window, 1920, 1080);
-//	window_add_image(window.mlx, &canvas);
-//
-//
-//	window_draw_loop(window.mlx);
+//	camera_tests();
+	scene_test_shadows();
+}
+
+int	main(void)
+{
+	t_window	window;
+	t_image		canvas;
+	t_camera	camera;
+	t_scene		world;
+
+	run_tests();
+	world = scene_default();
+	camera = camera_new(1920, 1080, 60);
+	camera_set_view_transform(&camera, camera_view_transform(\
+				tuple_new_point(0, 0, -5), \
+					tuple_new_point(0, 0, 0), \
+						tuple_new_vector(0, 1, 0)));
+	window_create(&window, 1920, 1080);
+	window_add_image(window.mlx, &canvas);
+	scene_render(&world, &camera, &canvas);
+	window_draw_loop(window.mlx);
 	return (0);
 }

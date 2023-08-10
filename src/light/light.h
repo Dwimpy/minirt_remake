@@ -6,14 +6,14 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 19:05:24 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 19:05:24 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/10 14:54:26 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIGHT_H
 # define LIGHT_H
 
-#include "intersect.h"
+# include "intersect.h"
 # include "material.h"
 # include "tuple.h"
 # include "color.h"

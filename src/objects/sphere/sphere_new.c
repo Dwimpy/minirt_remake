@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "color.h"
+#include "material.h"
 #include "sphere.h"
 
-t_shape	shape_new_sphere(t_real radius)
+t_shape shape_new_sphere(t_real radius)
 {
-	t_shape		shape;
-	t_sphere	*sphere;
+	t_shape shape;
+	t_sphere *sphere;
 
 	sphere = ft_calloc(1, sizeof(t_sphere));
 	if (!sphere)

@@ -24,7 +24,7 @@ void	intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps)
 	comps->eye = tuple_negate(ray->direction);
 	comps->normal = comps->shape->vtable.normal_at(comps->shape, comps->point);
 	intersect_set_normal(comps);
-
+	comps->over_point = tuple_add(comps->point, tuple_multiply_s(comps->normal, M_EPSILON));
 }
 
 inline static void	intersect_set_normal(t_computations *comps)

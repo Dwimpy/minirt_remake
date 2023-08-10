@@ -43,8 +43,6 @@ typedef struct s_computations
 	t_tuple		normal;
 	t_tuple		eye;
 	t_shape		*shape;
-	t_vector	intersections;
-	t_vector	shadow_intersections;
 	t_vector	ref_index_tracker;
 	t_tuple		over_point;
 	t_tuple		under_point;
@@ -62,12 +60,14 @@ typedef struct s_intersect
 }				t_intersect;
 
 void		intersect_world(t_scene *world, t_ray *ray);
+void		intersect_shadow_world(t_scene *world, t_ray *ray);
 t_intersect	intersection(t_real t, t_shape *shape);
 t_intersect	*intersect_hit(t_vector *intersections);
 void		intersect_compute(t_intersect *intersect, t_ray *ray, t_computations *comps);
+bool		intersect_shadow_hit(t_scene *world, t_tuple *point);
 t_color		intersect_shade_hit(t_scene *world, t_computations *comps);
 t_color		intersect_color_at(t_scene *world, t_ray *ray);
-bool		intersect_is_shadowed(t_vector *world, t_light *light, t_computations *comps);
+
 t_color		intersect_reflected_color(t_vector *world, t_computations *comps, t_light *light, int depth);
 t_color		intersect_refracted_color(t_vector *world, t_computations *comps, t_light *light, int depth);
 #endif

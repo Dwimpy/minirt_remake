@@ -21,6 +21,15 @@ inline bool	tuple_equal(t_tuple v, t_tuple res)
 	return (true);
 }
 
+inline bool	tuple_equal_p(t_tuple v, t_tuple res, t_real precision)
+{
+	if (!is_approx_equal(v.x, res.x, precision) || \
+	!is_approx_equal(v.y, res.y, precision) || \
+	!is_approx_equal(v.z, res.z, precision))
+		return (false);
+	return (true);
+}
+
 inline bool	tuple_equal_s(t_tuple v, t_real s)
 {
 	if (!is_approx_equal(v.x, s, M_EPSILON) || \

@@ -13,11 +13,13 @@
 #include "color.h"
 #include "intersect.h"
 #include "scene.h"
+#include "vector.h"
 
 t_color	intersect_color_at(t_scene *world, t_ray *ray)
 {
-	t_intersect *i;
+	t_intersect	*i;
 
+	vector_clear(&world->intersections);
 	intersect_world(world, ray);
 	i = intersect_hit(&world->intersections);
 	if (i)

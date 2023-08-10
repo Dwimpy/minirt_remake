@@ -27,3 +27,17 @@ void	intersect_world(t_scene *world, t_ray *ray)
 		it.next(&it);
 	}
 }
+
+void	intersect_shadow_world(t_scene *world, t_ray *ray)
+{
+	t_vector_iterator	it;
+	t_shape				*shape;
+
+	vector_iterator_begin(&it, &world->objs);
+	while (!it.end(&it))
+	{
+		shape = it.get(&it);
+		shape->vtable.intersect(shape, *ray, &world->shadow_intersections);
+		it.next(&it);
+	}
+}

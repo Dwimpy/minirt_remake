@@ -30,15 +30,19 @@ t_color	light_lightning(t_computations *comps, t_light *light)
 	t_color	black;
 	t_material	*m;
 
+
 	m = &comps->shape->material;
 	eff_color = color_multiply(m->color, light->intensity);
-	light_dir = tuple_normalize(tuple_subtract(light->origin, comps->point));
+	light_dir = tuple_normalize(\
+				tuple_subtract(light->origin, comps->over_point));
 	ambient = color_multiply_s(eff_color, m->ambient);
 	light_dot_normal = tuple_dot(light_dir, comps->normal);
 	reflect_dot_eye = 0.0;
 	black = color_new(0, 0, 0);
 	specular = black;
 	diffuse = black;
+	if (comps->is_shadowed)
+		return (ambient);
 	if (light_dot_normal < 0.0)
 	{
 		diffuse = black;
