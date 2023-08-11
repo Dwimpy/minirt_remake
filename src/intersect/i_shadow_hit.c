@@ -23,6 +23,7 @@ bool	intersect_shadow_hit(t_scene *world, t_tuple *point)
 	t_real		distance;
 	t_tuple		direction;
 	t_intersect	*i;
+	t_vector	intersections;
 
 	r_to_light = tuple_subtract(world->light.origin, *point);
 	distance = tuple_magnitude(r_to_light);

@@ -2,11 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ray-tracer-challenge" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ray-tracer-challenge/build/_deps/assimp-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ray-tracer-challenge/build/_deps/glm-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ray-tracer-challenge/build/_deps/gtest-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ray-tracer-challenge/build/_deps/sdl2-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ray-tracer-challenge/build/_deps/yaml-cpp-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/glfw" vcs="Git" />
   </component>
 </project>

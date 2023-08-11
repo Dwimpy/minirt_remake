@@ -24,7 +24,8 @@ static bool	\
 {
 	t_sphere	*sphere;
 	t_tuple		sph_to_ray;
-	double		sqrt_disc;
+	t_real		sqrt_disc;
+	t_intersect	intersect;
 
 	sphere = shape_get_data(shape);
 	*ray = ray_to_object_space(ray, shape->transform);

@@ -50,9 +50,9 @@ static const struct
 static const char* vertex_shader_text =
 "#version 110\n"
 "uniform mat4 MVP;\n"
-"attribute tuple vCol;\n"
+"attribute vec3 vCol;\n"
 "attribute vec2 vPos;\n"
-"varying tuple color;\n"
+"varying vec3 color;\n"
 "void main()\n"
 "{\n"
 "    gl_Position = MVP * vec4(vPos, 0.0, 1.0);\n"
@@ -61,7 +61,7 @@ static const char* vertex_shader_text =
 
 static const char* fragment_shader_text =
 "#version 110\n"
-"varying tuple color;\n"
+"varying vec3 color;\n"
 "void main()\n"
 "{\n"
 "    gl_FragColor = vec4(color, 1.0);\n"

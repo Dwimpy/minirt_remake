@@ -33,8 +33,8 @@ void sphere_tests(void)
 	t_tuple normal;
 
 	xs = vector_init(10, sizeof(t_intersect));
-	sphere = shape_new_sphere(1.0);
-	sphere2 = shape_new_sphere(1.0);
+	sphere = shape_new_sphere();
+	sphere2 = shape_new_sphere();
 	i1 = intersection(1, &sphere);
 	i2 = intersection(2, &sphere);
 	vector_pushback(&xs, &i1);
@@ -105,7 +105,7 @@ void sphere_tests(void)
 	sphere.vtable.intersect(&sphere, ray, &xs);
 	assert(xs.size == 0);
 
-	sphere = shape_new_sphere(1.0);
+	sphere = shape_new_sphere();
 	normal = sphere.vtable.normal_at(&sphere, tuple_new_point(1, 0, 0));
 	assert(is_approx_equal(normal.x, 1, M_EPSILON));
 	assert(normal.y == 0);
@@ -146,7 +146,7 @@ void sphere_tests(void)
 	t_color result;
 
 	p = tuple_new_point(0, 0, 0);
-	s = shape_new_sphere(1.0);
+	s = shape_new_sphere();
 	s.material = material_default(color_new(1, 1, 1));
 	light.origin = tuple_new_point(0, 0, -10);
 	light.intensity = color_new(1, 1, 1);

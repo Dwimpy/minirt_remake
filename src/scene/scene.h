@@ -13,6 +13,7 @@
 #ifndef SCENE_H
 # define SCENE_H
 # include "camera.h"
+#include "color.h"
 # include "intersect.h"
 # include "light.h"
 # include "vector.h"

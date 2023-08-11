@@ -844,7 +844,7 @@ NK_API void nk_input_button(struct nk_context*, enum nk_buttons, int x, int y, i
 /// Parameter   | Description
 /// ------------|-----------------------------------------------------------
 /// __ctx__     | Must point to a previously initialized `nk_context` struct
-/// __val__     | tuple with both X- as well as Y-scroll value
+/// __val__     | vector with both X- as well as Y-scroll value
 */
 NK_API void nk_input_scroll(struct nk_context*, struct nk_vec2 val);
 /*/// #### nk_input_char
@@ -2253,8 +2253,8 @@ NK_API void nk_window_show_if(struct nk_context*, const char *name, enum nk_show
 /// nk_layout_space_end                     | Marks the end of the layouting space
 //
 /// nk_layout_space_bounds                  | Callable after nk_layout_space_begin and returns total space allocated
-/// nk_layout_space_to_screen               | Converts tuple from nk_layout_space coordinate space into screen space
-/// nk_layout_space_to_local                | Converts tuple from screen space into nk_layout_space coordinates
+/// nk_layout_space_to_screen               | Converts vector from nk_layout_space coordinate space into screen space
+/// nk_layout_space_to_local                | Converts vector from screen space into nk_layout_space coordinates
 /// nk_layout_space_rect_to_screen          | Converts rectangle from nk_layout_space coordinate space into screen space
 /// nk_layout_space_rect_to_local           | Converts rectangle from screen space into nk_layout_space coordinates
 */
@@ -2504,7 +2504,7 @@ NK_API void nk_layout_space_end(struct nk_context*);
 */
 NK_API struct nk_rect nk_layout_space_bounds(struct nk_context*);
 /*/// #### nk_layout_space_to_screen
-/// Converts tuple from nk_layout_space coordinate space into screen space
+/// Converts vector from nk_layout_space coordinate space into screen space
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
 /// struct nk_vec2 nk_layout_space_to_screen(struct nk_context*, struct nk_vec2);
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2518,7 +2518,7 @@ NK_API struct nk_rect nk_layout_space_bounds(struct nk_context*);
 */
 NK_API struct nk_vec2 nk_layout_space_to_screen(struct nk_context*, struct nk_vec2);
 /*/// #### nk_layout_space_to_local
-/// Converts tuple from layout space into screen space
+/// Converts vector from layout space into screen space
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
 /// struct nk_vec2 nk_layout_space_to_local(struct nk_context*, struct nk_vec2);
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -5454,7 +5454,7 @@ struct nk_window {
  *      nk_style_pop_style_item(ctx);
  *      nk_style_pop_vec2(ctx);
  *
- * Nuklear has a stack for style_items, float properties, tuple properties,
+ * Nuklear has a stack for style_items, float properties, vector properties,
  * flags, colors, fonts and for button_behavior. Each has it's own fixed size stack
  * which can be changed at compile time.
  */

@@ -16,7 +16,7 @@ NAME			= minirt
 VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/image \
 				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
 				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
-				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene
+				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -37,6 +37,7 @@ INCLUDE			+= -I ./src/camera
 INCLUDE			+= -I ./src/quaternion
 INCLUDE			+= -I ./src/objects/shape
 INCLUDE			+= -I ./src/objects/plane
+INCLUDE			+= -I ./src/objects/cube
 INCLUDE			+= -I ./src/scene
 
 DSYM			= ./minirt.dSYM
@@ -58,10 +59,10 @@ CC			= cc #-Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
 ASAN		= #-fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
-#FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
-#LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
-#LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
-LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
+FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
+LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
+LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
+#LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
 
 #Archive and Remove
 RM			= rm -f
@@ -84,7 +85,7 @@ SRCS	= $(shell find ./src -name "*.c")
 OBJS	= $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 
 # Rules
-all: libft	
+all: libft
 	@${MAKE} $(NAME) -j
 $(NAME): $(OBJ_DIR) $(OBJS) $(MAIN_FILE)
 	@$(CC) $(INCLUDE) $(FRAMEWORK) $(ASAN) $(OBJS) $(MAIN_FILE) -o $@ -lm $(LDLFLAGS) $(LIBFLAGS)

@@ -29,3 +29,4 @@ t_color		color_clamp(t_color c);
 uint32_t	get_rgba(uint32_t r, uint32_t g, uint32_t b);
 
 #endif
+

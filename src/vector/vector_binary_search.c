@@ -13,15 +13,12 @@
 #include "vector.h"
 //#include <sys/_types/_size_t.h>
 
-typedef double	t_real;
-
 size_t	vector_binary_search(t_vector *vector, t_real t)
 {
 	size_t		low;
 	size_t		high;
 	size_t		mid;
 	t_real		mid_t;
-
 
 	if (vector->size == 0)
 		return (0);

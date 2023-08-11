@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "color.h"
+#include "cube.h"
 #include "image.h"
 #include "intersect.h"
 #include "material.h"
@@ -71,6 +72,7 @@ int	main(void)
 
 //	run_tests();
 //	run_reflection_tests();
+//	cube_tests();
 	world = scene_default();
 	plane = shape_new_plane();
 	plane.material = material_default(color_new(0.3, 0.6, 0.8));
@@ -79,13 +81,18 @@ int	main(void)
 	plane.material.specular = 0.07;
 	plane.material.shininess = 300;
 	plane.material.ambient = 0.1;
+	t_shape	cube;
+	cube = shape_new_cube();
+	cube.material = material_default(color_new(1, 0.5, 0.5));
 	shape_set_transform(&plane, tf_translate(0, -2, 0));
+	shape_set_transform(&cube, tf_translate(0, 0, 2));
 	vector_pushback(&world.objs, &plane);
 	camera = camera_new(1920, 1080, 45);
 	camera_set_view_transform(&camera, camera_view_transform(\
 				tuple_new_point(0, 0.5, -10), \
 					tuple_new_point(0, 0, 0), \
 						tuple_new_vector(0, 1, 0)));
+	vector_pushback(&world.objs, &cube);
 	window_create(&window, 1920, 1080);
 	window_add_image(window.mlx, &canvas);
 	start = clock();

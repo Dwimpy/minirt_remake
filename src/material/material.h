@@ -24,8 +24,6 @@ typedef struct s_material
 	t_real		reflectivity;
 	t_real		refractive_index;
 	t_real		transparency;
-	t_real		n1;
-	t_real		n2;
 	t_color		color;
 }				t_material;
 

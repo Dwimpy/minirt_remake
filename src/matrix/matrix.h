@@ -31,7 +31,7 @@ typedef struct s_matrix
 {
 	size_t		rows;
 	size_t		cols;
-	double		**data;
+	t_real		**data;
 }				t_matrix;
 
 t_matrix	matrix_init(size_t rows, size_t cols);

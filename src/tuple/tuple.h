@@ -12,7 +12,7 @@
 
 #ifndef VEC3_H
 # define VEC3_H
-# define M_EPSILON 1e-5
+# define M_EPSILON 1e-4
 # define M_INFINITY 1e10
 
 # include "libft.h"
@@ -57,7 +57,7 @@ t_real	tuple_magnitude_squared(t_tuple v);
 
 void	tuple_set(t_tuple *tuple, t_real x, t_real y, t_real z);
 
-t_real	clamp(t_real n, double min, double max);
+t_real	clamp(t_real n, t_real min, t_real max);
 
 bool	tuple_equal(t_tuple v, t_tuple res);
 bool	tuple_equal_s(t_tuple v, t_real s);
@@ -65,6 +65,7 @@ bool	is_approx_equal(t_real a, t_real b, t_real epsilon);
 bool	tuple_equal_p(t_tuple v, t_tuple res, t_real precision);
 
 void	tuple_print(t_tuple v);
+t_tuple	tuple_print_ret(t_tuple v);
 void	tuple_tests(void);
 
 #endif

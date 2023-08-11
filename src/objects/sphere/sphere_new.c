@@ -14,10 +14,10 @@
 #include "material.h"
 #include "sphere.h"
 
-t_shape shape_new_sphere(t_real radius)
+t_shape	shape_new_sphere(void)
 {
-	t_shape shape;
-	t_sphere *sphere;
+	t_shape		shape;
+	t_sphere	*sphere;
 
 	sphere = ft_calloc(1, sizeof(t_sphere));
 	if (!sphere)
@@ -27,7 +27,7 @@ t_shape shape_new_sphere(t_real radius)
 	}
 	shape.transform = tf_new();
 	sphere->origin = tuple_new_point(0, 0, 0);
-	sphere->radius = radius;
+	sphere->radius = 1.0;
 	shape.data = sphere;
 	shape.id = id;
 	shape.transform.inv_tf = matrix_identity();

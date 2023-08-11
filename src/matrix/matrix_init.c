@@ -19,15 +19,15 @@ inline t_matrix matrix_init(size_t rows, size_t cols) {
 	size_t		i;
 
 	i = 0;
-	matrix.data = (double **)malloc(rows * cols * sizeof(double ) + (rows * sizeof(double *)));
+	matrix.data = (t_real **)malloc(rows * cols * sizeof(t_real ) + (rows * sizeof(t_real *)));
 	matrix.rows = rows;
 	matrix.cols = cols;
-	matrix.data[0] = (double *)(matrix.data + rows);
+	matrix.data[0] = (t_real *)(matrix.data + rows);
 	for (i = 1; i < rows; i++) {
 		matrix.data[i] = matrix.data[i - 1] + cols;
 	}
 	for (i = 0; i < rows; i++) {
-		ft_memset(matrix.data[i], 0, cols * sizeof(double));
+		ft_memset(matrix.data[i], 0, cols * sizeof(t_real));
 	}
 	return (matrix);
 }

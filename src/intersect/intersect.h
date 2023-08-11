@@ -28,12 +28,12 @@ typedef struct s_light	t_light;
 
 typedef struct s_quadratic
 {
-	double		a;
-	double		b;
-	double		c;
-	double		disc;
-	double		t1;
-	double		t2;
+	t_real		a;
+	t_real		b;
+	t_real		c;
+	t_real		disc;
+	t_real		t1;
+	t_real		t2;
 }				t_quadratic;
 
 typedef struct s_computations
@@ -59,7 +59,8 @@ typedef struct s_intersect
 	t_shape		*obj;
 }				t_intersect;
 
-t_vector	intersect_world(t_scene *world, t_ray *ray);
+void		intersect_world(t_scene *world, t_ray *ray);
+t_vector	intersect_world_test(t_scene *world, t_ray *ray);
 void		intersect_shadow_world(t_scene *world, t_ray *ray);
 t_intersect	intersection(t_real t, t_shape *shape);
 t_intersect	*intersect_hit(t_vector *intersections);

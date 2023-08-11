@@ -70,7 +70,7 @@ void	matrix_set_aug_elements(t_matrix *mat,t_matrix m)
 void	interchange_rows(t_matrix *m)
 {
 	size_t	i;
-	double	*tmp_arr;
+	t_real	*tmp_arr;
 
 	i = m->rows - 1;
 	while (i > 0)
@@ -90,7 +90,7 @@ void	replace_row(t_matrix *m)
 	size_t		i;
 	size_t		j;
 	size_t		k;
-	double	temp;
+	t_real		temp;
 
 	i = -1;
 	while (++i < m->rows)

@@ -28,7 +28,7 @@ void	intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps, t_vect
 	comps->normal = comps->shape->vtable.normal_at(comps->shape, comps->point);
 	intersect_set_normal(comps);
 	comps->over_point = tuple_add(comps->point, tuple_multiply_s(comps->normal, M_EPSILON));
-	comps->under_point = tuple_subtract(comps->point, tuple_multiply_s(comps->normal, M_EPSILON / 10));
+	comps->under_point = tuple_subtract(comps->point, tuple_multiply_s(comps->normal, M_EPSILON));
 	comps->reflected_dir = tuple_reflect(ray->direction, comps->normal);
 	handle_refraction_index(comps, i, intersections);
 }
@@ -41,6 +41,8 @@ inline static void	handle_refraction_index(t_computations *comps, t_intersect *i
 	t_shape		**shape;
 
 	idx = 0;
+	if (!isect)
+		return ;
 	vector_clear(&comps->ref_index_tracker);
 	while (idx < isect->size)
 	{

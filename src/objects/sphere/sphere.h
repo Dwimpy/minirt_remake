@@ -25,7 +25,7 @@ typedef struct s_sphere
 	t_real		radius;
 }				t_sphere;
 
-t_shape		shape_new_sphere(t_real radius);
+t_shape		shape_new_sphere(void);
 void		sphere_print(t_shape *shape);
 bool		sphere_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		sphere_normal_at(t_shape *shape, t_tuple isec_point);

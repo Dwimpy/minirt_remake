@@ -187,7 +187,7 @@ const unsigned char floor_texture[ F_TEX_WIDTH * F_TEX_HEIGHT ] = {
 // This structure holds all state for a single particle
 typedef struct {
     float x,y,z;     // Position in space
-    float vx,vy,vz;  // Velocity tuple
+    float vx,vy,vz;  // Velocity vector
     float r,g,b;     // Color of particle
     float life;      // Life of particle (1.0 = newborn, < 0.0 = dead)
     int   active;    // Tells if this particle is active
@@ -259,7 +259,7 @@ static void init_particle(PARTICLE *p, double t)
     p->vx = 0.4f * (float) cos(xy_angle);
     p->vy = 0.4f * (float) sin(xy_angle);
 
-    // Scale velocity tuple according to a time-varying velocity
+    // Scale velocity vector according to a time-varying velocity
     velocity = VELOCITY * (0.8f + 0.1f * (float) (sin(0.5 * t) + sin(1.31 * t)));
     p->vx *= velocity;
     p->vy *= velocity;
@@ -418,7 +418,7 @@ static void draw_particles(GLFWwindow* window, double t, float dt)
 
     // 1) & 2) We do it in one swift step:
     // Although not obvious, the following six lines represent two matrix/
-    // tuple multiplications. The matrix is the inverse 3x3 rotation
+    // vector multiplications. The matrix is the inverse 3x3 rotation
     // matrix (i.e. the transpose of the same matrix), and the two vectors
     // represent the lower left corner of the quad, PARTICLE_SIZE/2 *
     // (-1,-1,0), and the lower right corner, PARTICLE_SIZE/2 * (1,-1,0).

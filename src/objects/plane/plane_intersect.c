@@ -24,7 +24,7 @@ static bool plane_add_intersection(t_shape *shape, t_ray ray, t_vector *intersec
 	return (true);
 }
 
-bool plane_intersect(t_shape *shape, t_ray ray, t_vector *intersections)
+bool	plane_intersect(t_shape *shape, t_ray ray, t_vector *intersections)
 {
 	ray = ray_to_object_space(&ray, shape->transform);
 	if (tuple_equal_s(ray.direction, M_EPSILON))

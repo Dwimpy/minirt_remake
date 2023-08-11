@@ -17,6 +17,7 @@ t_intersect	*intersect_hit(t_vector *intersections)
 {
 	t_vector_iterator	it;
 	t_intersect			*i;
+
 	vector_iterator_begin(&it, intersections);
 	while (!it.end(&it))
 	{

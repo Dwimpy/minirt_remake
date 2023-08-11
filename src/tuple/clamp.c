@@ -12,7 +12,7 @@
 
 #include "tuple.h"
 
-inline t_real clamp(t_real n, double min, double max)
+inline t_real clamp(t_real n, t_real min, t_real max)
 {
 	if (n < min)
 		return (min);
@@ -21,7 +21,7 @@ inline t_real clamp(t_real n, double min, double max)
 	return (n);
 }
 
-inline t_tuple	tuple_clamp(t_tuple v, double min, double max)
+inline t_tuple	tuple_clamp(t_tuple v, t_real min, t_real max)
 {
 	t_tuple	clamped;
 

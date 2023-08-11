@@ -14,5 +14,5 @@
 
 inline t_tuple tuple_reflect(t_tuple v, t_tuple n)
 {
-	return (tuple_subtract(v, tuple_multiply_s(n, 2 * tuple_dot(v, n))));
+	return (tuple_subtract(v, tuple_multiply_s(n, 2.0 * tuple_dot(v, n))));
 }

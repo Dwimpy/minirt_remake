@@ -460,9 +460,9 @@ LINMATH_H_FUNC void quat_mul(quat r, quat const p, quat const q)
 	vec3 w;
 	vec3_mul_cross(r, p, q);
 	vec3_scale(w, p, q[3]);
-	tuple_add(r, r, w);
+	vec3_add(r, r, w);
 	vec3_scale(w, q, p[3]);
-	tuple_add(r, r, w);
+	vec3_add(r, r, w);
 	r[3] = p[3]*q[3] - vec3_mul_inner(p, q);
 }
 LINMATH_H_FUNC void quat_conj(quat r, quat const q)
@@ -497,8 +497,8 @@ v' = v + q.w * t + cross(q.xyz, t)
 	vec3_mul_cross(u, q_xyz, t);
 	vec3_scale(t, t, q[3]);
 
-	tuple_add(r, v, t);
-	tuple_add(r, r, u);
+	vec3_add(r, v, t);
+	vec3_add(r, r, u);
 }
 LINMATH_H_FUNC void mat4x4_from_quat(mat4x4 M, quat const q)
 {

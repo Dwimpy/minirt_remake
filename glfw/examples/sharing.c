@@ -48,7 +48,7 @@ static const char* vertex_shader_text =
 static const char* fragment_shader_text =
 "#version 110\n"
 "uniform sampler2D texture;\n"
-"uniform tuple color;\n"
+"uniform vec3 color;\n"
 "varying vec2 texcoord;\n"
 "void main()\n"
 "{\n"

@@ -23,7 +23,7 @@ t_transform	camera_view_transform(t_tuple from, t_tuple to, t_tuple up)
 	t_onb		onb;
 	t_transform	view_transform;
 	t_transform	translate;
-	double		**ptr;
+	t_real		**ptr;
 
 	view_transform = tf_new();
 	onb.forward = tuple_normalize(tuple_subtract(to, from));
