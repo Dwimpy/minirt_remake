@@ -14,10 +14,11 @@
 #include "scene.h"
 #include "shape.h"
 
-void	intersect_world(t_scene *world, t_ray *ray)
+t_vector	intersect_world(t_scene *world, t_ray *ray)
 {
 	t_vector_iterator	it;
 	t_shape				*shape;
+	t_vector			intersections;
 
 	vector_iterator_begin(&it, &world->objs);
 	while (!it.end(&it))
@@ -26,6 +27,7 @@ void	intersect_world(t_scene *world, t_ray *ray)
 		shape->vtable.intersect(shape, *ray, &world->intersections);
 		it.next(&it);
 	}
+	return (intersections);
 }
 
 void	intersect_shadow_world(t_scene *world, t_ray *ray)

@@ -59,7 +59,7 @@ typedef struct s_intersect
 	t_shape		*obj;
 }				t_intersect;
 
-void		intersect_world(t_scene *world, t_ray *ray);
+t_vector	intersect_world(t_scene *world, t_ray *ray);
 void		intersect_shadow_world(t_scene *world, t_ray *ray);
 t_intersect	intersection(t_real t, t_shape *shape);
 t_intersect	*intersect_hit(t_vector *intersections);

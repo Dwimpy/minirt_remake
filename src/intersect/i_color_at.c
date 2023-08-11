@@ -18,13 +18,14 @@
 t_color	intersect_color_at(t_scene *world, t_ray *ray, int depth)
 {
 	t_intersect	*i;
+	t_vector	intersections;
 
 	vector_clear(&world->intersections);
-	intersect_world(world, ray);
+	intersections = intersect_world(world, ray);
 	i = intersect_hit(&world->intersections);
 	if (i)
 	{
-		intersect_compute(i, ray, &world->comps, NULL);
+		intersect_compute(i, ray, &world->comps, &world->intersections);
 		return (intersect_shade_hit(world, &world->comps, depth));
 	}
 	return (color_new(0, 0, 0));
