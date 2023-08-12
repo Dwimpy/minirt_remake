@@ -27,7 +27,7 @@ static bool plane_add_intersection(t_shape *shape, t_ray ray, t_vector *intersec
 bool	plane_intersect(t_shape *shape, t_ray ray, t_vector *intersections)
 {
 	ray = ray_to_object_space(&ray, shape->transform);
-	if (tuple_equal_s(ray.direction, M_EPSILON))
+	if (is_approx_equal(ray.direction.y, 0.0, M_EPSILON))
 		return (false);
 	return (plane_add_intersection(shape, ray, intersections));
 }

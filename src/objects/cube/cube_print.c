@@ -19,5 +19,6 @@ void	cube_print(t_shape *shape)
 	cube = shape_get_data(shape);
 	printf("---------------------");
 	printf("Cube Origin: ");
-	tuple_print(cube->origin);
+	tuple_print(matrix_multiply_tuple(shape->transform.tf, cube->origin));
+	printf("---------------------");
 }

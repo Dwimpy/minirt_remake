@@ -16,7 +16,8 @@ NAME			= minirt
 VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/image \
 				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
 				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
-				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube
+				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
+				  ./src/objects/cylinder ./src/objects/disk
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -38,6 +39,8 @@ INCLUDE			+= -I ./src/quaternion
 INCLUDE			+= -I ./src/objects/shape
 INCLUDE			+= -I ./src/objects/plane
 INCLUDE			+= -I ./src/objects/cube
+INCLUDE			+= -I ./src/objects/cylinder
+INCLUDE			+= -I ./src/objects/disk
 INCLUDE			+= -I ./src/scene
 
 DSYM			= ./minirt.dSYM
@@ -116,7 +119,7 @@ libft:
 			@echo "$(YELLOW)MiniRT$(DEF_COLOR) $(CYAN)successfully cleaned!$(DEF_COLOR)"
 
 fclean:		clean
-			@make fclean -C $(LIBFT_FOLDER)
+#			@make fclean -C $(LIBFT_FOLDER)
 #			@rm -rdf $(GLFW_BUILD)
 #			@rm -rdf $(MLX_BUILD)
 			@$(RM) -f $(NAME)

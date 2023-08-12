@@ -20,7 +20,7 @@ t_tuple	plane_normal_at(t_shape *shape, t_tuple isec_point)
 	t_tuple		world_normal;
 
 	tf = &shape->transform;
-	local_normal = tuple_new_vector(0, 1, 0);
+	local_normal = tuple_new_vector(0, -1, 0);
 	world_normal = matrix_multiply_tuple(tf->inv_tf_transpose, local_normal);
 	world_normal.w = 0;
 	return (tuple_normalize(world_normal));

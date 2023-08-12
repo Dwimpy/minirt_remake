@@ -46,5 +46,8 @@ typedef struct s_quat_params
 
 t_quaternion	quaternion_new(t_real x, t_real y, t_real z, t_real w);
 t_quaternion	quat_rot_from_to(t_tuple from, t_tuple to);
+t_quaternion	quat_multiply(t_quaternion q1, t_quaternion q2);
+t_quaternion	quat_conjugate(t_quaternion q);
 t_matrix		quat_to_matrix(t_quaternion q);
+t_tuple			quat_rotate_vector(t_tuple v, t_quaternion q);
 #endif
