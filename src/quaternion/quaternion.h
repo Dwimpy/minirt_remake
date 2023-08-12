@@ -50,4 +50,5 @@ t_quaternion	quat_multiply(t_quaternion q1, t_quaternion q2);
 t_quaternion	quat_conjugate(t_quaternion q);
 t_matrix		quat_to_matrix(t_quaternion q);
 t_tuple			quat_rotate_vector(t_tuple v, t_quaternion q);
+t_quaternion 	quat_rotate_from_to(t_tuple from, t_tuple to);
 #endif

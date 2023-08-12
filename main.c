@@ -110,9 +110,9 @@ int main(void)
 	vector_pushback(&world.objs, &disk);
 	camera = camera_new(1920, 1080, 70);
 	camera_set_view_transform(&camera, camera_view_transform(\
-				tuple_new_point(0.0, 0.0, -15.0), \
-					tuple_new_point(-0.0, 0.0, 0.0), \
-						tuple_new_vector(0, 1, 0)));
+				tuple_new_point(0.0, 0.0, -25.0), \
+					tuple_new_point(-4.0, 2.0, 5.0)));
+	camera.tf.inv_tf = matrix_inverse(camera.tf.tf);
 	window_create(&window, 1920, 1080);
 	window_add_image(window.mlx, &canvas);
 	start = clock();
