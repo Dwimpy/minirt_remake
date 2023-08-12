@@ -83,9 +83,13 @@ int	main(void)
 	plane.material.ambient = 0.1;
 	t_shape	cube;
 	cube = shape_new_cube();
-	cube.material = material_default(color_new(1, 0.5, 0.5));
+	cube.material = material_default(color_new(0.3, 0.5, 0.5));
+	cube.material.specular = 0.6;
+	cube.material.ambient = 0.1;
+	cube.material.shininess = 200;
+	cube.material.diffuse = 0.4;
 	shape_set_transform(&plane, tf_translate(0, -2, 0));
-	shape_set_transform(&cube, tf_translate(0, 0, 2));
+	shape_set_transform(&cube, tf_transform(tf_rotate(25, 0, 0), tf_scale(1, 1, 1), tf_translate(3, 0, 2)));
 	vector_pushback(&world.objs, &plane);
 	camera = camera_new(1920, 1080, 45);
 	camera_set_view_transform(&camera, camera_view_transform(\

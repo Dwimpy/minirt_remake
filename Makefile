@@ -59,11 +59,13 @@ CC			= cc #-Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
 ASAN		= #-fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
-FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
-LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
-LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
-#LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
-
+ifeq ($(shell uname), Darwin)
+	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
+	LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
+	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
+else
+	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
+endif
 #Archive and Remove
 RM			= rm -f
 AR			= ar rcs
@@ -114,7 +116,7 @@ libft:
 			@echo "$(YELLOW)MiniRT$(DEF_COLOR) $(CYAN)successfully cleaned!$(DEF_COLOR)"
 
 fclean:		clean
-#			@make fclean -C $(LIBFT_FOLDER)
+			@make fclean -C $(LIBFT_FOLDER)
 #			@rm -rdf $(GLFW_BUILD)
 #			@rm -rdf $(MLX_BUILD)
 			@$(RM) -f $(NAME)

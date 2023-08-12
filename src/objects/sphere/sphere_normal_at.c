@@ -35,6 +35,5 @@ inline static \
 	local_point = matrix_multiply_tuple(tf->inv_tf, isec_point);
 	local_normal = tuple_subtract(local_point, tuple_new_point(0, 0, 0));
 	world_normal = matrix_multiply_tuple(tf->inv_tf_transpose, local_normal);
-	world_normal.w = 0;
 	return (tuple_normalize(world_normal));
 }

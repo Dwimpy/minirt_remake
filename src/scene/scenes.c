@@ -47,9 +47,9 @@ t_scene	scene_default(void)
 	s1.material.ambient = 0.0;
 	s1.material.refractive_index = 1.01;
 	s2.material = material_default(color_new(1.0, 1.0, 1.0));
-	shape_set_transform(&s2, tf_transform(tf_rotate(0, 0, 0), tf_scale(1, 1, 1), tf_translate(0, 0, 10)));
-//	vector_pushback(&world.objs, &s1);
-//	vector_pushback(&world.objs, &s2);
+	shape_set_transform(&s2, tf_transform(tf_rotate(0, 0, 0), tf_scale(1, 1, 1), tf_translate(-5, 0, 10)));
+	vector_pushback(&world.objs, &s1);
+	vector_pushback(&world.objs, &s2);
 	return (world);
 }
 
