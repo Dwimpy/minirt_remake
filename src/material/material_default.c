@@ -22,6 +22,7 @@ t_material	material_default(t_color color)
 	material.shininess = 200;
 	material.refractive_index = 1.0;
 	material.reflectivity = 0.0;
+	material.transparency = 0.0;
 	material.color = color;
 	return (material);
 }

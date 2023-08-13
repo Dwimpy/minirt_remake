@@ -21,17 +21,18 @@ inline static t_tuple	handle_zero_case(t_tuple to, t_tuple from);
 static void	camera_vt_set_elements(t_transform *tf, t_tuple left, t_tuple up, t_tuple forward);
 
 
-t_transform camera_view_transform(t_tuple from, t_tuple to)
+t_transform camera_view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
 	t_onb			onb;
 	t_tuple			from_to_vector;
+	t_tuple			upn;
 	t_transform		view_transform;
 	t_transform		translation;
 
 	from_to_vector = tuple_subtract(to, from);
-
-	onb.forward = tuple_normalize(handle_zero_case(to, from));
-	onb.left = tuple_normalize(tuple_cross(onb.forward, tuple_new_vector(0, 1, 0)));
+	onb.forward = tuple_normalize(tuple_subtract(to, from));
+	upn = tuple_normalize(up);
+	onb.left = tuple_normalize(tuple_cross(onb.forward, upn));
 	onb.up = tuple_cross(onb.left, onb.forward);
 	tuple_print(onb.up);
 	tuple_print(onb.left);

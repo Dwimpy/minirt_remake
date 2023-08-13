@@ -43,5 +43,5 @@ void	scene_test_reflected_shade_hit(void);
 void	scene_test_under_point(void);
 void	scene_test_opaque_surface(void);
 void	scene_test_refracted_color(void);
-
+t_scene	cornell_box(void);
 #endif

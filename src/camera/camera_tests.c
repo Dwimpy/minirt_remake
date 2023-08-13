@@ -53,6 +53,7 @@ void camera_tests(void)
 	matrix_set(res, 3, 1, 0.00000);
 	matrix_set(res, 3, 2, 0.00000);
 	matrix_set(res, 3, 3, 1.00000);
+	matrix_print(t.tf);
 	assert(matrix_equal(t.tf, res));
 
 	camera = camera_new(160, 120, 90);

@@ -12,7 +12,7 @@
 
 #ifndef VEC3_H
 # define VEC3_H
-# define M_EPSILON 1e-4
+# define M_EPSILON 1e-6
 # define M_INFINITY 1e10
 
 # include "libft.h"

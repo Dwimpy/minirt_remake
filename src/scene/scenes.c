@@ -11,6 +11,7 @@
 ///* ************************************************************************** */
 //
 #include "color.h"
+#include "cube.h"
 #include "intersect.h"
 #include "light.h"
 #include "material.h"
@@ -22,14 +23,15 @@
 #include "transform.h"
 #include "tuple.h"
 #include "vector.h"
+#include <math.h>
 #include <stdio.h>
 
-t_scene	scene_default(void)
+t_scene scene_default(void)
 {
-	t_scene	world;
-	t_shape	s1;
-	t_shape	s2;
-	t_shape	plane;
+	t_scene world;
+	t_shape s1;
+	t_shape s2;
+	t_shape plane;
 
 	world.light = light_new(tuple_new_point(-10, 10, -10), color_new(1.0, 1.0, 1.0));
 	world.objs = vector_init(10, sizeof(t_shape));
@@ -421,14 +423,14 @@ t_scene	scene_default(void)
 //	tuple_print(color);
 //}
 
-void	scene_test_refracted_color(void)
+void scene_test_refracted_color(void)
 {
-	t_scene		world;
-	t_ray		ray;
-	t_intersect	i1;
-	t_color		color;
-	t_shape		floor;
-	t_shape		ball;
+	t_scene world;
+	t_ray ray;
+	t_intersect i1;
+	t_color color;
+	t_shape floor;
+	t_shape ball;
 
 	world = scene_default();
 	floor = shape_new_plane();
@@ -449,4 +451,46 @@ void	scene_test_refracted_color(void)
 	intersect_compute(&i1, &ray, &world.comps, &world.intersections);
 	color = intersect_shade_hit(&world, &world.comps, 5);
 	tuple_print(color);
+}
+
+t_scene cornell_box(void)
+{
+	t_scene	world;
+	t_shape	floor;
+	t_shape	ceiling;
+	t_shape	right;
+	t_shape	left;
+	t_shape	back;
+	t_real	dimension;
+
+	dimension = 550.0 / 2;
+	world.light = light_new(tuple_new_point(278, 278, -400), color_new(0.73, 0.73, 0.73));
+	world.objs = vector_init(10, sizeof(t_shape));
+	world.intersections = vector_init(10, sizeof(t_intersect));
+	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
+	world.comps.ref_index_tracker = vector_init(10, sizeof(t_shape **));
+	floor = shape_new_cube();
+	ceiling = shape_new_cube();
+	right = shape_new_cube();
+	left = shape_new_cube();
+	back = shape_new_cube();
+	shape_set_transform(&right, tf_scale(1, 1, 1));
+	shape_set_transform(&floor, tf_transform(tf_new(), tf_scale(dimension, 2.5, dimension), tf_translate(dimension, 2.5, 2 * dimension)));
+	shape_set_transform(&ceiling, tf_transform(tf_rotate(0, 0, 0), tf_scale(dimension, 2.5, dimension), tf_translate(dimension, 2 * dimension - 2.5, 2 * dimension)));
+	shape_set_transform(&right, tf_transform(tf_rotate(0, 0, 0), tf_scale(2.5, dimension, dimension), tf_translate(-2.5, dimension, 2 * dimension)));
+	shape_set_transform(&left, tf_transform(tf_rotate(0, 0, 0), tf_scale(2.5, dimension, dimension), tf_translate(2 * dimension + 2.5, dimension, 2 * dimension)));
+	shape_set_transform(&back, tf_transform(tf_rotate(0, 0, 0), tf_scale(dimension, dimension, 2.5), tf_translate(dimension, dimension, 2 * dimension )));
+
+	right.vtable.print(&right);
+	floor.material = material_lambertian(color_new(0.73, 0.73, 0.73));
+	ceiling.material = material_lambertian(color_new(0.73, 0.73, 0.73));
+	right.material = material_lambertian(color_new(0.12, 0.45, 0.15));
+	left.material = material_lambertian(color_new(0.63, 0.05, 0.05));
+	back.material = material_lambertian(color_new(0.73, 0.73, 0.73));
+	vector_pushback(&world.objs, &floor);
+	vector_pushback(&world.objs, &ceiling);
+	vector_pushback(&world.objs, &right);
+	vector_pushback(&world.objs, &left);
+	vector_pushback(&world.objs, &back);
+	return (world);
 }

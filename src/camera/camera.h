@@ -34,7 +34,7 @@ typedef struct s_camera
 
 t_camera	camera_new(uint32_t width, uint32_t height, double fov);
 t_ray		camera_get_ray(t_camera *cam, size_t x, size_t y);
-t_transform	camera_view_transform(t_tuple from, t_tuple to);
+t_transform camera_view_transform(t_tuple from, t_tuple to, t_tuple up);
 void		camera_tests(void);
 void		camera_set_view_transform(t_camera *camera, t_transform vt);
 
