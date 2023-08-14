@@ -90,7 +90,8 @@ void matrix_tests()
 	matrix_set(b, 3, 2, 7);
 	matrix_set(b, 3, 3, 8);
 
-	result = matrix_multiply(a, b);
+	result = matrix_init(4, 4);
+	matrix_multiply(&result, &a, &b);
 	assert(result.data[0][0] == 20);
 	assert(result.data[0][1] == 22);
 	assert(result.data[0][2] == 50);
@@ -136,14 +137,15 @@ void matrix_tests()
 	assert(t_res.z == 33);
 	assert(t_res.w == 1);
 
-	ident = matrix_identity();
+	ident = matrix_init(4, 4);
 	t_res = matrix_multiply_tuple(ident, tuple_new_point(1, 2, 3));
+	matrix_print(ident);
 	assert(t_res.x == 1);
 	assert(t_res.y == 2);
 	assert(t_res.z == 3);
 	assert(t_res.w == 1);
 
-	result = matrix_transpose(a);
+	matrix_transpose(&result, &a);
 	assert(result.data[0][0] == 1);
 	assert(result.data[0][1] == 2);
 	assert(result.data[0][2] == 8);
@@ -184,7 +186,7 @@ void matrix_tests()
 	matrix_set(a, 3, 2, -9);
 	matrix_set(a, 3, 3, -4);
 
-	result = matrix_inverse(a);
+	matrix_inverse(&result, &a);
 
 	assert(is_approx_equal(result.data[0][0], -0.15385, M_EPSILON));
 	assert(is_approx_equal(result.data[0][1], -0.15385, M_EPSILON));
@@ -226,7 +228,7 @@ void matrix_tests()
 	matrix_set(a, 3, 2, 7);
 	matrix_set(a, 3, 3, 4);
 
-	result = matrix_inverse(a);
+	matrix_inverse(&result, &a);
 
 	assert(is_approx_equal(result.data[0][0], 0.21805, M_EPSILON));
 	assert(is_approx_equal(result.data[0][1], 0.45113, M_EPSILON));
@@ -287,6 +289,15 @@ void matrix_tests()
 	matrix_set(b, 3, 1, -2);
 	matrix_set(b, 3, 2, 0);
 	matrix_set(b, 3, 3, 5);
-	result = matrix_multiply(a, b);
-	assert(matrix_equal(matrix_multiply(result, matrix_inverse(b)),a));
+	matrix_multiply(&result, &a, &b);
+	t_matrix inverse;
+	inverse = matrix_init(4, 4);
+	matrix_inverse(&inverse, &b);
+	matrix_multiply(&result, &result, &inverse);
+	assert(matrix_equal(result, a));
+	matrix_free(inverse);
+	matrix_free(result);
+	matrix_free(ident);
+	matrix_free(a);
+	matrix_free(b);
 }

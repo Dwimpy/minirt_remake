@@ -23,8 +23,5 @@ t_transform	tf_shape_to_orientation(t_tuple to)
 	to.z *= -1;
 	q = quat_rot_from_to(tuple_new_vector(0, 1, 0), to);
 	tf.tf = quat_to_matrix(q);
-	tf.inv_tf = matrix_inverse(tf.tf);
-	tf.tf_transpose = matrix_transpose(tf.tf);
-	tf.inv_tf_transpose = matrix_transpose(tf.inv_tf);
 	return (tf);
 }

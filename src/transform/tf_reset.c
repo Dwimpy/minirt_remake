@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_default.c                                 :+:      :+:    :+:   */
+/*   tf_reset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 18:47:03 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 18:47:03 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 16:02:33 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 16:02:33 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#include "transform.h"
 
-t_material	material_default(t_color color)
+void	tf_reset(t_transform *tf)
 {
-	t_material	material;
-
-	material.ambient = 0.1;
-	material.diffuse = 0.9;
-	material.specular = 0.9;
-	material.shininess = 200;
-	material.refractive_index = 1.0;
-	material.reflectivity = 0.0;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
+	matrix_identity(&tf->translation);
+	matrix_identity(&tf->rotation);
+	matrix_identity(&tf->scaling);
+	matrix_identity(&tf->tf);
+	matrix_identity(&tf->inv_tf_transpose);
+	matrix_identity(&tf->inv_tf);
 }

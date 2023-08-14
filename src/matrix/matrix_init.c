@@ -14,7 +14,8 @@
 #include "matrix.h"
 #include <stdint.h>
 
-inline t_matrix matrix_init(size_t rows, size_t cols) {
+inline t_matrix	matrix_init(size_t rows, size_t cols)
+{
 	t_matrix	matrix;
 	size_t		i;
 
@@ -23,11 +24,9 @@ inline t_matrix matrix_init(size_t rows, size_t cols) {
 	matrix.rows = rows;
 	matrix.cols = cols;
 	matrix.data[0] = (t_real *)(matrix.data + rows);
-	for (i = 1; i < rows; i++) {
+	while (++i < rows)
 		matrix.data[i] = matrix.data[i - 1] + cols;
-	}
-	for (i = 0; i < rows; i++) {
-		ft_memset(matrix.data[i], 0, cols * sizeof(t_real));
-	}
+	i = 0;
+	matrix_identity(&matrix);
 	return (matrix);
 }

@@ -6,23 +6,31 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 21:49:00 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/08 03:35:41 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/14 15:10:35 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "matrix.h"
 
-inline t_matrix matrix_identity(void) {
+inline void	matrix_identity(t_matrix *m)
+{
 	t_matrix	matrix;
 	size_t		i;
+	size_t		j;
 
 	i = 0;
-	matrix = matrix_init(4, 4);
-	while (i < matrix.rows)
+	while (i < m->rows)
 	{
-		matrix.data[i][i] = 1.0;
+		j = 0;
+		while (j < m->cols)
+		{
+			if (i == j)
+				m->data[i][j] = 1.0;
+			else
+				m->data[i][j] = 0.0;
+			j++;
+		}
 		i++;
 	}
-	return (matrix);
 }

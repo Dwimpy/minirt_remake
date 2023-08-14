@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_default.c                                 :+:      :+:    :+:   */
+/*   camera_tf_reset.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 18:47:03 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 18:47:03 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 18:22:15 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 18:22:15 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#include "camera.h"
 
-t_material	material_default(t_color color)
+void	camera_tf_reset(t_camera *camera)
 {
-	t_material	material;
-
-	material.ambient = 0.1;
-	material.diffuse = 0.9;
-	material.specular = 0.9;
-	material.shininess = 200;
-	material.refractive_index = 1.0;
-	material.reflectivity = 0.0;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
+	matrix_identity(&camera->tf.translation);
+	matrix_identity(&camera->tf.rotation);
+	matrix_identity(&camera->tf.scaling);
 }

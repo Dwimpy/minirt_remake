@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_default.c                                 :+:      :+:    :+:   */
+/*   shape.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 18:47:03 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 18:47:03 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/01 15:03:31 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/01 15:03:31 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#include "matrix.h"
+#include "shape.h"
+#include "transform.h"
 
-t_material	material_default(t_color color)
+inline void	shape_translate(t_shape *shape, double x, double y, double z)
 {
-	t_material	material;
-
-	material.ambient = 0.1;
-	material.diffuse = 0.9;
-	material.specular = 0.9;
-	material.shininess = 200;
-	material.refractive_index = 1.0;
-	material.reflectivity = 0.0;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
+	tf_translate(&shape->transform, x, y, z);
 }

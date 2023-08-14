@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_translation.c                                    :+:      :+:    :+:   */
+/*   camera_compute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 18:17:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/08 03:47:15 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 17:54:06 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 17:54:06 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "camera.h"
 #include "matrix.h"
 #include "transform.h"
+#include "tuple.h"
 
-inline void	tf_translate(t_transform *tf, double x, double y, double z)
+void camera_tf_compute(t_camera *camera)
 {
-	matrix_identity(&tf->translation);
-	matrix_set(tf->translation, 0, 3, x);
-	matrix_set(tf->translation, 1, 3, y);
-	matrix_set(tf->translation, 2, 3, z);
+	t_matrix trans;
+
+	trans = matrix_init(4, 4);
+	matrix_multiply(&trans, &camera->tf.rotation, &camera->tf.translation);
+	matrix_multiply(&camera->tf.tf, &camera->tf.tf, &trans);
+	matrix_inverse(&camera->tf.inv_tf, &camera->tf.tf);
+	matrix_transpose(&camera->tf.inv_tf_transpose, &camera->tf.inv_tf);
+	matrix_free(trans);
 }

@@ -12,23 +12,20 @@
 
 #include "matrix.h"
 
-inline t_matrix	matrix_transpose(t_matrix m)
+inline void	matrix_transpose(t_matrix *transpose, t_matrix *m)
 {
-	t_matrix	transpose;
 	size_t		i;
 	size_t		j;
 
-	transpose = matrix_init(m.rows, m.cols);
 	i = 0;
-	while (i < m.rows)
+	while (i < m->rows)
 	{
 		j = 0;
-		while (j < m.cols)
+		while (j < m->cols)
 		{
-			transpose.data[j][i] = m.data[i][j];
+			transpose->data[j][i] = m->data[i][j];
 			j++;
 		}
 		i++;
 	}
-	return (transpose);
 }

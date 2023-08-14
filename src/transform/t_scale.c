@@ -13,15 +13,10 @@
 #include "matrix.h"
 #include "transform.h"
 
-inline t_transform tf_scale(double x, double y, double z) {
-	t_transform transform;
-
-	transform.tf = matrix_identity();
-	matrix_set(transform.tf, 0, 0, x);
-	matrix_set(transform.tf, 1, 1, y);
-	matrix_set(transform.tf, 2, 2, z);
-	transform.inv_tf = matrix_inverse(transform.tf);
-	transform.tf_transpose = matrix_transpose(transform.tf);
-	transform.inv_tf_transpose = matrix_transpose(transform.inv_tf);
-	return (transform);
+inline void	tf_scale(t_transform *tf, double x, double y, double z)
+{
+	matrix_identity(&tf->scaling);
+	matrix_set(tf->scaling, 0, 0, x);
+	matrix_set(tf->scaling, 1, 1, y);
+	matrix_set(tf->scaling, 2, 2, z);
 }

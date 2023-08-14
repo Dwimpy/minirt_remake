@@ -18,6 +18,9 @@ void ray_tests()
 {
 	t_ray ray;
 	t_tuple point;
+	t_transform	tf;
+
+	tf = tf_new();
 	ray = ray_new(tuple_new_point(1, 2, 3), tuple_new_vector(4, 5, 6));
 	assert(ray.origin.w == 1);
 	assert(ray.origin.x == 1);
@@ -54,7 +57,10 @@ void ray_tests()
 	assert(point.z == 4);
 
 	ray = ray_new(tuple_new_point(1, 2, 3), tuple_new_vector(0, 1, 0));
-	ray = ray_to_world_space(&ray, tf_translate(3, 4, 5));
+	tf_reset(&tf);
+	tf_translate(&tf, 3, 4, 5);
+	tf_compute(&tf);
+	ray = ray_to_world_space(&ray, tf);
 	assert(ray.origin.w == 1);
 	assert(ray.origin.x == 4);
 	assert(ray.origin.y == 6);
@@ -64,8 +70,11 @@ void ray_tests()
 	assert(ray.direction.y == 1);
 	assert(ray.direction.z == 0);
 
+	tf_reset(&tf);
+	tf_scale(&tf, 2, 3, 4);
+	tf_compute(&tf);
 	ray = ray_new(tuple_new_point(1, 2, 3), tuple_new_vector(0, 1, 0));
-	ray = ray_to_world_space(&ray, tf_scale(2, 3, 4));
+	ray = ray_to_world_space(&ray, tf);
 	assert(ray.origin.w == 1);
 	assert(ray.origin.x == 2);
 	assert(ray.origin.y == 6);
@@ -74,4 +83,5 @@ void ray_tests()
 	assert(ray.direction.x == 0);
 	assert(ray.direction.y == 3);
 	assert(ray.direction.z == 0);
+	tf_free(tf);
 }

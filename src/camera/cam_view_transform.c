@@ -18,36 +18,31 @@
 #include "quaternion.h"
 
 inline static t_tuple	handle_zero_case(t_tuple to, t_tuple from);
-static void	camera_vt_set_elements(t_transform *tf, t_tuple left, t_tuple up, t_tuple forward);
 
 
-t_transform camera_view_transform(t_tuple from, t_tuple to, t_tuple up)
+void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to, t_tuple up)
 {
 	t_onb			onb;
-	t_tuple			from_to_vector;
 	t_tuple			upn;
-	t_transform		view_transform;
 	t_transform		translation;
 
-	from_to_vector = tuple_subtract(to, from);
+	translation = tf_new();
 	onb.forward = tuple_normalize(tuple_subtract(to, from));
 	upn = tuple_normalize(up);
-	onb.left = tuple_normalize(tuple_cross(onb.forward, upn));
+	onb.left = tuple_cross(onb.forward, upn);
 	onb.up = tuple_cross(onb.left, onb.forward);
-	tuple_print(onb.up);
-	tuple_print(onb.left);
-	view_transform = tf_new();
-	camera_vt_set_elements(&view_transform, onb.left, onb.up, onb.forward);
-	translation = tf_translate(-from.x, -from.y, -from.z);
-	view_transform.tf = matrix_multiply(view_transform.tf, translation.tf);
-	view_transform.inv_tf = matrix_inverse(view_transform.tf);
-	view_transform.tf_transpose = matrix_transpose(view_transform.tf);
-	view_transform.inv_tf_transpose = matrix_transpose(view_transform.inv_tf);
+	camera->onb.up = onb.up;
+	camera->onb.left = onb.left;
+	camera->onb.forward = onb.forward;
+	camera_vt_set_elements(&camera->tf, camera->onb.left, camera->onb.up, camera->onb.forward);
+	tf_translate(&translation, -from.x, -from.y, -from.z);
+	matrix_multiply(&camera->tf.tf, &camera->tf.tf, &translation.translation);
+	matrix_inverse(&camera->tf.inv_tf, &camera->tf.tf);
+	matrix_transpose(&camera->tf.inv_tf_transpose, &camera->tf.inv_tf);
 	tf_free(translation);
-	return (view_transform);
 }
 
-inline static void	\
+inline void	\
 	camera_vt_set_elements(\
 		t_transform *tf, t_tuple left, t_tuple up, t_tuple forward)
 {

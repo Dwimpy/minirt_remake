@@ -20,6 +20,10 @@ void tf_free(t_transform tf) {
 		matrix_free(tf.inv_tf);
 	if (tf.inv_tf_transpose.data)
 		matrix_free(tf.inv_tf_transpose);
-	if (tf.tf_transpose.data)
-		matrix_free(tf.tf_transpose);
+	if (tf.translation.data)
+		matrix_free(tf.translation);
+	if (tf.translation.data)
+		matrix_free(tf.rotation);
+	if (tf.translation.data)
+		matrix_free(tf.scaling);
 }

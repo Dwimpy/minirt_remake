@@ -18,14 +18,14 @@
 # define ERR_MTX_OUT_OF_RANGE "Matrix index out of range. Exiting.\n"
 # define ERR_MTX_SAME_DIMENSION "Matrices do not have the same dimension. Exiting.\n"
 
-#include "tuple.h"
-#include <stdint.h>
-#include "stdlib.h"
-#include "unistd.h"
-#include "libft.h"
-#include "stdbool.h"
-#include "stdio.h"
-#include <assert.h>
+# include "tuple.h"
+# include <stdint.h>
+# include "stdlib.h"
+# include "unistd.h"
+# include "libft.h"
+# include "stdbool.h"
+# include "stdio.h"
+# include <assert.h>
 
 typedef struct s_matrix
 {
@@ -35,10 +35,10 @@ typedef struct s_matrix
 }				t_matrix;
 
 t_matrix	matrix_init(size_t rows, size_t cols);
-t_matrix	matrix_identity(void);
-t_matrix	matrix_multiply(t_matrix a, t_matrix b);
-t_matrix	matrix_transpose(t_matrix m);
-t_matrix	matrix_inverse(t_matrix mat);
+void		matrix_identity(t_matrix *m);
+void		matrix_multiply(t_matrix *result, t_matrix *m1, t_matrix *m2);
+void		matrix_transpose(t_matrix *transpose, t_matrix *m);
+void		matrix_inverse(t_matrix *inverse, t_matrix *m);
 t_tuple		matrix_multiply_tuple(t_matrix m, t_tuple t);
 void		matrix_set(t_matrix mtx, size_t row, size_t column, double value);
 double		matrix_get(t_matrix mtx, size_t row, size_t column);

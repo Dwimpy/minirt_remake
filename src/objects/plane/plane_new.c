@@ -32,9 +32,6 @@ t_shape	shape_new_plane(void)
 	plane->origin = tuple_new_point(0, 0, 0);
 	plane->normal = tuple_new_vector(0, 1, 0);
 	shape.data = plane;
-	shape.transform.inv_tf = matrix_identity();
-	shape.transform.tf_transpose = matrix_identity();
-	shape.transform.inv_tf_transpose = matrix_identity();
 	shape.vtable.intersect = plane_intersect;
 	shape.vtable.normal_at = plane_normal_at;
 	shape.vtable.print = plane_print;

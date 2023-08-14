@@ -13,19 +13,13 @@
 #include "matrix.h"
 #include "transform.h"
 
-inline t_transform tf_shear(double xy, double xz, double yx, double yz, double zx, double zy)
+inline void	tf_shear(t_transform *tf, double xy, double xz, double yx, double yz, double zx, double zy)
 {
-	t_transform transform;
-
-	transform.tf = matrix_identity();
-	matrix_set(transform.tf, 0, 1, xy);
-	matrix_set(transform.tf, 0, 2, xz);
-	matrix_set(transform.tf, 1, 0, yx);
-	matrix_set(transform.tf, 1, 2, yz);
-	matrix_set(transform.tf, 2, 0, zx);
-	matrix_set(transform.tf, 2, 1, zy);
-	transform.inv_tf = matrix_inverse(transform.tf);
-	transform.tf_transpose = matrix_transpose(transform.tf);
-	transform.inv_tf_transpose = matrix_transpose(transform.inv_tf);
-	return (transform);
+	matrix_identity(&tf->tf);
+	matrix_set(tf->tf, 0, 1, xy);
+	matrix_set(tf->tf, 0, 2, xz);
+	matrix_set(tf->tf, 1, 0, yx);
+	matrix_set(tf->tf, 1, 2, yz);
+	matrix_set(tf->tf, 2, 0, zx);
+	matrix_set(tf->tf, 2, 1, zy);
 }

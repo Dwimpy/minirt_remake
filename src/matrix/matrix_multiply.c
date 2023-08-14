@@ -12,27 +12,45 @@
 
 #include "matrix.h"
 
+inline static void	copy_matrix_elements(t_matrix *result, t_matrix *tmp);
 
-inline t_matrix matrix_multiply(t_matrix m1, t_matrix m2)
+inline void	matrix_multiply(t_matrix *result, t_matrix *m1, t_matrix *m2)
 {
-	t_matrix	result;
+	t_matrix	tmp;
 
-	result = matrix_init(m1.rows, m2.cols);
-	result.data[0][0] = m1.data[0][0]*m2.data[0][0] + m1.data[0][1]*m2.data[1][0] + m1.data[0][2]*m2.data[2][0] + m1.data[0][3]*m2.data[3][0];
-	result.data[0][1] = m1.data[0][0]*m2.data[0][1] + m1.data[0][1]*m2.data[1][1] + m1.data[0][2]*m2.data[2][1] + m1.data[0][3]*m2.data[3][1];
-	result.data[0][2] = m1.data[0][0]*m2.data[0][2] + m1.data[0][1]*m2.data[1][2] + m1.data[0][2]*m2.data[2][2] + m1.data[0][3]*m2.data[3][2];
-	result.data[0][3] = m1.data[0][0]*m2.data[0][3] + m1.data[0][1]*m2.data[1][3] + m1.data[0][2]*m2.data[2][3] + m1.data[0][3]*m2.data[3][3];
-	result.data[1][0] = m1.data[1][0]*m2.data[0][0] + m1.data[1][1]*m2.data[1][0] + m1.data[1][2]*m2.data[2][0] + m1.data[1][3]*m2.data[3][0];
-	result.data[1][1] = m1.data[1][0]*m2.data[0][1] + m1.data[1][1]*m2.data[1][1] + m1.data[1][2]*m2.data[2][1] + m1.data[1][3]*m2.data[3][1];
-	result.data[1][2] = m1.data[1][0]*m2.data[0][2] + m1.data[1][1]*m2.data[1][2] + m1.data[1][2]*m2.data[2][2] + m1.data[1][3]*m2.data[3][2];
-	result.data[1][3] = m1.data[1][0]*m2.data[0][3] + m1.data[1][1]*m2.data[1][3] + m1.data[1][2]*m2.data[2][3] + m1.data[1][3]*m2.data[3][3];
-	result.data[2][0] = m1.data[2][0]*m2.data[0][0] + m1.data[2][1]*m2.data[1][0] + m1.data[2][2]*m2.data[2][0] + m1.data[2][3]*m2.data[3][0];
-	result.data[2][1] = m1.data[2][0]*m2.data[0][1] + m1.data[2][1]*m2.data[1][1] + m1.data[2][2]*m2.data[2][1] + m1.data[2][3]*m2.data[3][1];
-	result.data[2][2] = m1.data[2][0]*m2.data[0][2] + m1.data[2][1]*m2.data[1][2] + m1.data[2][2]*m2.data[2][2] + m1.data[2][3]*m2.data[3][2];
-	result.data[2][3] = m1.data[2][0]*m2.data[0][3] + m1.data[2][1]*m2.data[1][3] + m1.data[2][2]*m2.data[2][3] + m1.data[2][3]*m2.data[3][3];
-	result.data[3][0] = m1.data[3][0]*m2.data[0][0] + m1.data[3][1]*m2.data[1][0] + m1.data[3][2]*m2.data[2][0] + m1.data[3][3]*m2.data[3][0];
-	result.data[3][1] = m1.data[3][0]*m2.data[0][1] + m1.data[3][1]*m2.data[1][1] + m1.data[3][2]*m2.data[2][1] + m1.data[3][3]*m2.data[3][1];
-	result.data[3][2] = m1.data[3][0]*m2.data[0][2] + m1.data[3][1]*m2.data[1][2] + m1.data[3][2]*m2.data[2][2] + m1.data[3][3]*m2.data[3][2];
-	result.data[3][3] = m1.data[3][0]*m2.data[0][3] + m1.data[3][1]*m2.data[1][3] + m1.data[3][2]*m2.data[2][3] + m1.data[3][3]*m2.data[3][3];
-	return (result);
+	tmp = matrix_init(4, 4);
+	tmp.data[0][0] = m1->data[0][0]*m2->data[0][0] + m1->data[0][1]*m2->data[1][0] + m1->data[0][2]*m2->data[2][0] + m1->data[0][3]*m2->data[3][0];
+	tmp.data[0][1] = m1->data[0][0]*m2->data[0][1] + m1->data[0][1]*m2->data[1][1] + m1->data[0][2]*m2->data[2][1] + m1->data[0][3]*m2->data[3][1];
+	tmp.data[0][2] = m1->data[0][0]*m2->data[0][2] + m1->data[0][1]*m2->data[1][2] + m1->data[0][2]*m2->data[2][2] + m1->data[0][3]*m2->data[3][2];
+	tmp.data[0][3] = m1->data[0][0]*m2->data[0][3] + m1->data[0][1]*m2->data[1][3] + m1->data[0][2]*m2->data[2][3] + m1->data[0][3]*m2->data[3][3];
+	tmp.data[1][0] = m1->data[1][0]*m2->data[0][0] + m1->data[1][1]*m2->data[1][0] + m1->data[1][2]*m2->data[2][0] + m1->data[1][3]*m2->data[3][0];
+	tmp.data[1][1] = m1->data[1][0]*m2->data[0][1] + m1->data[1][1]*m2->data[1][1] + m1->data[1][2]*m2->data[2][1] + m1->data[1][3]*m2->data[3][1];
+	tmp.data[1][2] = m1->data[1][0]*m2->data[0][2] + m1->data[1][1]*m2->data[1][2] + m1->data[1][2]*m2->data[2][2] + m1->data[1][3]*m2->data[3][2];
+	tmp.data[1][3] = m1->data[1][0]*m2->data[0][3] + m1->data[1][1]*m2->data[1][3] + m1->data[1][2]*m2->data[2][3] + m1->data[1][3]*m2->data[3][3];
+	tmp.data[2][0] = m1->data[2][0]*m2->data[0][0] + m1->data[2][1]*m2->data[1][0] + m1->data[2][2]*m2->data[2][0] + m1->data[2][3]*m2->data[3][0];
+	tmp.data[2][1] = m1->data[2][0]*m2->data[0][1] + m1->data[2][1]*m2->data[1][1] + m1->data[2][2]*m2->data[2][1] + m1->data[2][3]*m2->data[3][1];
+	tmp.data[2][2] = m1->data[2][0]*m2->data[0][2] + m1->data[2][1]*m2->data[1][2] + m1->data[2][2]*m2->data[2][2] + m1->data[2][3]*m2->data[3][2];
+	tmp.data[2][3] = m1->data[2][0]*m2->data[0][3] + m1->data[2][1]*m2->data[1][3] + m1->data[2][2]*m2->data[2][3] + m1->data[2][3]*m2->data[3][3];
+	tmp.data[3][0] = m1->data[3][0]*m2->data[0][0] + m1->data[3][1]*m2->data[1][0] + m1->data[3][2]*m2->data[2][0] + m1->data[3][3]*m2->data[3][0];
+	tmp.data[3][1] = m1->data[3][0]*m2->data[0][1] + m1->data[3][1]*m2->data[1][1] + m1->data[3][2]*m2->data[2][1] + m1->data[3][3]*m2->data[3][1];
+	tmp.data[3][2] = m1->data[3][0]*m2->data[0][2] + m1->data[3][1]*m2->data[1][2] + m1->data[3][2]*m2->data[2][2] + m1->data[3][3]*m2->data[3][2];
+	tmp.data[3][3] = m1->data[3][0]*m2->data[0][3] + m1->data[3][1]*m2->data[1][3] + m1->data[3][2]*m2->data[2][3] + m1->data[3][3]*m2->data[3][3];
+	copy_matrix_elements(result, &tmp);
+	matrix_free(tmp);
+}
+
+inline static void	copy_matrix_elements(t_matrix *result, t_matrix *tmp)
+{
+	size_t	i;
+	size_t	j;
+
+	i = -1;
+	while (++i < tmp->rows)
+	{
+		j = -1;
+		while (++j < tmp->cols)
+		{
+			result->data[i][j] = tmp->data[i][j];
+		}
+	}
 }

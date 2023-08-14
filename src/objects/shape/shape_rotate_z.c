@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_default.c                                 :+:      :+:    :+:   */
+/*   shape_rotate_z.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 18:47:03 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 18:47:03 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 14:35:08 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 14:35:08 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#include "shape.h"
 
-t_material	material_default(t_color color)
+inline void	shape_rotate_z(t_shape *shape, double z)
 {
-	t_material	material;
-
-	material.ambient = 0.1;
-	material.diffuse = 0.9;
-	material.specular = 0.9;
-	material.shininess = 200;
-	material.refractive_index = 1.0;
-	material.reflectivity = 0.0;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
+	tf_rotate_z(&shape->transform, z);
 }

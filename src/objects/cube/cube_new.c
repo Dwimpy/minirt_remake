@@ -27,12 +27,8 @@ t_shape	shape_new_cube(void)
 	shape.transform = tf_new();
 	cube->origin = tuple_new_point(0, 0, 0);
 	shape.data = cube;
-	shape.transform.inv_tf = matrix_identity();
-	shape.transform.tf_transpose = matrix_identity();
-	shape.transform.inv_tf_transpose = matrix_identity();
 	shape.vtable.print = cube_print;
 	shape.vtable.intersect = cube_intersect;
 	shape.vtable.normal_at = cube_normal_at;
-	id++;
 	return (shape);
 }

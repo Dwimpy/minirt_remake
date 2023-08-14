@@ -13,6 +13,7 @@
 #include "color.h"
 #include "intersect.h"
 #include "material.h"
+#include "matrix.h"
 #include "ray.h"
 #include "shape.h"
 #include "sphere.h"
@@ -91,7 +92,8 @@ void sphere_tests(void)
 
 	vector_clear(&xs);
 	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 0, 1));
-	shape_set_transform(&sphere, tf_scale(2, 2, 2));
+	shape_scale(&sphere, 2, 2, 2);
+	tf_compute(&sphere.transform);
 	sphere.vtable.intersect(&sphere, ray, &xs);
 	i = vector_at(&xs, 0);
 	assert(i->t == 3);
@@ -100,12 +102,15 @@ void sphere_tests(void)
 	assert(xs.size == 2);
 
 	vector_clear(&xs);
+	shape_reset(&sphere);
 	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 0, 1));
-	shape_set_transform(&sphere, tf_translate(5, 0, 0));
+	shape_translate(&sphere, 5, 0, 0);
+	tf_compute(&sphere.transform);
 	sphere.vtable.intersect(&sphere, ray, &xs);
 	assert(xs.size == 0);
 
-	sphere = shape_new_sphere();
+	shape_reset(&sphere);
+	tf_compute(&sphere.transform);
 	normal = sphere.vtable.normal_at(&sphere, tuple_new_point(1, 0, 0));
 	assert(is_approx_equal(normal.x, 1, M_EPSILON));
 	assert(normal.y == 0);
@@ -126,13 +131,18 @@ void sphere_tests(void)
 	assert(is_approx_equal(normal.y, sqrt(3) / 3, M_EPSILON));
 	assert(is_approx_equal(normal.z, sqrt(3) / 3, M_EPSILON));
 
-	shape_set_transform(&sphere, tf_translate(0, 1, 0));
+	shape_reset(&sphere);
+	shape_translate(&sphere, 0, 1, 0);
+	tf_compute(&sphere.transform);
 	normal = sphere.vtable.normal_at(&sphere, tuple_new_point(0, 1.70711, -0.70711));
 	assert(is_approx_equal(normal.x, 0, M_EPSILON));
 	assert(is_approx_equal(normal.y, 0.70711, M_EPSILON));
 	assert(is_approx_equal(normal.z, -0.70711, M_EPSILON));
 
-	shape_set_transform(&sphere, tf_transform(tf_rotate(0, 0, 36), tf_scale(1, 0.5, 1), tf_translate(0, 0, 0)));
+	shape_reset(&sphere);
+	shape_scale(&sphere, 1, 0.5, 1);
+	shape_rotate_z(&sphere, 36);
+	tf_compute(&sphere.transform);
 	normal = sphere.vtable.normal_at(&sphere, tuple_new_point(0, sqrt(2) / 2, -sqrt(2) / 2));
 	assert(is_approx_equal(normal.x, 0, M_EPSILON));
 	assert(is_approx_equal(normal.y, 0.97014, M_EPSILON));
@@ -153,6 +163,7 @@ void sphere_tests(void)
 	eyev = tuple_new_vector(0, 0, -1);
 	normalv = tuple_new_vector(0, 0, -1);
 	result = light_tests(&s.material, &light, p, eyev, normalv);
+	tuple_print(result);
 	assert(is_approx_equal(result.x, 1.9, M_EPSILON));
 	assert(is_approx_equal(result.y, 1.9, M_EPSILON));
 	assert(is_approx_equal(result.z, 1.9, M_EPSILON));

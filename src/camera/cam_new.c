@@ -17,6 +17,7 @@ t_camera	camera_new(uint32_t width, uint32_t height, double fov)
 {
 	t_camera	cam;
 
+	cam.tf = tf_new();
 	cam.width = width;
 	cam.height = height;
 	cam.fov = tf_deg_to_rad(fov);
@@ -33,10 +34,6 @@ t_camera	camera_new(uint32_t width, uint32_t height, double fov)
 		cam.half_width = cam.half_view * cam.aspect_ratio;
 		cam.half_height = cam.half_view;
 	}
-	cam.tf = tf_new();
-	cam.tf.inv_tf = matrix_identity();
-	cam.tf.tf_transpose = matrix_identity();
-	cam.tf.inv_tf_transpose = matrix_identity();
 	cam.pixel_size = (cam.half_width * 2.0) / (double)cam.width;
 	return (cam);
 }

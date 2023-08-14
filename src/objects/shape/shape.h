@@ -44,7 +44,12 @@ typedef struct s_shape
 
 void		shape_set_transform(t_shape *shape, t_transform tf);
 void		*shape_get_data(const t_shape *shape);
+void		shape_reset(t_shape *shape);
 t_material	shape_get_material(const t_shape *shape);
 t_color		shape_get_color(const t_shape *shape);
-
+void		shape_translate(t_shape *shape, double x, double y, double z);
+void		shape_scale(t_shape *shape, double x, double y, double z);
+void		shape_rotate_x(t_shape *shape, double z);
+void		shape_rotate_y(t_shape *shape, double z);
+void		shape_rotate_z(t_shape *shape, double z);
 #endif

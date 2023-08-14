@@ -18,32 +18,29 @@ void		interchange_rows(t_matrix *m);
 void		replace_row(t_matrix *m);
 void		finalize_inverse(t_matrix *m);
 
-t_matrix	matrix_inverse(t_matrix mat)
+void	matrix_inverse(t_matrix *inverse, t_matrix *m)
 {
 	t_matrix	aug_mtx;
-	t_matrix	inverse_mtx;
 	size_t		i;
 	size_t		j;
 
-	aug_mtx = matrix_init(mat.rows, mat.cols * 2);
-	inverse_mtx = matrix_init(mat.rows, mat.cols);
-	matrix_set_aug_elements(&aug_mtx, mat);
+	aug_mtx = matrix_init(m->rows, m->cols * 2);
+	matrix_set_aug_elements(&aug_mtx, *m);
 	interchange_rows(&aug_mtx);
 	replace_row(&aug_mtx);
 	finalize_inverse(&aug_mtx);
 	i = 0;
-	while (i < mat.rows)
+	while (i < m->rows)
 	{
 		j = 0;
-		while (j < mat.rows)
+		while (j < m->rows)
 		{
-			inverse_mtx.data[i][j] = aug_mtx.data[i][j + mat.rows];
+			inverse->data[i][j] = aug_mtx.data[i][j + m->rows];
 			++j;
 		}
 		++i;
 	}
 	matrix_free(aug_mtx);
-	return (inverse_mtx);
 }
 
 void	matrix_set_aug_elements(t_matrix *mat,t_matrix m)

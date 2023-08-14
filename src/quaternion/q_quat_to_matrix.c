@@ -26,7 +26,8 @@ t_matrix	quat_to_matrix(t_quaternion q)
 	sq_qx = q.x * q.x;
 	sq_qy = q.y * q.y;
 	sq_qz = q.z * q.z;
-	rot = matrix_identity();
+	rot = matrix_init(4, 4);
+	matrix_identity(&rot);
 	invs = 1.0 / (sq_qw + sq_qx + sq_qy + sq_qz);
 	rot.data[0][0] = (sq_qx - sq_qy - sq_qz + sq_qw) * invs;
 	rot.data[1][1] = (-sq_qx + sq_qy - sq_qz + sq_qw) * invs;
