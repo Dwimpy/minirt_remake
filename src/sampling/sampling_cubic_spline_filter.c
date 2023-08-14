@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_lambertian.c                              :+:      :+:    :+:   */
+/*   sampling_cubic_spline_filter.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 00:38:26 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/14 00:38:26 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/15 00:20:19 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/15 00:20:19 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#include "sampling.h"
 
-t_material	material_lambertian(t_color color)
+void	cubic_spline_filter(t_sample *samples, const size_t num_samples)
 {
-	t_material	material;
+	size_t	i;
 
-	material.ambient = 0.5;
-	material.diffuse = 1.0;
-	material.specular = 0.05;
-	material.shininess = 200;
-	material.refractive_index = 0.0;
-	material.reflectivity = 0.007;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
+	i = 0;
+	while (i < num_samples)
+	{
+		samples[i].x = cubic_filter(samples[i].x);
+		samples[i].y = cubic_filter(samples[i].y);
+		++i;
+	}
 }

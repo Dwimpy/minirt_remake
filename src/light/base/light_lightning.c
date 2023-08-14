@@ -37,7 +37,6 @@ t_color	light_lightning(t_computations *comps, t_light *light)
 				tuple_subtract(light->origin, comps->over_point));
 	ambient = color_multiply_s(eff_color, m.ambient);
 	light_dot_normal = tuple_dot(light_dir, comps->normal);
-
 	reflect_dot_eye = 0.0;
 	black = color_new(0.0, 0.0, 0.0);
 	specular = black;

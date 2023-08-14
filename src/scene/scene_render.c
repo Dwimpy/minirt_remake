@@ -14,25 +14,39 @@
 #include "color.h"
 #include "image.h"
 #include "intersect.h"
+#include "sampling.h"
 #include "scene.h"
 //#include <sys/_types/_size_t.h>
+#define SPP 16
 
 void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 {
-	t_ray	ray;
-	t_color	color;
-	size_t	i;
-	size_t	j;
+	t_ray		ray;
+	t_color		color;
+	size_t		i;
+	size_t		j;
+	size_t		k;
+	t_sample	*samples;
 
-	j = -1;
-	while (++j < canvas->height - 1)
+	j = 0;
+	samples = sample_jittered_new(SPP);
+	cubic_spline_filter(samples, SPP);
+	while (j < canvas->height - 1)
 	{
-		i = -1;
-		while (++i < canvas->width - 1)
+		i = 0;
+		while (i < canvas->width - 1)
 		{
-			ray = camera_get_ray(camera, i, j);
-			color = intersect_color_at(world, &ray, 50);
+			k = 0;
+			color = color_new(0, 0, 0);
+			while (k < SPP)
+			{
+				ray = camera_get_ray(camera, i, j, samples[k]);
+				color = color_add(color, color_multiply_s(intersect_color_at(world, &ray, 5), 1.0 / SPP));
+				++k;
+			}
 			image_set_pixel(*canvas, color, i, j);
+			++i;
 		}
+		++j;
 	}
 }

@@ -33,7 +33,7 @@ t_scene scene_default(void)
 	t_shape s2;
 	t_shape plane;
 
-	world.light = light_new(tuple_new_point(-10, 10, -10), color_new(1.0, 1.0, 1.0));
+	world.light = point_light_new(tuple_new_point(-10, 10, -10), color_new(1.0, 1.0, 1.0));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -155,7 +155,7 @@ void	scene_test_shade_hit(void)
 	assert(is_approx_equal(color.y, 0.47582, M_EPSILON));
 	assert(is_approx_equal(color.z, 0.2855, M_EPSILON));
 
-	world.light = light_new(tuple_new_point(0, 0.25, 0), color_new(1, 1, 1));
+	world.light = point_light_new(tuple_new_point(0, 0.25, 0), color_new(1, 1, 1));
 	ray = ray_new(tuple_new_point(0, 0, 0), tuple_new_vector(0, 0, 1));
 	shape = vector_at(&world.objs, 1);
 	i = intersection(0.5, shape);
@@ -219,7 +219,7 @@ void	scene_test_color_at(void)
 //	t_shape	s2;
 //	t_shape	plane;
 //	t_intersect inter;
-//	world2.light = light_new(tuple_new_point(0, 0, -10), color_new(1.0, 1.0, 1.0));
+//	world2.light = point_light_new(tuple_new_point(0, 0, -10), color_new(1.0, 1.0, 1.0));
 //	world2.objs = vector_init(10, sizeof(t_shape));
 //	world2.intersections = vector_init(10, sizeof(t_intersect));
 //	world2.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -468,7 +468,7 @@ t_scene cornell_box(void)
 	t_real	dimension;
 
 	dimension = 550.0 / 2;
-	world.light = light_new(tuple_new_point(278, 278, -400), color_new(0.73, 0.73, 0.73));
+	world.light = point_light_new(tuple_new_point(278, 450, -800 + 278 + 278 / 2), color_new(0.73, 0.73, 0.73));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -479,27 +479,26 @@ t_scene cornell_box(void)
 	left = shape_new_cube();
 	back = shape_new_cube();
 
-	shape_scale(&floor, dimension, 2.5, dimension);
-	shape_translate(&floor, dimension, 2.5, 2 * dimension);
+	shape_scale(&floor, dimension, 0, dimension);
+	shape_translate(&floor, dimension, 0, 2 * dimension);
 	tf_compute(&floor.transform);
 
-	shape_scale(&ceiling, dimension, 2.5, dimension);
-	shape_translate(&ceiling, dimension, 2 * dimension - 2.5, 2 * dimension);
+	shape_scale(&ceiling, dimension, 0, dimension);
+	shape_translate(&ceiling, dimension, 2 * dimension, 2 * dimension);
 	tf_compute(&ceiling.transform);
 
-	shape_scale(&left, 2.5, dimension, dimension);
-	shape_translate(&left, -2.5, dimension, 2 * dimension);
+	shape_scale(&left, 0, dimension, dimension);
+	shape_translate(&left, 0, dimension, 2 * dimension);
 	tf_compute(&left.transform);
 
-	shape_scale(&right, 2.5, dimension, dimension);
-	shape_translate(&right, 2 * dimension + 2.5, dimension, 2 * dimension);
+	shape_scale(&right, 0, dimension, dimension);
+	shape_translate(&right, 2 * dimension, dimension, 2 * dimension);
 	tf_compute(&right.transform);
 
-	shape_scale(&back, dimension, dimension, 2.5);
+	shape_scale(&back, dimension, dimension, 0);
 	shape_translate(&back, dimension, dimension, 2 * dimension);
 	tf_compute(&back.transform);
 
-	right.vtable.print(&right);
 	floor.material = material_lambertian(color_new(0.73, 0.73, 0.73));
 	ceiling.material = material_lambertian(color_new(0.73, 0.73, 0.73));
 	right.material = material_lambertian(color_new(0.12, 0.45, 0.15));

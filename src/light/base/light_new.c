@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_lambertian.c                              :+:      :+:    :+:   */
+/*   light_new.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 00:38:26 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/14 00:38:26 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 22:55:43 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 23:33:12 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#include "light.h"
 
-t_material	material_lambertian(t_color color)
+t_light	point_light_new(t_tuple origin, t_color intensity)
 {
-	t_material	material;
+	t_light	light;
 
-	material.ambient = 0.5;
-	material.diffuse = 1.0;
-	material.specular = 0.05;
-	material.shininess = 200;
-	material.refractive_index = 0.0;
-	material.reflectivity = 0.007;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
+	light.origin = origin;
+	light.intensity = intensity;
+	return (light);
 }

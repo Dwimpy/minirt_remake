@@ -17,52 +17,55 @@
 #include "scene.h"
 #include "tuple.h"
 
-static inline double shlick(t_computations *comps);
+static inline double	shlick(t_computations *comps);
 
 t_color	intersect_shade_hit(t_scene *world, t_computations *comps, int depth)
 {
-	t_color		surface_color;
-	t_color		reflected_color;
-	t_color		refracted_color;
-	t_real		reflectance;
-	t_material	m;
+	t_color			surface_color;
+	t_color			reflected_color;
+	t_color			refracted_color;
+	t_real			reflectance;
+	t_material		m;
+	t_computations	compss;
 
-	m = comps->shape->material;
-	comps->is_shadowed = intersect_shadow_hit(world, &comps->over_point);
+	compss = *comps;
+	compss.is_shadowed = intersect_shadow_hit(world, &compss.over_point);
 	surface_color = light_lightning(comps, &world->light);
-	reflected_color = intersect_reflected_color(world, &world->comps, depth);
-	refracted_color = intersect_refracted_color(world, &world->comps, depth);
+	reflected_color = intersect_reflected_color(world, &compss, depth);
+	refracted_color = intersect_refracted_color(world, &compss, depth);
 	if (m.reflectivity > 0 && m.transparency > 0)
 	{
 		reflectance = shlick(comps);
 		return (tuple_add(surface_color, \
 				tuple_add(color_multiply_s(reflected_color, reflectance), \
-                color_multiply_s(refracted_color, 1 - reflectance))));
+				color_multiply_s(refracted_color, 1 - reflectance))));
 	}
 	return (tuple_add(surface_color, \
 			tuple_add(reflected_color, \
 				refracted_color)));
 }
 
-static inline double shlick(t_computations *comps)
+static inline double shlick(t_computations *computations)
 {
-	t_real	cos_angle;
-	t_real	sin2t;
-	t_real	n;
-	t_real	cos_t;
-	t_real	r0;
+	t_real			cos_angle;
+	t_real			sin2t;
+	t_real			n;
+	t_real			cos_t;
+	t_real			r0;
+	t_computations	comps;
 
-	cos_angle = tuple_dot(comps->eye, comps->normal);
-	if (comps->n1 > comps->n2)
+	comps = *computations;
+	cos_angle = tuple_dot(comps.eye, comps.normal);
+	if (comps.n1 > comps.n2)
 	{
-		n = comps->n1 / comps->n2;
+		n = comps.n1 / comps.n2;
 		sin2t = n * n * (1.0 - cos_angle * cos_angle);
 		if (sin2t > 1.0)
 			return (1.0);
 		cos_t = sqrt(1.0 - sin2t);
 		cos_angle = cos_t;
 	}
-	r0 = ((comps->n1 - comps->n2) / (comps->n1 + comps->n2)) * \
-		((comps->n1 - comps->n2) / (comps->n1 + comps->n2));
+	r0 = ((comps.n1 - comps.n2) / (comps.n1 + comps.n2)) * \
+		((comps.n1 - comps.n2) / (comps.n1 + comps.n2));
 	return (r0 + (1.0 - r0) * pow((1.0 - cos_angle), 5.0));
 }

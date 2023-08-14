@@ -20,8 +20,6 @@ t_color	intersect_color_at(t_scene *world, t_ray *ray, int depth)
 	t_intersect	*i;
 	t_color		color;
 
-
-	color = color_new(0, 0, 0);
 	vector_clear(&world->intersections);
 	intersect_world(world, ray);
 	i = intersect_hit(&world->intersections);
@@ -29,6 +27,7 @@ t_color	intersect_color_at(t_scene *world, t_ray *ray, int depth)
 	{
 		intersect_compute(i, ray, &world->comps, &world->intersections);
 		color = intersect_shade_hit(world, &world->comps, depth);
+		return (color);
 	}
-	return (color);
+	return (color_new(0, 0, 0));
 }

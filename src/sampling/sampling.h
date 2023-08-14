@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_lambertian.c                              :+:      :+:    :+:   */
+/*   sampling.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 00:38:26 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/14 00:38:26 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 23:46:39 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 23:46:39 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#ifndef SAMPLING_H
+# define SAMPLING_H
+# include "rng.h"
+# include "stdint.h"
 
-t_material	material_lambertian(t_color color)
+typedef struct s_sample
 {
-	t_material	material;
+	t_real		x;
+	t_real		y;
+}			t_sample;
 
-	material.ambient = 0.5;
-	material.diffuse = 1.0;
-	material.specular = 0.05;
-	material.shininess = 200;
-	material.refractive_index = 0.0;
-	material.reflectivity = 0.007;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
-}
+t_sample	*sample_jittered_new(size_t num_samples);
+t_real		cubic_filter(t_real sample);
+void		cubic_spline_filter(t_sample *samples, const size_t num_samples);
+#endif

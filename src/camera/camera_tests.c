@@ -28,18 +28,18 @@ void camera_tests(void)
 	camera = camera_new(1024, 1024, 60);
 
 	test = tf_new();
-	camera_view_transform(&camera, tuple_new_point(0, 0, 0), tuple_new_point(0, 0, 1), tuple_new_vector(0, 1, 0));
+	camera_view_transform(&camera, tuple_new_point(0, 0, 0), tuple_new_point(0, 0, 1));
 	tf_scale(&test, -1, 1, -1);
 	tf_scale(&camera.tf, -1, 1, -1);
 	assert(matrix_equal(camera.tf.scaling, test.scaling));
 
 	tf_reset(&camera.tf);
 	tf_translate(&test, 0, 0, -8);
-	camera_view_transform(&camera, tuple_new_point(0, 0, 8), tuple_new_point(0, 0, 0), tuple_new_vector(0, 1, 0));
+	camera_view_transform(&camera, tuple_new_point(0, 0, 8), tuple_new_point(0, 0, 0));
 	assert(matrix_equal(camera.tf.tf, test.translation));
 
 	tf_reset(&camera.tf);
-	camera_view_transform(&camera, tuple_new_point(1, 3, 2), tuple_new_point(4, -2, 8), tuple_new_vector(1, 1, 0));
+	camera_view_transform(&camera, tuple_new_point(1, 3, 2), tuple_new_point(4, -2, 8));
 	res = matrix_init(4, 4);
 	matrix_set(res, 0, 0, -0.50709);
 	matrix_set(res, 0, 1, 0.50709);
@@ -77,11 +77,11 @@ void camera_tests(void)
 
 	t_ray ray;
 	camera_set_params(&camera, 201, 101, 90);
-	ray = camera_get_ray(&camera, 100, 50);
+	ray = camera_get_ray(&camera, 100, 50, (t_sample){0, 0});
 	assert(tuple_equal(ray.origin, tuple_new_point(0, 0, 0)));
 	assert(tuple_equal(ray.direction, tuple_new_vector(0, 0, -1)));
 
-	ray = camera_get_ray(&camera, 0, 0);
+	ray = camera_get_ray(&camera, 0, 0, (t_sample){0, 0});
 	assert(tuple_equal(ray.origin, tuple_new_point(0, 0, 0)));
 	assert(tuple_equal(ray.direction, tuple_new_vector(0.66519, 0.33259, -0.66851)));
 
@@ -89,7 +89,7 @@ void camera_tests(void)
 	tf_rotate_y(&camera.tf, 45);
 	tf_translate(&camera.tf, 0, -2, 5);
 	camera_tf_compute(&camera);
-	ray = camera_get_ray(&camera, 100, 50);
+	ray = camera_get_ray(&camera, 100, 50, (t_sample){0, 0});
 	assert(tuple_equal_p(ray.origin, tuple_new_point(0, 2, -5), M_EPSILON * 100));
 	assert(tuple_equal_p(ray.direction, tuple_new_vector(sqrt(2) / 2, 0, -sqrt(2) / 2), M_EPSILON * 10));
 
@@ -99,9 +99,8 @@ void camera_tests(void)
 	camera = camera_new(11, 11, 90);
 	camera_view_transform(&camera, \
 				tuple_new_point(0, 0, -5), \
-					tuple_new_point(0, 0, 0), \
-						tuple_new_vector(0, 1, 0));
-	ray = camera_get_ray(&camera, 5, 5);
+					tuple_new_point(0, 0, 0));
+	ray = camera_get_ray(&camera, 5, 5, (t_sample){0, 0});
 	color = intersect_color_at(&world, &ray, 1);
 	assert(tuple_equal(color, tuple_new_vector(0.38066, 0.47583, 0.2855)));
 }

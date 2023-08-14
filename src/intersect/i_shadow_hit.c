@@ -30,8 +30,8 @@ bool	intersect_shadow_hit(t_scene *world, t_tuple *point)
 	direction = tuple_normalize(r_to_light);
 	shadow_ray = ray_new(*point, direction);
 	vector_clear(&world->shadow_intersections);
-	intersect_shadow_world(world, &shadow_ray);
-	i = intersect_hit(&world->shadow_intersections);
+	intersections = intersect_world_test(world, &shadow_ray);
+	i = intersect_hit(&intersections);
 	if (i && i->t < distance)
 		return (true);
 	return (false);

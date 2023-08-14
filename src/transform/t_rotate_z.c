@@ -19,8 +19,8 @@ inline void	tf_rotate_z(t_transform *tf, double degrees)
 
 	rads = tf_deg_to_rad(degrees);
 	matrix_identity(&tf->rotation);
-	matrix_set(tf->tf, 0, 0, cos(rads));
-	matrix_set(tf->tf, 0, 1, -sin(rads));
-	matrix_set(tf->tf, 1, 0, sin(rads));
-	matrix_set(tf->tf, 1, 1, cos(rads));
+	matrix_set(tf->rotation, 0, 0, cos(rads));
+	matrix_set(tf->rotation, 0, 1, -sin(rads));
+	matrix_set(tf->rotation, 1, 0, sin(rads));
+	matrix_set(tf->rotation, 1, 1, cos(rads));
 }

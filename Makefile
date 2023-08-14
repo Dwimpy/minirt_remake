@@ -15,9 +15,9 @@ NAME			= minirt
 
 VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/image \
 				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
-				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
+				  ./src/objects/shape ./src/intersect ./src/material ./src/light/base ./src/camera \
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
-				  ./src/objects/cylinder ./src/objects/disk
+				  ./src/objects/cylinder ./src/objects/disk ./src/pdf ./src/sampling
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -33,7 +33,7 @@ INCLUDE			+= -I ./src/transform
 INCLUDE			+= -I ./src/intersect
 INCLUDE			+= -I ./src/objects/sphere
 INCLUDE			+= -I ./src/material
-INCLUDE			+= -I ./src/light
+INCLUDE			+= -I ./src/light/base
 INCLUDE			+= -I ./src/camera
 INCLUDE			+= -I ./src/quaternion
 INCLUDE			+= -I ./src/objects/shape
@@ -42,6 +42,8 @@ INCLUDE			+= -I ./src/objects/cube
 INCLUDE			+= -I ./src/objects/cylinder
 INCLUDE			+= -I ./src/objects/disk
 INCLUDE			+= -I ./src/scene
+INCLUDE			+= -I ./src/pdf
+INCLUDE			+= -I ./src/sampling
 
 DSYM			= ./minirt.dSYM
 SRC_DIR			= ./src

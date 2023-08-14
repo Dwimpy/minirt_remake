@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_lambertian.c                              :+:      :+:    :+:   */
+/*   shape_rotate.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 00:38:26 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/14 00:38:26 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 19:53:47 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 19:53:47 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "material.h"
+#include "shape.h"
 
-t_material	material_lambertian(t_color color)
+void	shape_rotate(t_shape *shape, double x, double y, double z)
 {
-	t_material	material;
-
-	material.ambient = 0.5;
-	material.diffuse = 1.0;
-	material.specular = 0.05;
-	material.shininess = 200;
-	material.refractive_index = 0.0;
-	material.reflectivity = 0.007;
-	material.transparency = 0.0;
-	material.color = color;
-	return (material);
+	tf_rotate(&shape->transform, x, y, z);
 }

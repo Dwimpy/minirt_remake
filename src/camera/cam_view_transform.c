@@ -20,7 +20,7 @@
 inline static t_tuple	handle_zero_case(t_tuple to, t_tuple from);
 
 
-void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to, t_tuple up)
+void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to)
 {
 	t_onb			onb;
 	t_tuple			upn;
@@ -28,8 +28,7 @@ void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to, t_tuple u
 
 	translation = tf_new();
 	onb.forward = tuple_normalize(tuple_subtract(to, from));
-	upn = tuple_normalize(up);
-	onb.left = tuple_cross(onb.forward, upn);
+	onb.left = tuple_cross(onb.forward, tuple_new_vector(0, 1, 0));
 	onb.up = tuple_cross(onb.left, onb.forward);
 	camera->onb.up = onb.up;
 	camera->onb.left = onb.left;

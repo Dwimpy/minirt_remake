@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light_new.c                                        :+:      :+:    :+:   */
+/*   pdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 19:13:10 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/09 19:13:10 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/14 23:02:54 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/14 23:02:54 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "light.h"
+#ifndef PDF_H
+# define PDF_H
 
-t_light	light_new(t_tuple origin, t_color intensity)
+typedef struct s_pdf
 {
-	return ((t_light){origin, intensity});
-}
+
+}				t_pdf;
+
+#endif

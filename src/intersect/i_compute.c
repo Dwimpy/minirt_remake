@@ -36,7 +36,6 @@ void	intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps, t_vect
 inline static void	handle_refraction_index(t_computations *comps, t_intersect *i, t_vector *isect)
 {
 	size_t		idx;
-	t_vector	vector;
 	t_intersect	*intersect;
 	t_shape		**shape;
 
