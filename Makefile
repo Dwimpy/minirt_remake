@@ -17,7 +17,8 @@ VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/imag
 				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
 				  ./src/objects/shape ./src/intersect ./src/material ./src/light/base ./src/camera \
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
-				  ./src/objects/cylinder ./src/objects/disk ./src/pdf ./src/sampling
+				  ./src/objects/cylinder ./src/objects/disk ./src/pdf/base ./src/sampling ./src/light/light_cuboid \
+					./src/pdf/cuboid
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -34,6 +35,7 @@ INCLUDE			+= -I ./src/intersect
 INCLUDE			+= -I ./src/objects/sphere
 INCLUDE			+= -I ./src/material
 INCLUDE			+= -I ./src/light/base
+INCLUDE			+= -I ./src/light/light_cuboid
 INCLUDE			+= -I ./src/camera
 INCLUDE			+= -I ./src/quaternion
 INCLUDE			+= -I ./src/objects/shape
@@ -42,8 +44,9 @@ INCLUDE			+= -I ./src/objects/cube
 INCLUDE			+= -I ./src/objects/cylinder
 INCLUDE			+= -I ./src/objects/disk
 INCLUDE			+= -I ./src/scene
-INCLUDE			+= -I ./src/pdf
+INCLUDE			+= -I ./src/pdf/base
 INCLUDE			+= -I ./src/sampling
+INCLUDE			+= -I ./src/pdf/cuboid
 
 DSYM			= ./minirt.dSYM
 SRC_DIR			= ./src
@@ -62,7 +65,7 @@ NORM_INCLUDE	= ./include
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
-ASAN		= -fsanitize=address -g3
+ASAN		= #-fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit

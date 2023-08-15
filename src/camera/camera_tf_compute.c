@@ -15,7 +15,7 @@
 #include "transform.h"
 #include "tuple.h"
 
-void camera_tf_compute(t_camera *camera)
+void	camera_tf_compute(t_camera *camera)
 {
 	t_matrix trans;
 

@@ -31,7 +31,6 @@ t_color	light_lightning(t_computations *comps, t_light *light)
 	t_material	m;
 
 	m = comps->shape->material;
-	ambient = color_new(0.0, 0.0, 0.0);
 	eff_color = color_multiply(m.color, light->intensity);
 	light_dir = tuple_normalize(\
 				tuple_subtract(light->origin, comps->over_point));

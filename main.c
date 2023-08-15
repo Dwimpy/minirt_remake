@@ -19,6 +19,7 @@
 #include "material.h"
 #include "matrix.h"
 #include "onb.h"
+#include "pdf_cuboid.h"
 #include "quaternion.h"
 #include "ray.h"
 #include "shape.h"
@@ -116,20 +117,26 @@ int main(void)
 //	vector_pushback(&world.objs, &cylinder);
 //	vector_pushback(&world.objs, &disk);
 
-	world = cornell_box();
-	camera = camera_new(1920, 1080, 50);
-	camera_view_transform(&camera, \
-				tuple_new_point(278.0, 278.0, -800), \
-					tuple_new_point(278.0, 278.0, 0.0));
-//		camera_view_transform(&camera, \
-//				tuple_new_point(0.0, 0.0, -25), \
-//					tuple_new_point(0.0, 0.0, 0.0), \
-//                    tuple_new_vector(0, 1, 0));
-	window_create(&window, (int32_t) camera.width, (int32_t) camera.height);
-	window_add_image(window.mlx, &canvas);
-	start = clock();
-	scene_render(&world, &camera, &canvas);
-	printf("Rendering took: [ %f ] seconds", (double)(clock() - start) / CLOCKS_PER_SEC);
-	window_draw_loop(window.mlx);
+	t_light cuboid = light_cuboid_new(tuple_new_point(10, 10, 10), color_new(1, 1, 1), tuple_new_point(2, 4, 4));
+	t_pdf_cuboid	*data;
+	data = cuboid.pdf.data;
+	printf("%f\t", data->front_back_sde);
+	printf("%f\t", data->top_bottom_side);
+	printf("%f\n", data->left_right_side);
+//	world = cornell_box();
+//	camera = camera_new(1920, 1080, 50);
+//	camera_view_transform(&camera, \
+//				tuple_new_point(278.0, 278.0, -800), \
+//					tuple_new_point(278.0, 278.0, 0.0));
+////		camera_view_transform(&camera, \
+////				tuple_new_point(0.0, 0.0, -25), \
+////					tuple_new_point(0.0, 0.0, 0.0), \
+////                    tuple_new_vector(0, 1, 0));
+//	window_create(&window, (int32_t) camera.width, (int32_t) camera.height);
+//	window_add_image(window.mlx, &canvas);
+//	start = clock();
+//	scene_render(&world, &camera, &canvas);
+//	printf("Rendering took: [ %f ] seconds", (double)(clock() - start) / CLOCKS_PER_SEC);
+//	window_draw_loop(window.mlx);
 	return (0);
 }

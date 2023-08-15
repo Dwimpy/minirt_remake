@@ -465,10 +465,11 @@ t_scene cornell_box(void)
 	t_shape	right;
 	t_shape	left;
 	t_shape	back;
+	t_shape sphere;
 	t_real	dimension;
 
 	dimension = 550.0 / 2;
-	world.light = point_light_new(tuple_new_point(278, 450, -800 + 278 + 278 / 2), color_new(0.73, 0.73, 0.73));
+	world.light = point_light_new(tuple_new_point(278, 450, -800), color_new(0.73, 0.73, 0.73));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -478,6 +479,11 @@ t_scene cornell_box(void)
 	right = shape_new_cube();
 	left = shape_new_cube();
 	back = shape_new_cube();
+	sphere = shape_new_sphere();
+
+	shape_scale(&sphere, 50, 50, 50);
+	shape_translate(&sphere, dimension / 2.0, 50, dimension + dimension / 2);
+	tf_compute(&sphere.transform);
 
 	shape_scale(&floor, dimension, 0, dimension);
 	shape_translate(&floor, dimension, 0, 2 * dimension);
@@ -504,10 +510,13 @@ t_scene cornell_box(void)
 	right.material = material_lambertian(color_new(0.12, 0.45, 0.15));
 	left.material = material_lambertian(color_new(0.63, 0.05, 0.05));
 	back.material = material_lambertian(color_new(0.73, 0.73, 0.73));
+	sphere.material = material_glass();
+
 	vector_pushback(&world.objs, &floor);
 	vector_pushback(&world.objs, &ceiling);
 	vector_pushback(&world.objs, &right);
 	vector_pushback(&world.objs, &left);
 	vector_pushback(&world.objs, &back);
+	vector_pushback(&world.objs, &sphere);
 	return (world);
 }

@@ -18,6 +18,7 @@ t_camera	camera_new(uint32_t width, uint32_t height, double fov)
 	t_camera	cam;
 
 	cam.tf = tf_new();
+	cam.initial_transform = matrix_init(4, 4);
 	cam.width = width;
 	cam.height = height;
 	cam.fov = tf_deg_to_rad(fov);

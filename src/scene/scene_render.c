@@ -16,7 +16,7 @@
 #include "intersect.h"
 #include "sampling.h"
 #include "scene.h"
-//#include <sys/_types/_size_t.h>
+#include "sphere.h"
 #define SPP 16
 
 void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
@@ -33,6 +33,7 @@ void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 	cubic_spline_filter(samples, SPP);
 	while (j < canvas->height - 1)
 	{
+		printf("Rendering: %.2f%%\n", ((double)j / (canvas->height - 1)) * 100);
 		i = 0;
 		while (i < canvas->width - 1)
 		{
@@ -41,7 +42,7 @@ void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 			while (k < SPP)
 			{
 				ray = camera_get_ray(camera, i, j, samples[k]);
-				color = color_add(color, color_multiply_s(intersect_color_at(world, &ray, 5), 1.0 / SPP));
+				color = color_multiply_s(intersect_color_at(world, &ray, 10), 1.0 / SPP);
 				++k;
 			}
 			image_set_pixel(*canvas, color, i, j);

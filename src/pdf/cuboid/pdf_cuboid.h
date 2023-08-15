@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cam_set_view_transform.c                           :+:      :+:    :+:   */
+/*   pdf_cuboid.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 21:57:39 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/09 21:57:39 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/15 22:19:16 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/15 22:19:16 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "camera.h"
-#include "transform.h"
+#ifndef PDF_CUBOID_H
+# define PDF_CUBOID_H
+# include "pdf.h"
+# include "tuple.h"
 
-void camera_set_view_transform(t_camera *camera, t_transform vt)
+typedef struct s_pdf_cuboid
 {
-	if (camera->tf.tf.data)
-		tf_free(camera->tf);
-	camera->tf = vt;
-}
+	t_real		front_back_sde;
+	t_real		top_bottom_side;
+	t_real		left_right_side;
+}				t_pdf_cuboid;
+
+#endif

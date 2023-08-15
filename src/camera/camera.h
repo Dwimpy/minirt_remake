@@ -12,6 +12,7 @@
 
 #ifndef CAMERA_H
 # define CAMERA_H
+#include "matrix.h"
 # include "transform.h"
 # include "tuple.h"
 # include "ray.h"
@@ -31,13 +32,13 @@ typedef struct s_camera
 	double		pixel_size;
 	t_onb		onb;
 	t_transform	tf;
+	t_matrix	initial_transform;
 }				t_camera;
 
 t_camera	camera_new(uint32_t width, uint32_t height, double fov);
 t_ray		camera_get_ray(t_camera *camera, size_t x, size_t y, t_sample sample);
 void		camera_view_transform(t_camera *camera, t_tuple from, t_tuple to);
 void		camera_tests(void);
-void		camera_set_view_transform(t_camera *camera, t_transform vt);
 void		camera_set_params(t_camera *camera, int32_t width, uint32_t height, double fov);
 void		camera_tf_compute(t_camera *camera);
 void		camera_tf_reset(t_camera *camera);
