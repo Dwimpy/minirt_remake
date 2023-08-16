@@ -468,7 +468,7 @@ t_scene cornell_box(void)
 	t_shape sphere;
 	t_real	dimension;
 
-	dimension = 550.0 / 2;
+	dimension = 550.0 / 2.0;
 	world.light = point_light_new(tuple_new_point(278, 450, -800), color_new(0.73, 0.73, 0.73));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
@@ -502,7 +502,7 @@ t_scene cornell_box(void)
 	tf_compute(&right.transform);
 
 	shape_scale(&back, dimension, dimension, 0);
-	shape_translate(&back, dimension, dimension, 2 * dimension);
+	shape_translate(&back, dimension, dimension, 3 * dimension);
 	tf_compute(&back.transform);
 
 	floor.material = material_lambertian(color_new(0.73, 0.73, 0.73));
@@ -517,6 +517,6 @@ t_scene cornell_box(void)
 	vector_pushback(&world.objs, &right);
 	vector_pushback(&world.objs, &left);
 	vector_pushback(&world.objs, &back);
-	vector_pushback(&world.objs, &sphere);
+//	vector_pushback(&world.objs, &sphere);
 	return (world);
 }

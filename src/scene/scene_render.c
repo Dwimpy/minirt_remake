@@ -17,7 +17,7 @@
 #include "sampling.h"
 #include "scene.h"
 #include "sphere.h"
-#define SPP 16
+#define SPP 4
 
 void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 {
@@ -42,7 +42,7 @@ void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 			while (k < SPP)
 			{
 				ray = camera_get_ray(camera, i, j, samples[k]);
-				color = color_multiply_s(intersect_color_at(world, &ray, 10), 1.0 / SPP);
+				color = color_multiply_s(intersect_color_at(world, &ray, 5), 1.0 / SPP);
 				++k;
 			}
 			image_set_pixel(*canvas, color, i, j);

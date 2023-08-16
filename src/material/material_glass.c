@@ -25,5 +25,6 @@ t_material material_glass(void)
 	material.ambient = 0.1;
 	material.diffuse = 0.0;
 	material.refractive_index = 1.52;
+	material.is_emissive = false;
 	return (material);
 }

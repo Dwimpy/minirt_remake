@@ -23,6 +23,7 @@ t_material	material_lambertian(t_color color)
 	material.refractive_index = 0.0;
 	material.reflectivity = 0.007;
 	material.transparency = 0.0;
+	material.is_emissive = false;
 	material.color = color;
 	return (material);
 }

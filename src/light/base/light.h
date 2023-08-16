@@ -19,6 +19,7 @@
 # include "color.h"
 # include "onb.h"
 # include "pdf.h"
+# include "shape.h"
 typedef struct s_computations	t_computations;
 
 typedef enum e_light_type
@@ -30,16 +31,16 @@ typedef enum e_light_type
 typedef struct s_light
 {
 	t_tuple			origin;
-	t_tuple			direction;
 	t_onb			onb;
 	t_light_type	type;
 	t_color			intensity;
 	t_pdf			pdf;
-	void			*data;
+	t_tuple			dimension;
+	t_shape			shape;
 }				t_light;
 
 t_light	point_light_new(t_tuple origin, t_color intensity);
-t_light	light_cuboid_new(t_tuple origin, t_color intensity, t_tuple dimension);
+t_light	light_cuboid_new(t_color intensity, t_tuple dimension);
 t_color	light_lightning(t_computations *comps, t_light *light);
 t_color	light_tests(t_material *m, t_light *light, t_tuple point, t_tuple eye, t_tuple normal);
 #endif

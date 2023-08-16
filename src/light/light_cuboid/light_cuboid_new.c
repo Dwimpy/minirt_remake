@@ -13,25 +13,22 @@
 #include "intersect.h"
 #include "libft.h"
 #include "light.h"
-#include "light_cuboid.h"
+#include "material.h"
 #include "pdf_cuboid.h"
+#include "cube.h"
 
-t_light	light_cuboid_new(t_tuple origin, t_color intensity, t_tuple dimension)
+t_light	light_cuboid_new(t_color intensity, t_tuple dimension)
 {
-	t_light			light;
-	t_light_cuboid	*light_cuboid;
+	t_light	light;
 
-	light_cuboid = ft_calloc(1, sizeof(t_light_cuboid));
-	if (!light_cuboid)
-	{
-		printf("Memory allocation failed\n. Exiting.");
-		exit (1);
-	}
-	light_cuboid->dimension = dimension;
+	light.shape = shape_new_cube();
+	shape_scale(\
+		&light.shape, dimension.x / 2.0, dimension.y / 2.0, dimension.z / 2.0);
+	light.origin = tuple_new_point(0, 0, 0);
+	light.shape.material = material_emissive(intensity);
 	light.pdf = pdf_new_cuboid(dimension);
-	light.data = light_cuboid;
-	light.origin = origin;
 	light.intensity = intensity;
+	light.dimension = dimension;
 	light.type = CUBOID_LIGHT;
 	return (light);
 }
