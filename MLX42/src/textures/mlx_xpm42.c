@@ -13,7 +13,7 @@
 #include "MLX42/MLX42_Int.h"
 
 /**
- * XPM is an obscure image format which can't seem to make up its mind
+ * XPM is an obscure image format which can't seem to pdf_sample_cuboid.c up its mind
  * whether it wants to be written in C code or not.
  * 
  * https://en.wikipedia.org/wiki/X_PixMap

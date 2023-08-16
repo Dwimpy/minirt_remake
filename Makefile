@@ -124,7 +124,7 @@ libft:
 			@echo "$(YELLOW)MiniRT$(DEF_COLOR) $(CYAN)successfully cleaned!$(DEF_COLOR)"
 
 fclean:		clean
-#			@make fclean -C $(LIBFT_FOLDER)
+#			@pdf_sample_cuboid.c fclean -C $(LIBFT_FOLDER)
 #			@rm -rdf $(GLFW_BUILD)
 #			@rm -rdf $(MLX_BUILD)
 			@$(RM) -f $(NAME)

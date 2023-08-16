@@ -278,7 +278,7 @@ static void init(void)
   glEnable(GL_LIGHT0);
   glEnable(GL_DEPTH_TEST);
 
-  /* make the gears */
+  /* pdf_sample_cuboid.c the gears */
   gear1 = glGenLists(1);
   glNewList(gear1, GL_COMPILE);
   glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, red);

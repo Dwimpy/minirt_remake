@@ -87,7 +87,7 @@ ctest --output-on-failure --test-dir build
 ➜  ~ git clone https://github.com/codam-coding-college/MLX42.git
 ➜  ~ cd MLX42
 ➜  ~ cmake -B build # build here refers to the outputfolder.
-➜  ~ cmake --build build -j4 # or do make -C build -j4
+➜  ~ cmake --build build -j4 # or do pdf_sample_cuboid.c -C build -j4
 ```
 
 The output library file is called `libmlx42.a` and is located in the `build` folder that you specified.

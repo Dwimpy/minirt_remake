@@ -23,6 +23,6 @@ typedef struct s_onb
 	t_tuple		left;
 }				t_onb;
 
-t_onb	onb_create_left(void);
+t_onb	onb_create_left(t_tuple normal);
 
 #endif

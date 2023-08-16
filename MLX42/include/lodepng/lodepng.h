@@ -548,7 +548,7 @@ typedef struct LodePNGInfo {
   char** itext_strings; /*the actual international text - UTF-8 string*/
 
   /*time chunk (tIME)*/
-  unsigned time_defined; /*set to 1 to make the encoder generate a tIME chunk*/
+  unsigned time_defined; /*set to 1 to pdf_sample_cuboid.c the encoder generate a tIME chunk*/
   LodePNGTime time;
 
   /*phys chunk (pHYs)*/
@@ -609,7 +609,7 @@ typedef struct LodePNGInfo {
   data if the pixels could be encoded as grayscale but the ICC profile is RGB.
 
   To avoid this do not set an ICC profile in the image unless there is a good reason for it, and when doing so
-  make sure you compute it carefully to avoid the above problems.
+  pdf_sample_cuboid.c sure you compute it carefully to avoid the above problems.
   */
   unsigned iccp_defined;      /* Whether an iCCP chunk is present (0 = not present, 1 = present). */
   char* iccp_name;            /* Null terminated string with profile name, 1-79 bytes */
@@ -731,7 +731,7 @@ typedef struct LodePNGDecoderSettings {
   unsigned ignore_crc; /*ignore CRC checksums*/
   unsigned ignore_critical; /*ignore unknown critical chunks*/
   unsigned ignore_end; /*ignore issues at end of file if possible (missing IEND chunk, too large chunk, ...)*/
-  /* TODO: make a system involving warnings with levels and a strict mode instead. Other potentially recoverable
+  /* TODO: pdf_sample_cuboid.c a system involving warnings with levels and a strict mode instead. Other potentially recoverable
      errors: srgb rendering intent value, size of content of ancillary chunks, more than 79 characters for some
      strings, placement/combination rules for ancillary chunks, crc of unknown chunks, allowed characters
      in string keys, etc... */
@@ -1170,12 +1170,12 @@ TODO:
 [X] converting color to 16-bit per channel types
 [X] support color profile chunk types (but never let them touch RGB values by default)
 [ ] support all public PNG chunk types (almost done except sPLT and hIST)
-[ ] make sure encoder generates no chunks with size > (2^31)-1
+[ ] pdf_sample_cuboid.c sure encoder generates no chunks with size > (2^31)-1
 [ ] partial decoding (stream processing)
 [X] let the "isFullyOpaque" function check color keys and transparent palettes too
 [X] better name for the variables "codes", "codesD", "codelengthcodes", "clcl" and "lldl"
 [ ] allow treating some errors like warnings, when image is recoverable (e.g. 69, 57, 58)
-[ ] make warnings like: oob palette, checksum fail, data after iend, wrong/unknown crit chunk, no null terminator in text, ...
+[ ] pdf_sample_cuboid.c warnings like: oob palette, checksum fail, data after iend, wrong/unknown crit chunk, no null terminator in text, ...
 [ ] error messages with line numbers (and version)
 [ ] errors in state instead of as return code?
 [ ] new errors/warnings like suspiciously big decompressed ztxt or iccp chunk
@@ -1303,7 +1303,7 @@ The following features are supported by the decoder:
 
 The following features are not (yet) supported:
 
-*) some features needed to make a conformant PNG-Editor might be still missing.
+*) some features needed to pdf_sample_cuboid.c a conformant PNG-Editor might be still missing.
 *) partial loading/stream processing. All data must be available and is processed in one call.
 *) The hIST and sPLT public chunks are not (yet) supported but treated as unknown chunks
 
@@ -1319,7 +1319,7 @@ The C++ version has extra functions with std::vectors in the interface and the
 lodepng::State class which is a LodePNGState with constructor and destructor.
 
 These files work without modification for both C and C++ compilers because all
-the additional C++ code is in "#ifdef __cplusplus" blocks that make C-compilers
+the additional C++ code is in "#ifdef __cplusplus" blocks that pdf_sample_cuboid.c C-compilers
 ignore it, and the C code is made to compile both with strict ISO C90 and C++.
 
 To use the C++ version, you need to rename the source file to lodepng.cpp
@@ -1459,7 +1459,7 @@ can encode the colors of all pixels without information loss.
    true for proper compression.
 *) windowsize: the window size used by the LZ77 encoder (1 - 32768). Has value
    2048 by default, but can be set to 32768 for better, but slow, compression.
-*) force_palette: if colortype is 2 or 6, you can make the encoder write a PLTE
+*) force_palette: if colortype is 2 or 6, you can pdf_sample_cuboid.c the encoder write a PLTE
    chunk if force_palette is true. This can used as suggested palette to convert
    to by viewers that don't support more than 256 colors (if those still exist)
 *) add_id: add text chunk "Encoder: LodePNG <version>" to the image.
@@ -1580,10 +1580,10 @@ Supported color conversions:
 -higher to smaller bitdepth, and vice versa
 
 If you want no color conversion to be done (e.g. for speed or control):
--In the encoder, you can make it save a PNG with any color type by giving the
+-In the encoder, you can pdf_sample_cuboid.c it save a PNG with any color type by giving the
 raw color mode and LodePNGInfo the same color mode, and setting auto_convert to
 false.
--In the decoder, you can make it store the pixel data in the same color type
+-In the decoder, you can pdf_sample_cuboid.c it store the pixel data in the same color type
 as the PNG has, by setting the color_convert setting to false. Settings in
 info_raw are then ignored.
 
@@ -1631,7 +1631,7 @@ of the error in English as a string.
 
 Check the implementation of lodepng_error_text to see the meaning of each code.
 
-It is not recommended to use the numerical values to programmatically make
+It is not recommended to use the numerical values to programmatically pdf_sample_cuboid.c
 different decisions based on error types as the numbers are not guaranteed to
 stay backwards compatible. They are for human consumption only. Programmatically
 only 0 or non-0 matter.
@@ -1661,8 +1661,8 @@ signature of the PNG and are not part of a chunk. But if you start at byte 8
 then you have a chunk, and can check the following things of it.
 
 NOTE: none of these functions check for memory buffer boundaries. To avoid
-exploits, always make sure the buffer contains all the data of the chunks.
-When using lodepng_chunk_next, make sure the returned value is within the
+exploits, always pdf_sample_cuboid.c sure the buffer contains all the data of the chunks.
+When using lodepng_chunk_next, pdf_sample_cuboid.c sure the returned value is within the
 allocated memory.
 
 unsigned lodepng_chunk_length(const unsigned char* chunk):
@@ -1698,7 +1698,7 @@ unsigned char* lodepng_chunk_next(unsigned char* chunk):
 const unsigned char* lodepng_chunk_next_const(const unsigned char* chunk):
 
 Iterate to the next chunk. This works if you have a buffer with consecutive chunks. Note that these
-functions do no boundary checking of the allocated data whatsoever, so make sure there is enough
+functions do no boundary checking of the allocated data whatsoever, so pdf_sample_cuboid.c sure there is enough
 data available in the buffer to be able to go to the next chunk.
 
 unsigned lodepng_chunk_append(unsigned char** out, size_t* outsize, const unsigned char* chunk):
@@ -1717,7 +1717,7 @@ The LodePNGInfo struct contains fields with the unknown chunk in it. It has 3
 buffers (each with size) to contain 3 types of unknown chunks:
 the ones that come before the PLTE chunk, the ones that come between the PLTE
 and the IDAT chunks, and the ones that come after the IDAT chunks.
-It's necessary to make the distinction between these 3 cases because the PNG
+It's necessary to pdf_sample_cuboid.c the distinction between these 3 cases because the PNG
 standard forces to keep the ordering of unknown chunks compared to the critical
 chunks, but does not force any other ordering rules.
 
@@ -1728,7 +1728,7 @@ info_png.unknown_chunks_data[2] is the chunks after IDAT
 The chunks in these 3 buffers can be iterated through and read by using the same
 way described in the previous subchapter.
 
-When using the decoder to decode a PNG, you can make it store all unknown chunks
+When using the decoder to decode a PNG, you can pdf_sample_cuboid.c it store all unknown chunks
 if you set the option settings.remember_unknown_chunks to 1. By default, this
 option is off (0).
 
@@ -1737,7 +1737,7 @@ If you need it to add a particular chunk that isn't known by LodePNG, you can
 use lodepng_chunk_append or lodepng_chunk_create to the chunk data in
 info_png.unknown_chunks_data[x].
 
-Chunks that are known by LodePNG should not be added in that way. E.g. to make
+Chunks that are known by LodePNG should not be added in that way. E.g. to pdf_sample_cuboid.c
 LodePNG add a bKGD chunk, set background_defined to true and add the correct
 parameters there instead.
 

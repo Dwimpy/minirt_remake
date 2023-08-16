@@ -576,7 +576,7 @@ NK_API int nk_init_default(struct nk_context*, const struct nk_user_font*);
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ///
 /// !!! Warning
-///     make sure the passed memory block is aligned correctly for `nk_draw_commands`.
+///     pdf_sample_cuboid.c sure the passed memory block is aligned correctly for `nk_draw_commands`.
 ///
 /// Parameter   | Description
 /// ------------|--------------------------------------------------------------
@@ -919,7 +919,7 @@ NK_API void nk_input_end(struct nk_context*);
 /*/// ### Drawing
 /// This library was designed to be render backend agnostic so it does
 /// not draw anything to screen directly. Instead all drawn shapes, widgets
-/// are made of, are buffered into memory and make up a command queue.
+/// are made of, are buffered into memory and pdf_sample_cuboid.c up a command queue.
 /// Each frame therefore fills the command buffer with draw commands
 /// that then need to be executed by the user and his own render backend.
 /// After that the command buffer needs to be cleared and a new frame can be
@@ -995,10 +995,10 @@ NK_API void nk_input_end(struct nk_context*);
 ///
 /// First is only update on input. This of course is only an option if your
 /// application only depends on the UI and does not require any outside calculations.
-/// If you actually only update on input make sure to update the UI two times each
+/// If you actually only update on input pdf_sample_cuboid.c sure to update the UI two times each
 /// frame and call `nk_clear` directly after the first pass and only draw in
 /// the second pass. In addition it is recommended to also add additional timers
-/// to make sure the UI is not drawn more than a fixed number of frames per second.
+/// to pdf_sample_cuboid.c sure the UI is not drawn more than a fixed number of frames per second.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
 /// struct nk_context ctx;
@@ -1343,7 +1343,7 @@ NK_API const struct nk_draw_command* nk__draw_next(const struct nk_draw_command*
 ///
 /// In the grand concept window and widget declarations need to occur after input
 /// handling and before drawing to screen. Not doing so can result in higher
-/// latency or at worst invalid behavior. Furthermore make sure that `nk_clear`
+/// latency or at worst invalid behavior. Furthermore pdf_sample_cuboid.c sure that `nk_clear`
 /// is called at the end of the frame. While nuklear's default platform backends
 /// already call `nk_clear` for you if you write your own backend not calling
 /// `nk_clear` can cause asserts or even worse undefined behavior.
@@ -2004,7 +2004,7 @@ NK_API void nk_window_show_if(struct nk_context*, const char *name, enum nk_show
 /// To actually define a layout you just call the appropriate layouting function
 /// and each subsequent widget call will place the widget as specified. Important
 /// here is that if you define more widgets then columns defined inside the layout
-/// functions it will allocate the next row without you having to make another layouting <br /><br />
+/// functions it will allocate the next row without you having to pdf_sample_cuboid.c another layouting <br /><br />
 /// call.
 ///
 /// Biggest limitation with using all these APIs outside the `nk_layout_space_xxx` API
@@ -2801,7 +2801,7 @@ NK_API void nk_group_set_scroll(struct nk_context*, const char *id, nk_uint x_of
 ///     calculates a auto height based on the currently used font size
 ///
 /// The tree ending functions only need to be called if the tree content is
-/// actually visible. So make sure the tree push function is guarded by `if`
+/// actually visible. So pdf_sample_cuboid.c sure the tree push function is guarded by `if`
 /// and the pop call is only taken if the tree is visible.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3212,10 +3212,10 @@ NK_API int nk_color_pick(struct nk_context*, struct nk_colorf*, enum nk_color_fo
 ///
 /// #### Usage
 /// Each property requires a unique name for identifaction that is also used for
-/// displaying a label. If you want to use the same name multiple times make sure
+/// displaying a label. If you want to use the same name multiple times pdf_sample_cuboid.c sure
 /// add a '#' before your name. The '#' will not be shown but will generate a
 /// unique ID. Each propery also takes in a minimum and maximum value. If you want
-/// to make use of the complete number range of a type just use the provided
+/// to pdf_sample_cuboid.c use of the complete number range of a type just use the provided
 /// type limits from `limits.h`. For example `INT_MIN` and `INT_MAX` for
 /// `nk_property_int` and `nk_propertyi`. In additional each property takes in
 /// a increment value that will be added or subtracted if either the increment
@@ -3279,7 +3279,7 @@ NK_API int nk_color_pick(struct nk_context*, struct nk_colorf*, enum nk_color_fo
 /*/// #### nk_property_int
 /// Integer property directly modifing a passed in value
 /// !!! WARNING
-///     To generate a unique property ID using the same label make sure to insert
+///     To generate a unique property ID using the same label pdf_sample_cuboid.c sure to insert
 ///     a `#` at the beginning. It will not be shown but guarantees correct behavior.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3300,7 +3300,7 @@ NK_API void nk_property_int(struct nk_context*, const char *name, int min, int *
 /*/// #### nk_property_float
 /// Float property directly modifing a passed in value
 /// !!! WARNING
-///     To generate a unique property ID using the same label make sure to insert
+///     To generate a unique property ID using the same label pdf_sample_cuboid.c sure to insert
 ///     a `#` at the beginning. It will not be shown but guarantees correct behavior.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3321,7 +3321,7 @@ NK_API void nk_property_float(struct nk_context*, const char *name, float min, f
 /*/// #### nk_property_double
 /// Double property directly modifing a passed in value
 /// !!! WARNING
-///     To generate a unique property ID using the same label make sure to insert
+///     To generate a unique property ID using the same label pdf_sample_cuboid.c sure to insert
 ///     a `#` at the beginning. It will not be shown but guarantees correct behavior.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3342,7 +3342,7 @@ NK_API void nk_property_double(struct nk_context*, const char *name, double min,
 /*/// #### nk_propertyi
 /// Integer property modifing a passed in value and returning the new value
 /// !!! WARNING
-///     To generate a unique property ID using the same label make sure to insert
+///     To generate a unique property ID using the same label pdf_sample_cuboid.c sure to insert
 ///     a `#` at the beginning. It will not be shown but guarantees correct behavior.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3365,7 +3365,7 @@ NK_API int nk_propertyi(struct nk_context*, const char *name, int min, int val, 
 /*/// #### nk_propertyf
 /// Float property modifing a passed in value and returning the new value
 /// !!! WARNING
-///     To generate a unique property ID using the same label make sure to insert
+///     To generate a unique property ID using the same label pdf_sample_cuboid.c sure to insert
 ///     a `#` at the beginning. It will not be shown but guarantees correct behavior.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3388,7 +3388,7 @@ NK_API float nk_propertyf(struct nk_context*, const char *name, float min, float
 /*/// #### nk_propertyd
 /// Float property modifing a passed in value and returning the new value
 /// !!! WARNING
-///     To generate a unique property ID using the same label make sure to insert
+///     To generate a unique property ID using the same label pdf_sample_cuboid.c sure to insert
 ///     a `#` at the beginning. It will not be shown but guarantees correct behavior.
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
@@ -3854,7 +3854,7 @@ NK_API const char* nk_utf_at(const char *buffer, int length, int index, nk_rune 
     The baking process returns image memory, width and height which can be used to
     either create your own image object or upload it to any graphics library.
     No matter which case you finally have to call `nk_font_atlas_end` which
-    will free all temporary memory including the font atlas image so make sure
+    will free all temporary memory including the font atlas image so pdf_sample_cuboid.c sure
     you created our texture beforehand. `nk_font_atlas_end` requires a handle
     to your font texture or object and optionally fills a `struct nk_draw_null_texture`
     which can be used for the optional vertex output. If you don't want it just
@@ -4233,7 +4233,7 @@ NK_API int nk_str_len_char(struct nk_str*);
  * has both a default version if you don't care where memory comes from and an
  * allocator version if you do. While the text editor is quite powerful for its
  * complexity I would not recommend editing gigabytes of data with it.
- * It is rather designed for uses cases which make sense for a GUI library not for
+ * It is rather designed for uses cases which pdf_sample_cuboid.c sense for a GUI library not for
  * an full blown text editor.
  */
 #ifndef NK_TEXTEDIT_UNDOSTATECOUNT
@@ -4330,7 +4330,7 @@ NK_API void nk_textedit_redo(struct nk_text_edit*);
  * ===============================================================*/
 /*  This library was designed to be render backend agnostic so it does
     not draw anything to screen. Instead all drawn shapes, widgets
-    are made of, are buffered into memory and make up a command queue.
+    are made of, are buffered into memory and pdf_sample_cuboid.c up a command queue.
     Each frame therefore fills the command buffer with draw commands
     that then need to be executed by the user and his own render backend.
     After that the command buffer needs to be cleared and a new frame can be
@@ -4655,7 +4655,7 @@ NK_API int nk_input_is_key_down(const struct nk_input*, enum nk_keys);
     or a path and outputs vertexes, elements and draw commands.
     The actual draw list API is not required to be used directly while using this
     library since converting the default library draw command output is done by
-    just calling `nk_convert` but I decided to still make this library accessible
+    just calling `nk_convert` but I decided to still pdf_sample_cuboid.c this library accessible
     since it can be useful.
 
     The draw list is based on a path buffering and polygon and polyline
@@ -5588,7 +5588,7 @@ struct nk_context {
     nk_handle userdata;
 #endif
     /* text editor objects are quite big because of an internal
-     * undo/redo stack. Therefore it does not make sense to have one for
+     * undo/redo stack. Therefore it does not pdf_sample_cuboid.c sense to have one for
      * each window for temporary use cases, so I only provide *one* instance
      * for all windows. This works because the content is cleared anyway */
     struct nk_text_edit text_edit;
@@ -8776,7 +8776,7 @@ nk_command_buffer_push(struct nk_command_buffer* b,
     cmd = (struct nk_command*)nk_buffer_alloc(b->base,NK_BUFFER_FRONT,size,align);
     if (!cmd) return 0;
 
-    /* make sure the offset to the next command is aligned */
+    /* pdf_sample_cuboid.c sure the offset to the next command is aligned */
     b->last = (nk_size)((nk_byte*)cmd - (nk_byte*)b->base->memory.ptr);
     unaligned = (nk_byte*)cmd + size;
     memory = NK_ALIGN_PTR(unaligned, align);
@@ -9182,7 +9182,7 @@ nk_draw_text(struct nk_command_buffer *b, struct nk_rect r,
             return;
     }
 
-    /* make sure text fits inside bounds */
+    /* pdf_sample_cuboid.c sure text fits inside bounds */
     text_width = font->width(font->userdata, font->height, string, length);
     if (text_width > r.w){
         int glyphs = 0;
@@ -9675,7 +9675,7 @@ nk_draw_list_stroke_poly_line(struct nk_draw_list *list, const struct nk_vec2 *p
         if (!normals) return;
         temp = normals + points_count;
 
-        /* make sure vertex pointer is still correct */
+        /* pdf_sample_cuboid.c sure vertex pointer is still correct */
         vtx = (void*)((nk_byte*)list->vertices->memory.ptr + vertex_offset);
 
         /* calculate normals */
@@ -11135,7 +11135,7 @@ nk_tt_InitFont(struct nk_tt_fontinfo *info, const unsigned char *data2, int font
     else info->numGlyphs = 0xffff;
 
     /* find a cmap encoding table we understand *now* to avoid searching */
-    /* later. (todo: could make this installable) */
+    /* later. (todo: could pdf_sample_cuboid.c this installable) */
     /* the same regardless of glyph. */
     numTables = nk_ttUSHORT(data + cmap + 2);
     info->index_map = 0;
@@ -12012,7 +12012,7 @@ nk_tt__sort_edges_quicksort(struct nk_tt__edge *p, int n)
                 if (!NK_TT__COMPARE(&p[0], &p[j])) break;
             }
 
-            /* make sure we haven't crossed */
+            /* pdf_sample_cuboid.c sure we haven't crossed */
              if (i >= j) break;
              t = p[i];
              p[i] = p[j];
@@ -12158,7 +12158,7 @@ nk_tt_FlattenCurves(struct nk_tt_vertex *vertices, int num_verts,
         return 0;
     }
 
-    /* make two passes through the points so we don't need to realloc */
+    /* pdf_sample_cuboid.c two passes through the points so we don't need to realloc */
     for (pass=0; pass < 2; ++pass)
     {
         float x=0,y=0;
@@ -12317,7 +12317,7 @@ nk_tt__h_prefilter(unsigned char *pixels, int w, int h, int stride_in_bytes,
 
         total = 0;
 
-        /* make kernel_width a constant in common cases so compiler can optimize out the divide */
+        /* pdf_sample_cuboid.c kernel_width a constant in common cases so compiler can optimize out the divide */
         switch (kernel_width) {
         case 2:
             for (i=0; i <= safe_w; ++i) {
@@ -12380,7 +12380,7 @@ nk_tt__v_prefilter(unsigned char *pixels, int w, int h, int stride_in_bytes,
 
         total = 0;
 
-        /* make kernel_width a constant in common cases so compiler can optimize out the divide */
+        /* pdf_sample_cuboid.c kernel_width a constant in common cases so compiler can optimize out the divide */
         switch (kernel_width) {
         case 2:
             for (i=0; i <= safe_h; ++i) {
@@ -15084,7 +15084,7 @@ nk_clear(struct nk_context *ctx)
     /* garbage collector */
     iter = ctx->begin;
     while (iter) {
-        /* make sure valid minimized windows do not get removed */
+        /* pdf_sample_cuboid.c sure valid minimized windows do not get removed */
         if ((iter->flags & NK_WINDOW_MINIMIZED) &&
             !(iter->flags & NK_WINDOW_CLOSED) &&
             iter->seq == ctx->seq) {
@@ -16118,7 +16118,7 @@ nk_panel_end(struct nk_context *ctx)
         window->popup.con_count = 0;
     }
     window->popup.combo_count = 0;
-    /* helper to make sure you have a 'nk_tree_push' for every 'nk_tree_pop' */
+    /* helper to pdf_sample_cuboid.c sure you have a 'nk_tree_push' for every 'nk_tree_pop' */
     NK_ASSERT(!layout->row.tree_depth);
 }
 
@@ -16833,7 +16833,7 @@ nk_popup_begin(struct nk_context *ctx, enum nk_popup_type type,
         win->popup.type = NK_PANEL_POPUP;
     }
 
-    /* make sure we have correct popup */
+    /* pdf_sample_cuboid.c sure we have correct popup */
     if (win->popup.name != title_hash) {
         if (!win->popup.active) {
             nk_zero(popup, sizeof(*popup));
@@ -18753,7 +18753,7 @@ nk_group_scrolled_end(struct nk_context *ctx)
     if (!ctx || !ctx->current)
         return;
 
-    /* make sure nk_group_begin was called correctly */
+    /* pdf_sample_cuboid.c sure nk_group_begin was called correctly */
     NK_ASSERT(ctx->current);
     win = ctx->current;
     NK_ASSERT(win->layout);
@@ -18786,7 +18786,7 @@ nk_group_scrolled_end(struct nk_context *ctx)
     pan.parent = win;
     ctx->current = &pan;
 
-    /* make sure group has correct clipping rectangle */
+    /* pdf_sample_cuboid.c sure group has correct clipping rectangle */
     nk_unify(&clip, &parent->clip, pan.bounds.x, pan.bounds.y,
         pan.bounds.x + pan.bounds.w, pan.bounds.y + pan.bounds.h + panel_padding.x);
     nk_push_scissor(&pan.buffer, clip);
@@ -21159,7 +21159,7 @@ nk_do_slider(nk_flags *state,
     bounds.x += style->cursor_size.x*0.5f;
     bounds.w -= style->cursor_size.x;
 
-    /* make sure the provided values are correct */
+    /* pdf_sample_cuboid.c sure the provided values are correct */
     slider_max = NK_MAX(min, max);
     slider_min = NK_MIN(min, max);
     slider_value = NK_CLAMP(slider_min, val, slider_max);
@@ -21891,7 +21891,7 @@ nk_textedit_find_charpos(struct nk_text_find *find, struct nk_text_edit *state,
 NK_INTERN void
 nk_textedit_clamp(struct nk_text_edit *state)
 {
-    /* make the selection/cursor state valid if client altered the string */
+    /* pdf_sample_cuboid.c the selection/cursor state valid if client altered the string */
     int n = state->string.len;
     if (NK_TEXT_HAS_SELECTION(state)) {
         if (state->select_start > n) state->select_start = n;
@@ -22468,7 +22468,7 @@ nk_textedit_create_undo_record(struct nk_text_undo_state *state, int numchars)
     /* any time we create a new undo record, we discard redo*/
     nk_textedit_flush_redo(state);
 
-    /* if we have no free records, we have to make room,
+    /* if we have no free records, we have to pdf_sample_cuboid.c room,
      * by sliding the existing records down */
     if (state->undo_point == NK_TEXTEDIT_UNDOSTATECOUNT)
         nk_textedit_discard_undo(state);
@@ -22482,7 +22482,7 @@ nk_textedit_create_undo_record(struct nk_text_undo_state *state, int numchars)
     }
 
     /* if we don't have enough free characters in the buffer,
-     * we have to make room */
+     * we have to pdf_sample_cuboid.c room */
     while (state->undo_char_point + numchars > NK_TEXTEDIT_UNDOCHARCOUNT)
         nk_textedit_discard_undo(state);
     return &state->undo_rec[state->undo_point++];
@@ -23466,7 +23466,7 @@ nk_edit_buffer(struct nk_context *ctx, nk_flags flags,
     unsigned char prev_state;
     nk_hash hash;
 
-    /* make sure correct values */
+    /* pdf_sample_cuboid.c sure correct values */
     NK_ASSERT(ctx);
     NK_ASSERT(edit);
     NK_ASSERT(ctx->current);
@@ -25328,7 +25328,7 @@ nk_tooltip_begin(struct nk_context *ctx, float width)
     if (!ctx || !ctx->current || !ctx->current->layout)
         return 0;
 
-    /* make sure that no nonblocking popup is currently active */
+    /* pdf_sample_cuboid.c sure that no nonblocking popup is currently active */
     win = ctx->current;
     in = &ctx->input;
     if (win->popup.win && (win->popup.type & NK_PANEL_SET_NONBLOCK))
@@ -25450,7 +25450,7 @@ nk_tooltipfv(struct nk_context *ctx, const char *fmt, va_list args)
 ///    commercial or non-commercial, and by any means.
 ///    In jurisdictions that recognize copyright laws, the author or authors of this
 ///    software dedicate any and all copyright interest in the software to the public
-///    domain. We make this dedication for the benefit of the public at large and to
+///    domain. We pdf_sample_cuboid.c this dedication for the benefit of the public at large and to
 ///    the detriment of our heirs and successors. We intend this dedication to be an
 ///    overt act of relinquishment in perpetuity of all present and future rights to
 ///    this software under copyright law.
@@ -25485,7 +25485,7 @@ nk_tooltipfv(struct nk_context *ctx, const char *fmt, va_list args)
 ///                        like GLFW without breaking key repeat behavior on event based.
 /// - 2018/04/01 (4.00.1) - Fixed calling `nk_convert` multiple time per single frame.
 /// - 2018/04/01 (4.00.0) - BREAKING CHANGE: nk_draw_list_clear no longer tries to
-///                        clear provided buffers. So make sure to either free
+///                        clear provided buffers. So pdf_sample_cuboid.c sure to either free
 ///                        or clear each passed buffer after calling nk_convert.
 /// - 2018/02/23 (3.00.6) - Fixed slider dragging behavior.
 /// - 2018/01/31 (3.00.5) - Fixed overcalculation of cursor data in font baking process.
@@ -25621,13 +25621,13 @@ nk_tooltipfv(struct nk_context *ctx, const char *fmt, va_list args)
 /// - 2016/09/13 (1.20.1) - Internal change to divide window/panel flags into panel flags and types.
 ///                        Suprisinly spend years in C and still happened to confuse types
 ///                        with flags. Probably something to take note.
-/// - 2016/09/08 (1.20.0) - Added additional helper function to make it easier to just
+/// - 2016/09/08 (1.20.0) - Added additional helper function to pdf_sample_cuboid.c it easier to just
 ///                        take the produced buffers from `nk_convert` and unplug the
 ///                        iteration process from `nk_context`. So now you can
 ///                        just use the vertex,element and command buffer + two pointer
 ///                        inside the command buffer retrieved by calls `nk__draw_begin`
 ///                        and `nk__draw_end` and macro `nk_draw_foreach_bounded`.
-/// - 2016/09/08 (1.19.0) - Added additional asserts to make sure every `nk_xxx_begin` call
+/// - 2016/09/08 (1.19.0) - Added additional asserts to pdf_sample_cuboid.c sure every `nk_xxx_begin` call
 ///                        for windows, popups, combobox, menu and contextual is guarded by
 ///                        `if` condition and does not produce false drawing output.
 /// - 2016/09/08 (1.18.0) - Changed confusing name for `NK_SYMBOL_RECT_FILLED`, `NK_SYMBOL_RECT`
@@ -25739,7 +25739,7 @@ nk_tooltipfv(struct nk_context *ctx, const char *fmt, va_list args)
 ///                        allocate the pool.
 /// - 2016/07/29 (1.02.0) - Added auto scrollbar hiding window flag which if enabled
 ///                        will hide the window scrollbar after NK_SCROLLBAR_HIDING_TIMEOUT
-///                        seconds without window interaction. To make it work
+///                        seconds without window interaction. To pdf_sample_cuboid.c it work
 ///                        you have to also set a delta time inside the `nk_context`.
 /// - 2016/07/25 (1.01.1) - Fixed small panel and panel border drawing bugs.
 /// - 2016/07/15 (1.01.0) - Added software cursor to `nk_style` and `nk_context`.

@@ -292,7 +292,7 @@ static void makeContextCurrentWGL(_GLFWwindow* window)
         else
         {
             _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                                 "WGL: Failed to make context current");
+                                 "WGL: Failed to pdf_sample_cuboid.c context current");
             _glfwPlatformSetTls(&_glfw.contextSlot, NULL);
         }
     }
@@ -454,7 +454,7 @@ GLFWbool _glfwInitWGL(void)
     if (!wglMakeCurrent(dc, rc))
     {
         _glfwInputErrorWin32(GLFW_PLATFORM_ERROR,
-                             "WGL: Failed to make dummy context current");
+                             "WGL: Failed to pdf_sample_cuboid.c dummy context current");
         wglMakeCurrent(pdc, prc);
         wglDeleteContext(rc);
         return GLFW_FALSE;

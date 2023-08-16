@@ -51,6 +51,7 @@ typedef struct s_computations
 	t_real		n2;
 	bool		inside;
 	bool		is_shadowed;
+	t_real		attenuation;
 }				t_computations;
 
 typedef struct s_intersect
@@ -65,7 +66,7 @@ void		intersect_shadow_world(t_scene *world, t_ray *ray);
 t_intersect	intersection(t_real t, t_shape *shape);
 t_intersect	*intersect_hit(t_vector *intersections);
 void		intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps, t_vector *intersections);
-bool		intersect_shadow_hit(t_scene *world, t_tuple *point);
+bool		intersect_shadow_hit(t_scene *world, t_computations *computations);
 t_color		intersect_shade_hit(t_scene *world, t_computations *comps, int depth);
 t_color		intersect_color_at(t_scene *world, t_ray *ray, int depth);
 t_color		intersect_reflected_color(t_scene *world, t_computations *comps, int depth);

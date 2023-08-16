@@ -1410,7 +1410,7 @@ static int createNativeWindow(_GLFWwindow* window,
         SetWindowPlacement(window->win32.handle, &wp);
 
         // Adjust rect of maximized undecorated window, because by default Windows will
-        // make such a window cover the whole monitor instead of its workarea
+        // pdf_sample_cuboid.c such a window cover the whole monitor instead of its workarea
 
         if (wndconfig->maximized && !wndconfig->decorated)
         {

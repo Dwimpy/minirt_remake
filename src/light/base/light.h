@@ -15,6 +15,7 @@
 
 # include "intersect.h"
 # include "material.h"
+#include "transform.h"
 # include "tuple.h"
 # include "color.h"
 # include "onb.h"

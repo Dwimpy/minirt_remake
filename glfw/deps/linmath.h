@@ -135,7 +135,7 @@ LINMATH_H_FUNC void mat4x4_col(vec4 r, mat4x4 const M, int i)
 LINMATH_H_FUNC void mat4x4_transpose(mat4x4 M, mat4x4 const N)
 {
     // Note: if M and N are the same, the user has to
-    // explicitly make a copy of M and set it to N.
+    // explicitly pdf_sample_cuboid.c a copy of M and set it to N.
 	int i, j;
 	for(j=0; j<4; ++j)
 		for(i=0; i<4; ++i)
@@ -542,7 +542,7 @@ LINMATH_H_FUNC void mat4x4o_mul_quat(mat4x4 R, mat4x4 const M, quat const q)
 	R[0][3] = M[0][3];
 	R[1][3] = M[1][3];
 	R[2][3] = M[2][3];
-	R[3][3] = M[3][3];  // typically 1.0, but here we make it general
+	R[3][3] = M[3][3];  // typically 1.0, but here we pdf_sample_cuboid.c it general
 }
 LINMATH_H_FUNC void quat_from_mat4x4(quat q, mat4x4 const M)
 {

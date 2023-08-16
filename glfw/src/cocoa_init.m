@@ -636,7 +636,7 @@ int _glfwInitCocoa(void)
     if (![[NSRunningApplication currentApplication] isFinishedLaunching])
         [NSApp run];
 
-    // In case we are unbundled, make us a proper UI application
+    // In case we are unbundled, pdf_sample_cuboid.c us a proper UI application
     if (_glfw.hints.init.ns.menubar)
         [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
 

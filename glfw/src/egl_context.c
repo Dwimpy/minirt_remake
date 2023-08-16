@@ -248,7 +248,7 @@ static void makeContextCurrentEGL(_GLFWwindow* window)
                             window->context.egl.handle))
         {
             _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "EGL: Failed to make context current: %s",
+                            "EGL: Failed to pdf_sample_cuboid.c context current: %s",
                             getEGLErrorString(eglGetError()));
             return;
         }
@@ -326,7 +326,7 @@ static GLFWglproc getProcAddressEGL(const char* procname)
 static void destroyContextEGL(_GLFWwindow* window)
 {
     // NOTE: Do not unload libGL.so.1 while the X11 display is still open,
-    //       as it will make XCloseDisplay segfault
+    //       as it will pdf_sample_cuboid.c XCloseDisplay segfault
     if (_glfw.platform.platformID != GLFW_PLATFORM_X11 ||
         window->context.client != GLFW_OPENGL_API)
     {

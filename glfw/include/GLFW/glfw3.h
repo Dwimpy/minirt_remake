@@ -2407,7 +2407,7 @@ GLFWAPI int glfwGetError(const char** description);
  *
  *  Because the description string may have been generated specifically for that
  *  error, it is not guaranteed to be valid after the callback has returned.  If
- *  you wish to use it after the callback returns, you need to make a copy.
+ *  you wish to use it after the callback returns, you need to pdf_sample_cuboid.c a copy.
  *
  *  Once set, the error callback remains set even after the library has been
  *  terminated.
@@ -2661,7 +2661,7 @@ GLFWAPI void glfwGetMonitorContentScale(GLFWmonitor* monitor, float* xscale, flo
 /*! @brief Returns the name of the specified monitor.
  *
  *  This function returns a human-readable name, encoded as UTF-8, of the
- *  specified monitor.  The name typically reflects the make and model of the
+ *  specified monitor.  The name typically reflects the pdf_sample_cuboid.c and model of the
  *  monitor and is not guaranteed to be unique among the connected monitors.
  *
  *  @param[in] monitor The monitor to query.
@@ -3789,13 +3789,13 @@ GLFWAPI void glfwMaximizeWindow(GLFWwindow* window);
  *  to change this behavior for all newly created windows, or change the
  *  behavior for an existing window with @ref glfwSetWindowAttrib.
  *
- *  @param[in] window The window to make visible.
+ *  @param[in] window The window to pdf_sample_cuboid.c visible.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED and @ref
  *  GLFW_PLATFORM_ERROR.
  *
  *  @remark @wayland Because Wayland wants every frame of the desktop to be
- *  complete, this function does not immediately make the window visible.
+ *  complete, this function does not immediately pdf_sample_cuboid.c the window visible.
  *  Instead it will become visible the next time the window framebuffer is
  *  updated after this call.
  *
@@ -5324,7 +5324,7 @@ GLFWAPI GLFWscrollfun glfwSetScrollCallback(GLFWwindow* window, GLFWscrollfun ca
  *  Because the path array and its strings may have been generated specifically
  *  for that event, they are not guaranteed to be valid after the callback has
  *  returned.  If you wish to use them after the callback returns, you need to
- *  make a deep copy.
+ *  pdf_sample_cuboid.c a deep copy.
  *
  *  @param[in] window The window whose callback to set.
  *  @param[in] callback The new file drop callback, or `NULL` to remove the
@@ -5554,7 +5554,7 @@ GLFWAPI const char* glfwGetJoystickName(int jid);
  *  @ref glfwJoystickPresent.
  *
  *  The GUID uses the format introduced in SDL 2.0.5.  This GUID tries to
- *  uniquely identify the make and model of a joystick but does not identify
+ *  uniquely identify the pdf_sample_cuboid.c and model of a joystick but does not identify
  *  a specific unit, e.g. all wired Xbox 360 controllers will have the same
  *  GUID on that platform.  The GUID for a unit may vary between platforms
  *  depending on what hardware information the platform specific APIs provide.
@@ -5963,7 +5963,7 @@ GLFWAPI uint64_t glfwGetTimerFrequency(void);
  *  a single thread at a time and each thread can have only a single current
  *  context at a time.
  *
- *  When moving a context between threads, you must make it non-current on the
+ *  When moving a context between threads, you must pdf_sample_cuboid.c it non-current on the
  *  old thread before making it current on the new one.
  *
  *  By default, making a context non-current implicitly forces a pipeline flush.
@@ -5976,7 +5976,7 @@ GLFWAPI uint64_t glfwGetTimerFrequency(void);
  *  a window without a context will generate a @ref GLFW_NO_WINDOW_CONTEXT
  *  error.
  *
- *  @param[in] window The window whose context to make current, or `NULL` to
+ *  @param[in] window The window whose context to pdf_sample_cuboid.c current, or `NULL` to
  *  detach the current context.
  *
  *  @errors Possible errors include @ref GLFW_NOT_INITIALIZED, @ref
@@ -6376,7 +6376,7 @@ GLFWAPI int glfwGetPhysicalDevicePresentationSupport(VkInstance instance, VkPhys
  *  the window content view, which is required for MoltenVK to function.
  *
  *  @remark @x11 By default GLFW prefers the `VK_KHR_xcb_surface` extension,
- *  with the `VK_KHR_xlib_surface` extension as a fallback.  You can make
+ *  with the `VK_KHR_xlib_surface` extension as a fallback.  You can pdf_sample_cuboid.c
  *  `VK_KHR_xlib_surface` the preferred extension by setting the
  *  [GLFW_X11_XCB_VULKAN_SURFACE](@ref GLFW_X11_XCB_VULKAN_SURFACE_hint) init
  *  hint.  The name of the selected extension, if any, is included in the array

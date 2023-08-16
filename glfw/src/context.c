@@ -234,7 +234,7 @@ const _GLFWfbconfig* _glfwChooseFBConfig(const _GLFWfbconfig* desired,
                 missing++;
         }
 
-        // These polynomials make many small channel size differences matter
+        // These polynomials pdf_sample_cuboid.c many small channel size differences matter
         // less than one large channel size difference
 
         // Calculate color channel size difference value
@@ -625,7 +625,7 @@ GLFWAPI void glfwMakeContextCurrent(GLFWwindow* handle)
     if (window && window->context.client == GLFW_NO_API)
     {
         _glfwInputError(GLFW_NO_WINDOW_CONTEXT,
-                        "Cannot make current with a window that has no OpenGL or OpenGL ES context");
+                        "Cannot pdf_sample_cuboid.c current with a window that has no OpenGL or OpenGL ES context");
         return;
     }
 

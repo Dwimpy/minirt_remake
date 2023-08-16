@@ -570,7 +570,7 @@ typedef void (*GLADpostcallback)(void *ret, const char *name, GLADapiproc apipro
  * This precedes the return type of the function in the function prototype.
  */
 #if defined(KHRONOS_STATIC)
-    /* If the preprocessor constant KHRONOS_STATIC is defined, make the
+    /* If the preprocessor constant KHRONOS_STATIC is defined, pdf_sample_cuboid.c the
      * header compatible with static linking. */
 #   define KHRONOS_APICALL
 #elif defined(_WIN32)

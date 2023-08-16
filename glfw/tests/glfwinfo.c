@@ -719,7 +719,7 @@ int main(int argc, char** argv)
 
         const GLenum error = glGetError();
         if (error != GL_NO_ERROR)
-            printf("*** OpenGL error after make current: 0x%08x ***\n", error);
+            printf("*** OpenGL error after pdf_sample_cuboid.c current: 0x%08x ***\n", error);
 
         // Report client API version
 

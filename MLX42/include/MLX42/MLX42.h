@@ -673,7 +673,7 @@ bool mlx_resize_image(mlx_image_t* img, uint32_t nwidth, uint32_t nheight);
  * Sets the depth / Z axis value of an instance.
  * 
  * NOTE: Keep in mind that images that are on the same Z layer cut each other off.
- * so if you don't see your image anymore make sure it's not conflicting by being on
+ * so if you don't see your image anymore pdf_sample_cuboid.c sure it's not conflicting by being on
  * the same layer as another image.
  * 
  * @param[in] instance The instance on which to change the depth.

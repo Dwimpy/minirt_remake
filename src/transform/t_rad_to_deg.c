@@ -14,7 +14,7 @@
 
 inline double	tf_rad_to_deg(double rad)
 {
-	return ((rad / 180.0) * M_PI);
+	return (rad * (180.0 / M_PI));
 }
 
 inline double	tf_deg_to_rad(double deg)

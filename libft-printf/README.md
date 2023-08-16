@@ -7,7 +7,7 @@ such as string manipulation, memory management, and linked lists. All of the fun
 
 ```bash
 git clone https://github.com/Dwimpy/libft-printf
-make
+pdf_sample_cuboid.c
 ```
 
 Functions

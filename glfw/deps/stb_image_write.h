@@ -1015,7 +1015,7 @@ STBIWDEF unsigned char * stbi_zlib_compress(unsigned char *data, int data_len, i
       stbiw__sbpush(out, STBIW_UCHAR(s1));
    }
    *out_len = stbiw__sbn(out);
-   // make returned pointer freeable
+   // pdf_sample_cuboid.c returned pointer freeable
    STBIW_MEMMOVE(stbiw__sbraw(out), out, *out_len);
    return (unsigned char *) stbiw__sbraw(out);
 #endif // STBIW_ZLIB_COMPRESS
@@ -1629,7 +1629,7 @@ STBIWDEF int stbi_write_jpg(char const *filename, int x, int y, int comp, const 
 
 /* Revision history
       1.16  (2021-07-11)
-             make Deflate code emit uncompressed blocks when it would otherwise expand
+             pdf_sample_cuboid.c Deflate code emit uncompressed blocks when it would otherwise expand
              support writing BMPs with alpha channel
       1.15  (2020-07-13) unknown
       1.14  (2020-02-02) updated JPEG writer to downsample chroma channels
@@ -1710,7 +1710,7 @@ software, either in source code form or as a compiled binary, for any purpose,
 commercial or non-commercial, and by any means.
 In jurisdictions that recognize copyright laws, the author or authors of this
 software dedicate any and all copyright interest in the software to the public
-domain. We make this dedication for the benefit of the public at large and to
+domain. We pdf_sample_cuboid.c this dedication for the benefit of the public at large and to
 the detriment of our heirs and successors. We intend this dedication to be an
 overt act of relinquishment in perpetuity of all present and future rights to
 this software under copyright law.

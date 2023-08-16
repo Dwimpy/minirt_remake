@@ -19,7 +19,6 @@
 
 inline static t_tuple	handle_zero_case(t_tuple to, t_tuple from);
 
-
 void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to)
 {
 	t_onb			onb;

@@ -15,23 +15,25 @@
 #include "tuple.h"
 #include "scene.h"
 #include "vector.h"
+#include <sys/_types/_size_t.h>
 
-bool	intersect_shadow_hit(t_scene *world, t_tuple *point)
+bool	intersect_shadow_hit(t_scene *world, t_computations *computations)
 {
 	t_tuple		r_to_light;
 	t_ray		shadow_ray;
 	t_real		distance;
 	t_tuple		direction;
 	t_intersect	*i;
-	t_vector	intersections;
+	size_t		idx;
 
-	r_to_light = tuple_subtract(world->light.origin, *point);
+	idx = 0;
+	r_to_light = tuple_subtract(world->light.origin, computations->over_point);
 	distance = tuple_magnitude(r_to_light);
 	direction = tuple_normalize(r_to_light);
-	shadow_ray = ray_new(*point, direction);
+	shadow_ray = ray_new(computations->over_point, direction);
 	vector_clear(&world->shadow_intersections);
-	intersections = intersect_world_test(world, &shadow_ray);
-	i = intersect_hit(&intersections);
+	intersect_shadow_world(world, &shadow_ray);
+	i = intersect_hit(&world->shadow_intersections);
 	if (i && i->t < distance)
 		return (true);
 	return (false);

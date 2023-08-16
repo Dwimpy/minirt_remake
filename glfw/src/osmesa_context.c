@@ -60,7 +60,7 @@ static void makeContextCurrentOSMesa(_GLFWwindow* window)
                                width, height))
         {
             _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "OSMesa: Failed to make context current");
+                            "OSMesa: Failed to pdf_sample_cuboid.c context current");
             return;
         }
     }

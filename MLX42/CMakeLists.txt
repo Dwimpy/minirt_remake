@@ -147,7 +147,7 @@ endif()
 
 # Testing
 # -----------------------------------------------------------------------------
-# Only build tests if we are the main project or explicitly told to this make sure 
+# Only build tests if we are the main project or explicitly told to this pdf_sample_cuboid.c sure
 # tests are not built when mlx42 included as a subproject, use MLX42_BUILD_TESTS to overwrite this
 # use cmake -DBUILD_TESTS=ON/-DMLX42_BUILD_TESTS=ON to build tests
 

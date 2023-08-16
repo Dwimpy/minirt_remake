@@ -163,7 +163,7 @@ static GLuint make_shader_program(const char* vs_text, const char* fs_text)
         fragment_shader = make_shader(GL_FRAGMENT_SHADER, fs_text);
         if (fragment_shader != 0u)
         {
-            /* make the program that connect the two shader and link it */
+            /* pdf_sample_cuboid.c the program that connect the two shader and link it */
             program = glCreateProgram();
             if (program != 0u)
             {

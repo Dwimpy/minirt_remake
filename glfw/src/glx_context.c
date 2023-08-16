@@ -167,7 +167,7 @@ static void makeContextCurrentGLX(_GLFWwindow* window)
                             window->context.glx.handle))
         {
             _glfwInputError(GLFW_PLATFORM_ERROR,
-                            "GLX: Failed to make context current");
+                            "GLX: Failed to pdf_sample_cuboid.c context current");
             return;
         }
     }

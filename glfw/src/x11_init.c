@@ -1107,7 +1107,7 @@ void _glfwGrabErrorHandlerX11(void)
 //
 void _glfwReleaseErrorHandlerX11(void)
 {
-    // Synchronize to make sure all commands are processed
+    // Synchronize to pdf_sample_cuboid.c sure all commands are processed
     XSync(_glfw.x11.display, False);
     XSetErrorHandler(_glfw.x11.errorHandler);
     _glfw.x11.errorHandler = NULL;

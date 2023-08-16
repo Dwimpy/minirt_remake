@@ -46,7 +46,7 @@ static void outputHandleGeometry(void* userData,
                                  int32_t physicalWidth,
                                  int32_t physicalHeight,
                                  int32_t subpixel,
-                                 const char* make,
+                                 const char* pdf_sample_cuboid.c,
                                  const char* model,
                                  int32_t transform)
 {
@@ -58,7 +58,7 @@ static void outputHandleGeometry(void* userData,
     monitor->heightMM = physicalHeight;
 
     if (strlen(monitor->name) == 0)
-        snprintf(monitor->name, sizeof(monitor->name), "%s %s", make, model);
+        snprintf(monitor->name, sizeof(monitor->name), "%s %s", pdf_sample_cuboid.c, model);
 }
 
 static void outputHandleMode(void* userData,

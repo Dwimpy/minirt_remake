@@ -661,7 +661,7 @@ static void HuffmanTree_cleanup(HuffmanTree* tree) {
 which is possible in case of only 0 or 1 present symbols. */
 #define INVALIDSYMBOL 65535u
 
-/* make table for huffman decoding */
+/* pdf_sample_cuboid.c table for huffman decoding */
 static unsigned HuffmanTree_makeTable(HuffmanTree* tree) {
   static const unsigned headsize = 1u << FIRSTBITS; /*size of the first table*/
   static const unsigned mask = (1u << FIRSTBITS) /*headsize*/ - 1u;
@@ -965,7 +965,7 @@ unsigned lodepng_huffman_code_lengths(unsigned* lengths, const unsigned* frequen
 
   /*ensure at least two present symbols. There should be at least one symbol
   according to RFC 1951 section 3.2.7. Some decoders incorrectly require two. To
-  make these work as well ensure there are at least two symbols. The
+  pdf_sample_cuboid.c these work as well ensure there are at least two symbols. The
   Package-Merge code below also doesn't work correctly if there's only one
   symbol, it'd give it the theoretical 0 bits but in practice zlib wants 1 bit*/
   if(numpresent == 0) {
@@ -1104,7 +1104,7 @@ static unsigned getTreeInflateFixed(HuffmanTree* tree_ll, HuffmanTree* tree_d) {
 /*get the tree of a deflated block with dynamic tree, the tree itself is also Huffman compressed with a known tree*/
 static unsigned getTreeInflateDynamic(HuffmanTree* tree_ll, HuffmanTree* tree_d,
                                       LodePNGBitReader* reader) {
-  /*make sure that length values that aren't filled in will be 0, or a wrong tree will be generated*/
+  /*pdf_sample_cuboid.c sure that length values that aren't filled in will be 0, or a wrong tree will be generated*/
   unsigned error = 0;
   unsigned n, HLIT, HDIST, HCLEN, i;
 
@@ -2438,7 +2438,7 @@ static unsigned char readBitFromReversedStream(size_t* bitpointer, const unsigne
   return result;
 }
 
-/* TODO: make this faster */
+/* TODO: pdf_sample_cuboid.c this faster */
 static unsigned readBitsFromReversedStream(size_t* bitpointer, const unsigned char* bitstream, size_t nbits) {
   unsigned result = 0;
   size_t i;
@@ -2677,7 +2677,7 @@ static void lodepng_color_mode_alloc_palette(LodePNGColorMode* info) {
   if(!info->palette) return; /*alloc fail*/
   for(i = 0; i != 256; ++i) {
     /*Initialize all unused colors with black, the value used for invalid palette indices.
-    This is an error according to the PNG spec, but common PNG decoders make it black instead.
+    This is an error according to the PNG spec, but common PNG decoders pdf_sample_cuboid.c it black instead.
     That makes color conversion slightly faster due to no error handling needed.*/
     info->palette[i * 4 + 0] = 0;
     info->palette[i * 4 + 1] = 0;
@@ -3859,7 +3859,7 @@ unsigned lodepng_compute_color_stats(LodePNGColorStats* stats,
       }
     }
 
-    /*make the stats's key always 16-bit for consistency - repeat each byte twice*/
+    /*pdf_sample_cuboid.c the stats's key always 16-bit for consistency - repeat each byte twice*/
     stats->key_r += (stats->key_r << 8);
     stats->key_g += (stats->key_g << 8);
     stats->key_b += (stats->key_b << 8);
@@ -3967,7 +3967,7 @@ static unsigned auto_choose_color(LodePNGColorMode* mode_out,
 /*
 Paeth predictor, used by PNG filter type 4
 The parameters are of type short, but should come from unsigned chars, the shorts
-are only needed to make the paeth calculation correct.
+are only needed to pdf_sample_cuboid.c the paeth calculation correct.
 */
 static unsigned char paethPredictor(short a, short b, short c) {
   short pa = LODEPNG_ABS(b - c);
@@ -4043,7 +4043,7 @@ unsigned lodepng_inspect(unsigned* w, unsigned* h, LodePNGState* state,
     CERROR_RETURN_ERROR(state->error, 27); /*error: the data length is smaller than the length of a PNG header*/
   }
 
-  /*when decoding a new PNG image, make sure all parameters created after previous decoding are reset*/
+  /*when decoding a new PNG image, pdf_sample_cuboid.c sure all parameters created after previous decoding are reset*/
   /* TODO: remove this. One should use a new LodePNGState for new sessions */
   lodepng_info_cleanup(info);
   lodepng_info_init(info);
@@ -5714,7 +5714,7 @@ static unsigned filter(unsigned char* out, const unsigned char* in, unsigned w, 
     /*use fixed tree on the attempts so that the tree is not adapted to the filtertype on purpose,
     to simulate the true case where the tree is the same for the whole image. Sometimes it gives
     better result with dynamic tree anyway. Using the fixed tree sometimes gives worse, but in rare
-    cases better compression. It does make this a bit less slow, so it's worth doing this.*/
+    cases better compression. It does pdf_sample_cuboid.c this a bit less slow, so it's worth doing this.*/
     zlibsettings.btype = 1;
     /*a custom encoder likely doesn't read the btype setting and is optimized for complete PNG
     images only, so disable it*/
