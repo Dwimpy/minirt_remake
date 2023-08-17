@@ -29,9 +29,7 @@ t_color	intersect_shade_hit(t_scene *world, t_computations *computations, int de
 	t_computations	comps;
 
 	comps = *computations;
-	if (comps.shape->material.is_emissive)
-		return (comps.shape->material.color);
-	intersect_shadow_hit(world, &comps);
+	comps.is_shadowed = intersect_shadow_hit(world, &comps);
 	surface_color = light_lightning(&comps, &world->light);
 	reflected_color = intersect_reflected_color(world, &comps, depth);
 	refracted_color = intersect_refracted_color(world, &comps, depth);

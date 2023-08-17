@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scenes.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 20:21:19 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/17 21:58:42 by arobu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 ///* ************************************************************************** */
 ///*                                                                            */
 ///*                                                        :::      ::::::::   */
@@ -249,84 +261,85 @@ void	scene_test_color_at(void)
 //	assert(world2.comps.point.z > world2.comps.over_point.z);
 //}
 //
-//void	scene_test_reflection_vector(void)
-//{
-//	t_shape	plane;
-//	t_ray	ray;
-//	t_intersect i;
-//	t_computations comps;
-//	t_scene		world;
-//	t_shape 	*shape;
-//	t_color 	color;
-//
-//	plane = shape_new_plane();
-//	plane.material = material_default(color_new(1, 1, 1));
-//	ray = ray_new(tuple_new_point(0, 1, -1), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
-//	i = intersection(sqrt(2) / 2, &plane);
-//	intersect_compute(&i, &ray, &comps, NULL);
-//	assert(tuple_equal(comps.reflected_dir, tuple_new_vector(0, sqrt(2) / 2, sqrt(2) /2 )));
-//
-//	world = scene_default();
-//	ray = ray_new(tuple_new_point(0, 0, 0), tuple_new_vector(0, 0, 1));
-//	shape = vector_at(&world.objs, 1);
-//	shape->material.ambient = 1;
-//	i = intersection(1, shape);
-//	intersect_compute(&i, &ray, &world.comps, NULL);
-//	color = intersect_reflected_color(&world, &comps, 1);
-//	assert(tuple_equal(color, color_new(0, 0, 0)));
-//}
-//
-//void	scene_test_reflected_color(void)
-//{
-//	t_shape	plane;
-//	t_ray	ray;
-//	t_intersect i;
-//	t_computations comps;
-//	t_scene		world;
-//	t_shape 	*shape;
-//	t_color 	color;
-//
-//	world = scene_default();
-//	plane = shape_new_plane();
-//	color = color_new(0, 0, 0);
-//	shape_set_transform(&plane, tf_translate(0, -1, 0));
-//	plane.material = material_default(color_new(1, 1, 1));
-//	plane.material.reflectivity = 0.5;
-//	ray = ray_new(tuple_new_point(0, 0, -3), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
-//	i = intersection(sqrt(2), &plane);
-//	vector_pushback(&world.objs, &plane);
-//	vector_pushback(&world.intersections, &i);
-//	intersect_compute(&i, &ray, &world.comps, NULL);
-//	color = intersect_reflected_color(&world, &world.comps, 1);
-//	tuple_print(color);
-//	assert(tuple_equal_p(color, color_new(0.19032, 0.2379, 0.14274), M_EPSILON * 10));
-//}
-//
-//void	scene_test_reflected_shade_hit(void)
-//{
-//	t_shape	plane;
-//	t_ray	ray;
-//	t_intersect i;
-//	t_computations comps;
-//	t_scene		world;
-//	t_shape 	*shape;
-//	t_color 	color;
-//
-//	world = scene_default();
-//	plane = shape_new_plane();
-//	color = color_new(0, 0, 0);
-//	ray = ray_new(tuple_new_point(0, 0, -3), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
-//	shape_set_transform(&plane, tf_translate(0, -1, 0));
-//	plane.material = material_default(color_new(1, 1, 1));
-//	plane.material.reflectivity = 0.5;
-//	i = intersection(sqrt(2), &plane);
-//	vector_pushback(&world.intersections, &i);
-//	vector_pushback(&world.objs, &plane);
-//	intersect_compute(&i, &ray, &world.comps, NULL);
-//	color = intersect_shade_hit(&world, &world.comps, 1);
-//	tuple_print(color);
-//	assert(tuple_equal_p(color, color_new(0.876, 0.924, 0.829), M_EPSILON * 10));
-//}
+void	scene_test_reflection_vector(void)
+{
+	t_shape	plane;
+	t_ray	ray;
+	t_intersect i;
+	t_computations comps;
+	t_scene		world;
+	t_shape 	*shape;
+	t_color 	color;
+
+	plane = shape_new_plane();
+	plane.material = material_default(color_new(1, 1, 1));
+	ray = ray_new(tuple_new_point(0, 1, -1), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
+	i = intersection(sqrt(2) / 2, &plane);
+	intersect_compute(&i, &ray, &comps, NULL);
+	assert(tuple_equal(comps.reflected_dir, tuple_new_vector(0, sqrt(2) / 2, sqrt(2) /2 )));
+
+	world = scene_default();
+	ray = ray_new(tuple_new_point(0, 0, 0), tuple_new_vector(0, 0, 1));
+	shape = vector_at(&world.objs, 1);
+	shape->material.ambient = 1;
+	i = intersection(1, shape);
+	intersect_compute(&i, &ray, &world.comps, NULL);
+	color = intersect_reflected_color(&world, &comps, 1);
+	assert(tuple_equal(color, color_new(0, 0, 0)));
+}
+
+void	scene_test_reflected_color(void)
+{
+	t_shape	plane;
+	t_ray	ray;
+	t_intersect i;
+	t_computations comps;
+	t_scene		world;
+	t_shape 	*shape;
+	t_color 	color;
+
+	world = scene_default();
+	plane = shape_new_plane();
+	color = color_new(0, 0, 0);
+	shape_translate(&plane, 0, -1, 0);
+	tf_compute(&plane.transform);
+	plane.material = material_default(color_new(1, 1, 1));
+	plane.material.reflectivity = 0.5;
+	ray = ray_new(tuple_new_point(0, 0, -3), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
+	i = intersection(sqrt(2), &plane);
+	vector_pushback(&world.objs, &plane);
+	vector_pushback(&world.intersections, &i);
+	intersect_compute(&i, &ray, &world.comps, NULL);
+	color = intersect_reflected_color(&world, &world.comps, 1);
+	tuple_print(color);
+	assert(tuple_equal_p(color, color_new(0.19032, 0.2379, 0.14274), M_EPSILON * 10));
+}
+
+void	scene_test_reflected_shade_hit(void)
+{
+	t_shape	plane;
+	t_ray	ray;
+	t_intersect i;
+	t_computations comps;
+	t_scene		world;
+	t_shape 	*shape;
+	t_color 	color;
+
+	world = scene_default();
+	plane = shape_new_plane();
+	color = color_new(0, 0, 0);
+	ray = ray_new(tuple_new_point(0, 0, -3), tuple_new_vector(0, -sqrt(2) / 2, sqrt(2) / 2));
+	shape_translate(&plane, 0, -1, 0);
+	plane.material = material_default(color_new(1, 1, 1));
+	plane.material.reflectivity = 0.5;
+	i = intersection(sqrt(2), &plane);
+	vector_pushback(&world.intersections, &i);
+	vector_pushback(&world.objs, &plane);
+	intersect_compute(&i, &ray, &world.comps, NULL);
+	color = intersect_shade_hit(&world, &world.comps, 1);
+	tuple_print(color);
+	assert(tuple_equal_p(color, color_new(0.876, 0.924, 0.829), M_EPSILON * 10));
+}
 //
 //void	scene_test_refraction(void)
 //{
@@ -383,47 +396,48 @@ void	scene_test_color_at(void)
 ////	printf("idx: 5\tn1: %f\tn2: %f\n", comps.n1, comps.n2);
 //
 //}
-//
-//void	scene_test_under_point(void)
-//{
-//	t_ray	ray;
-//	t_shape	sphere;
-//	t_intersect isect;
-//	t_computations comps;
-//
-//	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 0, 1));
-//	sphere = shape_new_sphere(1.0);
-//	sphere.material = material_glass();
-//	shape_set_transform(&sphere, tf_translate(0, 0, 1));
-//	isect = intersection(5, &sphere);
-//	intersect_compute(&isect, &ray, &comps, NULL);
-//	assert(comps.under_point.z > M_EPSILON / 2);
-//	assert(comps.point.z < comps.under_point.z);
-//
-//}
-//
-//void	scene_test_opaque_surface(void)
-//{
-//	t_scene	world;
-//	t_shape	*shape;
-//	t_ray	ray;
-//	t_intersect i1;
-//	t_intersect i2;
-//	t_color 	color;
-//
-//	world = scene_default();
-//	shape = vector_at(&world.objs, 0);
-//	shape->material.transparency = 1.0;
-//	shape->material.refractive_index = 1.5;
-//	ray = ray_new(tuple_new_point(0, 0, sqrt(2) / 2), tuple_new_vector(0, 1, 0));
-//	i1 = intersection(-sqrt(2) / 2, shape);
-//	i2 = intersection(sqrt(2) / 2, shape);
-//	vector_pushback(&world.intersections, &i1);
-//	vector_pushback(&world.intersections, &i2);
-//	intersect_compute(&i2, &ray, &world.comps, &world.intersections);
-//	color = intersect_refracted_color(&world, &world.comps, 5);
-//	tuple_print(color);
-//}
+
+void	scene_test_under_point(void)
+{
+	t_ray	ray;
+	t_shape	sphere;
+	t_intersect isect;
+	t_computations comps;
+
+	ray = ray_new(tuple_new_point(0, 0, -5), tuple_new_vector(0, 0, 1));
+	sphere = shape_new_sphere();
+	sphere.material = material_glass();
+	shape_translate(&sphere, 0, 0, 1);
+	tf_compute(&sphere.transform);
+	isect = intersection(5, &sphere);
+	intersect_compute(&isect, &ray, &comps, NULL);
+	assert(comps.under_point.z > M_EPSILON / 2);
+	assert(comps.point.z < comps.under_point.z);
+
+}
+
+void	scene_test_opaque_surface(void)
+{
+	t_scene	world;
+	t_shape	*shape;
+	t_ray	ray;
+	t_intersect i1;
+	t_intersect i2;
+	t_color 	color;
+
+	world = scene_default();
+	shape = vector_at(&world.objs, 0);
+	shape->material.transparency = 1.0;
+	shape->material.refractive_index = 1.5;
+	ray = ray_new(tuple_new_point(0, 0, sqrt(2) / 2), tuple_new_vector(0, 1, 0));
+	i1 = intersection(-sqrt(2) / 2, shape);
+	i2 = intersection(sqrt(2) / 2, shape);
+	vector_pushback(&world.intersections, &i1);
+	vector_pushback(&world.intersections, &i2);
+	intersect_compute(&i2, &ray, &world.comps, &world.intersections);
+	color = intersect_refracted_color(&world, &world.comps, 5);
+	tuple_print(color);
+}
 
 void scene_test_refracted_color(void)
 {
@@ -457,7 +471,7 @@ void scene_test_refracted_color(void)
 	tuple_print(color);
 }
 
-t_scene cornell_box(void)
+t_scene	cornell_box(void)
 {
 	t_scene	world;
 	t_shape	floor;
@@ -465,11 +479,13 @@ t_scene cornell_box(void)
 	t_shape	right;
 	t_shape	left;
 	t_shape	back;
+	t_shape	box1;
+	t_shape	box2;
 	t_shape sphere;
 	t_real	dimension;
 
 	dimension = 550.0 / 2.0;
-	world.light = point_light_new(tuple_new_point(278, 450, -800), color_new(0.73, 0.73, 0.73));
+	world.light = point_light_new(tuple_new_point(125, 450, -800 + 1 * dimension), color_new(0.43, 0.43, 0.43));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -480,30 +496,45 @@ t_scene cornell_box(void)
 	left = shape_new_cube();
 	back = shape_new_cube();
 	sphere = shape_new_sphere();
-
 	shape_scale(&sphere, 50, 50, 50);
 	shape_translate(&sphere, dimension / 2.0, 50, dimension + dimension / 2);
+	box1 = shape_new_cube();
+	box2 = shape_new_cube();
+	sphere = shape_new_sphere();
+
+	shape_scale(&sphere, 50, 50, 50);
+	shape_translate(&sphere, 310, 50, dimension + 75);
 	tf_compute(&sphere.transform);
 
-	shape_scale(&floor, dimension, 0, dimension);
+	shape_scale(&floor, dimension, 1, dimension);
 	shape_translate(&floor, dimension, 0, 2 * dimension);
 	tf_compute(&floor.transform);
 
-	shape_scale(&ceiling, dimension, 0, dimension);
+	shape_scale(&ceiling, dimension, 1, dimension);
 	shape_translate(&ceiling, dimension, 2 * dimension, 2 * dimension);
 	tf_compute(&ceiling.transform);
 
-	shape_scale(&left, 0, dimension, dimension);
+	shape_scale(&left, 1, dimension, dimension);
 	shape_translate(&left, 0, dimension, 2 * dimension);
 	tf_compute(&left.transform);
 
-	shape_scale(&right, 0, dimension, dimension);
+	shape_scale(&right, 1, dimension, dimension);
 	shape_translate(&right, 2 * dimension, dimension, 2 * dimension);
 	tf_compute(&right.transform);
 
-	shape_scale(&back, dimension, dimension, 0);
+	shape_scale(&back, dimension, dimension, 1);
 	shape_translate(&back, dimension, dimension, 3 * dimension);
 	tf_compute(&back.transform);
+
+	shape_scale(&box1, 50, 50, 50);
+	shape_rotate(&box1, 0, -25, 0);
+	shape_translate(&box1, 110, 50, dimension + 250);
+	tf_compute(&box1.transform);
+
+	shape_scale(&box2, 50, 25, 50);
+	shape_rotate(&box2, 0, 25, 0);
+	shape_translate(&box2, 444, 25, dimension + 200);
+	tf_compute(&box2.transform);
 
 	floor.material = material_lambertian(color_new(0.73, 0.73, 0.73));
 	ceiling.material = material_lambertian(color_new(0.73, 0.73, 0.73));
@@ -512,11 +543,16 @@ t_scene cornell_box(void)
 	back.material = material_lambertian(color_new(0.73, 0.73, 0.73));
 	sphere.material = material_glass();
 
+	box1.material = material_copper();
+	box2.material = material_copper();
+
 	vector_pushback(&world.objs, &floor);
 	vector_pushback(&world.objs, &ceiling);
 	vector_pushback(&world.objs, &right);
 	vector_pushback(&world.objs, &left);
 	vector_pushback(&world.objs, &back);
-//	vector_pushback(&world.objs, &sphere);
+	vector_pushback(&world.objs, &sphere);
+	vector_pushback(&world.objs, &box1);
+	vector_pushback(&world.objs, &box2);
 	return (world);
 }

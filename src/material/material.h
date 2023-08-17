@@ -29,8 +29,9 @@ typedef struct s_material
 }				t_material;
 
 t_material	material_default(t_color color);
-t_material	material_glass(void);
 t_material	material_lambertian(t_color color);
 t_material	material_emissive(t_color color);
+t_material	material_glass(void);
+t_material	material_copper(void);
 
 #endif

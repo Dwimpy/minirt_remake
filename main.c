@@ -75,79 +75,22 @@ int main(void)
 	clock_t start;
 	t_shape disk;
 	t_shape cylinder;
-//
 //	run_tests();
 //	run_reflection_tests();
 //	cube_tests();
-//	world = scene_default();
-//	plane = shape_new_plane();
-//	plane.material = material_default(color_new(0.3, 0.6, 0.8));
-//	plane.material.reflectivity = 0.1;
-//	plane.material.diffuse = 0.05;
-//	plane.material.specular = 0.07;
-//	plane.material.shininess = 300;
-//	plane.material.ambient = 0.1;
-//	t_shape cube;
-//	cube = shape_new_cube();
-//	cube.material = material_default(color_new(0.3, 0.5, 0.5));
-//	cube.material.specular = 0.6;
-//	cube.material.ambient = 0.1;
-//	cube.material.shininess = 200;
-//	cube.material.diffuse = 0.4;
-//	cylinder = shape_new_cylinder(1.0, 2.0, true);
-//	cylinder.material = material_default(color_new(.5, 0.3, 0.2));
-//	cylinder.material.diffuse = 0.3;
-//	cylinder.material.specular = 0.5;
-//	disk = shape_new_disk();
-//	disk.material = material_default(color_new(.5, 0.3, 0.2));
-//	disk.material.diffuse = 0.3;
-//	disk.material.specular = 0.5;
-//	shape_translate(&plane, 0, -2, 0);
-//	tf_compute(&plane.transform);
-//	shape_translate(&cube, 3, 0, 2);
-//	shape_rotate(&cube, 25, 25, 0);
-//	tf_compute(&cube.transform);
-//	shape_rotate_x(&cylinder, -25);
-//	shape_translate(&cylinder, 2, 2, 5);
-//	tf_compute(&cylinder.transform);
-//	shape_rotate_x(&disk, -25);
-//	shape_translate(&disk, -4, 2, 5);
-//	tf_compute(&disk.transform);
-//	vector_pushback(&world.objs, &plane);
-//	vector_pushback(&world.objs, &cube);
-//	vector_pushback(&world.objs, &cylinder);
-//	vector_pushback(&world.objs, &disk);
+
     unsigned int seed = (unsigned int)time(0) ^ (unsigned int)getpid();
     srand48(seed);
-	t_light	cuboid_light = light_cuboid_new(color_new(15.0, 15.0, 15.0), tuple_new_point(150, 75, 150));
-	t_tuple test = cuboid_light.pdf.sample(cuboid_light.pdf.data, CUBOID, cuboid_light.onb);
-	 test = cuboid_light.pdf.sample(cuboid_light.pdf.data, CUBOID, cuboid_light.onb);
-	tuple_print(test);
-//	tuple_print(test);
-//	world = cornell_box();
-//	camera = camera_new(1920, 1080, 50);
-//	camera_view_transform(&camera, \
-//				tuple_new_point(278.0, 278.0, -800), \
-//					tuple_new_point(278.0, 278.0, 0.0));
-//	shape_translate(&cuboid_light.shape, 278, 555 + cuboid_light.dimension.y / 4.0, 555);
-//	tf_compute(&cuboid_light.shape.transform);
-//	world.light = cuboid_light;
-//	vector_pushback(&world.objs, &cuboid_light.shape);
-//	t_tuple	isec_point = tuple_new_point(278 * sqrt(2) / 2, 555, 555);
-//	t_tuple to_light_space = matrix_multiply_tuple(cuboid_light.shape.transform.inv_tf, isec_point);
-//	to_light_space = tuple_subtract(to_light_space, tuple_new_point(0, 0, 0));
-//	to_light_space = tuple_normalize(to_light_space);
-//	tuple_print(to_light_space);
-//	printf("%f\n", tf_rad_to_deg(acos(tuple_dot(to_light_space, cuboid_light.shape.vtable.normal_at(&cuboid_light.shape, isec_point)))));
-////		camera_view_transform(&camera, \
-////				tuple_new_point(0.0, 0.0, -25), \
-////					tuple_new_point(0.0, 0.0, 0.0), \
-////                    tuple_new_vector(0, 1, 0));
-//	window_create(&window, (int32_t) camera.width, (int32_t) camera.height);
-//	window_add_image(window.mlx, &canvas);
-//	start = clock();
-////	scene_render(&world, &camera, &canvas);
-//	printf("Rendering took: [ %f ] seconds", (double)(clock() - start) / CLOCKS_PER_SEC);
-//	window_draw_loop(window.mlx);
+	world = cornell_box();
+	camera = camera_new(1920, 1080, 50);
+	camera_view_transform(&camera, \
+				tuple_new_point(278.0, 278.0, -800), \
+					tuple_new_point(278.0, 278.0, 0.0));
+	window_create(&window, (int32_t) camera.width, (int32_t) camera.height);
+	window_add_image(window.mlx, &canvas);
+	start = clock();
+	scene_render(&world, &camera, &canvas);
+	printf("Rendering took: [ %f ] seconds", (double)(clock() - start) / CLOCKS_PER_SEC);
+	window_draw_loop(window.mlx);
 	return (0);
 }

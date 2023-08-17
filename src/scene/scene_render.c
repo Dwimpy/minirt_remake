@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 13:59:00 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/10 14:06:01 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/17 21:07:26 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "sampling.h"
 #include "scene.h"
 #include "sphere.h"
-#define SPP 4
+#define SPP 64.0
 
 void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 {
@@ -33,16 +33,16 @@ void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 	cubic_spline_filter(samples, SPP);
 	while (j < canvas->height - 1)
 	{
-		printf("Rendering: %.2f%%\n", ((double)j / (canvas->height - 1)) * 100);
 		i = 0;
+		printf("Rendering: [ %.2f%% ]\n", ((t_real)j / canvas->height) * 100);
 		while (i < canvas->width - 1)
 		{
 			k = 0;
 			color = color_new(0, 0, 0);
-			while (k < SPP)
+			while (k < (size_t) SPP)
 			{
 				ray = camera_get_ray(camera, i, j, samples[k]);
-				color = color_multiply_s(intersect_color_at(world, &ray, 5), 1.0 / SPP);
+				color = color_add(color, color_multiply_s(intersect_color_at(world, &ray, 5), 1.0 / SPP));
 				++k;
 			}
 			image_set_pixel(*canvas, color, i, j);

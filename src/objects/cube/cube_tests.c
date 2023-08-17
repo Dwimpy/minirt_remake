@@ -191,11 +191,33 @@ static void	cube_test_ray_misses(void)
 
 void	cube_test_normals(void)
 {
+	t_shape cube;
+	t_ray ray;
+	t_tuple normal;
 
+
+	cube = shape_new_cube();
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(1, 0.5, -0.8));
+	tuple_print(normal);
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(-1, -0.2, 0.9));
+	tuple_print(normal);
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(0.4, 1, -0.1));
+	tuple_print(normal);
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(0.3, -1, -0.7));
+	tuple_print(normal);
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(-0.6, 0.3, 1));
+	tuple_print(normal);
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(0.4, 0.4, -1));
+	tuple_print(normal);
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(1, 1, 1));
+	tuple_print(normal);
+	normal = cube.vtable.normal_at(&cube, tuple_new_point(-1, -1, -1));
+	tuple_print(normal);
 }
 
 void	cube_tests(void)
 {
 	cube_test_intersection();
 	cube_test_ray_misses();
+	cube_test_normals();
 }

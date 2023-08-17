@@ -22,13 +22,11 @@ t_color	intersect_reflected_color(t_scene *world, t_computations *comps, int dep
 {
 	t_ray		reflected_ray;
 	t_color		black;
-	t_material	m;
 	t_color		color;
 
-	m = comps->shape->material;
-	if (m.reflectivity == 0.0 || depth <= 0)
+	if (comps->shape->material.reflectivity == 0.0 || depth <= 0)
 		return (color_new(0, 0, 0));
 	reflected_ray = ray_new(comps->over_point, comps->reflected_dir);
-	color = color_multiply_s(intersect_color_at(world, &reflected_ray, depth - 1), m.reflectivity);
+	color = color_multiply_s(intersect_color_at(world, &reflected_ray, depth - 1), comps->shape->material.reflectivity);
 	return (color);
 }

@@ -22,7 +22,7 @@ t_intersect	*intersect_hit(t_vector *intersections)
 	while (!it.end(&it))
 	{
 		i = it.get(&it);
-		if (i->t > 0)
+		if (i->t > 0.001)
 			return (i);
 		it.next(&it);
 	}

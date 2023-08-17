@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material_glass.c                                   :+:      :+:    :+:   */
+/*   material_metal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/08 17:13:20 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/09 05:37:34 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/17 19:41:38 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/17 20:52:36 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "color.h"
 #include "material.h"
 
-t_material material_glass(void)
+t_material	material_copper(void)
 {
 	t_material	material;
 
-	material = material_default(color_new(0.529, 0.808, 0.922));
-	material.transparency = 0.9;
-	material.reflectivity = 0.05;
-	material.specular = 0.9;
-	material.shininess = 250;
+	material.color = color_new(0.95, 0.64, 0.54);
 	material.ambient = 0.1;
-	material.diffuse = 0.0;
-	material.refractive_index = 1.52;
+	material.diffuse = 0.9;
+	material.specular = 0.9;
+	material.shininess = 270;
+	material.refractive_index = 0.0;
+	material.reflectivity = 1.0;
+	material.transparency = 0.0;
 	return (material);
 }
