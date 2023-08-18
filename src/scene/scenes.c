@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:21:19 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/17 21:58:42 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/18 16:08:36 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include "color.h"
 #include "cube.h"
 #include "intersect.h"
-#include "light.h"
+#include "../light/light.h"
 #include "material.h"
 #include "plane.h"
 #include "ray.h"
@@ -45,7 +45,7 @@ t_scene scene_default(void)
 	t_shape s2;
 	t_shape plane;
 
-	world.light = point_light_new(tuple_new_point(-10, 10, -10), color_new(1.0, 1.0, 1.0));
+	world.light = light_point_new(tuple_new_point(-10, 10, -10), color_new(1.0, 1.0, 1.0));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -167,7 +167,7 @@ void	scene_test_shade_hit(void)
 	assert(is_approx_equal(color.y, 0.47582, M_EPSILON));
 	assert(is_approx_equal(color.z, 0.2855, M_EPSILON));
 
-	world.light = point_light_new(tuple_new_point(0, 0.25, 0), color_new(1, 1, 1));
+	world.light = light_point_new(tuple_new_point(0, 0.25, 0), color_new(1, 1, 1));
 	ray = ray_new(tuple_new_point(0, 0, 0), tuple_new_vector(0, 0, 1));
 	shape = vector_at(&world.objs, 1);
 	i = intersection(0.5, shape);
@@ -231,7 +231,7 @@ void	scene_test_color_at(void)
 //	t_shape	s2;
 //	t_shape	plane;
 //	t_intersect inter;
-//	world2.light = point_light_new(tuple_new_point(0, 0, -10), color_new(1.0, 1.0, 1.0));
+//	world2.light = light_point_new(tuple_new_point(0, 0, -10), color_new(1.0, 1.0, 1.0));
 //	world2.objs = vector_init(10, sizeof(t_shape));
 //	world2.intersections = vector_init(10, sizeof(t_intersect));
 //	world2.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -485,7 +485,7 @@ t_scene	cornell_box(void)
 	t_real	dimension;
 
 	dimension = 550.0 / 2.0;
-	world.light = point_light_new(tuple_new_point(125, 450, -800 + 1 * dimension), color_new(0.43, 0.43, 0.43));
+	world.light = light_point_new(tuple_new_point(125, 450, -800 + 1 * dimension), color_new(0.43, 0.43, 0.43));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -556,3 +556,91 @@ t_scene	cornell_box(void)
 	vector_pushback(&world.objs, &box2);
 	return (world);
 }
+
+void	intersect_is_shadowed(void)
+{
+	t_scene	world;
+	t_tuple	light_pos;
+	t_tuple	point;
+	bool	is_shadow;
+
+	world = scene_default();
+	light_pos = tuple_new_point(-10, -10, -10);
+	point = tuple_new_point(-10, -10, 10);
+	is_shadow = intersect_shadow_hit(&world, &light_pos, &point);
+	assert(is_shadow == false);
+	point = tuple_new_point(10, 10, 10);
+	is_shadow = intersect_shadow_hit(&world, &light_pos, &point);
+	assert(is_shadow == true);
+	point = tuple_new_point(-20, -20, -20);
+	is_shadow = intersect_shadow_hit(&world, &light_pos, &point);
+	assert(is_shadow == false);
+	point = tuple_new_point(-5, -5, -5);
+	is_shadow = intersect_shadow_hit(&world, &light_pos, &point);
+	assert(is_shadow == false);
+}
+
+void	test_light_intensity_at(void)
+{
+	t_scene	world;
+	t_light	light;
+	t_real	intensity;
+	t_tuple	point;
+
+	world = scene_default();
+	light = world.light;
+	point = tuple_new_point(0, 1.0001, 0);
+	intensity = light_intensity_at(&world, &light, &point);
+	assert(intensity == 1.0);
+	point = tuple_new_point(-1.0001, 0, 0);
+	intensity = light_intensity_at(&world, &light, &point);
+	assert(intensity == 1.0);
+	point = tuple_new_point(0, 0, -1.0001);
+	intensity = light_intensity_at(&world, &light, &point);
+	assert(intensity == 1.0);
+	point = tuple_new_point(0, 0, 1.0001);
+	intensity = light_intensity_at(&world, &light, &point);
+	assert(intensity == 0.0);
+	point = tuple_new_point(1.0001, 0, 0);
+	intensity = light_intensity_at(&world, &light, &point);
+	assert(intensity == 0.0);
+	point = tuple_new_point(0, -1.0001, 0);
+	intensity = light_intensity_at(&world, &light, &point);
+	assert(intensity == 0.0);
+	point = tuple_new_point(0, 0, 0);
+	intensity = light_intensity_at(&world, &light, &point);
+	assert(intensity == 0.0);
+}
+
+void	test_frac_intensity(void)
+{
+	t_scene	world;
+	t_shape *shape;
+	t_color	intensity;
+	t_tuple	point;
+	t_tuple	eye;
+	t_tuple	normal;
+
+	world = scene_default();
+	shape = vector_at(&world.objs, 0);
+	world.light.origin = tuple_new_point(0, 0, -10);
+	shape->material.ambient = 0.1;
+	shape->material.diffuse = 0.9;
+	shape->material.specular = 0.0;
+	shape->material.color = color_new(1, 1, 1);
+	point = tuple_new_point(0, 0, 1);
+	eye = tuple_new_point(0, 0, -1);
+	normal = tuple_new_vector(0, 0, -1);
+	intensity = light_tests(&shape->material, &world.light, point, eye, normal, 1.0);
+	assert(tuple_equal(intensity, color_new(1.0, 1.0, 1.0)));
+	intensity = light_tests(&shape->material, &world.light, point, eye, normal, 0.5);
+	assert(tuple_equal(intensity, color_new(.55, .55, .55)));
+	intensity = light_tests(&shape->material, &world.light, point, eye, normal, 0.0);
+	assert(tuple_equal(intensity, color_new(0.1, 0.1, 0.1)));
+	t_light area_light = light_rect_new(tuple_new_point(250, 250, 250), color_new(1, 1, 1), tuple_new_vector(1, 0, 0),
+										coord_new(100, 100));
+	t_rect_light	*data;
+	data = area_light.data;
+	printf("u: %.15f\tv: %.15f\n", data->uv.x,  data->uv.y);
+}
+

@@ -32,7 +32,6 @@ typedef struct s_camera
 	double		pixel_size;
 	t_onb		onb;
 	t_transform	tf;
-	t_matrix	initial_transform;
 }				t_camera;
 
 t_camera	camera_new(uint32_t width, uint32_t height, double fov);

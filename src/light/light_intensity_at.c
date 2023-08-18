@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_hit.c                                            :+:      :+:    :+:   */
+/*   light_intensity_at.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 17:26:54 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/09 17:26:54 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/18 15:47:46 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/18 17:40:56 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intersect.h"
-#include "vector.h"
+#include "light.h"
 
-t_intersect	*intersect_hit(t_vector *intersections)
+t_real	light_intensity_at(t_scene *world, t_light *light, t_tuple *point)
 {
-	t_vector_iterator	it;
-	t_intersect			*i;
-
-	vector_iterator_begin(&it, intersections);
-	while (!it.end(&it))
-	{
-		i = it.get(&it);
-		if (i->t > 0.0)
-			return (i);
-		it.next(&it);
-	}
-	return (NULL);
+	if (intersect_shadow_hit(world, &light->origin, point))
+		return (0.0);
+	return (1.0);
 }

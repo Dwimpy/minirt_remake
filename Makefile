@@ -15,7 +15,7 @@ NAME			= minirt
 
 VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/image \
 				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
-				  ./src/objects/shape ./src/intersect ./src/material ./src/light/base ./src/camera \
+				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
 				  ./src/objects/cylinder ./src/objects/disk ./src/pdf/base ./src/sampling ./src/light/light_cuboid \
 					./src/pdf/cuboid
@@ -34,8 +34,7 @@ INCLUDE			+= -I ./src/transform
 INCLUDE			+= -I ./src/intersect
 INCLUDE			+= -I ./src/objects/sphere
 INCLUDE			+= -I ./src/material
-INCLUDE			+= -I ./src/light/base
-INCLUDE			+= -I ./src/light/light_cuboid
+INCLUDE			+= -I ./src/light
 INCLUDE			+= -I ./src/camera
 INCLUDE			+= -I ./src/quaternion
 INCLUDE			+= -I ./src/objects/shape

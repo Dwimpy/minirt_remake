@@ -17,7 +17,7 @@
 #include "sampling.h"
 #include "scene.h"
 #include "sphere.h"
-#define SPP 64.0
+#define SPP 16.0
 
 void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
 {

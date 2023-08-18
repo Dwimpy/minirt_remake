@@ -15,7 +15,7 @@
 # include "camera.h"
 #include "color.h"
 # include "intersect.h"
-# include "light.h"
+# include "../light/light.h"
 # include "vector.h"
 # include "image.h"
 
@@ -43,5 +43,8 @@ void	scene_test_reflected_shade_hit(void);
 void	scene_test_under_point(void);
 void	scene_test_opaque_surface(void);
 void	scene_test_refracted_color(void);
+void	intersect_is_shadowed(void);
+void	test_light_intensity_at(void);
+void	test_frac_intensity(void);
 t_scene	cornell_box(void);
 #endif

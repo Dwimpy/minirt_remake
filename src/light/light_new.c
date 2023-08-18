@@ -12,7 +12,7 @@
 
 #include "light.h"
 
-t_light	point_light_new(t_tuple origin, t_color intensity)
+t_light	light_point_new(t_tuple origin, t_color intensity)
 {
 	t_light	light;
 
