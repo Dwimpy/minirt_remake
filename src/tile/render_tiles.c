@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 22:18:52 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/22 21:57:49 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/22 22:01:29 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,15 @@ static void	render_curr_tile(\
 static void	thread_check_exit_or_render(\
 	t_renderer *renderer, t_thread_isect *isect, t_thread_params *p);
 static void	free_thread_data(t_thread_isect *isect);
+static void	process_and_render_tiles(\
+	t_thread_args *args, t_thread_isect *isect, t_thread_params *params);
 
 void	render_tile(t_thread_args *args)
 {
 	t_thread_isect	thread_isect;
 	t_thread_params	params;
 
-	thread_isect.intersections = vector_init(10, sizeof(t_intersect));
-	thread_isect.shadow_isect = vector_init(10, sizeof(t_intersect));
-	thread_isect.comps.ref_index_tracker = vector_init(10, sizeof(t_intersect));
-	while (args->renderer->tiles.size > 0)
-	{
-		pthread_mutex_lock(&args->renderer->mutex);
-		params.tile = vector_back(&args->renderer->tiles);
-		args->renderer->tiles.size--;
-		pthread_mutex_unlock(&args->renderer->mutex);
-		params.j = params.tile->corner.y;
-		render_curr_tile(args, &thread_isect, &params);
-	}
+	process_and_render_tiles(args, &thread_isect, &params);
 	free_thread_data(&thread_isect);
 }
 
@@ -91,17 +82,19 @@ static void	free_thread_data(t_thread_isect *isect)
 	vector_free(&isect->comps.ref_index_tracker);
 }
 
-void	*render_tiles(void *arg)
+static void process_and_render_tiles(\
+	t_thread_args *args, t_thread_isect *isect, t_thread_params *params)
 {
-	t_thread_args	*thread_args;
-	size_t			i;
-
-	thread_args = (t_thread_args *)arg;
-	i = 0;
-	while (i < NUM_THREADS)
+	isect->intersections = vector_init(10, sizeof(t_intersect));
+	isect->shadow_isect = vector_init(10, sizeof(t_intersect));
+	isect->comps.ref_index_tracker = vector_init(10, sizeof(t_intersect));
+	while (args->renderer->tiles.size > 0)
 	{
-		render_tile(thread_args);
-		i++;
+		pthread_mutex_lock(&args->renderer->mutex);
+		params->tile = vector_back(&args->renderer->tiles);
+		args->renderer->tiles.size--;
+		pthread_mutex_unlock(&args->renderer->mutex);
+		params->j = params->tile->corner.y;
+		render_curr_tile(args, isect, params);
 	}
-	return (NULL);
 }

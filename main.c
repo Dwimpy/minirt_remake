@@ -63,9 +63,9 @@ int main(void)
 			tuple_new_point(278.0, 278.0, 0.0));
 	renderer.args.world = &scene;
 	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
-	renderer_start_threads(&renderer);
+	scene_render(&scene, &renderer);
+//	renderer_start_threads(&renderer);
 	window_draw_loop(renderer.window.mlx, &renderer);
 	return (0);
 }
 //	scene_render(&scene, &scene.camera, &renderer.canvas);
-//	scene_render(&scene, &renderer);

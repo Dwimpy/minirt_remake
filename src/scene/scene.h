@@ -26,8 +26,6 @@ typedef struct s_scene
 	t_light			light;
 	t_camera		camera;
 	t_vector		objs;
-	t_vector		intersections;
-	t_vector		shadow_intersections;
 	t_computations	comps;
 }				t_scene;
 

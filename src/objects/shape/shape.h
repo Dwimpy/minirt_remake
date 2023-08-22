@@ -53,4 +53,5 @@ void		shape_rotate_x(t_shape *shape, double z);
 void		shape_rotate_y(t_shape *shape, double z);
 void		shape_rotate_z(t_shape *shape, double z);
 void		shape_rotate(t_shape *shape, double x, double y, double z);
+void		shape_free(t_shape *shape);
 #endif
