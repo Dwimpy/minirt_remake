@@ -82,7 +82,7 @@ static void	free_thread_data(t_thread_isect *isect)
 	vector_free(&isect->comps.ref_index_tracker);
 }
 
-static void process_and_render_tiles(\
+static void	process_and_render_tiles(\
 	t_thread_args *args, t_thread_isect *isect, t_thread_params *params)
 {
 	isect->intersections = vector_init(10, sizeof(t_intersect));

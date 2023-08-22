@@ -22,7 +22,7 @@ void	renderer_initialize(\
 	seed = (unsigned int) time(0) ^ (unsigned int) getpid();
 	srand(seed);
 	renderer->threading = threading;
-	renderer->samples_per_pixel = 16.0;
+	renderer->samples_per_pixel = 128.0;
 	window_create(&renderer->window, width, height);
 	window_add_image(renderer->window.mlx, &renderer->canvas);
 	create_tiles(&renderer->tiles, width, height);

@@ -483,7 +483,7 @@ t_scene	cornell_box(void)
 	dimension = 550.0 / 2.0;
 //	world.light = light_point_new(tuple_new_point(100, 100, -800 + dimension), color_new(0.43, 0.43, 0.43));
 	world.light = light_rect_new(tuple_new_point(100, dimension + 50, -800 + dimension), color_new(0.43, 0.43, 0.43),
-								 tuple_new_vector(1, 0, 1), coord_new(70, 70), 8);
+								 tuple_new_vector(1, 0, 1), coord_new(70, 70), 2);
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.comps.ref_index_tracker = vector_init(10, sizeof(t_shape **));
 	floor = shape_new_cube();
