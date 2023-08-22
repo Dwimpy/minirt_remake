@@ -18,7 +18,7 @@ VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/imag
 				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
 				  ./src/objects/cylinder ./src/objects/disk ./src/sampling ./src/light/light_cuboid \
-				  ./src/tile ./src/renderer
+				  ./src/tile ./src/renderer ./src/hooks
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -47,6 +47,7 @@ INCLUDE			+= -I ./src/sampling
 INCLUDE			+= -I ./src/pdf/cuboid
 INCLUDE			+= -I ./src/tile
 INCLUDE			+= -I ./src/renderer
+INCLUDE			+= -I ./src/hooks
 
 DSYM			= ./minirt.dSYM
 SRC_DIR			= ./src
@@ -65,7 +66,7 @@ NORM_INCLUDE	= ./include
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
-ASAN		= -fsanitize=address -g3
+ASAN		= #-fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit

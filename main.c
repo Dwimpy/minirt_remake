@@ -6,12 +6,12 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/22 17:39:03 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/22 21:39:10 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "renderer.h"
+#include "hooks.h"
 
 void run_tests(void)
 {
@@ -48,10 +48,11 @@ void run_is_shadow_tests(void)
 //	test_frac_intensity();
 }
 
-int	main(void)
+
+int main(void)
 {
-	t_scene			scene;
-	t_renderer		renderer;
+	t_scene		scene;
+	t_renderer	renderer;
 
 //	run_is_shadow_tests();
 	renderer_initialize(&renderer, 1920, 1080, true);
@@ -61,8 +62,10 @@ int	main(void)
 			tuple_new_point(278.0, 278.0, -800), \
 			tuple_new_point(278.0, 278.0, 0.0));
 	renderer.args.world = &scene;
+	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
 	renderer_start_threads(&renderer);
-//	scene_render(&scene, &scene.camera, &renderer.canvas);
 	window_draw_loop(renderer.window.mlx, &renderer);
 	return (0);
 }
+//	scene_render(&scene, &scene.camera, &renderer.canvas);
+//	scene_render(&scene, &renderer);

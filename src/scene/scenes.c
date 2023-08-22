@@ -487,7 +487,7 @@ t_scene	cornell_box(void)
 	dimension = 550.0 / 2.0;
 //	world.light = light_point_new(tuple_new_point(100, 100, -800 + dimension), color_new(0.43, 0.43, 0.43));
 	world.light = light_rect_new(tuple_new_point(100, dimension + 50, -800 + dimension), color_new(0.43, 0.43, 0.43),
-								 tuple_new_vector(1, 0, 1), coord_new(70, 70), 5);
+								 tuple_new_vector(1, 0, 1), coord_new(70, 70), 8);
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));

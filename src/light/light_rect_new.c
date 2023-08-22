@@ -39,13 +39,9 @@ t_light	light_rect_new(t_tuple origin, t_color intensity, t_tuple normal, t_coor
 		rect_light->right = tuple_normalize(tuple_cross(tuple_new_vector(1, 0, 0), normal));
 	light.samples = samples;
 	rect_light->up = tuple_normalize(tuple_cross(rect_light->right, normal));
-	printf("ONB: \n");
-	tuple_print(rect_light->up);
-	tuple_print(rect_light->right);
 	rect_light->corner = tuple_subtract(light.origin, tuple_add(tuple_multiply_s(rect_light->up, 0.5 * width_height.y),
 														   tuple_multiply_s(rect_light->right, 0.5 * width_height.x)));
 	rect_light->uv = light_construct_uv(&light, width_height);
-	tuple_print(rect_light->corner);
 	return (light);
 }
 

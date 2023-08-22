@@ -14,10 +14,12 @@
 # define TILE_H
 # include "camera.h"
 # include "image.h"
+# include "ray.h"
 # include "vector.h"
 # include <sys/_types/_size_t.h>
 # include "tuple.h"
 # include "scene.h"
+
 # define TILE_SIZE 100
 
 typedef struct s_renderer	t_renderer;
@@ -47,12 +49,21 @@ typedef struct s_tile
 	t_tile_settings	settings;
 }				t_tile;
 
-
 typedef struct s_thread_args
 {
 	t_scene		*world;
 	t_renderer	*renderer;
 }				t_thread_args;
+
+typedef struct s_thread_params
+{
+	t_ray		ray;
+	size_t		i;
+	size_t		j;
+	size_t		k;
+	t_tile		*tile;
+	t_color		color;
+}				t_thread_params;
 
 void		create_tiles(t_vector *tiles, int32_t width, int32_t height);
 void		*render_tiles(void *arg);

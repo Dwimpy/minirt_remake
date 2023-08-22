@@ -20,6 +20,7 @@
 # include "image.h"
 # include <pthread.h>
 
+typedef struct s_renderer	t_renderer;
 typedef struct s_scene
 {
 	t_light			light;
@@ -31,7 +32,7 @@ typedef struct s_scene
 }				t_scene;
 
 t_scene	scene_default(void);
-void	scene_render(t_scene *world, t_camera *camera, t_image *canvas);
+void	scene_render(t_scene *world, t_renderer *renderer);
 void	scene_test_refraction(void);
 void	scene_test_isect_world(void);
 void	scene_test_isect_computations(void);

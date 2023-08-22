@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42.h"
 #include "camera.h"
 #include "color.h"
 #include "image.h"
@@ -18,32 +19,33 @@
 #include "scene.h"
 #include "sphere.h"
 #include "tile.h"
+#include "renderer.h"
 #define SPP 2.0
 
-void	scene_render(t_scene *world, t_camera *camera, t_image *canvas)
+void scene_render(t_scene *world, t_renderer *renderer)
 {
-	t_ray		ray;
-	t_color		color;
-	size_t		i;
-	size_t		j;
-	size_t		k;
+	t_ray ray;
+	t_color color;
+	size_t i;
+	size_t j;
+	size_t k;
 
 	j = 0;
-	while (j < canvas->height - 1)
+	while (j < renderer->canvas.height - 1)
 	{
 		i = 0;
-		printf("Rendering: [ %.2f%% ]\n", ((t_real)j / canvas->height) * 100);
-		while (i < canvas->width - 1)
+		printf("Rendering: [ %.2f%% ]\n", ((t_real) j / renderer->canvas.height) * 100);
+		while (i < renderer->canvas.width - 1)
 		{
 			k = 0;
 			color = color_new(0, 0, 0);
 			while (k < (size_t) SPP)
 			{
-//				ray = camera_get_ray(camera, i, j, world->samples[k]);
+				ray = camera_get_ray(&world->camera, i, j, renderer->samples[k]);
 				color = color_add(color, color_multiply_s(intersect_color_at(world, &ray, 5), 1.0 / SPP));
 				++k;
 			}
-			image_set_pixel(canvas, color, i, j);
+			image_set_pixel(&renderer->canvas, color, i, 0);
 			++i;
 		}
 		++j;
