@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:30:56 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/18 19:49:29 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/21 13:56:36 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "light.h"
 #include "tuple.h"
 
-static t_coord	light_construct_uv(t_light *light, t_tuple normal, t_coord width_height);
+static t_coord	light_construct_uv(t_light *light, t_coord width_height);
 
-t_light	light_rect_new(t_tuple origin, t_color intensity, t_tuple normal, t_coord width_height)
+t_light	light_rect_new(t_tuple origin, t_color intensity, t_tuple normal, t_coord width_height, size_t samples)
 {
 	t_light			light;
 	t_rect_light	*rect_light;
@@ -29,6 +29,7 @@ t_light	light_rect_new(t_tuple origin, t_color intensity, t_tuple normal, t_coor
 		exit(1);
 	}
 	normal = tuple_normalize(normal);
+	light.type = RECT_LIGHT;
 	light.origin = origin;
 	light.intensity = intensity;
 	light.data = rect_light;
@@ -36,20 +37,19 @@ t_light	light_rect_new(t_tuple origin, t_color intensity, t_tuple normal, t_coor
 	rect_light->right = tuple_normalize(tuple_cross(normal, rect_light->up));
 	if (tuple_equal(rect_light->right, tuple_new_vector(0, 0, 0)))
 		rect_light->right = tuple_normalize(tuple_cross(tuple_new_vector(1, 0, 0), normal));
-	rect_light->up = tuple_normalize(tuple_cross(normal, rect_light->right));
+	light.samples = samples;
+	rect_light->up = tuple_normalize(tuple_cross(rect_light->right, normal));
+	printf("ONB: \n");
 	tuple_print(rect_light->up);
 	tuple_print(rect_light->right);
-	rect_light->uv = light_construct_uv(&light, normal, width_height);
-	rect_light->corner = tuple_subtract(light.origin, tuple_multiply_s(rect_light->right, 0.5 * width_height.x));
-//	rect_light->corner.y = light.origin.y - 0.5 * width_height.y * rect_light->uv.y;
-//	tuple_print(tuple_multiply_s(rect_light->right, 0.5 * width_height.x));
-//	rect_light->corner.z = light.origin.z;
-	printf("CORNER: \n");
+	rect_light->corner = tuple_subtract(light.origin, tuple_add(tuple_multiply_s(rect_light->up, 0.5 * width_height.y),
+														   tuple_multiply_s(rect_light->right, 0.5 * width_height.x)));
+	rect_light->uv = light_construct_uv(&light, width_height);
 	tuple_print(rect_light->corner);
 	return (light);
 }
 
-static t_coord	light_construct_uv(t_light *light, t_tuple normal, t_coord width_height)
+static t_coord	light_construct_uv(t_light *light, t_coord width_height)
 {
 	t_tuple			normalized_normal;
 	t_tuple			adjusted_point;
@@ -57,7 +57,7 @@ static t_coord	light_construct_uv(t_light *light, t_tuple normal, t_coord width_
 	t_rect_light	*rect_light;
 
 	rect_light = light->data;
-	coord.x = 1.0 / width_height.x;
-	coord.y = 1.0 / width_height.y;
+	coord.x = width_height.x / (t_real)(light->samples);
+	coord.y = width_height.y / (t_real)(light->samples);
 	return (coord);
 }

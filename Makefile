@@ -17,8 +17,8 @@ VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/imag
 				  ./src/rng ./src/ortho_basis ./src/transform ./src/vector ./src/vector/iterator \
 				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
-				  ./src/objects/cylinder ./src/objects/disk ./src/pdf/base ./src/sampling ./src/light/light_cuboid \
-					./src/pdf/cuboid
+				  ./src/objects/cylinder ./src/objects/disk ./src/sampling ./src/light/light_cuboid \
+				  ./src/tile ./src/renderer
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -43,9 +43,10 @@ INCLUDE			+= -I ./src/objects/cube
 INCLUDE			+= -I ./src/objects/cylinder
 INCLUDE			+= -I ./src/objects/disk
 INCLUDE			+= -I ./src/scene
-INCLUDE			+= -I ./src/pdf/base
 INCLUDE			+= -I ./src/sampling
 INCLUDE			+= -I ./src/pdf/cuboid
+INCLUDE			+= -I ./src/tile
+INCLUDE			+= -I ./src/renderer
 
 DSYM			= ./minirt.dSYM
 SRC_DIR			= ./src
@@ -64,12 +65,12 @@ NORM_INCLUDE	= ./include
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
-ASAN		= #-fsanitize=address -g3
+ASAN		= -fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
 	LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
-	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm
+	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm -lpthread
 else
 	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
 endif

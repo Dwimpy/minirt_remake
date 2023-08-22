@@ -30,3 +30,16 @@ t_color	intersect_reflected_color(t_scene *world, t_computations *comps, int dep
 	color = color_multiply_s(intersect_color_at(world, &reflected_ray, depth - 1), comps->shape->material.reflectivity);
 	return (color);
 }
+
+t_color	intersect_reflected_color_threads(t_scene *world, t_thread_isect *isect, t_computations *comps, int depth)
+{
+	t_ray		reflected_ray;
+	t_color		black;
+	t_color		color;
+
+	if (comps->shape->material.reflectivity == 0.0 || depth <= 0)
+		return (color_new(0, 0, 0));
+	reflected_ray = ray_new(comps->over_point, comps->reflected_dir);
+	color = color_multiply_s(intersect_color_at_threads(world, &reflected_ray, depth - 1, isect), comps->shape->material.reflectivity);
+	return (color);
+}

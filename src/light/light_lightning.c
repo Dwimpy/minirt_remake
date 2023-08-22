@@ -38,6 +38,8 @@ t_color	light_lightning(t_computations *comps, t_light *light)
 	black = color_new(0.0, 0.0, 0.0);
 	specular = black;
 	diffuse = black;
+	if (is_approx_equal(comps->frac_intensity, 0, M_EPSILON))
+		return (ambient);
 	if (light_dot_normal < 0.0)
 	{
 		diffuse = black;

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pdf_cuboid.h                                       :+:      :+:    :+:   */
+/*   renderer_start_threads.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/15 22:19:16 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/15 22:19:16 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/22 17:43:08 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/22 18:04:47 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PDF_CUBOID_H
-# define PDF_CUBOID_H
-#include "cube.h"
-# include "pdf.h"
-# include "tuple.h"
+#include "renderer.h"
+#include <pthread.h>
 
-typedef struct s_pdf_cuboid
+void	renderer_start_threads(t_renderer *renderer)
 {
-	t_real		front_back_sde;
-	t_real		top_bottom_side;
-	t_real		left_right_side;
-}				t_pdf_cuboid;
+	size_t	i;
 
-
-
-#endif
+	i = 0;
+	while (i < NUM_THREADS)
+	{
+		pthread_create(\
+			&renderer->threads[i], NULL, render_tiles, &renderer->args);
+		++i;
+	}
+}

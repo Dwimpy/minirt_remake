@@ -31,3 +31,22 @@ t_color	intersect_color_at(t_scene *world, t_ray *ray, int depth)
 	}
 	return (color_new(0, 0, 0));
 }
+
+t_color	intersect_color_at_threads(t_scene *world, t_ray *ray, int depth, t_thread_isect *intersections)
+{
+	t_intersect	*i;
+	t_color		color;
+	t_ray		ray_thread;
+
+	ray_thread = *ray;
+	vector_clear(&intersections->intersections);
+	intersect_world_threads(world, intersections, &ray_thread);
+	i = intersect_hit(&intersections->intersections);
+	if (i)
+	{
+		intersect_compute(i, &ray_thread, &intersections->comps, &intersections->intersections);
+		color = intersect_shade_hit_threads(world, &intersections->comps, depth, intersections);
+		return (color);
+	}
+	return (color_new(0, 0, 0));
+}

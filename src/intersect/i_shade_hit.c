@@ -44,6 +44,32 @@ t_color	intersect_shade_hit(t_scene *world, t_computations *computations, int de
 				refracted_color)));
 }
 
+t_color	intersect_shade_hit_threads(t_scene *world, t_computations *computations, int depth, t_thread_isect *isect)
+{
+	t_color			surface_color;
+	t_color			reflected_color;
+	t_color			refracted_color;
+	t_real			reflectance;
+	t_computations	comps;
+
+	comps = *computations;
+	comps.frac_intensity = light_intensity_at_threads(world, &world->light, &comps.over_point, isect);
+	surface_color = light_lightning(&comps, &world->light);
+	reflected_color = intersect_reflected_color_threads(world, isect, &comps, depth);
+	refracted_color = intersect_refracted_color_threads(world, isect, &comps, depth);
+	if (comps.shape->material.reflectivity > 0 && comps.shape->material.transparency > 0)
+	{
+		reflectance = shlick(&comps);
+		return (tuple_add(surface_color, \
+				tuple_add(color_multiply_s(reflected_color, reflectance), \
+				color_multiply_s(refracted_color, 1 - reflectance))));
+	}
+	return (tuple_add(surface_color, \
+			tuple_add(reflected_color, \
+				refracted_color)));
+}
+
+
 static inline double shlick(t_computations *computations)
 {
 	t_real			cos_angle;

@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:21:19 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/18 16:08:36 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/21 15:23:12 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,7 +485,9 @@ t_scene	cornell_box(void)
 	t_real	dimension;
 
 	dimension = 550.0 / 2.0;
-	world.light = light_point_new(tuple_new_point(125, 450, -800 + 1 * dimension), color_new(0.43, 0.43, 0.43));
+//	world.light = light_point_new(tuple_new_point(100, 100, -800 + dimension), color_new(0.43, 0.43, 0.43));
+	world.light = light_rect_new(tuple_new_point(100, dimension + 50, -800 + dimension), color_new(0.43, 0.43, 0.43),
+								 tuple_new_vector(1, 0, 1), coord_new(70, 70), 5);
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.intersections = vector_init(10, sizeof(t_intersect));
 	world.shadow_intersections = vector_init(10, sizeof(t_intersect));
@@ -622,25 +624,10 @@ void	test_frac_intensity(void)
 	t_tuple	normal;
 
 	world = scene_default();
-	shape = vector_at(&world.objs, 0);
-	world.light.origin = tuple_new_point(0, 0, -10);
-	shape->material.ambient = 0.1;
-	shape->material.diffuse = 0.9;
-	shape->material.specular = 0.0;
-	shape->material.color = color_new(1, 1, 1);
-	point = tuple_new_point(0, 0, 1);
-	eye = tuple_new_point(0, 0, -1);
-	normal = tuple_new_vector(0, 0, -1);
-	intensity = light_tests(&shape->material, &world.light, point, eye, normal, 1.0);
-	assert(tuple_equal(intensity, color_new(1.0, 1.0, 1.0)));
-	intensity = light_tests(&shape->material, &world.light, point, eye, normal, 0.5);
-	assert(tuple_equal(intensity, color_new(.55, .55, .55)));
-	intensity = light_tests(&shape->material, &world.light, point, eye, normal, 0.0);
-	assert(tuple_equal(intensity, color_new(0.1, 0.1, 0.1)));
-	t_light area_light = light_rect_new(tuple_new_point(250, 250, 250), color_new(1, 1, 1), tuple_new_vector(1, 0, 0),
-										coord_new(100, 100));
-	t_rect_light	*data;
-	data = area_light.data;
-	printf("u: %.15f\tv: %.15f\n", data->uv.x,  data->uv.y);
+	world.light = light_rect_new(tuple_new_point(0, 0, 0), color_new(1, 1, 1), tuple_new_vector(0, 0, 1), coord_new(10, 10), 10);
+	printf("POINT ON LIGHT\n");
+	tuple_print(light_point_on(&world.light, 0, 0));
+	point = tuple_new_point(5, 5, 5);
+	printf("Intensity at: %f\n", light_intensity_at(&world, &world.light, &point));
 }
 

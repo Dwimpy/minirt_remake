@@ -18,6 +18,8 @@
 # include "image.h"
 # include <stdint.h>
 
+typedef struct s_renderer	t_renderer;
+
 typedef struct s_window
 {
 	mlx_t		*mlx;
@@ -27,6 +29,6 @@ typedef struct s_window
 
 void	window_create(t_window *window, int32_t width, int32_t height);
 void	window_add_image(mlx_t *window, t_image *image);
-void	window_draw_loop(mlx_t *mlx);
+void	window_draw_loop(mlx_t *mlx, t_renderer *renderer);
 
 #endif

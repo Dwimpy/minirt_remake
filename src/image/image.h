@@ -25,5 +25,5 @@ typedef struct s_image
 }				t_image;
 
 void	image_create(mlx_t *mlx, t_image *image, uint32_t width, uint32_t height);
-void	image_set_pixel(t_image image, t_color c, uint32_t u, uint32_t v);
+void	image_set_pixel(t_image *image, t_color c, uint32_t u, uint32_t v);
 #endif
