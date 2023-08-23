@@ -12,7 +12,6 @@
 
 #include "renderer.h"
 #include "hooks.h"
-#include "vector.h"
 
 void run_tests(void)
 {

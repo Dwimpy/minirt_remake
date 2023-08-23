@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 22:42:21 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/10 22:42:21 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/23 13:37:22 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,27 @@
 #include "intersect.h"
 #include "material.h"
 #include "shape.h"
-#include "tuple.h"
-#include <complex.h>
 #include <math.h>
 
-t_color	intersect_refracted_color(t_scene *world, t_computations *comps, int depth)
+t_color	intersect_refracted_color_threads(\
+	t_scene *world, t_thread_isect *isect, t_computations *comps, int depth)
 {
-	t_real n_ratio;
-	t_real cosi;
-	t_real sin2t;
-	t_real cos_t;
-	t_tuple direction;
-	t_ray refracted_ray;
-	t_color	color;
-	t_material	material;
+	t_refracted_params	p;
 
 	if (depth <= 0 || comps->shape->material.transparency == 0)
 		return (color_new(0.0, 0.0, 0.0));
-	n_ratio = comps->n1 / comps->n2;
-	cosi = tuple_dot(comps->eye, comps->normal);
-	sin2t = (n_ratio * n_ratio) * (1.0 - (cosi * cosi));
-	if (sin2t > 1.0)
+	p.n_ratio = comps->n1 / comps->n2;
+	p.cosi = tuple_dot(comps->eye, comps->normal);
+	p.sin2t = (p.n_ratio * p.n_ratio) * (1.0 - (p.cosi * p.cosi));
+	if (p.sin2t > 1.0)
 		return (color_new(0, 0, 0));
-	cos_t = sqrt(1.0 - sin2t);
-	direction = tuple_subtract(tuple_multiply_s(comps->normal, n_ratio * cosi - cos_t), \
-            tuple_multiply_s(comps->eye, n_ratio));
-	refracted_ray = ray_new(comps->under_point, direction);
-	color = color_multiply_s(\
-		intersect_color_at(world, &refracted_ray, depth - 1), \
+	p.cos_t = sqrt(1.0 - p.sin2t);
+	p.direction = tuple_subtract(\
+		tuple_multiply_s(comps->normal, p.n_ratio * p.cosi - p.cos_t), \
+		tuple_multiply_s(comps->eye, p.n_ratio));
+	p.refracted_ray = ray_new(comps->under_point, p.direction);
+	p.color = color_multiply_s(\
+		intersect_color_at_threads(world, &p.refracted_ray, depth - 1, isect), \
 			comps->shape->material.transparency);
-	return (color);
-}
-
-
-t_color		intersect_refracted_color_threads(t_scene *world, t_thread_isect *isect, t_computations *comps, int depth)
-{
-	t_real n_ratio;
-	t_real cosi;
-	t_real sin2t;
-	t_real cos_t;
-	t_tuple direction;
-	t_ray refracted_ray;
-	t_color	color;
-	t_material	material;
-
-	if (depth <= 0 || comps->shape->material.transparency == 0)
-		return (color_new(0.0, 0.0, 0.0));
-	n_ratio = comps->n1 / comps->n2;
-	cosi = tuple_dot(comps->eye, comps->normal);
-	sin2t = (n_ratio * n_ratio) * (1.0 - (cosi * cosi));
-	if (sin2t > 1.0)
-		return (color_new(0, 0, 0));
-	cos_t = sqrt(1.0 - sin2t);
-	direction = tuple_subtract(tuple_multiply_s(comps->normal, n_ratio * cosi - cos_t), \
-            tuple_multiply_s(comps->eye, n_ratio));
-	refracted_ray = ray_new(comps->under_point, direction);
-	color = color_multiply_s(\
-		intersect_color_at_threads(world, &refracted_ray, depth - 1, isect), \
-			comps->shape->material.transparency);
-	return (color);
+	return (p.color);
 }

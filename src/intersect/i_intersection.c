@@ -12,7 +12,7 @@
 
 #include "intersect.h"
 
-t_intersect intersection(t_real t, t_shape *shape)
+__attribute__((unused)) t_intersect	intersection(t_real t, t_shape *shape)
 {
 	return ((t_intersect){t, shape});
 }

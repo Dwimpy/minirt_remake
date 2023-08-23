@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "camera.h"
-#include "transform.h"
 
-void camera_set_params(t_camera *camera, int32_t width, uint32_t height, double fov)
+void	camera_set_params(\
+	t_camera *camera, int32_t width, uint32_t height, double fov)
 {
 	camera->width = width;
 	camera->height = height;
@@ -21,11 +21,12 @@ void camera_set_params(t_camera *camera, int32_t width, uint32_t height, double 
 	camera->half_view = tan(camera->fov / 2.0);
 	camera->aspect_ratio = (double) camera->width / (double) camera->height;
 	if (is_approx_equal(\
-        camera->aspect_ratio, 1.0, M_EPSILON) || camera->aspect_ratio > 1.0)
+		camera->aspect_ratio, 1.0, M_EPSILON) || camera->aspect_ratio > 1.0)
 	{
 		camera->half_width = camera->half_view;
 		camera->half_height = camera->half_view / camera->aspect_ratio;
-	} else
+	}
+	else
 	{
 		camera->half_width = camera->half_view * camera->aspect_ratio;
 		camera->half_height = camera->half_view;

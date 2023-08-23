@@ -11,13 +11,10 @@
 /* ************************************************************************** */
 
 #include "camera.h"
-#include "matrix.h"
-#include "transform.h"
-#include "tuple.h"
 
 void	camera_tf_compute(t_camera *camera)
 {
-	t_matrix trans;
+	t_matrix	trans;
 
 	trans = matrix_init(4, 4);
 	matrix_multiply(&trans, &camera->tf.rotation, &camera->tf.translation);

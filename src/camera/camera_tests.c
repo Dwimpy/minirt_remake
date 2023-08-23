@@ -19,7 +19,7 @@
 #include "tuple.h"
 #include "scene.h"
 
-void camera_tests(void)
+__attribute__((unused)) void camera_tests(void)
 {
 	t_matrix res;
 	t_camera camera;
@@ -93,14 +93,4 @@ void camera_tests(void)
 	assert(tuple_equal_p(ray.origin, tuple_new_point(0, 2, -5), M_EPSILON * 100));
 	assert(tuple_equal_p(ray.direction, tuple_new_vector(sqrt(2) / 2, 0, -sqrt(2) / 2), M_EPSILON * 10));
 
-	t_color	color;
-
-	world = scene_default();
-	camera = camera_new(11, 11, 90);
-	camera_view_transform(&camera, \
-				tuple_new_point(0, 0, -5), \
-					tuple_new_point(0, 0, 0));
-	ray = camera_get_ray(&camera, 5, 5, (t_sample){0, 0});
-	color = intersect_color_at(&world, &ray, 1);
-	assert(tuple_equal(color, tuple_new_vector(0.38066, 0.47583, 0.2855)));
 }

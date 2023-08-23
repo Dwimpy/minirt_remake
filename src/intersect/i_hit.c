@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "intersect.h"
-#include "vector.h"
 
 t_intersect	*intersect_hit(t_vector *intersections)
 {

@@ -12,23 +12,9 @@
 
 #include "intersect.h"
 #include "scene.h"
-#include "shape.h"
 
-//void	intersect_world(t_scene *world, t_ray *ray)
-//{
-//	t_vector_iterator	it;
-//	t_shape				*shape;
-//
-//	vector_iterator_begin(&it, &world->objs);
-//	while (!it.end(&it))
-//	{
-//		shape = it.get(&it);
-//		shape->vtable.intersect(shape, *ray, &world->intersections);
-//		it.next(&it);
-//	}
-//}
-
-void	intersect_world_threads(t_scene *world, t_thread_isect *intersections, t_ray *ray_thread)
+void	intersect_world_threads(\
+	t_scene *world, t_thread_isect *intersections, t_ray *ray_thread)
 {
 	t_vector_iterator	it;
 	t_shape				*shape;
@@ -37,26 +23,14 @@ void	intersect_world_threads(t_scene *world, t_thread_isect *intersections, t_ra
 	while (!it.end(&it))
 	{
 		shape = it.get(&it);
-		shape->vtable.intersect(shape, *ray_thread, &intersections->intersections);
+		shape->vtable.intersect(\
+			shape, *ray_thread, &intersections->intersections);
 		it.next(&it);
 	}
 }
 
-//void	intersect_shadow_world(t_scene *world, t_ray *ray)
-//{
-//	t_vector_iterator	it;
-//	t_shape				*shape;
-//
-//	vector_iterator_begin(&it, &world->objs);
-//	while (!it.end(&it))
-//	{
-//		shape = it.get(&it);
-//		shape->vtable.intersect(shape, *ray, &world->shadow_intersections);
-//		it.next(&it);
-//	}
-//}
-
-void	intersect_shadow_world_threads(t_scene *world, t_thread_isect *isect, t_ray *ray)
+void	intersect_shadow_world_threads(\
+	t_scene *world, t_thread_isect *isect, t_ray *ray)
 {
 	t_vector_iterator	it;
 	t_shape				*shape;

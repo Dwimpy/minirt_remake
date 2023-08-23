@@ -14,9 +14,12 @@
 #include "image.h"
 #include "stdlib.h"
 #include "libft.h"
-#include <stdint.h>
 
-void	image_create(mlx_t *mlx, t_image *image, uint32_t width, uint32_t height)
+void	image_create(\
+	mlx_t *mlx, \
+	t_image *image, \
+	uint32_t width, \
+	uint32_t height)
 {
 	image->width = width;
 	image->height = height;
@@ -26,5 +29,6 @@ void	image_create(mlx_t *mlx, t_image *image, uint32_t width, uint32_t height)
 		write(2, IMAGE_BUFFER_ALLOC_FAILED, 44);
 		exit(EXIT_FAILURE);
 	}
-	ft_memset(image->buffer->pixels, 255, sizeof(uint32_t) * image->buffer->width * image->buffer->height);
+	ft_memset(image->buffer->pixels, 255, \
+		sizeof(uint32_t) * image->buffer->width * image->buffer->height);
 }

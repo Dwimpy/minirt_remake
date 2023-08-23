@@ -12,10 +12,6 @@
 
 #ifndef INTERSECT_H
 # define INTERSECT_H
-
-# define MAX_INTERSECTIONS_PER_OBJECT 10
-# define MAX_DEPTH 4
-
 # include "tuple.h"
 # include "vector.h"
 # include "ray.h"
@@ -49,16 +45,25 @@ typedef struct s_computations
 	t_tuple		reflected_dir;
 	t_real		n1;
 	t_real		n2;
-	bool		inside;
 	t_real		frac_intensity;
 }				t_computations;
+
+typedef struct s_refracted_params
+{
+	t_real	n_ratio;
+	t_real	cosi;
+	t_real	sin2t;
+	t_real	cos_t;
+	t_tuple	direction;
+	t_ray	refracted_ray;
+	t_color	color;
+}				t_refracted_params;
 
 typedef struct s_intersect
 {
 	double		t;
 	t_shape		*obj;
 }				t_intersect;
-
 
 typedef struct s_thread_isect
 {
@@ -67,28 +72,22 @@ typedef struct s_thread_isect
 	t_computations	comps;
 }				t_thread_isect;
 
-void		intersect_world(t_scene *world, t_ray *ray);
-void		intersect_shadow_world(t_scene *world, t_ray *ray);
-t_intersect	intersection(t_real t, t_shape *shape);
 t_intersect	*intersect_hit(t_vector *intersections);
-void		intersect_compute(t_intersect *i, t_ray *ray, t_computations *comps, t_vector *isect);
-bool		intersect_shadow_hit(t_scene *world, t_tuple *light_pos, t_tuple *point);
-t_color		intersect_shade_hit(t_scene *world, t_computations *comps, int depth);
-t_color		intersect_color_at(t_scene *world, t_ray *ray, int depth);
-t_color		intersect_reflected_color(t_scene *world, t_computations *comps, int depth);
-t_color		intersect_refracted_color(t_scene *world, t_computations *comps, int depth);
-
-
-
-// Threads
-void		intersect_world_threads(t_scene *world, t_thread_isect *intersections, t_ray *ray_thread);
-void		intersect_shadow_world_threads(t_scene *world, t_thread_isect *intersections, t_ray *ray_thread);
-bool		intersect_shadow_hit_threads(t_scene *world, t_tuple *light_pos, t_tuple *point, t_thread_isect *isect);
-t_color		intersect_shade_hit_threads(t_scene *world, t_computations *comps, int depth, t_thread_isect *isect);
-t_color		intersect_color_at_threads(t_scene *world, t_ray *ray, int depth, t_thread_isect *intersections);
-t_color		intersect_reflected_color_threads(t_scene *world, t_thread_isect *isect, t_computations *comps, int depth);
-t_color		intersect_refracted_color_threads(t_scene *world, t_thread_isect *isect, t_computations *comps, int depth);
-
-
+void		intersect_compute(\
+	t_intersect *i, t_ray *ray, t_computations *comps, t_vector *isect);
+void		intersect_world_threads(\
+	t_scene *world, t_thread_isect *intersections, t_ray *ray_thread);
+void		intersect_shadow_world_threads(\
+	t_scene *world, t_thread_isect *intersections, t_ray *ray_thread);
+bool		intersect_shadow_hit_threads(\
+	t_scene *world, t_tuple *light_pos, t_tuple *point, t_thread_isect *isect);
+t_color		intersect_shade_hit_threads(\
+	t_scene *world, t_computations *comps, int depth, t_thread_isect *isect);
+t_color		intersect_color_at_threads(\
+	t_scene *world, t_ray *ray, int depth, t_thread_isect *intersections);
+t_color		intersect_reflected_color_threads(\
+	t_scene *world, t_thread_isect *isect, t_computations *comps, int depth);
+t_color		intersect_refracted_color_threads(\
+	t_scene *world, t_thread_isect *isect, t_computations *comps, int depth);
 
 #endif

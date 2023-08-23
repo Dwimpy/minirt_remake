@@ -13,7 +13,6 @@
 #include "MLX42.h"
 #include "color.h"
 #include "image.h"
-#include <stdint.h>
 
 void	image_set_pixel(t_image *image, t_color c, uint32_t i, uint32_t j)
 {

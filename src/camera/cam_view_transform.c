@@ -11,18 +11,10 @@
 /* ************************************************************************** */
 
 #include "camera.h"
-#include "matrix.h"
-#include "onb.h"
-#include "transform.h"
-#include "tuple.h"
-#include "quaternion.h"
-
-inline static t_tuple	handle_zero_case(t_tuple to, t_tuple from);
 
 void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to)
 {
 	t_onb			onb;
-	t_tuple			upn;
 	t_transform		translation;
 
 	translation = tf_new();
@@ -32,7 +24,8 @@ void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to)
 	camera->onb.up = onb.up;
 	camera->onb.left = onb.left;
 	camera->onb.forward = onb.forward;
-	camera_vt_set_elements(&camera->tf, camera->onb.left, camera->onb.up, camera->onb.forward);
+	camera_vt_set_elements(\
+		&camera->tf, camera->onb.left, camera->onb.up, camera->onb.forward);
 	tf_translate(&translation, -from.x, -from.y, -from.z);
 	matrix_multiply(&camera->tf.tf, &camera->tf.tf, &translation.translation);
 	matrix_inverse(&camera->tf.inv_tf, &camera->tf.tf);
@@ -53,18 +46,4 @@ inline void	\
 	matrix_set(tf->tf, 2, 0, -forward.x);
 	matrix_set(tf->tf, 2, 1, -forward.y);
 	matrix_set(tf->tf, 2, 2, -forward.z);
-}
-
-inline static t_tuple	handle_zero_case(t_tuple to, t_tuple from)
-{
-	t_tuple	from_to_vector;
-
-	from_to_vector = tuple_subtract(to, from);
-	if (is_approx_equal(from_to_vector.z, 0.0, M_EPSILON))
-		from_to_vector.z += M_EPSILON;
-	if (is_approx_equal(from_to_vector.y, 0.0, M_EPSILON))
-		from_to_vector.y += M_EPSILON;
-	if (is_approx_equal(from_to_vector.x, 0.0, M_EPSILON))
-		from_to_vector.x += M_EPSILON;
-	return (from_to_vector);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "camera.h"
-#include "transform.h"
 
 t_camera	camera_new(uint32_t width, uint32_t height, double fov)
 {
