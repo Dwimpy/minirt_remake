@@ -16,8 +16,8 @@
 # include "tuple.h"
 # include <time.h>
 
-double	random_double();
-t_tuple	random_vec3();
-t_tuple	random_in_unit_sphere();
+double	random_double(void);
+t_tuple	random_vec3(void);
+t_tuple	random_in_unit_sphere(void);
 
 #endif

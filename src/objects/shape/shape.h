@@ -6,13 +6,12 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:03:31 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/01 15:03:31 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/23 17:11:38 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHAPE_H
 # define SHAPE_H
-
 # include <stdbool.h>
 # include "ray.h"
 # include "color.h"
@@ -21,21 +20,23 @@
 # include "intersect.h"
 # include "material.h"
 
-static int id = 0;
-
 typedef struct s_shape	t_shape;
+
+typedef void			(*t_shape_print)(t_shape *shape);
+typedef bool			(*t_shape_intersect)(t_shape *shape, \
+						t_ray ray, t_vector *intersections);
+typedef t_tuple			(*t_shape_normal_at)(t_shape *shape, \
+						t_tuple isec_point);
 
 typedef struct s_shape_vtable
 {
-	void		(*print)(t_shape *shape);
-	t_tuple		(*normal_at)(t_shape * shape, t_tuple isec_point);
-	bool		(*intersect)(t_shape * shape, t_ray ray, \
-					t_vector *intersections);
+	t_shape_print			print;
+	t_shape_intersect		intersect;
+	t_shape_normal_at		normal_at;
 }				t_shape_vtable;
 
 typedef struct s_shape
 {
-	int				id;
 	t_shape_vtable	vtable;
 	t_transform		transform;
 	void			*data;

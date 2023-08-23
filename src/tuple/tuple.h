@@ -69,7 +69,6 @@ t_real	tuple_dot(t_tuple v1, t_tuple v2);
 t_real	tuple_magnitude(t_tuple v);
 t_real	tuple_magnitude_squared(t_tuple v);
 
-
 void	tuple_set(t_tuple *tuple, t_real x, t_real y, t_real z);
 
 t_real	clamp(t_real n, t_real min, t_real max);
@@ -81,7 +80,6 @@ bool	tuple_equal_p(t_tuple v, t_tuple res, t_real precision);
 
 void	tuple_print(t_tuple v);
 t_tuple	tuple_print_ret(t_tuple v);
-void	tuple_tests(void);
 
 // Coord functions
 

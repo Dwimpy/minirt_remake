@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "disk.h"
-#include "ray.h"
-#include "tuple.h"
 
 bool	disk_intersect(t_shape *shape, t_ray ray, t_vector *intersections)
 {

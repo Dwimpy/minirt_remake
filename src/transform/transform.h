@@ -28,20 +28,18 @@ typedef struct s_transform
 // Rotate -> Scale -> Translate for chained transformations
 
 t_transform	tf_new(void);
-t_transform	tf_transform(t_transform rotate, t_transform scale, t_transform translate);
 void		tf_compute(t_transform *transform);
 void		tf_reset(t_transform *tf);
 void		tf_translate(t_transform *tf, double x, double y, double z);
 void		tf_scale(t_transform *tf, double x, double y, double z);
-void		tf_rotate(t_transform *tf, double deg_x, double deg_y, double deg_z);
+void		tf_rotate(\
+	t_transform *tf, double deg_x, double deg_y, double deg_z);
 void		tf_rotate_x(t_transform *tf, double degrees);
 void		tf_rotate_y(t_transform *tf, double degrees);
 void		tf_rotate_z(t_transform *tf, double degrees);
-void		tf_shear(t_transform *tf, double xy, double xz, double yx, double yz, double zx, double zy);
 t_transform	tf_shape_to_orientation(t_tuple to);
 double		tf_rad_to_deg(double deg);
 double		tf_deg_to_rad(double rad);
-void		transform_tests();
 void		tf_free(t_transform tf);
 
 #endif

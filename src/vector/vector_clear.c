@@ -16,4 +16,3 @@ inline void	vector_clear(t_vector *vector)
 {
 	vector->size = 0;
 }
-

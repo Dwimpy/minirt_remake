@@ -34,6 +34,15 @@ typedef struct s_euler
 	t_real		yaw;
 }				t_euler;
 
+typedef struct s_quat_to_mtx_computation
+{
+	t_real		sq_qw;
+	t_real		sq_qx;
+	t_real		sq_qy;
+	t_real		sq_qz;
+	t_real		invs;
+}				t_quat_to_mtx_computation;
+
 typedef struct s_quat_params
 {
 	t_real		cr;
@@ -50,5 +59,6 @@ t_quaternion	quat_multiply(t_quaternion q1, t_quaternion q2);
 t_quaternion	quat_conjugate(t_quaternion q);
 t_matrix		quat_to_matrix(t_quaternion q);
 t_tuple			quat_rotate_vector(t_tuple v, t_quaternion q);
-t_quaternion 	quat_rotate_from_to(t_tuple from, t_tuple to);
+t_quaternion	quat_rotate_from_to(t_tuple from, t_tuple to);
+
 #endif

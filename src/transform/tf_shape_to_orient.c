@@ -13,7 +13,6 @@
 #include "matrix.h"
 #include "quaternion.h"
 #include "transform.h"
-#include "tuple.h"
 
 t_transform	tf_shape_to_orientation(t_tuple to)
 {

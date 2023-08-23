@@ -22,7 +22,8 @@ inline t_real	cubic_filter(t_real sample)
 	else if (sample < 0.5)
 		return (cubic_filter_solver(24.0 * (sample - 1.0 / 24.0) / 11.0) - 1.0);
 	else if (sample < 23.0 / 24.0)
-		return (1.0 - cubic_filter_solver(24.0 * (23.0 / 24.0 - sample) / 11.0));
+		return (1.0 - \
+			cubic_filter_solver(24.0 * (23.0 / 24.0 - sample) / 11.0));
 	else
 		return (2 - pow(24.0 * (1.0 - sample), 0.25));
 }

@@ -6,22 +6,21 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:42:26 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/12 15:42:26 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/23 16:36:53 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylinder.h"
-#include "intersect.h"
 #include "quaternion.h"
-#include "vector.h"
 
 static bool			solve_quadratic_cylinder(t_quadratic *params, t_ray *ray);
 static bool			cylinder_push_intersections(\
 	t_quadratic *params, t_ray *ray, t_shape *shape, t_vector *i);
 inline static bool		cylinder_check_bounds(\
-	const t_real *t, const t_real *y_min, const t_real *y_max, const t_ray *ray);
-inline static void		cylinder_intersect_cap(t_ray *ray, t_shape *shape, t_vector *i);
-
+	const t_real *t, const t_real *y_min, \
+		const t_real *y_max, const t_ray *ray);
+inline static void		cylinder_intersect_cap(\
+	t_ray *ray, t_shape *shape, t_vector *i);
 
 bool	cylinder_intersect(t_shape *shape, t_ray ray, t_vector *intersections)
 {
@@ -44,7 +43,8 @@ static bool	solve_quadratic_cylinder(t_quadratic *params, t_ray *ray)
 		return (false);
 	params->b = 2 * ray->origin.x * ray->direction.x + \
 				2 * ray->origin.z * ray->direction.z;
-	params->c = ray->origin.x * ray->origin.x + ray->origin.z * ray->origin.z - 1;
+	params->c = ray->origin.x * ray->origin.x + \
+		ray->origin.z * ray->origin.z - 1;
 	params->disc = params->b * params->b - 4 * params->a * params->c;
 	if (params->disc < 0)
 		return (false);
@@ -86,7 +86,8 @@ static bool	cylinder_push_intersections(\
 	return (hit || hit2);
 }
 
-inline static void	cylinder_intersect_cap(t_ray *ray, t_shape *shape, t_vector *i)
+inline static void	cylinder_intersect_cap(\
+	t_ray *ray, t_shape *shape, t_vector *i)
 {
 	const t_cylinder	*cyl = shape_get_data(shape);
 	double				t;

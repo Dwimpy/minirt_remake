@@ -23,5 +23,5 @@ typedef struct s_sample
 
 t_sample	*sample_jittered_new(size_t num_samples);
 t_real		cubic_filter(t_real sample);
-void		cubic_spline_filter(t_sample *samples, const size_t num_samples);
+void		cubic_spline_filter(t_sample *samples, size_t num_samples);
 #endif

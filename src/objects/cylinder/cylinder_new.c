@@ -23,7 +23,6 @@ t_shape	shape_new_cylinder(t_real y_min, t_real y_max, bool capped)
 		write(2, CYLINDER_MEM_ALLOCATION_FAILED, 45);
 		exit(EXIT_FAILURE);
 	}
-
 	shape.transform = tf_new();
 	cylinder->origin = tuple_new_point(0, 0, 0);
 	cylinder->bounds.y_min = y_min;

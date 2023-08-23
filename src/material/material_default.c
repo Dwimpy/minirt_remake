@@ -23,7 +23,6 @@ t_material	material_default(t_color color)
 	material.refractive_index = 1.0;
 	material.reflectivity = 0.0;
 	material.transparency = 0.0;
-	material.is_emissive = 0.0;
 	material.color = color;
 	return (material);
 }

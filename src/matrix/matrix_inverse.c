@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "matrix.h"
-#include <stdlib.h>
 
 void		matrix_set_aug_elements(t_matrix *mat, t_matrix m);
 void		interchange_rows(t_matrix *m);
@@ -43,7 +42,7 @@ void	matrix_inverse(t_matrix *inverse, t_matrix *m)
 	matrix_free(aug_mtx);
 }
 
-void	matrix_set_aug_elements(t_matrix *mat,t_matrix m)
+void	matrix_set_aug_elements(t_matrix *mat, t_matrix m)
 {
 	size_t	i;
 	size_t	j;
@@ -117,7 +116,6 @@ void	finalize_inverse(t_matrix *m)
 	double	tmp;
 
 	i = 0;
-	tmp = 0;
 	while (i < m->rows)
 	{
 		tmp = m->data[i][i];

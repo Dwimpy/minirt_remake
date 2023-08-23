@@ -14,7 +14,7 @@
 
 inline t_real	tuple_magnitude_squared(t_tuple v)
 {
-	double len;
+	double	len;
 
 	len = tuple_magnitude(v);
 	return (len * len);

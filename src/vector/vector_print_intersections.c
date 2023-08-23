@@ -22,7 +22,7 @@ void	vector_print_intersections(t_vector *vector)
 	printf("Intersection Count: %zu\n", vector->size);
 	while (!it.end(&it))
 	{
-		intersect = (t_intersect  *)it.get(&it);
+		intersect = (t_intersect *)it.get(&it);
 		printf("%f ", intersect->t);
 		it.next(&it);
 	}

@@ -14,7 +14,7 @@
 #include "unistd.h"
 #include <stdlib.h>
 
-void window_create(t_window *window, int32_t width, int32_t height)
+void	window_create(t_window *window, int32_t width, int32_t height)
 {
 	window->width = width;
 	window->height = height;

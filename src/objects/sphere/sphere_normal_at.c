@@ -12,8 +12,6 @@
 
 #include "matrix.h"
 #include "sphere.h"
-#include "transform.h"
-#include "tuple.h"
 
 inline static \
 	t_tuple	sphere_local_normal_at(t_shape *shape, t_tuple isec_point);

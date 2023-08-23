@@ -16,12 +16,13 @@
 t_onb	onb_create_left(t_tuple normal)
 {
 	t_onb	onb;
-	t_tuple	tmp;
 
 	onb.up = tuple_normalize(normal);
-	onb.forward = tuple_normalize(tuple_cross(onb.up, tuple_new_vector(0, 1, 0)));
+	onb.forward = tuple_normalize(\
+		tuple_cross(onb.up, tuple_new_vector(0, 1, 0)));
 	if (tuple_magnitude(onb.forward) < M_EPSILON)
-		onb.forward = tuple_normalize(tuple_cross(onb.up, tuple_new_vector(1, 0, 0)));
+		onb.forward = tuple_normalize(\
+			tuple_cross(onb.up, tuple_new_vector(1, 0, 0)));
 	onb.left = tuple_cross(onb.up, onb.forward);
 	return (onb);
 }

@@ -13,7 +13,8 @@
 #include "libft.h"
 #include "vector.h"
 
-void	vector_pushback_intersect(t_vector *vector, t_real t, t_shape *shape) {
+void	vector_pushback_intersect(t_vector *vector, t_real t, t_shape *shape)
+{
 	size_t			idx;
 	size_t			byte_shift;
 	void			*buffer;

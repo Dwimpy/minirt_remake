@@ -11,12 +11,11 @@
 /* ************************************************************************** */
 
 #include "matrix.h"
-#include "tuple.h"
 
-inline bool matrix_equal(t_matrix m1, t_matrix m2)
+inline bool	matrix_equal(t_matrix m1, t_matrix m2)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	if (m1.rows != m2.rows && m1.cols != m2.cols)
 		return (false);

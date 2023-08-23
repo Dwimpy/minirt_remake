@@ -6,28 +6,45 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:47:46 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/18 17:40:56 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/23 13:50:54 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "intersect.h"
 #include "light.h"
 
-t_real	light_intensity_at_threads(t_scene *world, t_light *light, t_tuple *point, t_thread_isect *isect)
-{
-	t_real			total;
-	size_t			i;
-	size_t			j;
-	t_tuple			light_pos;
+static double	inline	light_intensity_at_point_light(\
+	t_scene *world, t_light *light, t_tuple *point, t_thread_isect *isect);
+static double	inline	light_intensity_at_rect_light(\
+	t_scene *world, t_light *light, t_tuple *point, t_thread_isect *isect);
 
-	total = 0.0;
-	i = 0;
+t_real	light_intensity_at_threads(\
+	t_scene *world, t_light *light, t_tuple *point, t_thread_isect *isect)
+{
 	if (light->type == POINT_LIGHT)
-	{
-		if (intersect_shadow_hit_threads(world, &light->origin, point, isect))
-			return (0.0);
-		return (1.0);
-	}
+		return (light_intensity_at_point_light(world, light, point, isect));
+	else
+		return (light_intensity_at_rect_light(world, light, point, isect));
+}
+
+static double inline	light_intensity_at_point_light(\
+	t_scene *world, t_light *light, t_tuple *point, t_thread_isect *isect)
+{
+	if (intersect_shadow_hit_threads(world, &light->origin, point, isect))
+		return (0.0);
+	return (1.0);
+}
+
+static double inline	light_intensity_at_rect_light(\
+	t_scene *world, t_light *light, t_tuple *point, t_thread_isect *isect)
+{
+	size_t		i;
+	size_t		j;
+	t_tuple		light_pos;
+	t_real		total;
+
+	i = 0;
+	total = 0.0;
 	while (i < light->samples)
 	{
 		j = 0;

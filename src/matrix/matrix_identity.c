@@ -10,12 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "matrix.h"
 
 inline void	matrix_identity(t_matrix *m)
 {
-	t_matrix	matrix;
 	size_t		i;
 	size_t		j;
 

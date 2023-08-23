@@ -13,7 +13,6 @@
 #include "matrix.h"
 #include "shape.h"
 #include "sphere.h"
-#include "tuple.h"
 
 void	sphere_print(t_shape *shape)
 {

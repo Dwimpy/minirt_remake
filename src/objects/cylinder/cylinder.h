@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:35:15 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/12 15:35:15 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/23 16:48:20 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ typedef struct s_cylinder
 
 t_shape		shape_new_cylinder(t_real y_min, t_real y_max, bool capped);
 void		cylinder_print(t_shape *shape);
-bool		cylinder_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
+bool		cylinder_intersect(\
+	t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		cylinder_normal_at(t_shape *shape, t_tuple isec_point);
-bool		cylinder_is_in_cap(t_ray *ray, t_real *t);
-void		cylinder_tests(void);
+bool		cylinder_is_in_cap(t_ray *ray, t_real const *t);
 
 #endif

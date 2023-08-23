@@ -12,10 +12,6 @@
 
 #include "libft.h"
 #include "plane.h"
-#include "shape.h"
-#include "transform.h"
-#include "tuple.h"
-#include "vector.h"
 
 t_shape	shape_new_plane(void)
 {

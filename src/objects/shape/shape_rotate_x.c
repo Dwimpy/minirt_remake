@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "shape.h"
-#include "transform.h"
-#include "vector.h"
 
 inline void	shape_rotate_x(t_shape *shape, double x)
 {

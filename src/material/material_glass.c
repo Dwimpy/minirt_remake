@@ -13,7 +13,7 @@
 #include "color.h"
 #include "material.h"
 
-t_material material_glass(void)
+t_material	material_glass(void)
 {
 	t_material	material;
 

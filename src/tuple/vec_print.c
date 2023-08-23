@@ -10,15 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "tuple.h"
 
-inline void tuple_print(t_tuple v)
+inline void	tuple_print(t_tuple v)
 {
 	printf("[ %.6f, %.6f, %.6f, %.6f]\n", v.x, v.y, v.z, v.w);
 }
 
-inline t_tuple tuple_print_ret(t_tuple v)
+inline t_tuple	tuple_print_ret(t_tuple v)
 {
 	printf("[ %.6f, %.6f, %.6f, %.6f]\n", v.x, v.y, v.z, v.w);
 	fflush(stdout);

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ray.h"
-#include "tuple.h"
 
 inline t_tuple	ray_at(t_ray ray, t_real t)
 {

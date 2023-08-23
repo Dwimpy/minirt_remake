@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 16:30:56 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/21 13:56:36 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/23 17:12:58 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static t_coord	light_construct_uv(t_light *light, t_coord width_height);
 
-t_light	light_rect_new(t_tuple origin, t_color intensity, t_tuple normal, t_coord width_height, size_t samples)
+t_light	light_rect_new(t_rect_light_params p)
 {
 	t_light			light;
 	t_rect_light	*rect_light;
@@ -28,20 +28,22 @@ t_light	light_rect_new(t_tuple origin, t_color intensity, t_tuple normal, t_coor
 		write(2, "Rect light mem alloc failed\n", 28);
 		exit(1);
 	}
-	normal = tuple_normalize(normal);
+	p.normal = tuple_normalize(p.normal);
 	light.type = RECT_LIGHT;
-	light.origin = origin;
-	light.intensity = intensity;
+	light.origin = p.origin;
+	light.intensity = p.intensity;
 	light.data = rect_light;
 	rect_light->up = tuple_new_vector(0, 1, 0);
-	rect_light->right = tuple_normalize(tuple_cross(normal, rect_light->up));
+	rect_light->right = tuple_normalize(tuple_cross(p.normal, rect_light->up));
 	if (tuple_equal(rect_light->right, tuple_new_vector(0, 0, 0)))
-		rect_light->right = tuple_normalize(tuple_cross(tuple_new_vector(1, 0, 0), normal));
-	light.samples = samples;
-	rect_light->up = tuple_normalize(tuple_cross(rect_light->right, normal));
-	rect_light->corner = tuple_subtract(light.origin, tuple_add(tuple_multiply_s(rect_light->up, 0.5 * width_height.y),
-														   tuple_multiply_s(rect_light->right, 0.5 * width_height.x)));
-	rect_light->uv = light_construct_uv(&light, width_height);
+		rect_light->right = tuple_normalize(\
+			tuple_cross(tuple_new_vector(1, 0, 0), p.normal));
+	light.samples = p.samples;
+	rect_light->up = tuple_normalize(tuple_cross(rect_light->right, p.normal));
+	rect_light->corner = tuple_subtract(light.origin, \
+		tuple_add(tuple_multiply_s(rect_light->up, 0.5 * p.width_height.y), \
+			tuple_multiply_s(rect_light->right, 0.5 * p.width_height.x)));
+	rect_light->uv = light_construct_uv(&light, p.width_height);
 	return (light);
 }
 

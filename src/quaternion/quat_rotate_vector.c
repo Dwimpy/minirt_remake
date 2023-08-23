@@ -21,6 +21,7 @@ t_tuple	quat_rotate_vector(t_tuple v, t_quaternion q)
 	q_vector = quaternion_new(v.x, v.y, v.z, 0.0);
 	rotate_quat = quat_multiply(q, q_vector);
 	rotate_quat = quat_multiply(rotate_quat, quat_conjugate(q));
-	rotated_vector = tuple_new_vector(rotate_quat.x, rotate_quat.y, rotate_quat.z);
+	rotated_vector = tuple_new_vector(\
+		rotate_quat.x, rotate_quat.y, rotate_quat.z);
 	return (rotated_vector);
 }

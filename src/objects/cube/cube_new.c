@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cube.h"
-#include "vector.h"
 
 t_shape	shape_new_cube(void)
 {

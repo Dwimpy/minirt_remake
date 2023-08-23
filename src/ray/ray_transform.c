@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_to_object_space.c                                    :+:      :+:    :+:   */
+/*   ray_transform.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 20:20:23 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/03 20:20:23 by arobu            ###   ########.fr       */
+/*   Created: 2023/08/11 14:21:11 by arobu             #+#    #+#             */
+/*   Updated: 2023/08/23 16:46:50 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
-#include "transform.h"
 
 inline t_ray	ray_to_object_space(t_ray *ray, t_transform tf)
 {

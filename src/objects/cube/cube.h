@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 21:29:53 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/11 21:29:53 by arobu            ###   ########.fr       */
+/*   Updated: 2023/08/23 16:31:57 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 # include "vector.h"
 # include "shape.h"
 # include <stdarg.h>
+
+typedef struct s_cube_computation
+{
+	double	max;
+	double	abs_x;
+	double	abs_y;
+	double	abs_z;
+	t_tuple	local_point;
+	t_tuple	normal;
+	t_tuple	world_normal;
+}				t_cube_computation;
 
 typedef struct s_cube_intersect
 {
@@ -37,6 +48,6 @@ t_shape		shape_new_cube(void);
 void		cube_print(t_shape *shape);
 bool		cube_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		cube_normal_at(t_shape *shape, t_tuple isec_point);
-void		cube_tests(void);
-t_real		cube_bounds_get(int min_max, size_t count, ...);
+t_real		cube_bounds_get_max(size_t count, ...);
+t_real		cube_bounds_get_min(size_t count, ...);
 #endif

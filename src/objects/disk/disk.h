@@ -30,6 +30,5 @@ t_shape		shape_new_disk(void);
 void		disk_print(t_shape *shape);
 bool		disk_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		disk_normal_at(t_shape *shape, t_tuple isec_point);
-void		disk_tests(void);
 
 #endif

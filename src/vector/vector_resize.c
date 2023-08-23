@@ -12,12 +12,14 @@
 
 #include "vector.h"
 
-int vector_resize(t_vector *vector) {
+int	vector_resize(t_vector *vector)
+{
+	void	*new_buffer;
+
 	if (vector->size == SIZE_MAX)
 		return (2);
 	else if (vector->size == vector->capacity)
 	{
-		void *new_buffer;
 		new_buffer = malloc(vector->capacity * 2 * vector->item_size);
 		if (!new_buffer)
 		{

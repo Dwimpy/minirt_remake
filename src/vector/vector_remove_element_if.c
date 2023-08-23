@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "vector.h"
-#include "stdio.h"
-bool	vector_remove_element_if(t_vector *vector, t_vector_comparator compare, void	*data)
+
+bool	vector_remove_element_if(\
+	t_vector *vector, t_vector_comparator compare, void	*data)
 {
 	size_t	i;
 

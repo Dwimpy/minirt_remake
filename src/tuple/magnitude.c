@@ -13,6 +13,7 @@
 #include "tuple.h"
 #include <math.h>
 
-inline t_real tuple_magnitude(t_tuple v) {
+inline t_real	tuple_magnitude(t_tuple v)
+{
 	return (sqrt(tuple_dot(v, v)));
 }

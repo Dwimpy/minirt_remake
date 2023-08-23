@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "disk.h"
-#include "transform.h"
-#include "vector.h"
 
 t_shape	shape_new_disk(void)
 {

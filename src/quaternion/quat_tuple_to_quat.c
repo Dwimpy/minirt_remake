@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "quaternion.h"
-#include "tuple.h"
 
 t_quaternion	quat_rot_from_to(t_tuple from, t_tuple to)
 {

@@ -36,7 +36,7 @@ void	vector_iterator_end(t_vector_iterator *it, t_vector *vector)
 	it->end = vector_iterator_equal;
 }
 
-void 	vector_iterator_begin(t_vector_iterator *it, t_vector *vector)
+void	vector_iterator_begin(t_vector_iterator *it, t_vector *vector)
 {
 	it->index = 0;
 	it->ptr = vector;

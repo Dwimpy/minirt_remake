@@ -27,5 +27,5 @@ t_tuple	ray_at(t_ray ray, t_real t);
 t_ray	ray_to_object_space(t_ray *ray, t_transform tf);
 t_ray	ray_to_world_space(t_ray *ray, t_transform tf);
 void	ray_set(t_ray *ray, t_tuple origin, t_tuple direction);
-void	ray_tests(void);
+
 #endif

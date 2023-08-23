@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "scene.h"
-#include "transform.h"
-#include "vector.h"
 
 void	free_scene(t_scene *scene)
 {

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "vector.h"
-#include "stdio.h"
+
 void	vector_remove_index(t_vector *vector, size_t index)
 {
 	void	*buffer;

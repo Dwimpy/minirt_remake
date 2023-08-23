@@ -13,7 +13,8 @@
 #include "matrix.h"
 #include "transform.h"
 
-void tf_free(t_transform tf) {
+void	tf_free(t_transform tf)
+{
 	if (tf.tf.data)
 		matrix_free(tf.tf);
 	if (tf.inv_tf.data)

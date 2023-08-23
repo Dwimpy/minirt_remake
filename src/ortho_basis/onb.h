@@ -12,8 +12,6 @@
 
 #ifndef ONB_H
 # define ONB_H
-# define ONB_EPSILON 0.01
-
 # include "tuple.h"
 
 typedef struct s_onb
