@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 20:07:43 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/23 16:57:38 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/03 20:48:56 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_vector	vector_init(size_t capacity, size_t n_size);
 void		*vector_at(t_vector *vector, size_t index);
 void		*vector_front(t_vector *vector);
 void		*vector_back(t_vector *vector);
+char		*vector_to_string(t_vector *vector);
 bool		vector_pushback(t_vector *vector, void *data);
 void		vector_pushback_intersect(\
 	t_vector *vector, t_real t, t_shape *shape);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+         #
+#    By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/21 14:38:01 by arobu             #+#    #+#              #
-#    Updated: 2023/08/09 05:04:05 by arobu            ###   ########.fr        #
+#    Updated: 2023/09/03 14:49:49 by apaghera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/imag
 				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
 				  ./src/objects/cylinder ./src/objects/disk ./src/sampling ./src/light/light_cuboid \
-				  ./src/tile ./src/renderer ./src/hooks
+				  ./src/tile ./src/renderer ./src/hooks \
+				  ./src/parser/get_next_line ./src/parser/parsing
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -48,6 +49,8 @@ INCLUDE			+= -I ./src/pdf/cuboid
 INCLUDE			+= -I ./src/tile
 INCLUDE			+= -I ./src/renderer
 INCLUDE			+= -I ./src/hooks
+INCLUDE			+= -I ./src/parser/get_next_line
+INCLUDE			+= -I ./src/parser
 
 DSYM			= ./minirt.dSYM
 SRC_DIR			= ./src
