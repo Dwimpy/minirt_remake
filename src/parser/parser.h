@@ -13,7 +13,6 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "./get_next_line/get_next_line.h"
 # include <fcntl.h>
 
 # define LINEBUFFER_MAX 4096

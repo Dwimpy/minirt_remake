@@ -19,7 +19,7 @@ VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/imag
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
 				  ./src/objects/cylinder ./src/objects/disk ./src/sampling ./src/light/light_cuboid \
 				  ./src/tile ./src/renderer ./src/hooks \
-				  ./src/parser/get_next_line ./src/parser/parsing
+				  ./src/parser/get_next_line ./src/parser/parsing 
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -49,7 +49,7 @@ INCLUDE			+= -I ./src/pdf/cuboid
 INCLUDE			+= -I ./src/tile
 INCLUDE			+= -I ./src/renderer
 INCLUDE			+= -I ./src/hooks
-INCLUDE			+= -I ./src/parser/get_next_line
+INCLUDE			+= -I ./get_next_line/gnl/include
 INCLUDE			+= -I ./src/parser
 
 DSYM			= ./minirt.dSYM
@@ -74,9 +74,9 @@ CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
 	LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
-	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm -lpthread
+	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm -lpthread -L ./get_next_line -lgnl
 else
-	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread
+	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread -L 
 endif
 #Archive and Remove
 RM			= rm -f

@@ -6,18 +6,18 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:49:27 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/03 21:18:30 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/03 22:59:01 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
-
+#include <stdio.h>
 char		*vector_to_string(t_vector *vector)
 {
 	size_t	i;
 	char	*str;
 
-	str = ft_calloc(vector->size, sizeof(char));
+	str = (char *)malloc(sizeof(char) * (vector->size + 1));
 	i = 0;
 	while (i < vector->size)
 	{
