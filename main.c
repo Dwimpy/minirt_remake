@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/03 16:57:53 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:00:10 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,16 @@ int	main(void)
 {
 	t_scene		scene;
 	t_renderer	renderer;
-
+	t_vector	parsed_data;
 //	run_is_shadow_tests();
-	test_parser();
-	renderer_initialize(&renderer, 1920, 1080, true);
-	scene = cornell_box();
+	parsed_data = test_parser();
+/* 	for (size_t i = 0; i < parsed_data.size; i++)
+	{
+		printf("%s\n", *(char **)vector_at(&parsed_data, i));
+	} */
+	create_scene_from_file(&parsed_data);
+	/* renderer_initialize(&renderer, 1920, 1080, true); */
+/* 	scene = cornell_box();
 	scene.camera = camera_new(1920, 1080, 50);
 	camera_view_transform(&scene.camera, \
 			tuple_new_point(278.0, 278.0, -800), \
@@ -66,7 +71,7 @@ int	main(void)
 	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
 //	scene_render(&scene, &renderer);
 	renderer_start_threads(&renderer);
-	window_draw_loop(renderer.window.mlx, &renderer);
+	window_draw_loop(renderer.window.mlx, &renderer); */
 	return (0);
 }
 //	scene_render(&scene, &scene.camera, &renderer.canvas);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 23:02:43 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/22 17:37:21 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/04 14:50:43 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ typedef struct s_scene
 t_scene	scene_default(void);
 void	scene_render(t_scene *world, t_renderer *renderer);
 t_scene	cornell_box(void);
+void	create_scene_from_file(t_vector *vector);
 #endif

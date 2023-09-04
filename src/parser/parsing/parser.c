@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/03 23:03:12 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/04 16:35:30 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,7 @@
 #include "stdio.h"
 #include "get_next_line.h"
 
-int	min(int a, int b)
-{
-	if (a > b)
-		return (b);
-	return (a);
-}
-
-void	*one_space(char *line)
-{
-	int		i;
-	char	buffer[LINEBUFFER_MAX];
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (line[i])
-	{
-		if (line[i] == 32)
-		{
-			buffer[j] = 32;
-			j++;
-			while (line[i] == 32)
-			{
-				i++;
-				if (!line && !line[i])
-					break ;
-			}
-		}
-		if (line[i] == '\n')
-			break ;
-		buffer[j] = line[i];
-		j++;
-		i++;
-	}
-	buffer[j] = '\0';
-	return (ft_strdup(buffer));
-}
-
-int		line_is_empty(const char *str)
+int	line_is_empty(const char *str)
 {
 	while (str && *str)
 		str++;
@@ -70,9 +32,8 @@ void	divide_values(char *line, t_vector *vector, int fd)
 	t_vector	chars;
 	int			write;
 	char		*str;
-
+	
 	i = -1;
-
 	chars = vector_init(1, sizeof(char));
 	len = ft_strlen(line);
 	write = 0;
@@ -88,7 +49,6 @@ void	divide_values(char *line, t_vector *vector, int fd)
 		}
 		if (write)
 		{
-			char	*str;
 			str = vector_to_string(&chars);
 			vector_pushback(vector, &str);
 			write = 0;
@@ -98,17 +58,15 @@ void	divide_values(char *line, t_vector *vector, int fd)
 	vector_free(&chars);
 }
 
-void	test_parser(void)
+t_vector	test_parser(void)
 {
-	char		*line;
-	int			fd;
-	char		*tmp;
-	t_vector	vector;
+	char				*line;
+	int					fd;
+	t_vector			vector;
 
 	fd = open("src/parser/test_obj.rt", O_RDONLY);
 	line = get_next_line(fd);
-	vector = vector_init(5, sizeof(char **));
-	printf("Vector Item Size: %zu\n", vector.item_size);
+	vector = vector_init(1, sizeof(char **));
 	while (line)
 	{
 		if (line_is_empty(line))
@@ -116,12 +74,6 @@ void	test_parser(void)
 		free(line);
 		line = get_next_line(fd);
 	}
-	t_vector_iterator it;
-	vector_iterator_begin(&it, &vector);
-	for (int i = 0; i < vector.size; ++i)
-	{
-		printf("%s\n", *(char **)vector_at(&vector, i));
-	}
-//	printf("Size: %zu\n", vector.size);
 	close(fd);
+	return (vector);
 }
