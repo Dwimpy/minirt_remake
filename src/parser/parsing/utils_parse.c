@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_to_string.c                                 :+:      :+:    :+:   */
+/*   utils_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 20:49:27 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/05 15:00:38 by apaghera         ###   ########.fr       */
+/*   Created: 2023/09/05 13:27:37 by apaghera          #+#    #+#             */
+/*   Updated: 2023/09/05 14:17:32 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../parser/parser.h"
+#include "libft.h"
 #include "vector.h"
-#include <stdio.h>
+#include "stdio.h"
 
-char		*vector_to_string(t_vector *vector)
+void	free_data(t_data *data)
 {
-	size_t	i;
-	char	*str;
+	free(data->ambient);
+	free(data->camera);
+	free(data->light);
+	free(data->resolution);
+	free(data->cylinder);
+	free(data->plane);
+	free(data->sphere);
+}
 
-	str = (char *)malloc(sizeof(char) * (vector->size + 1));
-	i = 0;
-	while (i < vector->size)
-	{
-		str[i] = *(char *)vector_at(vector, i);
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+
+void	test_init(void)
+{
+	t_data	*data;
+
+	data = initialize_data();
+	printf("[%i]\n", data->resolution->high);
+	free_data(data);
 }

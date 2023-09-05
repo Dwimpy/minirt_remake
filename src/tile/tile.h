@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tile.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:16:46 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/22 22:49:59 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/05 15:29:52 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "image.h"
 # include "ray.h"
 # include "vector.h"
-# include <sys/_types/_size_t.h>
+// # include <sys/_types/_size_t.h>
 # include "tuple.h"
 # include "scene.h"
 

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/04 15:00:10 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:19:17 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,34 @@ void run_is_shadow_tests(void)
 //	test_frac_intensity();
 }
 
+void	leaks(void)
+{
+	system("leaks minirt");
+}
+
 int	main(void)
 {
 	t_scene		scene;
 	t_renderer	renderer;
 	t_vector	parsed_data;
+	t_shape shape;
+
+
 //	run_is_shadow_tests();
+	// atexit(leaks);
 	parsed_data = test_parser();
-/* 	for (size_t i = 0; i < parsed_data.size; i++)
-	{
-		printf("%s\n", *(char **)vector_at(&parsed_data, i));
-	} */
+
+
+	// for (int i = 0; i < parsed_data.size; ++i)
+		// free(*(char **)vector_at(&parsed_data, i));
+	// vector_free(&parsed_data);
+	
+	
+	// test_init();
+	// for (size_t i = 0; i < parsed_data.size; i++)
+	// {
+	// 	printf("%s\n", (char **)vector_at(&parsed_data, i));
+	// }
 	create_scene_from_file(&parsed_data);
 	/* renderer_initialize(&renderer, 1920, 1080, true); */
 /* 	scene = cornell_box();

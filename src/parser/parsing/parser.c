@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/04 16:35:30 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:44:19 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	divide_values(char *line, t_vector *vector, int fd)
 	t_vector	chars;
 	int			write;
 	char		*str;
-	
+
 	i = -1;
 	chars = vector_init(1, sizeof(char));
 	len = ft_strlen(line);
@@ -43,6 +43,7 @@ void	divide_values(char *line, t_vector *vector, int fd)
 			continue ;
 		if (!write)
 		{
+			char c = 'c';
 			vector_pushback(&chars, &line[i]);
 			if (line[i + 1] == '\n' || line[i + 1] == ' ' || line[i + 1] == '\t' || line[i + 1] == '\0')
 				write = 1;

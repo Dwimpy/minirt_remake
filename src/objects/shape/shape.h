@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shape.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 15:03:31 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/23 17:11:38 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/05 15:49:19 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ void		shape_rotate_y(t_shape *shape, double z);
 void		shape_rotate_z(t_shape *shape, double z);
 void		shape_rotate(t_shape *shape, double x, double y, double z);
 void		shape_free(t_shape *shape);
+
 #endif

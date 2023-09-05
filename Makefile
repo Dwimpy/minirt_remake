@@ -6,7 +6,7 @@
 #    By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/21 14:38:01 by arobu             #+#    #+#              #
-#    Updated: 2023/09/04 14:53:56 by apaghera         ###   ########.fr        #
+#    Updated: 2023/09/05 19:37:22 by apaghera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ NORM_INCLUDE	= ./include
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
-ASAN		= -fsanitize=address -g3
+ASAN		=  -fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
@@ -128,7 +128,7 @@ libft:
 			@echo "$(YELLOW)MiniRT$(DEF_COLOR) $(CYAN)successfully cleaned!$(DEF_COLOR)"
 
 fclean:		clean
-#			@pdf_sample_cuboid.c fclean -C $(LIBFT_FOLDER)
+#			@make fclean -C $(LIBFT_FOLDER)
 #			@rm -rdf $(GLFW_BUILD)
 #			@rm -rdf $(MLX_BUILD)
 			@$(RM) -f $(NAME)
