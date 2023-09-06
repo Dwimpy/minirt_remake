@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 20:07:43 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/04 13:53:35 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:30:21 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void		vector_clear(t_vector *vector);
 void		vector_free(t_vector *vector);
 void		vector_remove_front(t_vector *vector);
 bool		vector_is_empty(t_vector *vector);
+bool		vector_move_to(t_vector *vector, int from, int to);
 void		vector_remove_index(t_vector *vector, size_t index);
 bool		vector_remove_element_if(\
 	t_vector *vector, t_vector_comparator compare, void *data);

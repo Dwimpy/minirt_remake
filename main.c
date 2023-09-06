@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/05 16:19:17 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:40:44 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,15 @@ int	main(void)
 //	run_is_shadow_tests();
 	// atexit(leaks);
 	parsed_data = test_parser();
-
-
+	vector_move_to(&parsed_data, 0, 1);
+	char		**str;
+	
 	// for (int i = 0; i < parsed_data.size; ++i)
+	// {
+		str = *(char ***)vector_at(&parsed_data, 2);
+		printf("%s", str[0]);
 		// free(*(char **)vector_at(&parsed_data, i));
+	// }
 	// vector_free(&parsed_data);
 	
 	
@@ -77,7 +82,7 @@ int	main(void)
 	// {
 	// 	printf("%s\n", (char **)vector_at(&parsed_data, i));
 	// }
-	create_scene_from_file(&parsed_data);
+	// create_scene_from_file(&parsed_data);
 	/* renderer_initialize(&renderer, 1920, 1080, true); */
 /* 	scene = cornell_box();
 	scene.camera = camera_new(1920, 1080, 50);

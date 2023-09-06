@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/05 15:44:19 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:31:13 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	divide_values(char *line, t_vector *vector, int fd)
 			continue ;
 		if (!write)
 		{
-			char c = 'c';
 			vector_pushback(&chars, &line[i]);
 			if (line[i + 1] == '\n' || line[i + 1] == ' ' || line[i + 1] == '\t' || line[i + 1] == '\0')
 				write = 1;
@@ -51,6 +50,7 @@ void	divide_values(char *line, t_vector *vector, int fd)
 		if (write)
 		{
 			str = vector_to_string(&chars);
+			
 			vector_pushback(vector, &str);
 			write = 0;
 			vector_clear(&chars);
@@ -64,14 +64,25 @@ t_vector	test_parser(void)
 	char				*line;
 	int					fd;
 	t_vector			vector;
+	char				**str;
+	char				*trimmed;
+	char				*identifier[4];
 
 	fd = open("src/parser/test_obj.rt", O_RDONLY);
 	line = get_next_line(fd);
-	vector = vector_init(1, sizeof(char **));
+	vector = vector_init(1, sizeof(char ***));
 	while (line)
 	{
 		if (line_is_empty(line))
-			divide_values(line, &vector, fd);
+		{
+			trimmed = ft_strtrim(line, "\n");
+			str = ft_split(trimmed, ' ');
+			if (str && str[0])
+				vector_pushback(&vector, &str);
+			else if (str)
+				free(str);
+			free(trimmed);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}

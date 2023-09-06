@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 23:02:43 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/04 14:50:43 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:21:34 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <pthread.h>
 
 typedef struct s_renderer	t_renderer;
+
 typedef struct s_scene
 {
 	t_light			light;
