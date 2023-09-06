@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/06 16:40:44 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:51:19 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,19 @@ int	main(void)
 
 
 //	run_is_shadow_tests();
-	// atexit(leaks);
+	atexit(leaks);
 	parsed_data = test_parser();
-	vector_move_to(&parsed_data, 0, 1);
+	vector_move_to(&parsed_data, 4, 0);
 	char		**str;
 	
-	// for (int i = 0; i < parsed_data.size; ++i)
-	// {
-		str = *(char ***)vector_at(&parsed_data, 2);
-		printf("%s", str[0]);
-		// free(*(char **)vector_at(&parsed_data, i));
-	// }
+	for (int i = 0; i < parsed_data.size; ++i)
+	{
+		str = *(char ***)vector_at(&parsed_data, i);
+		printf("%s\n", str[0]);
+		free(*(char **)vector_at(&parsed_data, i));
+	}
 	// vector_free(&parsed_data);
-	
+
 	
 	// test_init();
 	// for (size_t i = 0; i < parsed_data.size; i++)
