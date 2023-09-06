@@ -29,13 +29,13 @@ bool	vector_move_to(t_vector *vector, int from, int to)
 
 	element_from = vector_at(vector, from);
 	element_to = vector_at(vector, to);
-	temp = malloc(vector->item_size);
-	if (temp == NULL)
-		return (false);
 	if (vector->size < 2 || from == to)
 		return (false);
 	if (from >= 0 && from < vector->size && to >= 0 && to < vector->size)
 	{
+		temp = malloc(vector->item_size);
+		if (temp == NULL)
+			return (false);
 		ft_memcpy(temp, element_from, vector->item_size);
 		ft_memcpy(element_from, element_to, vector->item_size);
 		ft_memcpy(element_to, temp, vector->item_size);

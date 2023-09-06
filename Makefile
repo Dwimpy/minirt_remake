@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+         #
+#    By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/21 14:38:01 by arobu             #+#    #+#              #
-#    Updated: 2023/09/06 17:51:40 by apaghera         ###   ########.fr        #
+#    Updated: 2023/09/06 23:40:17 by arobu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ INCLUDE			+= -I ./src/renderer
 INCLUDE			+= -I ./src/hooks
 INCLUDE			+= -I ./src/parser/get_next_line
 INCLUDE			+= -I ./src/parser
+INCLUDE			+= -I ./get_next_line/gnl/include
 
 DSYM			= ./minirt.dSYM
 SRC_DIR			= ./src
@@ -69,14 +70,14 @@ NORM_INCLUDE	= ./include
 # Compiler
 CC			= cc #-Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
-ASAN		=  #-fsanitize=address -g3
+ASAN		=  -fsanitize=leak -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
 	LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
-	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm -lpthread -L ./get_next_line
+	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm -lpthread -L ./get_next_line -lgnl
 else
-	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread -L 
+	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread -L ./get_next_line -lgnl
 endif
 #Archive and Remove
 RM			= rm -f

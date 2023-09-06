@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/06 16:31:13 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:33:23 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	divide_values(char *line, t_vector *vector, int fd)
 		if (write)
 		{
 			str = vector_to_string(&chars);
-			
 			vector_pushback(vector, &str);
 			write = 0;
 			vector_clear(&chars);
@@ -66,7 +65,6 @@ t_vector	test_parser(void)
 	t_vector			vector;
 	char				**str;
 	char				*trimmed;
-	char				*identifier[4];
 
 	fd = open("src/parser/test_obj.rt", O_RDONLY);
 	line = get_next_line(fd);
