@@ -116,6 +116,8 @@ int	view_from_to_valid(char *str)
 			count++;
 			i++;
 		}
+		else if (str[i] == '.')
+			i++;
 		else
 			return (0);
 	}
@@ -173,6 +175,7 @@ void	create_scene_from_file(t_vector *vector)
 	send_to_cam(vector, &scene.camera);
 	from = view_from(vector, &scene.camera);
 	to = view_to(vector, &scene.camera);
+	printf("%f %f %f\n", to[0], to[1], to[2]);
 	camera_view_transform(&scene.camera, \
 			tuple_new_point(from[0], from[1], from[2]), \
 			tuple_new_point(to[0], to[1], to[2]));

@@ -66,12 +66,13 @@ int	main(void)
 	//run_is_shadow_tests();
 	// atexit(leaks);
 	parsed_data = test_parser();
-	// for (size_t i = 0; i < parsed_data.size; i++)
-	// {
-	// 	printf("%s\n", (char **)vector_at(&parsed_data, i));
-	// }
+	for (size_t i = 0; i < parsed_data.size; i++)
+	{
+		char **str = *(char ***)vector_at(&parsed_data, i);
+		printf("%s\n", str[0]);
+	}
 	create_scene_from_file(&parsed_data);
-	free_parser(parsed_data);
+	// free_parser(parsed_data);
 // 	renderer_initialize(&renderer, 1920, 1080, true); 
 //  	scene = cornell_box();
 // 	scene.camera = camera_new(1920, 1080, 50);

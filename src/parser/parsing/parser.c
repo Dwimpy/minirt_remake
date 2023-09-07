@@ -46,6 +46,21 @@ void	sort_values(t_vector *vector)
 	}
 }
 
+void	replace_spaces(char *str)
+{
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (i < len)
+	{
+		if (str[i] == '\t' || str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
+			str[i] = ' ';
+		++i;
+	}
+}
+
 void	parsing_line(t_vector *vector, char *line, int fd)
 {
 	char	**str;
@@ -55,13 +70,19 @@ void	parsing_line(t_vector *vector, char *line, int fd)
 	{
 		if (line_is_empty(line))
 		{
-			trimmed = ft_strtrim(line, "\n");
-			str = ft_split(trimmed, ' ');
-			if (str && str[0])
-				vector_pushback(vector, &str);
-			else if (str)
-				free(str);
-			free(trimmed);
+			trimmed = ft_strtrim(line, " \n\t");
+			replace_spaces(trimmed);
+			if (trimmed[0] == '#')
+			{}
+			else
+			{
+				str = ft_split(trimmed, ' ');
+				if (str && str[0])
+					vector_pushback(vector, &str);
+				else if (str)
+					free(str);
+			}
+				free(trimmed);
 		}
 		free(line);
 		line = get_next_line(fd);

@@ -19,7 +19,7 @@ inline bool	vector_pushback(t_vector *vector, void *data)
 	if (vector_resize(vector) == 2)
 		return (false);
 	buf = vector_at(vector, vector->size);
-	ft_memcpy(buf, data, vector->item_size);
+	ft_memmove(buf, data, vector->item_size);
 	vector->size++;
 	return (true);
 }
