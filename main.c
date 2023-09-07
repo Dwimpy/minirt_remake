@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/07 00:09:32 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/07 13:55:22 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
 #include "hooks.h"
 #include "src/parser/parser.h"
+#include "libft.h"
 
 void	run_tests(void)
 {
@@ -62,45 +63,15 @@ int	main(void)
 	t_shape shape;
 
 
-	run_is_shadow_tests();
+	//run_is_shadow_tests();
 	// atexit(leaks);
 	parsed_data = test_parser();
-	char		**str;
-	char		**ptr;
-	for (int i = 0; i < parsed_data.size; ++i)
-	{
-		str = *(char ***)vector_at(&parsed_data, i);
-		if (!ft_strncmp(str[0], "R", 2))
-			vector_move_to(&parsed_data, i, 0);
-		else if (!ft_strncmp(str[0], "C", 1))
-			vector_move_to(&parsed_data, i, 1);
-		else if (!ft_strncmp(str[0], "L", 2))
-			vector_move_to(&parsed_data, i, 2);
-		else if (!ft_strncmp(str[0], "A", 2))
-			vector_move_to(&parsed_data, i, 3);
-	}
-	// }
-	// // vector_free(&parsed_data);
-	for (int i = 0; i < parsed_data.size; ++i)
-	{
-		str = *(char ***)vector_at(&parsed_data, i);
-		ptr = str;
-		printf("%s\n", str[0]);
-		while (ptr && *ptr)
-		{
-			free(*ptr);
-			ptr++;
-		}
-		if (str)
-			free(str);
-	}
-	vector_free(&parsed_data);
-	// test_init();
 	// for (size_t i = 0; i < parsed_data.size; i++)
 	// {
 	// 	printf("%s\n", (char **)vector_at(&parsed_data, i));
 	// }
-	// create_scene_from_file(&parsed_data);
+	create_scene_from_file(&parsed_data);
+	free_parser(parsed_data);
 // 	renderer_initialize(&renderer, 1920, 1080, true); 
 //  	scene = cornell_box();
 // 	scene.camera = camera_new(1920, 1080, 50);

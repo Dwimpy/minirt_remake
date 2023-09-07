@@ -16,6 +16,11 @@
 		"hooks.h": "c",
 		"parser.h": "c",
 		"*.tcc": "c",
-		"transform.h": "c"
+		"transform.h": "c",
+		"sstream": "c",
+		"sphere.h": "c",
+		"libft.h": "c",
+		"vector.h": "c",
+		"renderer.h": "c"
 	}
 }

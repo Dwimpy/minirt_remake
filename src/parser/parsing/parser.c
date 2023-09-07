@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/06 23:33:23 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/07 12:57:10 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,37 +25,47 @@ int	line_is_empty(const char *str)
 	return (false);
 }
 
-void	divide_values(char *line, t_vector *vector, int fd)
+void	sort_values(t_vector *vector)
 {
-	int			i;
-	size_t		len;
-	t_vector	chars;
-	int			write;
-	char		*str;
+	int		i;
+	char	**tmp;
 
-	i = -1;
-	chars = vector_init(1, sizeof(char));
-	len = ft_strlen(line);
-	write = 0;
-	while (++i < len)
+	i = 0;
+	while (i < vector->size)
 	{
-		if ((line[i] == ' ' || line[i] == '\t' || line[i] == '\n') && write == 0)
-			continue ;
-		if (!write)
-		{
-			vector_pushback(&chars, &line[i]);
-			if (line[i + 1] == '\n' || line[i + 1] == ' ' || line[i + 1] == '\t' || line[i + 1] == '\0')
-				write = 1;
-		}
-		if (write)
-		{
-			str = vector_to_string(&chars);
-			vector_pushback(vector, &str);
-			write = 0;
-			vector_clear(&chars);
-		}
+		tmp = *(char ***)vector_at(vector, i);
+		if (!ft_strncmp(tmp[0], "R", 2))
+			vector_move_to(vector, i, 0);
+		else if (!ft_strncmp(tmp[0], "C", 2))
+			vector_move_to(vector, i, 1);
+		else if (!ft_strncmp(tmp[0], "L", 2))
+			vector_move_to(vector, i, 2);
+		else if (!ft_strncmp(tmp[0], "A", 2))
+			vector_move_to(vector, i, 3);
+		i++;
 	}
-	vector_free(&chars);
+}
+
+void	parsing_line(t_vector *vector, char *line, int fd)
+{
+	char	**str;
+	char	*trimmed;
+
+	while (line)
+	{
+		if (line_is_empty(line))
+		{
+			trimmed = ft_strtrim(line, "\n");
+			str = ft_split(trimmed, ' ');
+			if (str && str[0])
+				vector_pushback(vector, &str);
+			else if (str)
+				free(str);
+			free(trimmed);
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
 }
 
 t_vector	test_parser(void)
@@ -69,21 +79,31 @@ t_vector	test_parser(void)
 	fd = open("src/parser/test_obj.rt", O_RDONLY);
 	line = get_next_line(fd);
 	vector = vector_init(1, sizeof(char ***));
-	while (line)
-	{
-		if (line_is_empty(line))
-		{
-			trimmed = ft_strtrim(line, "\n");
-			str = ft_split(trimmed, ' ');
-			if (str && str[0])
-				vector_pushback(&vector, &str);
-			else if (str)
-				free(str);
-			free(trimmed);
-		}
-		free(line);
-		line = get_next_line(fd);
-	}
+	parsing_line(&vector, line, fd);
+	sort_values(&vector);
 	close(fd);
 	return (vector);
+}
+
+void	free_parser(t_vector vector)
+{
+	int		i;
+	char	**str;
+	char	**ptr;
+
+	i = 0;
+	while (i < vector.size)
+	{
+		str = *(char ***)vector_at(&vector, i);
+		ptr = str;
+		while (ptr && *ptr)
+		{
+			free(*ptr);
+			ptr++;
+		}
+		if (str)
+			free(str);
+		i++;
+	}
+	vector_free(&vector);
 }

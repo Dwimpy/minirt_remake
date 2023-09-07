@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:25:40 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/05 15:50:34 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:31:55 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,5 @@ t_sp			*initialize_sp(void);
 t_parse_light	*initialize_light(void);
 t_parse_camera	*initialize_camera(void);
 void			test_init(void);
+void			free_parser(t_vector vector);
 #endif
