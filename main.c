@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/09 17:15:57 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:11:50 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,41 @@ void	leaks(void)
 	system("leaks minirt");
 }
 
+void	maker_obj(t_vector vector, t_scene *scene)
+{
+	int	i;
+	char **str;
+
+	i = 0;
+	while(i < vector.size)
+	{
+		str = *(char ***)vector_at(&vector, i);
+		if (!ft_strncmp(str[0], "sp", 3))
+			create_sphere(scene);
+		if (!ft_strncmp(str[0], "cu", 3))
+				create_cube(scene);
+		if	(!ft_strncmp(str[0], "cy", 3))
+			create_cylinder(scene);
+		/* if	(!ft_strncmp(str[0], "pl", 3))
+			create_plane(&scene); */
+		i++;
+	}
+}
+
 int	main(void)
 {
 	t_scene		scene;
 	t_renderer	renderer;
 	t_vector	parsed_data;
+	int			i;
+	char		**str;
 
-
+	i = 0;
 	//run_is_shadow_tests();
 	// atexit(leaks);
 	parsed_data = test_parser();
 	scene = cornell_box();
-	create_sphere(&scene);
-	create_cube(&scene);
-	create_cylinder(&scene);
-	// create_plane(&scene);
+	maker_obj(parsed_data, &scene);
 	create_scene_from_file(&parsed_data, &scene);
 	// free_parser(parsed_data);
 // 	renderer_initialize(&renderer, 1920, 1080, true); 
