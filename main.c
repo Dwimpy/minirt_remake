@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/07 13:55:22 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:15:57 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "hooks.h"
 #include "src/parser/parser.h"
 #include "libft.h"
+#include "sphere.h"
+#include "cube.h"
+#include "plane.h"
+#include "cylinder.h"
 
 void	run_tests(void)
 {
@@ -60,18 +64,17 @@ int	main(void)
 	t_scene		scene;
 	t_renderer	renderer;
 	t_vector	parsed_data;
-	t_shape shape;
 
 
 	//run_is_shadow_tests();
 	// atexit(leaks);
 	parsed_data = test_parser();
-	for (size_t i = 0; i < parsed_data.size; i++)
-	{
-		char **str = *(char ***)vector_at(&parsed_data, i);
-		printf("%s\n", str[0]);
-	}
-	create_scene_from_file(&parsed_data);
+	scene = cornell_box();
+	create_sphere(&scene);
+	create_cube(&scene);
+	create_cylinder(&scene);
+	// create_plane(&scene);
+	create_scene_from_file(&parsed_data, &scene);
 	// free_parser(parsed_data);
 // 	renderer_initialize(&renderer, 1920, 1080, true); 
 //  	scene = cornell_box();

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/07 18:53:43 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:52:30 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "parser.h"
 #include "libft.h"
 #include "sphere.h"
+#include "cylinder.h"
 #include <stdio.h>
 
 int	valid_value(char *str, int (*comparator)(int c))
@@ -126,63 +127,32 @@ int	view_from_to_valid(char *str)
 	return (0);
 }
 
-double	*view_from(t_vector *vector, t_camera *camera)
+t_tuple parse_vector(t_vector *vector, t_camera *camera, int idx)
 {
 	char	**str;
 	char	**values;
-	double	*from;
+	t_tuple	point;
 
 	str = *(char ***)vector_at(vector, 1);
-	from = malloc(sizeof(double) * 3);
-	if (view_from_to_valid(str[1]))
+	if (view_from_to_valid(str[idx]))
 	{
-		values = ft_split(str[1], ',');
-		from[0] = ft_atof(values[0]);
-		from[1] = ft_atof(values[1]);
-		from[2] = ft_atof(values[2]);
+		values = ft_split(str[idx], ',');
+		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), ft_atof(values[2]));
 	}
-	return (from);
+	return (point);
 }
 
-double	*view_to(t_vector *vector, t_camera *camera)
+void	create_scene_from_file(t_vector *vector, t_scene *scene)
 {
-	char	**str;
-	char	**values;
-	double	*to;
-
-	str = *(char ***)vector_at(vector, 1);
-	to = malloc(sizeof(double) * 3);
-	if (view_from_to_valid(str[2]))
-	{
-		values = ft_split(str[2], ',');
-		to[0] = ft_atof(values[0]);
-		to[1] = ft_atof(values[1]);
-		to[2] = ft_atof(values[2]);
-	}
-	return (to);
-}
-
-void	create_scene_from_file(t_vector *vector)
-{
-	t_scene		scene;
 	t_renderer	renderer;
-	char		**str;
-	double		*from;
-	double		*to;
 
-	scene = cornell_box();
 	send_to_res(vector, &renderer);
-	send_to_cam(vector, &scene.camera);
-	from = view_from(vector, &scene.camera);
-	to = view_to(vector, &scene.camera);
-	printf("%f %f %f\n", to[0], to[1], to[2]);
-	camera_view_transform(&scene.camera, \
-			tuple_new_point(from[0], from[1], from[2]), \
-			tuple_new_point(to[0], to[1], to[2]));
-	renderer.args.world = &scene;
+	send_to_cam(vector, &scene->camera);
+	camera_view_transform(&scene->camera, \
+		parse_vector(vector, &scene->camera, 1), \
+			parse_vector(vector, &scene->camera, 2));
+	renderer.args.world = scene;
 	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
 	renderer_start_threads(&renderer);
 	window_draw_loop(renderer.window.mlx, &renderer);
-	free(from);
-	free(to);
 }

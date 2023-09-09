@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:35:15 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/23 16:48:20 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/09 17:14:41 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ bool		cylinder_intersect(\
 	t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		cylinder_normal_at(t_shape *shape, t_tuple isec_point);
 bool		cylinder_is_in_cap(t_ray *ray, t_real const *t);
+void		create_cylinder(t_scene *scene);
 
 #endif

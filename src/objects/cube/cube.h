@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 21:29:53 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/23 16:31:57 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/09 16:52:13 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ bool		cube_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		cube_normal_at(t_shape *shape, t_tuple isec_point);
 t_real		cube_bounds_get_max(size_t count, ...);
 t_real		cube_bounds_get_min(size_t count, ...);
+void		create_cube(t_scene *scene);
 #endif

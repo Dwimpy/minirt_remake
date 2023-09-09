@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 23:02:43 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/06 15:21:34 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:50:13 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ typedef struct s_scene
 t_scene	scene_default(void);
 void	scene_render(t_scene *world, t_renderer *renderer);
 t_scene	cornell_box(void);
-void	create_scene_from_file(t_vector *vector);
+void	create_scene_from_file(t_vector *vector, t_scene *scene);
 #endif

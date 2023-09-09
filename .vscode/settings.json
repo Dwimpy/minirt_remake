@@ -21,6 +21,7 @@
 		"sphere.h": "c",
 		"libft.h": "c",
 		"vector.h": "c",
-		"renderer.h": "c"
+		"renderer.h": "c",
+		"scene.h": "c"
 	}
 }
