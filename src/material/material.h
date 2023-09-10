@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:37:50 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/04 18:37:50 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/10 16:12:28 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MATERIAL_H
 # include "color.h"
 # include "tuple.h"
+# include "vector.h"
 
 typedef struct s_material
 {
@@ -31,5 +32,5 @@ t_material	material_default(t_color color);
 t_material	material_lambertian(t_color color);
 t_material	material_glass(void);
 t_material	material_copper(void);
-
+t_material	material_color_apply(t_vector vector, int idx, int column);
 #endif

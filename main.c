@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/09 18:11:50 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:56:35 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	maker_obj(t_vector vector, t_scene *scene)
 	{
 		str = *(char ***)vector_at(&vector, i);
 		if (!ft_strncmp(str[0], "sp", 3))
-			create_sphere(scene);
+			create_sphere(vector, scene, i);
 		if (!ft_strncmp(str[0], "cu", 3))
 				create_cube(scene);
 		if	(!ft_strncmp(str[0], "cy", 3))

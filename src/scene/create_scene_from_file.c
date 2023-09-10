@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/09 15:52:30 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:38:25 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,18 +127,20 @@ int	view_from_to_valid(char *str)
 	return (0);
 }
 
-t_tuple parse_vector(t_vector *vector, t_camera *camera, int idx)
+t_tuple parse_vector(t_vector *vector, int idx, int column)
 {
 	char	**str;
 	char	**values;
 	t_tuple	point;
 
-	str = *(char ***)vector_at(vector, 1);
-	if (view_from_to_valid(str[idx]))
+	str = *(char ***)vector_at(vector, idx);
+	if (view_from_to_valid(str[column]))
 	{
-		values = ft_split(str[idx], ',');
-		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), ft_atof(values[2]));
+		values = ft_split(str[column], ',');
+		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), \
+													ft_atof(values[2]));
 	}
+	free(values);
 	return (point);
 }
 
@@ -149,8 +151,8 @@ void	create_scene_from_file(t_vector *vector, t_scene *scene)
 	send_to_res(vector, &renderer);
 	send_to_cam(vector, &scene->camera);
 	camera_view_transform(&scene->camera, \
-		parse_vector(vector, &scene->camera, 1), \
-			parse_vector(vector, &scene->camera, 2));
+		parse_vector(vector, 1, 1), \
+			parse_vector(vector, 1, 2));
 	renderer.args.world = scene;
 	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
 	renderer_start_threads(&renderer);

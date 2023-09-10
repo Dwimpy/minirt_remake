@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:27:37 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/07 13:54:54 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:37:05 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 #include "vector.h"
 #include "stdio.h"
 
-
-void	test_init(void)
+void	free_double_arr(char **str)
 {
-	t_data	*data;
+	int	i;
 
-	data = initialize_data();
+	i = 0;
+	while (str[i])
+	{
+		if (str[i])
+			free(str[i]);
+	}
+	if (str)
+		free(str);
 }

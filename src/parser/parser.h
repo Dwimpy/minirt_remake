@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:25:40 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/07 12:31:55 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:37:46 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <fcntl.h>
 # include "vector.h"
+# include "tuple.h"
 
 # define LINEBUFFER_MAX 4096
 
@@ -123,4 +124,6 @@ t_parse_light	*initialize_light(void);
 t_parse_camera	*initialize_camera(void);
 void			test_init(void);
 void			free_parser(t_vector vector);
+t_tuple			parse_vector(t_vector *vector, int idx, int column);
+void			free_double_arr(char **str);
 #endif
