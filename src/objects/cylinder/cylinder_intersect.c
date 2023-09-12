@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_intersect.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:42:26 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/23 16:36:53 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:08:43 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	solve_quadratic_cylinder(t_quadratic *params, t_ray *ray)
 
 	params->a = ray->direction.x * ray->direction.x + \
 				ray->direction.z * ray->direction.z;
-	if (is_approx_equal(params->a, 0, M_EPSILON))
+	if (params->a == 0.0)
 		return (false);
 	params->b = 2 * ray->origin.x * ray->direction.x + \
 				2 * ray->origin.z * ray->direction.z;

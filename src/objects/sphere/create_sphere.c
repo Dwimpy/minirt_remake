@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/12 17:49:50 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:06:12 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_color	color_apply(t_shape shape, t_vector vector, int idx, int column)
 							(1.0 / 255.0) * ambient)));
 }
 
-void	position_obj_sphere(t_vector *vector, t_shape *obj, int idx, int column)
+void	position_obj(t_vector *vector, t_shape *obj, int idx, int column)
 {
 	double	x;
 	double	y;
@@ -81,7 +81,7 @@ void	create_sphere(t_vector vector, t_scene *scene, int idx)
 	sphere = shape_new_sphere();
 	sphere.material = material_color_apply(vector, idx, 3);
 	sphere.material.color = color_apply(sphere, vector, 3, 2);
-	position_obj_sphere(&vector, &sphere, idx, 1);
+	position_obj(&vector, &sphere, idx, 1);
 	// shape_rotate(&sphere, 0, 0, 35);
 	sphere_size(&vector, &sphere, idx, 2);
 	tf_compute(&sphere.transform);
