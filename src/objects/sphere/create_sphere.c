@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/10 18:50:54 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:49:50 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,40 @@ t_color	color_apply(t_shape shape, t_vector vector, int idx, int column)
 							(1.0 / 255.0) * ambient)));
 }
 
+void	position_obj_sphere(t_vector *vector, t_shape *obj, int idx, int column)
+{
+	double	x;
+	double	y;
+	double	z;
+	char	**str;
+	char	**values;
+
+	str = *(char ***)vector_at(vector, idx);
+	if (view_from_to_valid(str[column]))
+	{
+		values = ft_split(str[column], ',');
+		x = ft_atof(values[0]);
+		y = ft_atof(values[1]);
+		z = ft_atof(values[2]);
+		shape_translate(obj, x, y, z);
+		free_double_arr(values);
+	}
+}
+
+
+void	sphere_size(t_vector *vector, t_shape *obj, int idx, int column)
+{
+	double	radius;
+	char	**str;
+
+	str = *(char ***)vector_at(vector, idx);
+	if (str[column])
+	{
+		radius = ft_atof(str[column]);
+		shape_scale(obj, radius, radius, radius);
+	}
+}
+
 void	create_sphere(t_vector vector, t_scene *scene, int idx)
 {
 	t_shape	sphere;
@@ -47,9 +81,9 @@ void	create_sphere(t_vector vector, t_scene *scene, int idx)
 	sphere = shape_new_sphere();
 	sphere.material = material_color_apply(vector, idx, 3);
 	sphere.material.color = color_apply(sphere, vector, 3, 2);
-	shape_translate(&sphere, 0, 0, 0);
+	position_obj_sphere(&vector, &sphere, idx, 1);
 	// shape_rotate(&sphere, 0, 0, 35);
-	shape_scale(&sphere, 25, 25, 25);
+	sphere_size(&vector, &sphere, idx, 2);
 	tf_compute(&sphere.transform);
 	vector_pushback(&scene->objs, &sphere);
 }

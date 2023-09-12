@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/10 17:38:25 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:23:11 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ t_tuple parse_vector(t_vector *vector, int idx, int column)
 		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), \
 													ft_atof(values[2]));
 	}
-	free(values);
+	if (values)
+		free_double_arr(values);
 	return (point);
 }
 

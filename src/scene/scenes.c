@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scenes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:21:19 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/23 13:54:01 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/12 15:47:36 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,13 @@ t_scene	cornell_box(void)
 	box1.material = material_copper();
 	box2.material = material_copper();
 
-	vector_pushback(&world.objs, &floor);
-	vector_pushback(&world.objs, &ceiling);
-	vector_pushback(&world.objs, &right);
-	vector_pushback(&world.objs, &left);
-	vector_pushback(&world.objs, &back);
-	vector_pushback(&world.objs, &sphere);
-	vector_pushback(&world.objs, &box1);
-	vector_pushback(&world.objs, &box2);
+	// vector_pushback(&world.objs, &floor);
+	// vector_pushback(&world.objs, &ceiling);
+	// vector_pushback(&world.objs, &right);
+	// vector_pushback(&world.objs, &left);
+	// vector_pushback(&world.objs, &back);
+	// vector_pushback(&world.objs, &sphere);
+	// vector_pushback(&world.objs, &box1);
+	// vector_pushback(&world.objs, &box2);
 	return (world);
 }
