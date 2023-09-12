@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/10 17:34:17 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:50:54 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 t_material	material_color_apply(t_vector vector, int idx, int column)
 {
 	t_color	color;
-
 
 	color = parse_vector(&vector, idx, column);
 	return (material_default(color_multiply_s \

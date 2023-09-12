@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   renderer_set_window.c                              :+:      :+:    :+:   */
+/*   renderer_initialize.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:53:38 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/22 18:36:57 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/11 15:39:52 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	renderer_initialize(\
 	seed = (unsigned int) time(0) ^ (unsigned int) getpid();
 	srand(seed);
 	renderer->threading = threading;
-	renderer->samples_per_pixel = 128.0;
+	renderer->samples_per_pixel = 32.0;
 	window_create(&renderer->window, width, height);
 	window_add_image(renderer->window.mlx, &renderer->canvas);
 	create_tiles(&renderer->tiles, width, height);

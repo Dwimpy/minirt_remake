@@ -23,6 +23,9 @@
 		"vector.h": "c",
 		"renderer.h": "c",
 		"scene.h": "c",
-		"material.h": "c"
+		"material.h": "c",
+		"cube.h": "c",
+		"cylinder.h": "c",
+		"plane.h": "c"
 	}
 }

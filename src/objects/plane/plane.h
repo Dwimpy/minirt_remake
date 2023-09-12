@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 15:00:13 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/09 17:02:26 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:49:06 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ t_shape		shape_new_plane(void);
 void		plane_print(t_shape *shape);
 bool		plane_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		plane_normal_at(t_shape *shape, t_tuple isec_point);
-void		create_plane(t_scene *scene);
+void		create_plane(t_vector vector, t_scene *scene, int idx);
 #endif
