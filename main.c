@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/12 15:47:27 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:03:44 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	maker_obj(t_vector vector, t_scene *scene)
 				create_cube(vector, scene, i);
 		if	(!ft_strncmp(str[0], "cy", 3))
 			create_cylinder(vector, scene, i);
-		// if	(!ft_strncmp(str[0], "pl", 3))
-			// create_plane(vector, scene, i);
+		if	(!ft_strncmp(str[0], "pl", 3))
+			create_plane(vector, scene, i);
 		i++;
 	}
 }

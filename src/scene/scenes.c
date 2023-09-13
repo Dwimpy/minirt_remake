@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:21:19 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/12 15:47:36 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:06:05 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ t_scene	cornell_box(void)
 	dimension = 550.0 / 2.0;
 	world.light = light_rect_new((t_rect_light_params)
 		{
-			tuple_new_point(100, dimension + 50, -800 + dimension), \
-			color_new(0.43, 0.43, 0.43), \
-			tuple_new_vector(1, 0, 1), \
-			coord_new(70, 70), 2
+			tuple_new_point(0, 25, -30), \
+			color_new(0.93, 0.93, 0.93), \
+			tuple_new_vector(0, -1, 1), \
+			coord_new(32, 32), 2
 		});
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.comps.ref_index_tracker = vector_init(10, sizeof(t_shape **));

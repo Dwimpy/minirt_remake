@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:25:40 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/12 18:05:34 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:00:42 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ t_material		material_color_apply(t_vector vector, int idx, int column);
 t_color			color_apply(t_shape shape, t_vector vector, \
 										int idx, int column);
 void			position_obj(t_vector *vector, t_shape *obj, \
+										int idx, int column);
+void			rotation_obj(t_vector *vector, t_shape *obj, \
 										int idx, int column);
 
 #endif
