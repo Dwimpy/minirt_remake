@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:25:40 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/13 17:00:42 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/16 11:58:56 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ t_color			color_apply(t_shape shape, t_vector vector, \
 void			position_obj(t_vector *vector, t_shape *obj, \
 										int idx, int column);
 void			rotation_obj(t_vector *vector, t_shape *obj, \
+										int idx, int column);
+void			sphere_cube_size(t_vector *vector, t_shape *obj, \
 										int idx, int column);
 
 #endif
