@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/13 16:03:44 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/16 13:54:09 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(void)
 	scene = cornell_box();
 	maker_obj(parsed_data, &scene);
 	create_scene_from_file(&parsed_data, &scene);
-	// free_parser(parsed_data);
+	free_parser(parsed_data);
 // 	renderer_initialize(&renderer, 1920, 1080, true); 
 //  	scene = cornell_box();
 // 	scene.camera = camera_new(1920, 1080, 50);
