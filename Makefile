@@ -49,7 +49,6 @@ INCLUDE			+= -I ./src/pdf/cuboid
 INCLUDE			+= -I ./src/tile
 INCLUDE			+= -I ./src/renderer
 INCLUDE			+= -I ./src/hooks
-INCLUDE			+= -I ./src/parser/get_next_line
 INCLUDE			+= -I ./src/parser
 INCLUDE			+= -I ./get_next_line/gnl/include
 
@@ -77,7 +76,7 @@ ifeq ($(shell uname), Darwin)
 	LDLFLAGS	= -L $(LIBFT_FOLDER) -L $(MLX_LIB) -L $(GLFW_LIB)
 	LIBFLAGS	= -lft -lmlx42 -lglfw3 -lm -lpthread -L ./get_next_line -lgnl
 else
-	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread -L ./get_next_line
+	LIBFLAGS	= -lft -L ./libft-printf/ -lmlx42 -L ./MLX42/build -ldl -lglfw -pthread -lgnl -L ./get_next_line
 endif
 #Archive and Remove
 RM			= rm -f
@@ -129,7 +128,7 @@ libft:
 			@echo "$(YELLOW)MiniRT$(DEF_COLOR) $(CYAN)successfully cleaned!$(DEF_COLOR)"
 
 fclean:		clean
-#			@make fclean -C $(LIBFT_FOLDER)
+			@make fclean -C $(LIBFT_FOLDER)
 #			@rm -rdf $(GLFW_BUILD)
 #			@rm -rdf $(MLX_BUILD)
 			@$(RM) -f $(NAME)

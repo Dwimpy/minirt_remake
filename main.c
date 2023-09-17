@@ -59,6 +59,28 @@ void	leaks(void)
 	system("leaks minirt");
 }
 
+t_scene	give_light(t_vector *vector)
+{
+	t_scene	world;
+	t_tuple	color;
+	double	ambient;
+	char	**str;
+
+	str = *(char ***)vector_at(vector, 3);
+	ambient = ft_atof(str[1]);
+	color = parse_vector(vector, 3, 2);
+	world.light = light_rect_new((t_rect_light_params)
+	{
+		parse_vector(vector, 1, 1),  // from
+		color_multiply_s(color, (1.0 / 255.0) * ambient),  //rgb + ratio
+		parse_vector(vector, 1, 2),  // to 
+		coord_new(32, 32), 2 // size of rectangle "quality of light"
+	}); // i need only this for the light create a new function
+	world.objs = vector_init(10, sizeof(t_shape));
+	world.comps.ref_index_tracker = vector_init(10, sizeof(t_shape **));
+	return (world);
+}
+
 void	maker_obj(t_vector vector, t_scene *scene)
 {
 	int	i;
@@ -92,7 +114,7 @@ int	main(void)
 	//run_is_shadow_tests();
 	// atexit(leaks);
 	parsed_data = test_parser();
-	scene = cornell_box();
+	scene = give_light(&parsed_data);
 	maker_obj(parsed_data, &scene);
 	create_scene_from_file(&parsed_data, &scene);
 	free_parser(parsed_data);

@@ -1,31 +1,7 @@
 {
 	"files.associations": {
-		"vector": "c",
-		"iosfwd": "c",
-		"iterator": "c",
-		"__hash_table": "c",
-		"__split_buffer": "c",
-		"array": "c",
-		"bitset": "c",
-		"initializer_list": "c",
-		"string": "c",
-		"string_view": "c",
-		"unordered_map": "c",
-		"utility": "c",
-		"color.h": "c",
-		"hooks.h": "c",
-		"parser.h": "c",
-		"*.tcc": "c",
-		"transform.h": "c",
-		"sstream": "c",
-		"sphere.h": "c",
-		"libft.h": "c",
 		"vector.h": "c",
-		"renderer.h": "c",
-		"scene.h": "c",
-		"material.h": "c",
-		"cube.h": "c",
-		"cylinder.h": "c",
-		"plane.h": "c"
+		"unistd.h": "c",
+		"libft.h": "c"
 	}
 }

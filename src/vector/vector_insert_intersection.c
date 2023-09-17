@@ -21,7 +21,7 @@ void	vector_pushback_intersect(t_vector *vector, t_real t, t_shape *shape)
 
 	if (shape == NULL)
 	{
-		write(1, VECTOR_ADD_INTERSECTION_NULL, 32);
+		write(1, VECTOR_ADD_INTERSECTION_NULL, sizeof(VECTOR_ADD_INTERSECTION_NULL));
 		exit(1);
 	}
 	vector_resize(vector);

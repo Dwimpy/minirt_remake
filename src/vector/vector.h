@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include "libft.h"
+# include "unistd.h"
 //# include "vector_iterator.h"
 
 typedef struct s_vector_iterator	t_vector_iterator;
