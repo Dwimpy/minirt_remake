@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/16 13:54:09 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:05:47 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_scene	give_light(t_vector *vector)
 	color = parse_vector(vector, 3, 2);
 	world.light = light_rect_new((t_rect_light_params)
 	{
-		parse_vector(vector, 1, 1),  // from
+		parse_vector(vector, 2, 1),  // from
 		color_multiply_s(color, (1.0 / 255.0) * ambient),  //rgb + ratio
 		parse_vector(vector, 1, 2),  // to 
 		coord_new(32, 32), 2 // size of rectangle "quality of light"

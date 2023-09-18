@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:27:37 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/18 13:27:47 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:48:00 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include "vector.h"
 #include "stdio.h"
+#include "material.h"
 
 t_material_result	def_material(char **str, t_color color, \
 									int column, t_material *material)
