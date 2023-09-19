@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:37:50 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/18 13:48:20 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:58:04 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_material
 
 t_material			material_default(t_color color);
 t_material			material_lambertian(t_color color);
-t_material			material_glass(void);
+t_material			material_glass(t_color color);
 t_material			material_copper(void);
 t_material			material_color_apply(t_vector vector, int idx, int column);
 t_material_result	def_material(char **str, t_color color, \

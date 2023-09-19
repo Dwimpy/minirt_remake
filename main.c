@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/18 14:05:47 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:27:52 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_scene	give_light(t_vector *vector)
 	{
 		parse_vector(vector, 2, 1),  // from
 		color_multiply_s(color, (1.0 / 255.0) * ambient),  //rgb + ratio
-		parse_vector(vector, 1, 2),  // to 
+		tuple_new_point(0, 1, 0), 
 		coord_new(32, 32), 2 // size of rectangle "quality of light"
 	}); // i need only this for the light create a new function
 	world.objs = vector_init(10, sizeof(t_shape));
@@ -119,7 +119,7 @@ int	main(void)
 	create_scene_from_file(&parsed_data, &scene);
 	free_parser(parsed_data);
 // 	renderer_initialize(&renderer, 1920, 1080, true); 
-//  	scene = cornell_box();
+ 	// scene = cornell_box();
 // 	scene.camera = camera_new(1920, 1080, 50);
 // 	camera_view_transform(&scene.camera, \
 // 			tuple_new_point(278.0, 278.0, -800), \

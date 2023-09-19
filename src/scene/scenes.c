@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:21:19 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/16 14:39:11 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:08:36 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_scene	cornell_box(void)
 	right.material = material_lambertian(color_new(0.12, 0.45, 0.15));
 	left.material = material_lambertian(color_new(0.63, 0.05, 0.05));
 	back.material = material_lambertian(color_new(0.73, 0.73, 0.73));
-	sphere.material = material_glass();
+	// sphere.material = material_glass();
 
 	box1.material = material_copper();
 	box2.material = material_copper();

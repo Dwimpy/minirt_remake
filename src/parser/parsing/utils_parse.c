@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:27:37 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/18 13:48:00 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/19 11:57:20 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,20 @@ t_material_result	def_material(char **str, t_color color, \
 {
 	if (str && str[column])
 	{
-		if (!ft_strncmp(str[column], "default", ft_strlen("default")))
-		{
-			*material = material_default(color);
-			return (MATERIAL_SUCCESS);
-		}
-		else if (!ft_strncmp(str[column], "copper", ft_strlen("copper")))
+		if (!ft_strncmp(str[column], "copper", ft_strlen("copper")))
 		{
 			*material = material_copper();
 			return (MATERIAL_SUCCESS);
 		}
 		else if (!ft_strncmp(str[column], "glass", ft_strlen("glass")))
 		{
-			*material = material_glass();
+			*material = material_glass(color);
 			return (MATERIAL_SUCCESS);
 		}
 		else if (!ft_strncmp(str[column], "lambert", ft_strlen("lambert")))
 		{
-			*material = material_lambertian(color);
+			*material = material_lambertian(color_multiply_s \
+						(color, (1.0 / 255.0)));
 			return (MATERIAL_SUCCESS);
 		}
 		return (INVALID_TYPE);
