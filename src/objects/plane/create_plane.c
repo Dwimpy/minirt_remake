@@ -31,6 +31,8 @@ void	create_plane(t_vector vector, t_scene *scene, int idx)
 		plane.material = material_color_apply(vector, idx, 3);
 		plane.material.color = color_apply(plane, vector, 3, 2);
 	}
+	else
+		plane.material.color = color_apply(plane, vector, 3, 2);
 	position_obj(&vector, &plane, idx, 1);
 	rotation_obj(&vector, &plane, idx, 2);
 	tf_compute(&plane.transform);

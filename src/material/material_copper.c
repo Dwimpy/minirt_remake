@@ -21,7 +21,7 @@ t_material	material_copper(void)
 	material.diffuse = 0.9;
 	material.specular = 0.9;
 	material.shininess = 270;
-	material.refractive_index = 0.0;
+	material.refractive_index = 1.0;
 	material.reflectivity = 1.0;
 	material.transparency = 0.0;
 	return (material);

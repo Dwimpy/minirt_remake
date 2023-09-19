@@ -87,6 +87,8 @@ void	create_sphere(t_vector vector, t_scene *scene, int idx)
 		sphere.material = material_color_apply(vector, idx, 3);
 		sphere.material.color = color_apply(sphere, vector, 3, 2);
 	}
+	else
+		sphere.material.color = color_apply(sphere, vector, 3, 2);
 	position_obj(&vector, &sphere, idx, 1);
 	sphere_cube_size(&vector, &sphere, idx, 2);
 	tf_compute(&sphere.transform);

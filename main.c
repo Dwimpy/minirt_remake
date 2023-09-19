@@ -69,14 +69,14 @@ t_scene	give_light(t_vector *vector)
 	str = *(char ***)vector_at(vector, 3);
 	ambient = ft_atof(str[1]);
 	color = parse_vector(vector, 2, 3);
-	tuple_print(color);
 	world.light = light_rect_new((t_rect_light_params)
 	{
 		parse_vector(vector, 2, 1),  // from
-		color_multiply_s(color, (1.0 / 255.0) * ambient),  //rgb + ratio
-		tuple_new_point(0, 1, 0), 
+		color_multiply_s(color, (1.0 / 255.0)),  //rgb + ratio
+		tuple_new_point(0, 1, 0),
 		coord_new(32, 32), 2 // size of rectangle "quality of light"
 	}); // i need only this for the light create a new function
+//	world.light = light_point_new(tuple_new_point(0, 25, -120), color_new(0.2, 0.2, 0.2));
 	world.objs = vector_init(10, sizeof(t_shape));
 	world.comps.ref_index_tracker = vector_init(10, sizeof(t_shape **));
 	return (world);

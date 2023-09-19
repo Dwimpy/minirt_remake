@@ -6,7 +6,7 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:07:57 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/18 15:07:46 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/19 14:25:10 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,12 @@ static inline double	shlick(t_computations *computations)
 	if (computations->n1 > computations->n2)
 	{
 		n = computations->n1 / computations->n2;
-		sin2t = n * n * (1.0 - cos_angle * cos_angle);
+		sin2t = n * n * (1.0 - (cos_angle * cos_angle));
 		if (sin2t > 1.0)
 			return (1.0);
 		cos_t = sqrt(1.0 - sin2t);
 		cos_angle = cos_t;
 	}
-	r0 = ((computations->n1 - computations->n2) / \
-		(computations->n1 + computations->n2)) * \
-		((computations->n1 - computations->n2) / \
-		(computations->n1 + computations->n2));
-	return (r0 + (1.0 - r0) * pow((1.0 - cos_angle), 5.0));
+	r0 = pow((computations->n1 - computations->n2) / (computations->n1 + computations->n2), 2);
+	return (r0 + (1 - r0) * pow(1.0 - cos_angle, 5));
 }
