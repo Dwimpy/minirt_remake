@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 13:04:14 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:50:52 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	position_obj(t_vector *vector, t_shape *obj, int idx, int column)
 	char	**values;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (view_from_to_valid(str[column]))
+	if (str && view_from_to_valid(str[column]))
 	{
 		values = ft_split(str[column], ',');
 		x = ft_atof(values[0]);
@@ -57,6 +57,12 @@ void	position_obj(t_vector *vector, t_shape *obj, int idx, int column)
 		z = ft_atof(values[2]);
 		shape_translate(obj, x, y, z);
 		free_double_arr(values);
+	}
+	else
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Value not found\n", 14);
+		exit(0);
 	}
 }
 
@@ -74,7 +80,7 @@ void	sphere_cube_size(t_vector *vector, t_shape *obj, int idx, int column)
 	else
 	{
 		write(2, "\x1b[31m", 6);
-		write(2, "Invalid input\n", 14);
+		write(2, "Value not found\n", 14);
 		exit(0);
 	}
 }

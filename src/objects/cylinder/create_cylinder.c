@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:13:22 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 11:00:08 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:52:36 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rotation_obj(t_vector *vector, t_shape *obj, int idx, int column)
 	char	**values;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (view_from_to_valid(str[column]))
+	if (str && view_from_to_valid(str[column]))
 	{
 		values = ft_split(str[column], ',');
 		x = ft_atof(values[0]);
@@ -35,6 +35,12 @@ void	rotation_obj(t_vector *vector, t_shape *obj, int idx, int column)
 		z = ft_atof(values[2]);
 		shape_rotate(obj, x, y, z);
 		free_double_arr(values);
+	}
+	else
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Value not found\n", 14);
+		exit(0);
 	}
 }
 
@@ -47,7 +53,7 @@ void	diam_height_obj(t_vector *vector, t_shape *obj, int idx, int column)
 	char	**values;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (str[column])
+	if (str && str[column])
 	{
 		x = ft_atof(str[column]);
 		z = ft_atof(str[column]);
@@ -56,6 +62,18 @@ void	diam_height_obj(t_vector *vector, t_shape *obj, int idx, int column)
 			y = ft_atof(str[column + 1]);
 			shape_scale(obj, x, y, z);
 		}
+		else
+		{
+			write(2, "\x1b[31m", 6);
+			write(2, "Value not found\n", 14);
+			exit(0);
+		}
+	}
+	else
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Value not found\n", 14);
+		exit(0);
 	}
 }
 
