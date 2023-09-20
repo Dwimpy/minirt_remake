@@ -50,7 +50,7 @@ static void	render_curr_tile(\
 				&args->world->camera, params->i, params->j, \
 					args->renderer->samples[params->k]);
 				params->color = color_add(params->color, color_multiply_s(\
-				intersect_color_at_threads(args->world, &params->ray, 5, \
+				intersect_color_at_threads(args->world, &params->ray, 25, \
 					isect), 1.0 / args->renderer->samples_per_pixel));
 				++params->k;
 			}

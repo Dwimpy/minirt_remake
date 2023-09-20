@@ -19,12 +19,12 @@ t_material	material_glass(t_color color)
 	t_material	material;
 
 	material.color = color_multiply_s(color, 1 / 255.0);
-	material.transparency = 0.9;
-	material.reflectivity = 0.1;
-	material.specular = 0.9;
-	material.shininess = 300;
-	material.ambient = 0.1;
-	material.diffuse = 0.0;
-	material.refractive_index = 1.52;
+	material.transparency = 1.0;
+	material.reflectivity = 0.04;
+	material.specular = 0.3;
+	material.shininess = 150;
+	material.ambient = 0.05;
+	material.diffuse = 0.05;
+	material.refractive_index = 1.5;
 	return (material);
 }
