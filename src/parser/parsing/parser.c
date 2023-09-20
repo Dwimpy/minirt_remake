@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/08 13:51:46 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:27:38 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	replace_spaces(char *str)
 	len = ft_strlen(str);
 	while (i < len)
 	{
-		if (str[i] == '\t' || str[i] == '\r' || str[i] == '\v' || str[i] == '\f')
+		if (str[i] == '\t' || str[i] == '\r' || \
+				str[i] == '\v' || str[i] == '\f')
 			str[i] = ' ';
 		++i;
 	}
@@ -72,17 +73,16 @@ void	parsing_line(t_vector *vector, char *line, int fd)
 		{
 			trimmed = ft_strtrim(line, " \n\t");
 			replace_spaces(trimmed);
-			if (trimmed[0] == '#')
-			{}
-			else
+			if (trimmed[0] != '#')
 			{
 				str = ft_split(trimmed, ' ');
 				if (str && str[0])
 					vector_pushback(vector, &str);
 				else if (str)
 					free(str);
+
 			}
-				free(trimmed);
+			free(trimmed);
 		}
 		free(line);
 		line = get_next_line(fd);

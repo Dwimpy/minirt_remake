@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/19 12:00:49 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:04:14 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void	sphere_cube_size(t_vector *vector, t_shape *obj, int idx, int column)
 	{
 		radius = ft_atof(str[column]);
 		shape_scale(obj, radius, radius, radius);
+	}
+	else
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Invalid input\n", 14);
+		exit(0);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:00:11 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/19 13:16:03 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:57:37 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	create_plane(t_vector vector, t_scene *scene, int idx)
 
 	plane = shape_new_plane();
 	str = *(char ***)vector_at(&vector, idx);
-	result = def_material(str, parse_vector(&vector, idx, 3), 4, &plane.material);
+	result = def_material(str, parse_vector(&vector, idx, 3), \
+										4, &plane.material);
 	if (result != MATERIAL_SUCCESS)
 	{
 		plane.material = material_color_apply(vector, idx, 3);

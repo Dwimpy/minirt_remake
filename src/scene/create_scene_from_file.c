@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/12 17:23:11 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:08:51 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int	valid_value(char *str, int (*comparator)(int c))
 	size_t	len;
 
 	i = 0;
+	if (!str)
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Invalid input\n", 14);
+		exit(0);
+	}
 	len = ft_strlen(str);
 	while (i < len)
 	{
@@ -65,6 +71,8 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 			renderer_initialize(renderer, width, height, true);
 		}
 	}
+	else
+		exit(0);
 }
 
 void	send_to_cam(t_vector *vector, t_camera *camera)
@@ -92,39 +100,78 @@ void	send_to_cam(t_vector *vector, t_camera *camera)
 			}
 		}
 	}
+	else
+		exit(0);
 }
 
 int	view_from_to_valid(char *str)
 {
 	int	i;
 	int	count;
+	int	dot;
 
 	i = 0;
 	count = 0;
+	dot = 0;
+	if (!str)
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Value not found\n", 16);
+		exit(0);
+	}
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]))
+		if (str[i] && ft_isdigit(str[i]))
 			i++;
 		else if (str[i] == '-' || str[i] == '+')
 		{
 			if (ft_isdigit(str[i + 1]))
 				i++;
 			else
-				return (0);
+			{
+				write(2, "\x1b[31m", 6);
+				write(2, "Invalid input\n", 14);
+				exit(0);
+			}
 		}
 		else if (str[i] == ',')
 		{
+			dot = 0;
 			count++;
 			i++;
 		}
 		else if (str[i] == '.')
+		{
+			if (dot)
+			{
+				write(2, "\x1b[31m", 6);
+				write(2, "Invalid input\n", 14);
+				exit(0);
+			}
+			dot = 1;
+			if (str[i + 1] == '.')
+			{
+				write(2, "\x1b[31m", 6);
+				write(2, "Invalid input\n", 14);
+				exit(0);
+			}
 			i++;
+		}
 		else
-			return (0);
+		{
+			write(2, "\x1b[31m", 6);
+			write(2, "Invalid input\n", 14);
+			exit(0);
+		}
 	}
 	if (count == 2)
 		return (1);
-	return (0);
+	else
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Invalid input\n", 14);
+		exit(0);
+	}
 }
 
 t_tuple parse_vector(t_vector *vector, int idx, int column)
@@ -134,14 +181,20 @@ t_tuple parse_vector(t_vector *vector, int idx, int column)
 	t_tuple	point;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (view_from_to_valid(str[column]))
+	if (str && view_from_to_valid(str[column]))
 	{
 		values = ft_split(str[column], ',');
 		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), \
 													ft_atof(values[2]));
+		if (values)
+			free_double_arr(values);
 	}
-	if (values)
-		free_double_arr(values);
+	else
+	{
+		write(2, "\x1b[31m", 6);
+		write(2, "Invalid input\n", 14);
+		exit(0);
+	}
 	return (point);
 }
 

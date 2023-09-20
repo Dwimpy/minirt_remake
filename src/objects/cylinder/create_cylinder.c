@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:13:22 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/19 12:05:26 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:00:08 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,15 @@ void	create_cylinder(t_vector vector, t_scene *scene, int idx)
 
 	cylinder = shape_new_cylinder(-1, 1, true);
 	str = *(char ***)vector_at(&vector, idx);
-	result = def_material(str, parse_vector(&vector, idx, 5), 6, &cylinder.material);
+	result = def_material(str, parse_vector(&vector, idx, 5), \
+										6, &cylinder.material);
 	if (result != MATERIAL_SUCCESS)
 	{
 		cylinder.material = material_color_apply(vector, idx, 5);
 		cylinder.material.color = color_apply(cylinder, vector, 3, 2);
 	}
+	else
+		cylinder.material.color = color_apply(cylinder, vector, 3, 2);
 	position_obj(&vector, &cylinder, idx, 1);
 	diam_height_obj(&vector, &cylinder, idx, 3);
 	rotation_obj(&vector, &cylinder, idx, 2);
