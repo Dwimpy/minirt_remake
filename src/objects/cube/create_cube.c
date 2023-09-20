@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:46:21 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 11:02:21 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:35:00 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	create_cube(t_vector vector, t_scene *scene, int idx)
 	str = *(char ***)vector_at(&vector, idx);
 	result = def_material(str, parse_vector(&vector, idx, 4), \
 										5, &cube.material);
+	if (result == INVALID_TYPE)
+	{
+		write(2, "Wrong material\n", 15);
+		exit(0);
+	}
 	if (result != MATERIAL_SUCCESS)
 	{
 		cube.material = material_color_apply(vector, idx, 4);

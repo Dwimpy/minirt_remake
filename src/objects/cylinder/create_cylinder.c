@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:13:22 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 13:52:36 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:34:46 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ void	create_cylinder(t_vector vector, t_scene *scene, int idx)
 	str = *(char ***)vector_at(&vector, idx);
 	result = def_material(str, parse_vector(&vector, idx, 5), \
 										6, &cylinder.material);
+	if (result == INVALID_TYPE)
+	{
+		write(2, "Wrong material\n", 15);
+		exit(0);
+	}
 	if (result != MATERIAL_SUCCESS)
 	{
 		cylinder.material = material_color_apply(vector, idx, 5);
