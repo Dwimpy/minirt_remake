@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 11:20:49 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:06:07 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 	int			height;
 
 	str = *(char ***)vector_at(vector, 0);
+	if (str[3])
+		shut_down_parser(*vector, "Invalid resolution");
 	if (str && !ft_strncmp(str[0], "R", 2))
 	{
 		if (validator(str, &ft_isdigit, 2))
@@ -92,6 +94,8 @@ void	send_to_cam(t_vector *vector, t_camera *camera)
 			str = *(char ***)vector_at(vector, 1);
 			if (str && !ft_strncmp(str[0], "C", 2))
 			{
+				if (str[4])
+					shut_down_parser(*vector, "Invalid camera");
 				if (valid_value(str[3], &ft_isdigit))
 				{
 					fov = ft_atoi(str[3]);

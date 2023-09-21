@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/21 11:09:35 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:08:37 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,13 @@ t_scene	give_light(t_vector *vector)
 	char	**str;
 
 	str = *(char ***)vector_at(vector, 3);
+	if (str[3])
+		shut_down_parser(*vector, "Invalid ambient");
 	ambient = ft_atof(str[1]);
 	color = parse_vector(vector, 2, 3);
+	str = *(char ***)vector_at(vector, 2);
+	if (str[4])
+		shut_down_parser(*vector, "Invalid light");
 	world.light = light_rect_new((t_rect_light_params)
 	{
 		parse_vector(vector, 2, 1),  // from
