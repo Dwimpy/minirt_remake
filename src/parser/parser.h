@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:25:40 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/16 11:58:56 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 10:39:43 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,7 @@ typedef struct s_data
 
 int				line_is_empty(const char *str);
 t_vector		test_parser(void);
-t_ambient		*initialize_ambient(void);
-t_res			*initiliaze_res(void);
-t_data			*initialize_data(void);
-t_cy			*initialize_cy(void);
-t_pl			*initialize_pl(void);
-t_sp			*initialize_sp(void);
-t_parse_light	*initialize_light(void);
-t_parse_camera	*initialize_camera(void);
+void			shut_down_parser(t_vector vector, char *str);
 void			test_init(void);
 void			free_parser(t_vector vector);
 t_tuple			parse_vector(t_vector *vector, int idx, int column);

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/20 13:29:40 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:09:35 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,7 @@ void	maker_obj(t_vector vector, t_scene *scene)
 		else
 		{
 			if (!mandatory_identifier(str[0]))
-			{
-				write(2, "\x1b[31m", 6);
-				write(2, "Identifier not found\n", 21);
-				exit(0);
-			}
+				shut_down_parser(vector, "Identifier not found");
 		}
 		i++;
 	}
@@ -138,7 +134,7 @@ int	main(void)
 
 	i = 0;
 	//run_is_shadow_tests();
-	// atexit(leaks);
+	atexit(leaks);
 	parsed_data = test_parser();
 	scene = give_light(&parsed_data);
 	maker_obj(parsed_data, &scene);

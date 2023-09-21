@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 11:27:38 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 10:15:58 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	parsing_line(t_vector *vector, char *line, int fd)
 					vector_pushback(vector, &str);
 				else if (str)
 					free(str);
-
 			}
 			free(trimmed);
 		}

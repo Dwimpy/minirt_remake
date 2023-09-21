@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 14:35:12 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:26:29 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	position_obj(t_vector *vector, t_shape *obj, int idx, int column)
 	char	**values;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (str && view_from_to_valid(str[column]))
+	if (str && view_from_to_valid(str[column], *vector))
 	{
 		values = ft_split(str[column], ',');
 		x = ft_atof(values[0]);
@@ -59,11 +59,7 @@ void	position_obj(t_vector *vector, t_shape *obj, int idx, int column)
 		free_double_arr(values);
 	}
 	else
-	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Value not found\n", 14);
-		exit(0);
-	}
+		shut_down_parser(*vector, "Value not found");
 }
 
 void	sphere_cube_size(t_vector *vector, t_shape *obj, int idx, int column)
@@ -78,11 +74,7 @@ void	sphere_cube_size(t_vector *vector, t_shape *obj, int idx, int column)
 		shape_scale(obj, radius, radius, radius);
 	}
 	else
-	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Value not found\n", 14);
-		exit(0);
-	}
+		shut_down_parser(*vector, "Value not found");
 }
 
 void	create_sphere(t_vector vector, t_scene *scene, int idx)
@@ -93,12 +85,10 @@ void	create_sphere(t_vector vector, t_scene *scene, int idx)
 
 	sphere = shape_new_sphere();
 	str = *(char ***)vector_at(&vector, idx);
-	result = def_material(str, parse_vector(&vector, idx, 3), 4, &sphere.material);
+	result = def_material(str, parse_vector(&vector, idx, 3), 4, \
+												&sphere.material);
 	if (result == INVALID_TYPE)
-	{
-		write(2, "Wrong material\n", 15);
-		exit(0);
-	}
+		shut_down_parser(vector, "Wrong material");
 	if (result != MATERIAL_SUCCESS)
 	{
 		sphere.material = material_color_apply(vector, idx, 3);

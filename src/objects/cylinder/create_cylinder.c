@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:13:22 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 14:34:46 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:25:49 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "cylinder.h"
 #include "scene.h"
 
-
 void	rotation_obj(t_vector *vector, t_shape *obj, int idx, int column)
 {
 	double	x;
@@ -27,7 +26,7 @@ void	rotation_obj(t_vector *vector, t_shape *obj, int idx, int column)
 	char	**values;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (str && view_from_to_valid(str[column]))
+	if (str && view_from_to_valid(str[column], *vector))
 	{
 		values = ft_split(str[column], ',');
 		x = ft_atof(values[0]);
@@ -37,11 +36,7 @@ void	rotation_obj(t_vector *vector, t_shape *obj, int idx, int column)
 		free_double_arr(values);
 	}
 	else
-	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Value not found\n", 14);
-		exit(0);
-	}
+		shut_down_parser(*vector, "Value not found");
 }
 
 void	diam_height_obj(t_vector *vector, t_shape *obj, int idx, int column)
@@ -63,18 +58,10 @@ void	diam_height_obj(t_vector *vector, t_shape *obj, int idx, int column)
 			shape_scale(obj, x, y, z);
 		}
 		else
-		{
-			write(2, "\x1b[31m", 6);
-			write(2, "Value not found\n", 14);
-			exit(0);
-		}
+			shut_down_parser(*vector, "Value not found");
 	}
 	else
-	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Value not found\n", 14);
-		exit(0);
-	}
+		shut_down_parser(*vector, "Value not found");
 }
 
 void	create_cylinder(t_vector vector, t_scene *scene, int idx)
@@ -88,10 +75,7 @@ void	create_cylinder(t_vector vector, t_scene *scene, int idx)
 	result = def_material(str, parse_vector(&vector, idx, 5), \
 										6, &cylinder.material);
 	if (result == INVALID_TYPE)
-	{
-		write(2, "Wrong material\n", 15);
-		exit(0);
-	}
+		shut_down_parser(vector, "Wrong material");
 	if (result != MATERIAL_SUCCESS)
 	{
 		cylinder.material = material_color_apply(vector, idx, 5);

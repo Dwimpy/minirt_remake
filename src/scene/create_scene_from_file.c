@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/20 13:08:51 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:20:49 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 		}
 	}
 	else
-		exit(0);
+		shut_down_parser(*vector, "Invalid resolution");
 }
 
 void	send_to_cam(t_vector *vector, t_camera *camera)
@@ -101,10 +101,10 @@ void	send_to_cam(t_vector *vector, t_camera *camera)
 		}
 	}
 	else
-		exit(0);
+		shut_down_parser(*vector, "Invalid value cam");
 }
 
-int	view_from_to_valid(char *str)
+int	view_from_to_valid(char *str, t_vector vector)
 {
 	int	i;
 	int	count;
@@ -114,11 +114,7 @@ int	view_from_to_valid(char *str)
 	count = 0;
 	dot = 0;
 	if (!str)
-	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Value not found\n", 16);
-		exit(0);
-	}
+		shut_down_parser(vector, "Invalid input");
 	while (str[i])
 	{
 		if (str[i] && ft_isdigit(str[i]))
@@ -128,11 +124,7 @@ int	view_from_to_valid(char *str)
 			if (ft_isdigit(str[i + 1]))
 				i++;
 			else
-			{
-				write(2, "\x1b[31m", 6);
-				write(2, "Invalid input\n", 14);
-				exit(0);
-			}
+				shut_down_parser(vector, "Invalid input");
 		}
 		else if (str[i] == ',')
 		{
@@ -143,34 +135,21 @@ int	view_from_to_valid(char *str)
 		else if (str[i] == '.')
 		{
 			if (dot)
-			{
-				write(2, "\x1b[31m", 6);
-				write(2, "Invalid input\n", 14);
-				exit(0);
-			}
+				shut_down_parser(vector, "Invalid input");
 			dot = 1;
 			if (str[i + 1] == '.')
-			{
-				write(2, "\x1b[31m", 6);
-				write(2, "Invalid input\n", 14);
-				exit(0);
-			}
+				shut_down_parser(vector, "Invalid input");
 			i++;
 		}
 		else
-		{
-			write(2, "\x1b[31m", 6);
-			write(2, "Invalid input\n", 14);
-			exit(0);
-		}
+			shut_down_parser(vector, "Invalid input");
 	}
 	if (count == 2)
 		return (1);
 	else
 	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Invalid input\n", 14);
-		exit(0);
+		shut_down_parser(vector, "Invalid input");
+		return (0);
 	}
 }
 
@@ -181,7 +160,7 @@ t_tuple parse_vector(t_vector *vector, int idx, int column)
 	t_tuple	point;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (str && view_from_to_valid(str[column]))
+	if (str && view_from_to_valid(str[column], *vector))
 	{
 		values = ft_split(str[column], ',');
 		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), \
@@ -190,11 +169,7 @@ t_tuple parse_vector(t_vector *vector, int idx, int column)
 			free_double_arr(values);
 	}
 	else
-	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Invalid input\n", 14);
-		exit(0);
-	}
+		shut_down_parser(*vector, "Invalid input");
 	return (point);
 }
 
