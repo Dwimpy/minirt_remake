@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/21 13:08:37 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:16:14 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	maker_obj(t_vector vector, t_scene *scene)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_scene		scene;
 	t_renderer	renderer;
@@ -140,7 +140,12 @@ int	main(void)
 	i = 0;
 	//run_is_shadow_tests();
 	atexit(leaks);
-	parsed_data = test_parser();
+	if (argc != 2)
+	{
+		printf("Invalid format\n");
+		return (0);
+	}
+	parsed_data = test_parser(argv[1]);
 	scene = give_light(&parsed_data);
 	maker_obj(parsed_data, &scene);
 	create_scene_from_file(&parsed_data, &scene);

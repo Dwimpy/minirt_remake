@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:25:40 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 10:39:43 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:14:19 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct s_data
 }	t_data;
 
 int				line_is_empty(const char *str);
-t_vector		test_parser(void);
+t_vector		test_parser(char *str);
 void			shut_down_parser(t_vector vector, char *str);
 void			test_init(void);
 void			free_parser(t_vector vector);

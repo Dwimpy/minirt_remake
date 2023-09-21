@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 10:15:58 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:16:58 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,19 @@ void	parsing_line(t_vector *vector, char *line, int fd)
 	}
 }
 
-t_vector	test_parser(void)
+t_vector	test_parser(char *str)
 {
 	char				*line;
 	int					fd;
 	t_vector			vector;
-	char				**str;
 	char				*trimmed;
 
-	fd = open("src/parser/test_obj.rt", O_RDONLY);
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+	{
+		write(2, "Invalid file\n", 13);
+		exit(1);
+	}
 	line = get_next_line(fd);
 	vector = vector_init(1, sizeof(char ***));
 	parsing_line(&vector, line, fd);
