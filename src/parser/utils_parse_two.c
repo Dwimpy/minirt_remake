@@ -22,13 +22,13 @@ t_tuple	parse_vector(t_vector *vector, int idx, int column)
 	t_tuple	point;
 
 	str = *(char ***)vector_at(vector, idx);
+	point = tuple_point_zero();
 	if (str && view_from_to_valid(str[column], *vector))
 	{
 		values = ft_split(str[column], ',');
 		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), \
 													ft_atof(values[2]));
-		if (values)
-			free_double_arr(values);
+		free_double_arr(values);
 	}
 	else
 		shut_down_parser(*vector, "Invalid input");

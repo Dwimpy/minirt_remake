@@ -27,5 +27,6 @@ t_shape		shape_new_plane(void);
 void		plane_print(t_shape *shape);
 bool		plane_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		plane_normal_at(t_shape *shape, t_tuple isec_point);
-void		create_plane(t_vector vector, t_scene *scene, int idx);
+void		create_plane(t_vector vector, t_scene *scene, size_t idx);
+
 #endif

@@ -77,7 +77,7 @@ void	sphere_cube_size(t_vector *vector, t_shape *obj, int idx, int column)
 		shut_down_parser(*vector, "Value not found");
 }
 
-void	create_sphere(t_vector vector, t_scene *scene, int idx)
+void	create_sphere(t_vector vector, t_scene *scene, size_t idx)
 {
 	t_shape				sphere;
 	t_material_result	result;

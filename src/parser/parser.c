@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:24:57 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/22 12:55:17 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:10:35 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	line_is_empty(const char *str)
 
 void	sort_values(t_vector *vector)
 {
-	int		i;
+	size_t	i;
 	char	**tmp;
 
 	i = 0;
@@ -88,20 +88,22 @@ void	parsing_line(t_vector *vector, char *line, int fd)
 	}
 }
 
-t_vector	test_parser(char *str, int fd)
+t_vector	parse_file(char *str)
 {
 	char				*line;
+	int					fd;
 	t_vector			vector;
 
-	if (fd)
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
 	{
-		line = get_next_line(fd);
-		vector = vector_init(1, sizeof(char ***));
-		parsing_line(&vector, line, fd);
-		sort_values(&vector);
-		close(fd);
-	}
-	else
 		write(2, "Invalid file\n", 13);
+		exit(1);
+	}
+	line = get_next_line(fd);
+	vector = vector_init(1, sizeof(char ***));
+	parsing_line(&vector, line, fd);
+	sort_values(&vector);
+	close(fd);
 	return (vector);
 }

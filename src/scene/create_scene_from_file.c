@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/22 11:21:18 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:23:06 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,6 @@
 #include "sphere.h"
 #include "cylinder.h"
 #include <stdio.h>
-
-int	valid_value(char *str, int (*comparator)(int c))
-{
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	if (!str)
-	{
-		write(2, "\x1b[31m", 6);
-		write(2, "Invalid input\n", 14);
-		exit(0);
-	}
-	len = ft_strlen(str);
-	while (i < len)
-	{
-		if (!comparator(str[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 int	validator(char **str, int (*comparator)(int c), int n)
 {
@@ -80,9 +58,6 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 void	send_to_cam(t_vector *vector, t_camera *camera)
 {
 	char	**str;
-	int		width;
-	int		height;
-	int		fov;
 
 	str = *(char ***)vector_at(vector, 0);
 	if (str && !ft_strncmp(str[0], "R", 2))
@@ -91,14 +66,23 @@ void	send_to_cam(t_vector *vector, t_camera *camera)
 		shut_down_parser(*vector, "Invalid value cam");
 }
 
-void	create_scene_from_file(t_renderer *renderer, t_vector *vector, t_scene *scene)
+t_scene	scene_from_file(t_renderer *renderer, char *filepath)
 {
+	t_scene		scene;
+	t_vector	parsed_data;
 
-	send_to_res(vector, renderer);
-	send_to_cam(vector, &scene->camera);
-	camera_view_transform(&scene->camera, \
-		parse_vector(vector, 1, 1), \
-			parse_vector(vector, 1, 2));
-	renderer->args.world = scene;
 
+	parsed_data = parse_file(filepath);
+	if (!check_parsed_data(&parsed_data))
+		shut_down_parser(parsed_data, "Error parsing");
+	scene = scene_give_light(&parsed_data);
+	scene_object_maker(parsed_data, &scene);
+	send_to_res(&parsed_data, renderer);
+	send_to_cam(&parsed_data, &scene.camera);
+	camera_view_transform(&scene.camera, \
+		parse_vector(&parsed_data, 1, 1), \
+			parse_vector(&parsed_data, 1, 2));
+	renderer->args.world = &scene;
+	free_parser(parsed_data);
+	return (scene);
 }

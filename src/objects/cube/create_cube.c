@@ -11,14 +11,10 @@
 /* ************************************************************************** */
 
 #include "renderer.h"
-#include "hooks.h"
 #include "parser.h"
-#include "libft.h"
 #include "cube.h"
-#include "scene.h"
-#include "sphere.h"
 
-void	create_cube(t_vector vector, t_scene *scene, int idx)
+void	create_cube(t_vector vector, t_scene *scene, size_t idx)
 {
 	t_shape				cube;
 	t_material_result	result;

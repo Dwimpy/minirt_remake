@@ -17,7 +17,7 @@
 #include "plane.h"
 #include "scene.h"
 
-void	create_plane(t_vector vector, t_scene *scene, int idx)
+void	create_plane(t_vector vector, t_scene *scene, size_t idx)
 {
 	t_shape				plane;
 	t_material_result	result;

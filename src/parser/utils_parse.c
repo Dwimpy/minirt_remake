@@ -68,6 +68,7 @@ void	print_str(char *str)
 		write(2, &str[i], 1);
 		i++;
 	}
+	write(2, "\x1b[0m", 5);
 	write(2, "\n", 1);
 }
 
@@ -80,7 +81,7 @@ void	shut_down_parser(t_vector vector, char *str)
 
 void	free_parser(t_vector vector)
 {
-	int		i;
+	size_t	i;
 	char	**str;
 	char	**ptr;
 

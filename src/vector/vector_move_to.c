@@ -21,7 +21,7 @@
 	return (true);
 } */
 
-bool	vector_move_to(t_vector *vector, int from, int to)
+bool	vector_move_to(t_vector *vector, size_t from, size_t to)
 {
 	void	*element_from;
 	void	*element_to;

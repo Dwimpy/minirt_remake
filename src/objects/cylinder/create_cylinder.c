@@ -15,7 +15,6 @@
 #include "parser.h"
 #include "libft.h"
 #include "cylinder.h"
-#include "scene.h"
 
 void	rotation_obj(t_vector *vector, t_shape *obj, int idx, int column)
 {
@@ -45,7 +44,6 @@ void	diam_height_obj(t_vector *vector, t_shape *obj, int idx, int column)
 	double	y;
 	double	z;
 	char	**str;
-	char	**values;
 
 	str = *(char ***)vector_at(vector, idx);
 	if (str && str[column])
@@ -64,7 +62,7 @@ void	diam_height_obj(t_vector *vector, t_shape *obj, int idx, int column)
 		shut_down_parser(*vector, "Value not found");
 }
 
-void	create_cylinder(t_vector vector, t_scene *scene, int idx)
+void	create_cylinder(t_vector vector, t_scene *scene, size_t idx)
 {
 	t_shape				cylinder;
 	t_material_result	result;
