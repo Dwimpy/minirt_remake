@@ -132,6 +132,7 @@ void	maker_obj(t_vector vector, t_scene *scene)
 int	main(int argc, char **argv)
 {
 	t_scene		scene;
+	t_renderer	renderer;
 	t_vector	parsed_data;
 	int			i;
 	char		**str;
@@ -139,8 +140,6 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	j = -1;
-	//run_is_shadow_tests();
-	// atexit(leaks);
 	if (argc != 2)
 	{
 		printf("Invalid format\n");
@@ -149,19 +148,13 @@ int	main(int argc, char **argv)
 	parsed_data = test_parser(argv[1]);
 	scene = give_light(&parsed_data);
 	maker_obj(parsed_data, &scene);
-	create_scene_from_file(&parsed_data, &scene);
+	create_scene_from_file(&renderer, &parsed_data, &scene);
+	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
+	renderer_start_threads(&renderer);
+	window_draw_loop(renderer.window.mlx, &renderer);
+	vector_free(&renderer.tiles);
+	free(renderer.samples);
 	free_parser(parsed_data);
-// 	renderer_initialize(&renderer, 1920, 1080, true); 
- 	// scene = cornell_box();
-// 	scene.camera = camera_new(1920, 1080, 50);
-// 	camera_view_transform(&scene.camera, \
-// 			tuple_new_point(278.0, 278.0, -800), \
-// 			tuple_new_point(278.0, 278.0, 0.0));
-// 	renderer.args.world = &scene;
-// 	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
-// //	scene_render(&scene, &renderer);
-// 	renderer_start_threads(&renderer);
-// 	window_draw_loop(renderer.window.mlx, &renderer);
  	tf_free(scene.camera.tf);
 	free(scene.light.data);
 	t_shape *shape;

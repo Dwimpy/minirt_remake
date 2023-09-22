@@ -91,19 +91,14 @@ void	send_to_cam(t_vector *vector, t_camera *camera)
 		shut_down_parser(*vector, "Invalid value cam");
 }
 
-void	create_scene_from_file(t_vector *vector, t_scene *scene)
+void	create_scene_from_file(t_renderer *renderer, t_vector *vector, t_scene *scene)
 {
-	t_renderer	renderer;
 
-	send_to_res(vector, &renderer);
+	send_to_res(vector, renderer);
 	send_to_cam(vector, &scene->camera);
 	camera_view_transform(&scene->camera, \
 		parse_vector(vector, 1, 1), \
 			parse_vector(vector, 1, 2));
-	renderer.args.world = scene;
-	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
-	renderer_start_threads(&renderer);
-	window_draw_loop(renderer.window.mlx, &renderer);
-    vector_free(&renderer.tiles);
-    free(renderer.samples);
+	renderer->args.world = scene;
+
 }
