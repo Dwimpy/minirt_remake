@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/21 13:16:14 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/22 10:09:29 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	//run_is_shadow_tests();
-	atexit(leaks);
+	// atexit(leaks);
 	if (argc != 2)
 	{
 		printf("Invalid format\n");

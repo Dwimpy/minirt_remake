@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 13:06:07 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:21:18 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,95 +86,9 @@ void	send_to_cam(t_vector *vector, t_camera *camera)
 
 	str = *(char ***)vector_at(vector, 0);
 	if (str && !ft_strncmp(str[0], "R", 2))
-	{
-		if (validator(str, &ft_isdigit, 2))
-		{
-			width = ft_atoi(str[1]);
-			height = ft_atoi(str[2]);
-			str = *(char ***)vector_at(vector, 1);
-			if (str && !ft_strncmp(str[0], "C", 2))
-			{
-				if (str[4])
-					shut_down_parser(*vector, "Invalid camera");
-				if (valid_value(str[3], &ft_isdigit))
-				{
-					fov = ft_atoi(str[3]);
-					*camera = camera_new(width, height, fov);
-				}
-			}
-		}
-	}
+		set_cam_values(str, vector, camera);
 	else
 		shut_down_parser(*vector, "Invalid value cam");
-}
-
-int	view_from_to_valid(char *str, t_vector vector)
-{
-	int	i;
-	int	count;
-	int	dot;
-
-	i = 0;
-	count = 0;
-	dot = 0;
-	if (!str)
-		shut_down_parser(vector, "Invalid input");
-	while (str[i])
-	{
-		if (str[i] && ft_isdigit(str[i]))
-			i++;
-		else if (str[i] == '-' || str[i] == '+')
-		{
-			if (ft_isdigit(str[i + 1]))
-				i++;
-			else
-				shut_down_parser(vector, "Invalid input");
-		}
-		else if (str[i] == ',')
-		{
-			dot = 0;
-			count++;
-			i++;
-		}
-		else if (str[i] == '.')
-		{
-			if (dot)
-				shut_down_parser(vector, "Invalid input");
-			dot = 1;
-			if (str[i + 1] == '.')
-				shut_down_parser(vector, "Invalid input");
-			i++;
-		}
-		else
-			shut_down_parser(vector, "Invalid input");
-	}
-	if (count == 2)
-		return (1);
-	else
-	{
-		shut_down_parser(vector, "Invalid input");
-		return (0);
-	}
-}
-
-t_tuple parse_vector(t_vector *vector, int idx, int column)
-{
-	char	**str;
-	char	**values;
-	t_tuple	point;
-
-	str = *(char ***)vector_at(vector, idx);
-	if (str && view_from_to_valid(str[column], *vector))
-	{
-		values = ft_split(str[column], ',');
-		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), \
-													ft_atof(values[2]));
-		if (values)
-			free_double_arr(values);
-	}
-	else
-		shut_down_parser(*vector, "Invalid input");
-	return (point);
 }
 
 void	create_scene_from_file(t_vector *vector, t_scene *scene)

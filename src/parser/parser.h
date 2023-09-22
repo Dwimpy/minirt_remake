@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 16:25:40 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 13:14:19 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:23:07 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,102 +25,13 @@
 
 # define LINEBUFFER_MAX 4096
 
-typedef struct t_cy
-{
-	int				idx;
-	float			x;
-	float			y;
-	float			z;
-	float			vect_x;
-	float			vect_y;
-	float			vect_z;
-	float			diameter;
-	float			height;
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
-}	t_cy;
-
-typedef struct t_pl
-{
-	int				idx;
-	float			x;
-	float			y;
-	float			z;
-	float			vect_x;
-	float			vect_y;
-	float			vect_z;
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
-}	t_pl;
-
-typedef struct t_sp
-{
-	int				idx;
-	float			x;
-	float			y;
-	float			z;
-	float			diameter;
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
-}	t_sp;
-
-typedef struct t_parse_light
-{
-	int				idx;
-	float			x;
-	float			y;
-	float			z;
-	float			ratio;
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
-}	t_parse_light;
-
-typedef struct t_parse_camera
-{
-	int				idx;
-	float			vx;
-	float			vy;
-	float			vz;
-	float			ox;
-	float			oy;
-	float			oz;
-	unsigned int	fov;
-}	t_parse_camera;
-
-typedef struct t_ambient
-{
-	int				idx;
-	float			ambient_ratio;
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;	
-}	t_ambient;
-
-typedef struct t_res
-{
-	int		idx;
-	int		high;
-	int		width;
-}	t_res;
-
-typedef struct s_data
-{
-	t_res			*resolution;
-	t_ambient		*ambient;
-	t_parse_camera	*camera;
-	t_parse_light	*light;
-	t_sp			*sphere;
-	t_pl			*plane;
-	t_cy			*cylinder;
-}	t_data;
-
 int				line_is_empty(const char *str);
+void			is_null(char *str, t_vector vector);
+int				valid_value(char *str, int (*comparator)(int c));
+int				validator(char **str, int (*comparator)(int c), int n);
 t_vector		test_parser(char *str);
 void			shut_down_parser(t_vector vector, char *str);
+void			set_cam_values(char **str, t_vector *vector, t_camera *camera);
 void			test_init(void);
 void			free_parser(t_vector vector);
 t_tuple			parse_vector(t_vector *vector, int idx, int column);

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:27:37 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 11:31:20 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/22 10:07:40 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,27 @@ void	shut_down_parser(t_vector vector, char *str)
 	print_str(str);
 	free_parser(vector);
 	exit(1);
+}
+
+void	free_parser(t_vector vector)
+{
+	int		i;
+	char	**str;
+	char	**ptr;
+
+	i = 0;
+	while (i < vector.size)
+	{
+		str = *(char ***)vector_at(&vector, i);
+		ptr = str;
+		while (ptr && *ptr)
+		{
+			free(*ptr);
+			ptr++;
+		}
+		if (str)
+			free(str);
+		i++;
+	}
+	vector_free(&vector);
 }

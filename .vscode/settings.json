@@ -5,6 +5,13 @@
 		"libft.h": "c",
 		"stdio.h": "c",
 		"material.h": "c",
-		"ostream": "c"
+		"ostream": "c",
+		"parser.h": "c",
+		"tuple.h": "c",
+		"hooks.h": "c",
+		"sphere.h": "c",
+		"vector": "c",
+		"iosfwd": "c",
+		"iterator": "c"
 	}
 }
