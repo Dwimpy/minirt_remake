@@ -104,4 +104,6 @@ void	create_scene_from_file(t_vector *vector, t_scene *scene)
 	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
 	renderer_start_threads(&renderer);
 	window_draw_loop(renderer.window.mlx, &renderer);
+    vector_free(&renderer.tiles);
+    free(renderer.samples);
 }

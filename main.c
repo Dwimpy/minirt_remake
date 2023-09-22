@@ -132,12 +132,13 @@ void	maker_obj(t_vector vector, t_scene *scene)
 int	main(int argc, char **argv)
 {
 	t_scene		scene;
-	t_renderer	renderer;
 	t_vector	parsed_data;
 	int			i;
 	char		**str;
+	int			j;
 
 	i = 0;
+	j = -1;
 	//run_is_shadow_tests();
 	// atexit(leaks);
 	if (argc != 2)
@@ -161,9 +162,16 @@ int	main(int argc, char **argv)
 // //	scene_render(&scene, &renderer);
 // 	renderer_start_threads(&renderer);
 // 	window_draw_loop(renderer.window.mlx, &renderer);
-// 	tf_free(scene.camera.tf);
-// 	vector_free(&renderer.tiles);
-// 	free(renderer.samples);
+ 	tf_free(scene.camera.tf);
+	free(scene.light.data);
+	t_shape *shape;
+	while (++j < scene.objs.size)
+	{
+		shape = (t_shape *)vector_at(&scene.objs, j);
+		shape_free(shape);
+	}
+	vector_free(&scene.comps.ref_index_tracker);
+	vector_free(&scene.objs);
 	return (0);
 }
 //	scene_render(&scene, &scene.camera, &renderer.canvas);

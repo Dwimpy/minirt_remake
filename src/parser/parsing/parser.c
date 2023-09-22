@@ -93,7 +93,6 @@ t_vector	test_parser(char *str)
 	char				*line;
 	int					fd;
 	t_vector			vector;
-	char				*trimmed;
 
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
