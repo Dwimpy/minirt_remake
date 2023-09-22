@@ -15,6 +15,7 @@
 #include "../light/light.h"
 #include "scene.h"
 #include "sphere.h"
+#include "renderer.h"
 
 
 t_scene	scene_default(void)
@@ -22,7 +23,6 @@ t_scene	scene_default(void)
 	t_scene world;
 	t_shape s1;
 	t_shape s2;
-	t_shape plane;
 
 	world.light = light_point_new(tuple_new_point(-10, 10, -10), color_new(1.0, 1.0, 1.0));
 	world.objs = vector_init(10, sizeof(t_shape));
@@ -133,5 +133,27 @@ t_scene	cornell_box(void)
 	// vector_pushback(&world.objs, &sphere);
 	// vector_pushback(&world.objs, &box1);
 	// vector_pushback(&world.objs, &box2);
+	return (world);
+}
+
+
+
+t_scene def_scene(t_renderer *renderer)
+{
+	t_scene		world;
+
+	renderer_initialize(renderer, 1920, 1080, true);
+	world.light = light_rect_new((t_rect_light_params)
+		{
+			tuple_new_point(0, 0, 0),  // from
+			color_multiply_s(color_new(0.94, 0.94, 0.94), 1),  //rgb + ratio
+			tuple_new_vector(0, 1, 0),  // to
+			coord_new(32, 32), 2 // size of rectangle "quality of light"
+		});
+	world.objs = vector_init(10, sizeof(t_shape));
+	world.comps.ref_index_tracker = vector_init(10, sizeof(t_shape **));
+	world.camera = camera_new(renderer->window.width, renderer->window.height, 90);
+	camera_view_transform(&world.camera, tuple_new_point(0.0, 0.0, -1.0), tuple_new_point(0.0, 0.0, 0.0));
+	renderer->args.world = &world;
 	return (world);
 }

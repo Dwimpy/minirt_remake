@@ -12,7 +12,7 @@
 
 #include "scene.h"
 
-void	free_scene(t_scene *scene)
+void	scene_free(t_scene *scene)
 {
 	t_vector_iterator	it;
 	t_shape				*shape;
@@ -25,5 +25,7 @@ void	free_scene(t_scene *scene)
 		it.next(&it);
 	}
 	tf_free(scene->camera.tf);
+	free(scene->light.data);
+	vector_free(&scene->objs);
 	vector_free(&scene->comps.ref_index_tracker);
 }

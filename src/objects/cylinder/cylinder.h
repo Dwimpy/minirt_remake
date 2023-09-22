@@ -40,6 +40,6 @@ bool		cylinder_intersect(\
 	t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		cylinder_normal_at(t_shape *shape, t_tuple isec_point);
 bool		cylinder_is_in_cap(t_ray *ray, t_real const *t);
-void		create_cylinder(t_vector vector, t_scene *scene, int idx);
+void		create_cylinder(t_vector vector, t_scene *scene, size_t idx);
 
 #endif

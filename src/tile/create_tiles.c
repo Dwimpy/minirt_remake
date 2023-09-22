@@ -35,11 +35,11 @@ void	create_tiles(t_vector *tiles, int32_t width, int32_t height)
 		tile.settings.tile_size_y = TILE_SIZE;
 	}
 	*tiles = vector_init(width / tile.settings.tile_size_x * height / tile.settings.tile_size_y, sizeof(t_tile));
-	while (j * tile.settings.tile_size_y < (height - 1))
+	while (j * tile.settings.tile_size_y < (size_t)(height - 1))
 	{
 		i = 0;
 		tile_dim_height = ((height - j * tile.settings.tile_size_y) >= tile.settings.tile_size_y) ? tile.settings.tile_size_y : (height - j * tile.settings.tile_size_y) % tile.settings.tile_size_y;
-		while (i * tile.settings.tile_size_x < width)
+		while (i * tile.settings.tile_size_x < (size_t)width)
 		{
 			tile.corner.x = i * tile.settings.tile_size_x;
 			tile.corner.y = j * tile.settings.tile_size_y;

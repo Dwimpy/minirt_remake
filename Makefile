@@ -18,8 +18,7 @@ VPATH			= ./src/tuple ./src/ray ./src/color ./src/matrix ./src/window ./src/imag
 				  ./src/objects/shape ./src/intersect ./src/material ./src/light ./src/camera \
 				  ./src/quaternion ./src/objects/sphere ./src/objects/plane ./src/scene ./src/objects/cube \
 				  ./src/objects/cylinder ./src/objects/disk ./src/sampling ./src/light/light_cuboid \
-				  ./src/tile ./src/renderer ./src/hooks \
-				  ./src/parser/get_next_line ./src/parser/parsing 
+				  ./src/tile ./src/renderer ./src/hooks ./src/parser
 # Includes
 INCLUDE			= -I libft-printf/include/ -I MLX42/include/MLX42/
 INCLUDE			+= -I ./src/tuple
@@ -67,9 +66,9 @@ NORM_INCLUDE	= ./include
 # Modules
 
 # Compiler
-CC			= cc #-Wall -Werror -Wextra
+CC			= cc -Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
-ASAN		=  -fsanitize=leak -g3
+ASAN		=  #-fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit

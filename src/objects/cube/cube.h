@@ -50,5 +50,5 @@ bool		cube_intersect(t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		cube_normal_at(t_shape *shape, t_tuple isec_point);
 t_real		cube_bounds_get_max(size_t count, ...);
 t_real		cube_bounds_get_min(size_t count, ...);
-void		create_cube(t_vector vector, t_scene *scene, int idx);
+void		create_cube(t_vector vector, t_scene *scene, size_t idx);
 #endif

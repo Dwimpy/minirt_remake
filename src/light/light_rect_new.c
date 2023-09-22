@@ -49,12 +49,8 @@ t_light	light_rect_new(t_rect_light_params p)
 
 static t_coord	light_construct_uv(t_light *light, t_coord width_height)
 {
-	t_tuple			normalized_normal;
-	t_tuple			adjusted_point;
 	t_coord			coord;
-	t_rect_light	*rect_light;
 
-	rect_light = light->data;
 	coord.x = width_height.x / (t_real)(light->samples);
 	coord.y = width_height.y / (t_real)(light->samples);
 	return (coord);

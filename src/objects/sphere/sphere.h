@@ -30,6 +30,6 @@ void		sphere_print(t_shape *shape);
 bool		sphere_intersect(\
 	t_shape *shape, t_ray ray, t_vector *intersections);
 t_tuple		sphere_normal_at(t_shape *shape, t_tuple isec_point);
-void		create_sphere(t_vector vector, t_scene *scene, int idx);
+void		create_sphere(t_vector vector, t_scene *scene, size_t idx);
 
 #endif

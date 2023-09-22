@@ -15,6 +15,7 @@
 t_tuple	disk_normal_at(t_shape *shape, t_tuple isec_point)
 {
 	t_tuple	normal;
+	(void)isec_point;
 
 	normal = tuple_new_vector(0, 1, 0);
 	normal = matrix_multiply_tuple(shape->transform.inv_tf_transpose, normal);

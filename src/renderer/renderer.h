@@ -37,4 +37,5 @@ void	renderer_initialize(\
 		int32_t height, \
 		bool threading);
 void	renderer_start_threads(t_renderer *renderer);
+void	renderer_free(t_renderer *renderer);
 #endif
