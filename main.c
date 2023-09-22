@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:59:09 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/22 10:09:29 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:01:25 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int	main(int argc, char **argv)
 	int			i;
 	char		**str;
 	int			j;
+	int			fd;
 
 	i = 0;
 	j = -1;
@@ -145,26 +146,39 @@ int	main(int argc, char **argv)
 		printf("Invalid format\n");
 		return (0);
 	}
-	parsed_data = test_parser(argv[1]);
-	scene = give_light(&parsed_data);
-	maker_obj(parsed_data, &scene);
-	create_scene_from_file(&renderer, &parsed_data, &scene);
-	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
-	renderer_start_threads(&renderer);
-	window_draw_loop(renderer.window.mlx, &renderer);
-	vector_free(&renderer.tiles);
-	free(renderer.samples);
-	free_parser(parsed_data);
- 	tf_free(scene.camera.tf);
-	free(scene.light.data);
-	t_shape *shape;
-	while (++j < scene.objs.size)
+	fd = open(argv[1], O_RDONLY);
+	if (fd > 0)
 	{
-		shape = (t_shape *)vector_at(&scene.objs, j);
-		shape_free(shape);
+		parsed_data = test_parser(argv[1], fd);
+		scene = give_light(&parsed_data);
+		maker_obj(parsed_data, &scene);
+		create_scene_from_file(&renderer, &parsed_data, &scene);
 	}
-	vector_free(&scene.comps.ref_index_tracker);
-	vector_free(&scene.objs);
+	else
+	{
+		write(2, "Invalid file\n", 13);
+		renderer.window.mlx = mlx_init(1920, 1080, "MINIRT", true);		
+	}
+	mlx_key_hook(renderer.window.mlx, (mlx_keyfunc) key_hooks, &renderer);
+	if (fd > 0)
+		renderer_start_threads(&renderer);
+	window_draw_loop(renderer.window.mlx, &renderer);
+	if (fd > 0)
+	{
+		vector_free(&renderer.tiles);
+		free(renderer.samples);
+		free_parser(parsed_data);
+ 		tf_free(scene.camera.tf);
+		free(scene.light.data);	
+		t_shape *shape;
+		while (++j < scene.objs.size)
+		{
+			shape = (t_shape *)vector_at(&scene.objs, j);
+			shape_free(shape);
+		}
+		vector_free(&scene.comps.ref_index_tracker);
+		vector_free(&scene.objs);
+	}
 	return (0);
 }
 //	scene_render(&scene, &scene.camera, &renderer.canvas);
