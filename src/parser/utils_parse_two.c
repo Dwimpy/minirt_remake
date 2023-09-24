@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_struct_two.c                                  :+:      :+:    :+:   */
+/*   utils_parse_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:02:06 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 10:41:55 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/24 15:09:33 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "vector.h"
 #include "stdio.h"
 
-t_tuple	parse_vector(t_vector *vector, int idx, int column)
+t_tuple	parse_vector(t_vector *vector, int idx, \
+						int column, char *token)
 {
 	char	**str;
 	char	**values;
@@ -26,6 +27,9 @@ t_tuple	parse_vector(t_vector *vector, int idx, int column)
 	if (str && view_from_to_valid(str[column], *vector))
 	{
 		values = ft_split(str[column], ',');
+		if (check_out_range(token, ft_atof(values[0]), ft_atof(values[1]), \
+														ft_atof(values[2])))
+			shut_down_parser(*vector, "Values out of scope");
 		point = tuple_new_point(ft_atof(values[0]), ft_atof(values[1]), \
 													ft_atof(values[2]));
 		free_double_arr(values);

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:46:21 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 10:43:09 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/24 15:06:18 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	create_cube(t_vector vector, t_scene *scene, size_t idx)
 
 	cube = shape_new_cube();
 	str = *(char ***)vector_at(&vector, idx);
-	result = def_material(str, parse_vector(&vector, idx, 4), \
+	result = def_material(str, parse_vector(&vector, idx, 4, "colour"), \
 										5, &cube.material);
 	if (result == INVALID_TYPE)
 		shut_down_parser(vector, "Wrong material");

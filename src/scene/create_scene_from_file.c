@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/22 14:23:06 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/24 15:07:24 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ t_scene	scene_from_file(t_renderer *renderer, char *filepath)
 	send_to_res(&parsed_data, renderer);
 	send_to_cam(&parsed_data, &scene.camera);
 	camera_view_transform(&scene.camera, \
-		parse_vector(&parsed_data, 1, 1), \
-			parse_vector(&parsed_data, 1, 2));
+		parse_vector(&parsed_data, 1, 1, "none"), \
+			parse_vector(&parsed_data, 1, 2, "none"));
 	renderer->args.world = &scene;
 	free_parser(parsed_data);
 	return (scene);

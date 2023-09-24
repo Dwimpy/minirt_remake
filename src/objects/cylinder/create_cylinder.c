@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:13:22 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/21 11:25:49 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/24 15:23:46 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	rotation_obj(t_vector *vector, t_shape *obj, int idx, int column)
 		x = ft_atof(values[0]);
 		y = ft_atof(values[1]);
 		z = ft_atof(values[2]);
+		if (check_out_range("rotate", x, y, z))
+			shut_down_parser(*vector, "Rotation values out of scope" );
 		shape_rotate(obj, x, y, z);
 		free_double_arr(values);
 	}
@@ -70,7 +72,7 @@ void	create_cylinder(t_vector vector, t_scene *scene, size_t idx)
 
 	cylinder = shape_new_cylinder(-1, 1, true);
 	str = *(char ***)vector_at(&vector, idx);
-	result = def_material(str, parse_vector(&vector, idx, 5), \
+	result = def_material(str, parse_vector(&vector, idx, 5, "colour"), \
 										6, &cylinder.material);
 	if (result == INVALID_TYPE)
 		shut_down_parser(vector, "Wrong material");
