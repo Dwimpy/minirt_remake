@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_obj_maker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:15:28 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/22 15:14:48 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/24 15:29:38 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ void	scene_object_maker(t_vector vector, t_scene *scene)
 	char	**str;
 
 	i = 0;
-	while(i < vector.size)
+	while (i < vector.size)
 	{
 		str = *(char ***)vector_at(&vector, i);
 		if (!ft_strncmp(str[0], "sp", 3))
 			create_sphere(vector, scene, i);
 		else if (!ft_strncmp(str[0], "cu", 3))
 			create_cube(vector, scene, i);
-		else if	(!ft_strncmp(str[0], "cy", 3))
+		else if (!ft_strncmp(str[0], "cy", 3))
 			create_cylinder(vector, scene, i);
-		else if	(!ft_strncmp(str[0], "pl", 3))
+		else if (!ft_strncmp(str[0], "pl", 3))
 			create_plane(vector, scene, i);
 		else
 		{

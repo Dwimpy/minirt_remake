@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 14:09:58 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/24 15:07:48 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/24 15:36:06 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_scene	scene_give_light(t_vector *vector)
 	str = *(char ***)vector_at(vector, 3);
 	if (str[3])
 		shut_down_parser(*vector, "Invalid ambient");
+	if (str[1] && (ft_atof(str[1]) > 1.0 || ft_atof(str[1]) < 0.0))
+		shut_down_parser(*vector, "Ambient out of ratio");
 	color = parse_vector(vector, 2, 3, "colour");
 	str = *(char ***)vector_at(vector, 2);
 	if (str[4])
