@@ -48,6 +48,8 @@ void	set_cam_values(char **str, t_vector *vector, t_camera *camera)
 					shut_down_parser(*vector, "Invalid fov");
 				*camera = camera_new(width, height, fov);
 			}
+			else
+				shut_down_parser(*vector, "Invalid input");
 		}
 	}
 }

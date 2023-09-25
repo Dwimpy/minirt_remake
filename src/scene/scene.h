@@ -39,4 +39,5 @@ t_scene	scene_give_light(t_vector *vector);
 int		view_from_to_valid(char *str, t_vector vector);
 void	scene_object_maker(t_vector vector, t_scene *scene);
 void	scene_free(t_scene *scene);
+int		validator_special(char **str, int (*comparator)(int c), int n);
 #endif

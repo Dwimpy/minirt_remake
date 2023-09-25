@@ -19,13 +19,11 @@
 #include "cylinder.h"
 #include <stdio.h>
 
-int	validator(char **str, int (*comparator)(int c), int n)
-{
-	int	i;
+int validator(char **str, int (*comparator)(int c), int n) {
+	int i;
 
 	i = 1;
-	while (i <= n)
-	{
+	while (i <= n) {
 		if (!valid_value(str[i], comparator))
 			return (false);
 		i++;
@@ -33,18 +31,31 @@ int	validator(char **str, int (*comparator)(int c), int n)
 	return (true);
 }
 
-void	add_spp_bpr(t_vector *vector, t_renderer *renderer, \
-										char **str, int size)
+int validator_special(char **str, int (*comparator)(int c), int n)
 {
-	if (size == 4)
-		renderer_set_spp(vector, renderer, ft_atof(str[3]));
-	if (size == 5)
-		renderer_set_bpr(vector, renderer, ft_atof(str[4]));
+	int i;
+
+	i = 0;
+	while (i <= n) {
+		if (!valid_value(str[i], comparator))
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
-int	check_res_size(t_vector *vector, char **str)
-{
-	int	i;
+void add_spp_bpr(t_vector *vector, t_renderer *renderer, \
+                                        char **str, int size) {
+	if (size == 4)
+		renderer_set_spp(vector, renderer, ft_atof(str[3]));
+	else if (size == 5) {
+		renderer_set_spp(vector, renderer, ft_atof(str[3]));
+		renderer_set_bpr(vector, renderer, ft_atof(str[4]));
+	}
+}
+
+int check_res_size(t_vector *vector, char **str) {
+	int i;
 
 	i = 0;
 	while (str[i])
@@ -54,44 +65,39 @@ int	check_res_size(t_vector *vector, char **str)
 	return (i);
 }
 
-void	send_to_res(t_vector *vector, t_renderer *renderer)
-{
-	char		**str;
-	int			width;
-	int			height;
-	int			size;
+void send_to_res(t_vector *vector, t_renderer *renderer) {
+	char **str;
+	int width;
+	int height;
+	int size;
 
-	str = *(char ***)vector_at(vector, 0);
+	str = *(char ***) vector_at(vector, 0);
 	size = check_res_size(vector, str);
-	if (str && !ft_strncmp(str[0], "R", 2))
-	{
-		if (validator(str, &ft_isdigit, 2))
-		{
+	if (str && !ft_strncmp(str[0], "R", 2)) {
+		if (validator(str, &ft_isdigit, size - 1)) {
 			width = ft_atoi(str[1]);
 			height = ft_atoi(str[2]);
 			renderer_initialize(renderer, width, height, true);
 			add_spp_bpr(vector, renderer, str, size);
-		}
-	}
-	else
+		} else
+			shut_down_parser(*vector, "Invalid Input");
+	} else
 		shut_down_parser(*vector, "Invalid resolution");
 }
 
-void	send_to_cam(t_vector *vector, t_camera *camera)
-{
-	char	**str;
+void send_to_cam(t_vector *vector, t_camera *camera) {
+	char **str;
 
-	str = *(char ***)vector_at(vector, 0);
+	str = *(char ***) vector_at(vector, 0);
 	if (str && !ft_strncmp(str[0], "R", 2))
 		set_cam_values(str, vector, camera);
 	else
 		shut_down_parser(*vector, "Invalid value cam");
 }
 
-t_scene	scene_from_file(t_renderer *renderer, char *filepath)
-{
-	t_scene		scene;
-	t_vector	parsed_data;
+t_scene scene_from_file(t_renderer *renderer, char *filepath) {
+	t_scene scene;
+	t_vector parsed_data;
 
 
 	parsed_data = parse_file(filepath);
@@ -102,8 +108,8 @@ t_scene	scene_from_file(t_renderer *renderer, char *filepath)
 	send_to_res(&parsed_data, renderer);
 	send_to_cam(&parsed_data, &scene.camera);
 	camera_view_transform(&scene.camera, \
-		parse_vector(&parsed_data, 1, 1, "none"), \
-			parse_vector(&parsed_data, 1, 2, "none"));
+        parse_vector(&parsed_data, 1, 1, "none"), \
+            parse_vector(&parsed_data, 1, 2, "none"));
 	free_parser(parsed_data);
 	return (scene);
 }

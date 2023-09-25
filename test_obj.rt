@@ -1,9 +1,9 @@
 #C FROM      TO        FOV
 C  0,20,-155	0,0,10   50
-A 1  255,255,255
+A 1  255,132,255
 
-R  1920 1080 2
- 
+R  1920 1080 2 10
+
 L -20,35,-15 1	255,255,255
 
 # #obj   position   rotation   radius    color	material
