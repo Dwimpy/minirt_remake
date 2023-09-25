@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:02:06 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/24 15:09:33 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 09:55:50 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	view_from_to_valid(char *str, t_vector vector)
 	i = 0;
 	count = 0;
 	dot = 0;
-	is_null(str, vector);
+	how_many_values(str, vector);
 	while (str[i])
 	{
 		if (str[i] && ft_isdigit(str[i]))

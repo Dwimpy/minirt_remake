@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:12:54 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/24 15:26:04 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 09:54:11 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,27 @@ int	check_out_range(char *token, int first, int second, int third)
 	else if (!ft_strncmp(token, "none", 5))
 		return (0);
 	return (0);
+}
+
+void	digit_count(char *str, t_vector vector)
+{
+	int	count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) && (str[i + 1] == ',' || !str[i + 1]))
+			count++;
+		i++;
+	}
+	if (count != 3)
+		shut_down_parser(vector, "Invalid amount of values");
+}
+
+void	how_many_values(char *str, t_vector vector)
+{
+	is_null(str, vector);
+	digit_count(str, vector);
 }

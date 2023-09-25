@@ -12,6 +12,7 @@
 		"sphere.h": "c",
 		"vector": "c",
 		"iosfwd": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"cylinder.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:06:16 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/24 15:00:31 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 09:54:40 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int				valid_value(char *str, int (*comparator)(int c));
 int				validator(char **str, int (*comparator)(int c), int n);
 t_vector		parse_file(char *str);
 int				check_out_range(char *token, int first, int second, int third);
+void			digit_count(char *str, t_vector vector);
+void			how_many_values(char *str, t_vector vector);
 void			shut_down_parser(t_vector vector, char *str);
 void			set_cam_values(char **str, t_vector *vector, t_camera *camera);
 void			free_parser(t_vector vector);

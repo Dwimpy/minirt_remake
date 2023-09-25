@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:13:22 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/24 15:23:46 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:54:35 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	create_cylinder(t_vector vector, t_scene *scene, size_t idx)
 										6, &cylinder.material);
 	if (result == INVALID_TYPE)
 		shut_down_parser(vector, "Wrong material");
+	if (result == INVALID_AMOUNT)
+		shut_down_parser(vector, "Invalid value after material");
 	if (result != MATERIAL_SUCCESS)
 	{
 		cylinder.material = material_color_apply(vector, idx, 5);

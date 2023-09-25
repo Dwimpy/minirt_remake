@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/24 15:05:41 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:53:58 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	create_sphere(t_vector vector, t_scene *scene, size_t idx)
 												&sphere.material);
 	if (result == INVALID_TYPE)
 		shut_down_parser(vector, "Wrong material");
+	else if (result == INVALID_AMOUNT)
+		shut_down_parser(vector, "Invalid value after material");
 	if (result != MATERIAL_SUCCESS)
 	{
 		sphere.material = material_color_apply(vector, idx, 3);

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 18:37:50 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/19 11:58:04 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:20:21 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef enum e_material_result
 	MATERIAL_SUCCESS,
 	INVALID_INPUT,
 	INVALID_TYPE,
+	INVALID_AMOUNT,
 }	t_material_result;
 
 typedef struct s_material

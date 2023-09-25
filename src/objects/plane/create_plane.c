@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:00:11 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/24 15:06:59 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:44:20 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	create_plane(t_vector vector, t_scene *scene, size_t idx)
 										4, &plane.material);
 	if (result == INVALID_TYPE)
 		shut_down_parser(vector, "Wrong material");
+	if (result == INVALID_AMOUNT)
+		shut_down_parser(vector, "Invalid value after material");
 	if (result != MATERIAL_SUCCESS)
 	{
 		plane.material = material_color_apply(vector, idx, 3);

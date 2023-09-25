@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:27:37 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/22 10:07:40 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:44:34 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_material_result	def_material(char **str, t_color color, \
 {
 	if (str && str[column])
 	{
+		if (str[column + 1])
+			return (INVALID_AMOUNT);
 		if (!ft_strncmp(str[column], "copper", 7))
 		{
 			*material = material_copper();
@@ -37,7 +39,8 @@ t_material_result	def_material(char **str, t_color color, \
 						(color, (1.0 / 255.0)));
 			return (MATERIAL_SUCCESS);
 		}
-		return (INVALID_TYPE);
+		if (str[column])
+			return (INVALID_TYPE);
 	}
 	return (INVALID_INPUT);
 }
