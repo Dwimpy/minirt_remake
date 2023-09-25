@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_tiles.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 22:18:52 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/22 22:01:29 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/25 13:44:47 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	render_curr_tile(\
 				&args->world->camera, params->i, params->j, \
 					args->renderer->samples[params->k]);
 				params->color = color_add(params->color, color_multiply_s(\
-				intersect_color_at_threads(args->world, &params->ray, 25, \
+				intersect_color_at_threads(args->world, &params->ray, \
+					args->renderer->bounces_per_ray, \
 					isect), 1.0 / args->renderer->samples_per_pixel));
 				++params->k;
 			}

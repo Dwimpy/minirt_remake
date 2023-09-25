@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/25 09:30:44 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 15:05:06 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,36 @@ int	validator(char **str, int (*comparator)(int c), int n)
 	return (true);
 }
 
+void	add_spp_bpr(t_vector *vector, t_renderer *renderer, \
+										char **str, int size)
+{
+	if (size == 4)
+		renderer_set_spp(vector, renderer, ft_atof(str[3]));
+	if (size == 5)
+		renderer_set_bpr(vector, renderer, ft_atof(str[4]));
+}
+
+int	check_res_size(t_vector *vector, char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	if (i > 5)
+		shut_down_parser(*vector, "Too many arg in resolution");
+	return (i);
+}
+
 void	send_to_res(t_vector *vector, t_renderer *renderer)
 {
 	char		**str;
 	int			width;
 	int			height;
+	int			size;
 
 	str = *(char ***)vector_at(vector, 0);
-	if (str[3])
-		shut_down_parser(*vector, "Invalid resolution");
+	size = check_res_size(vector, str);
 	if (str && !ft_strncmp(str[0], "R", 2))
 	{
 		if (validator(str, &ft_isdigit, 2))
@@ -49,6 +70,7 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 			width = ft_atoi(str[1]);
 			height = ft_atoi(str[2]);
 			renderer_initialize(renderer, width, height, true);
+			add_spp_bpr(vector, renderer, str, size);
 		}
 	}
 	else

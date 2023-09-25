@@ -22,6 +22,7 @@
 		"string": "c",
 		"string_view": "c",
 		"unordered_map": "c",
-		"utility": "c"
+		"utility": "c",
+		"renderer.h": "c"
 	}
 }
