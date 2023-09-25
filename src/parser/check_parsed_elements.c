@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:39:28 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/25 12:33:31 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/25 13:25:35 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,48 +32,9 @@ static int	check_mandatory_elements(t_vector *vector)
 	return (1);
 }
 
-void	key_binds(void *param)
-{
-	mlx_t	*mlx;
-
-	mlx = param;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-}
-
-int	black_screen(void)
-{
-	mlx_t	*mlx;
-
-	mlx = mlx_init(1920, 1080, "MINIRT", true);
-	if (!mlx)
-		return (EXIT_FAILURE);
-	mlx_loop_hook(mlx, key_binds, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
-}
-
-void	check_inside(t_vector *vector)
-{
-	char	**str;
-
-	str = *(char ***)vector_at(vector, 0);
-
-	if (!ft_strncmp(str[0], "R", 2) || !ft_strncmp(str[0], "C", 2) || \
-				!ft_strncmp(str[0], "A", 2) || !ft_strncmp(str[0], "L", 2))
-
-	{
-		black_screen();
-		shut_down_parser(*vector, "Too few values");
-	}
-}
-
 int	check_parsed_data(t_vector *parsed_data)
 {
-	if (parsed_data->size == 1)
-		check_inside(parsed_data);
-	else if (parsed_data->size < 4)
+	if (parsed_data->size < 4)
 		return (0);
 	return (check_mandatory_elements(parsed_data));
 }

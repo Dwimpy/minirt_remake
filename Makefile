@@ -6,7 +6,7 @@
 #    By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/21 14:38:01 by arobu             #+#    #+#              #
-#    Updated: 2023/09/25 12:26:18 by apaghera         ###   ########.fr        #
+#    Updated: 2023/09/25 13:28:02 by apaghera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ NORM_INCLUDE	= ./include
 # Compiler
 CC			= cc -Wall -Werror -Wextra
 CFLAGS		=  #-march=nocona
-ASAN		=  -fsanitize=address -g3
+ASAN		=  #-fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)
 	FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit
