@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   is_file_ok.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
+/*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:01:14 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/22 15:31:17 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/25 12:04:09 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static int check_extension(char *filename)
+static int	check_extension(char *filename)
 {
 	char	*extension;
 
