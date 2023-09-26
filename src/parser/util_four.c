@@ -23,11 +23,19 @@ void	add_spp_bpr(t_vector *vector, t_renderer *renderer, \
 										char **str, int size)
 {
 	if (size == 4)
+	{
 		renderer_set_spp(vector, renderer, ft_atof(str[3]));
+		renderer_set_bpr(vector, renderer, 10);
+	}
 	else if (size == 5)
 	{
 		renderer_set_spp(vector, renderer, ft_atof(str[3]));
 		renderer_set_bpr(vector, renderer, ft_atof(str[4]));
+	}
+	else
+	{
+		renderer_set_spp(vector, renderer, 32);
+		renderer_set_bpr(vector, renderer, 10);
 	}
 }
 

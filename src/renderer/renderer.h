@@ -12,7 +12,7 @@
 
 #ifndef RENDERER_H
 # define RENDERER_H
-# define NUM_THREADS 200
+# define NUM_THREADS 50
 # include "tile.h"
 # include "window.h"
 # include "sampling.h"

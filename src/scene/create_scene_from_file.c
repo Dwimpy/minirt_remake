@@ -64,8 +64,8 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 		{
 			width = ft_atoi(str[1]);
 			height = ft_atoi(str[2]);
-			renderer_initialize(renderer, width, height, true);
 			add_spp_bpr(vector, renderer, str, size);
+			renderer_initialize(renderer, width, height, true);
 		}
 		else
 			shut_down_parser(*vector, "Invalid Input");

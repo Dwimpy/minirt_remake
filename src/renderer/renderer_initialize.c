@@ -40,8 +40,6 @@ void	renderer_initialize(\
 	window_create(&renderer->window, width, height);
 	window_add_image(renderer->window.mlx, &renderer->canvas);
 	create_tiles(&renderer->tiles, width, height);
-	renderer->samples_per_pixel = 32;
-	renderer->bounces_per_ray = 10;
 	if (renderer->threading)
 		pthread_mutex_init(&renderer->mutex, NULL);
 	renderer->samples = \

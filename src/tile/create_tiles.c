@@ -62,24 +62,32 @@ void	create_tiles(t_vector *tiles, int32_t width, int32_t height)
 	t_tile			tile;
 	size_t			tile_dim_height;
 	t_tile_params	params;
-
+	t_vector		tiless;
 	initialize_params(&params, &tile, width, height);
 	*tiles = vector_init(params.width / tile.settings.tile_size_x * \
-		height / tile.settings.tile_size_y, sizeof(t_tile));
+		params.height / tile.settings.tile_size_y, sizeof(t_tile));
+	tiless = vector_init(10, sizeof(t_tile));
+	printf("This: %zu\t", tiles->size);
+	printf("%zu\t", tiless.size);
 	while (params.j * tile.settings.tile_size_y < (size_t)(height - 1))
 	{
 		params.i = 0;
 		tile_dim_height = get_tile_dim_height(&tile, &params);
-		while (params.i * tile.settings.tile_size_x < (size_t)width)
+//		printf("Height: %zu\tTiles x: %zu\tTiles y: %zu\t", tile_dim_height, params.width / tile.settings.tile_size_x, params.height / tile.settings.tile_size_y);
+		while (params.i * tile.settings.tile_size_x < (size_t)(width - 1))
 		{
+//			printf("HELLO");
 			process_row(tiles, tile_dim_height, &tile, &params);
 			params.i++;
+//			printf("%zu\n", tile.dim.w);
+//			printf("%zu\n", tiles->size);
 			vector_pushback(tiles, &tile);
-			if ((width - params.i * tile.settings.tile_size_x) == 0)
+//			printf("%zu", (width - params.i * tile.settings.tile_size_x));
+			if ((width - params.i * tile.settings.tile_size_x) <= 0)
 				break ;
 		}
 		params.j++;
-		if ((height - params.j * tile.settings.tile_size_y) == 0)
+		if ((height - params.j * tile.settings.tile_size_y) <= 0)
 			break ;
 	}
 }

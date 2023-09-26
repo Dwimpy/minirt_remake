@@ -19,6 +19,7 @@ t_sample	*sample_jittered_new(size_t num_samples)
 	t_sample	*samples;
 	size_t		sqrt_samples;
 
+	printf("%zu\n", num_samples);
 	samples = ft_calloc(num_samples, sizeof(t_sample));
 	if (!samples)
 	{
