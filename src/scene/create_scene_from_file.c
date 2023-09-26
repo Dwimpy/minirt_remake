@@ -56,11 +56,11 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 
 	str = *(char ***) vector_at(vector, 0);
 	size = check_res_size(vector, str);
-	if (!inspect_res_value(str, 2))
+	if (!inspect_res_value(str, size))
 		shut_down_parser(*vector, "Resolution is not a digit");
 	if (str && !ft_strncmp(str[0], "R", 2))
 	{
-		if (validator(str, &ft_isdigit, 2))
+		if (validator(str, &ft_isdigit, size - 1))
 		{
 			width = ft_atoi(str[1]);
 			height = ft_atoi(str[2]);

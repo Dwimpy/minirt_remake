@@ -17,7 +17,7 @@
 
 void	leaks(void)
 {
-	system("leaks minirt");
+	system("leaks miniRT");
 }
 
 int	main(int argc, char **argv)
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	t_scene		scene;
 	t_renderer	renderer;
 
-	// atexit(leaks);
+	 atexit(leaks);
 	if (!is_input_ok(argc, argv))
 		exit(EXIT_FAILURE);
 	scene = scene_from_file(&renderer, argv[1]);

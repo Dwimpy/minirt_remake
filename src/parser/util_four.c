@@ -50,7 +50,7 @@ int	inspect_res_value(char **str, int n)
 
 	i = 1;
 	j = 0;
-	while (str[i][j] && i < n)
+	while (str[i][j] && i <= n)
 	{
 		j = 0;
 		while (str[i][j])
@@ -63,6 +63,34 @@ int	inspect_res_value(char **str, int n)
 	}
 	return (1);
 }
+
+int	inspect_ambient_ratio(char **str, int n)
+{
+	int	i;
+	int	j;
+	int	dot;
+
+	i = 1;
+	j = 0;
+	dot = 0;
+	while (str[i][j] && i <= n)
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (dot && str[i][j] == '.')
+				return (0);
+			else if (str[i][j] == '.')
+				dot = 1;
+			else if (!ft_isdigit(str[i][j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 
 void	pass_limit_arg(t_vector *vector, char **str)
 {
