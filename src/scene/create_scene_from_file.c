@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/26 11:40:30 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:23:37 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 	int		size;
 
 	str = *(char ***) vector_at(vector, 0);
-	size = check_res_size(vector, str);
+	size = check_size(vector, str);
 	if (!inspect_res_value(str, size))
 		shut_down_parser(*vector, "Resolution is not a digit");
 	if (str && !ft_strncmp(str[0], "R", 2))

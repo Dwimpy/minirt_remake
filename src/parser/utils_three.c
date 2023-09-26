@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:12:54 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/26 12:22:19 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/26 17:34:33 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	is_null(char *str, t_vector vector)
 {
 	if (!str)
-		shut_down_parser(vector, "Invalid input");
+		shut_down_parser(vector, "Invalid input!");
 	else
 		return ;
 }

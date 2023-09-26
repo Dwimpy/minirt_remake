@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:06:16 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/26 13:53:06 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:23:19 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				validator(char **str, int (*comparator)(int c), int n);
 t_vector		parse_file(char *str);
 void			add_spp_bpr(t_vector *vector, t_renderer *renderer, \
 										char **str, int size);
-int				check_res_size(t_vector *vector, char **str);
+int				check_size(t_vector *vector, char **str);
 int				inspect_res_value(char **str, int n);
 int				check_out_range(char *token, t_real first, \
 									t_real second, t_real third);

@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 13:02:06 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/25 09:55:50 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:34:57 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_tuple	parse_vector(t_vector *vector, int idx, \
 	t_tuple	point;
 
 	str = *(char ***)vector_at(vector, idx);
+	check_size(vector, str);
 	point = tuple_point_zero();
 	if (str && view_from_to_valid(str[column], *vector))
 	{

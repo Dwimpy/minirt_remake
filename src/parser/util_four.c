@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:27:54 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/26 13:54:38 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:31:47 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ void	add_spp_bpr(t_vector *vector, t_renderer *renderer, \
 	}
 }
 
-int	check_res_size(t_vector *vector, char **str)
+int	check_size(t_vector *vector, char **str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	if (i > 5)
+	if (i <= 2)
+		shut_down_parser(*vector, "Invalid input");
+	else if (i > 5 && !ft_strncmp(str[0], "R", 2))
 		shut_down_parser(*vector, "Too many arg in resolution");
 	return (i);
 }
