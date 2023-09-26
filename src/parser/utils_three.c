@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:12:54 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/26 11:18:44 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:42:42 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ void	set_cam_values(char **str, t_vector *vector, t_camera *camera)
 		str = *(char ***)vector_at(vector, 1);
 		if (str && !ft_strncmp(str[0], "C", 2))
 		{
-			if (str[4])
-				shut_down_parser(*vector, "Invalid camera");
+			pass_limit_arg(vector, str);
 			if (valid_value(str[3], &ft_isdigit))
 			{
 				fov = ft_atoi(str[3]);
-				if (fov < 5.0 || fov > 180.0)
-					shut_down_parser(*vector, "Invalid fov");
+				fov_over_limit(vector, fov);
 				*camera = camera_new(width, height, fov);
 			}
 			else

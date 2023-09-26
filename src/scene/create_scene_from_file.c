@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/26 11:31:00 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:40:30 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 		shut_down_parser(*vector, "Invalid resolution");
 }
 
-voidsend_to_cam(t_vector *vector, t_camera *camera)
+void	send_to_cam(t_vector *vector, t_camera *camera)
 {
 	char	**str;
 
@@ -85,7 +85,7 @@ voidsend_to_cam(t_vector *vector, t_camera *camera)
 		shut_down_parser(*vector, "Invalid value cam");
 }
 
-t_scene scene_from_file(t_renderer *renderer, char *filepath)
+t_scene	scene_from_file(t_renderer *renderer, char *filepath)
 {
 	t_scene		scene;
 	t_vector	parsed_data;

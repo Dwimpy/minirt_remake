@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:06:16 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/26 11:32:27 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:42:26 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 int				line_is_empty(const char *str);
 void			is_null(char *str, t_vector vector);
+void			pass_limit_arg(t_vector *vector, char **str);
+void			fov_over_limit(t_vector *vector, double fov);
 int				valid_value(char *str, int (*comparator)(int c));
 int				validator(char **str, int (*comparator)(int c), int n);
 t_vector		parse_file(char *str);
