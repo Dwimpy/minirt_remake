@@ -50,7 +50,6 @@ t_scene	scene_give_light(t_vector *vector)
 	str = *(char ***)vector_at(vector, 3);
 	if (str[3])
 		shut_down_parser(*vector, "Invalid ambient");
-	printf("%s\n", str[1]);
 	if (str[1] && (!inspect_ambient_ratio(str, 1) \
 		|| ft_atof(str[1]) > 1.0 || ft_atof(str[1]) < 0.0))
 		shut_down_parser(*vector, "Ambient out of ratio");
