@@ -47,6 +47,15 @@ int	validator_special(char **str, int (*comparator)(int c), int n)
 	return (true);
 }
 
+void	check_limit_res(t_vector *vector, int width, int height)
+{
+	if (width < 100 || height < 100)
+		shut_down_parser(*vector, "Resolution too low");
+	else if (width > 1920 || height > 1080)
+		shut_down_parser(*vector, "Resolution too high");
+	
+}
+
 void	send_to_res(t_vector *vector, t_renderer *renderer)
 {
 	char	**str;
@@ -64,6 +73,7 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 		{
 			width = ft_atoi(str[1]);
 			height = ft_atoi(str[2]);
+			check_limit_res(vector, width, height);
 			add_spp_bpr(vector, renderer, str, size);
 			renderer_initialize(renderer, width, height, true);
 		}
