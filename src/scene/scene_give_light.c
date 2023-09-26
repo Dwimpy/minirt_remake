@@ -17,8 +17,10 @@ int	valid_value(char *str, int (*comparator)(int c))
 {
 	size_t	i;
 	size_t	len;
+	int		isdot;
 
 	i = 0;
+	isdot = 0;
 	if (!str)
 	{
 		write(2, "\x1b[31m", 6);
@@ -28,7 +30,11 @@ int	valid_value(char *str, int (*comparator)(int c))
 	len = ft_strlen(str);
 	while (i < len)
 	{
-		if (!comparator(str[i]))
+		if (isdot == 1 && str[i] == '.')
+			return false;
+		else if (str[i] == '.')
+			isdot = 1;
+		else if (!comparator(str[i]))
 			return (false);
 		i++;
 	}
@@ -44,6 +50,7 @@ t_scene	scene_give_light(t_vector *vector)
 	str = *(char ***)vector_at(vector, 3);
 	if (str[3])
 		shut_down_parser(*vector, "Invalid ambient");
+	printf("%s\n", str[1]);
 	if (str[1] && (ft_atof(str[1]) > 1.0 || ft_atof(str[1]) < 0.0))
 		shut_down_parser(*vector, "Ambient out of ratio");
 	color = parse_vector(vector, 2, 3, "colour");

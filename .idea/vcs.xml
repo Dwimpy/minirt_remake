@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/42-Evals" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/42-minirt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/get_next_line" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/glfw" vcs="Git" />
   </component>
