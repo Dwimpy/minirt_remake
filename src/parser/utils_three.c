@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:12:54 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/25 09:54:11 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 11:18:44 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	set_cam_values(char **str, t_vector *vector, t_camera *camera)
 
 int	check_out_range(char *token, int first, int second, int third)
 {
-
 	if (!ft_strncmp(token, "rotate", 7))
 	{
 		if ((first < -180.0 || first > 180.0) || \
