@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:06:16 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/26 12:18:58 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/26 13:53:06 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void			add_spp_bpr(t_vector *vector, t_renderer *renderer, \
 										char **str, int size);
 int				check_res_size(t_vector *vector, char **str);
 int				inspect_res_value(char **str, int n);
-int				check_out_range(char *token, t_real first, t_real second, t_real third);
+int				check_out_range(char *token, t_real first, \
+									t_real second, t_real third);
 void			digit_count(char *str, t_vector vector);
 void			how_many_values(char *str, t_vector vector);
 void			shut_down_parser(t_vector vector, char *str);

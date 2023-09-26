@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:27:54 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/26 11:42:03 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:54:38 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,8 @@ int	inspect_ambient_ratio(char **str, int n)
 	return (1);
 }
 
-
 void	pass_limit_arg(t_vector *vector, char **str)
 {
 	if (str[4])
 		shut_down_parser(*vector, "Invalid camera");
-}
-
-void	fov_over_limit(t_vector *vector, double fov)
-{
-	if (fov < 5.0 || fov > 180.0)
-		shut_down_parser(*vector, "Invalid fov");
 }

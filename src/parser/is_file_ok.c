@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:01:14 by arobu             #+#    #+#             */
-/*   Updated: 2023/09/25 12:04:09 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:54:22 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,10 @@ int	is_input_ok(int argc, char **argv)
 		return (false);
 	}
 	return (check_extension(argv[1]));
+}
+
+void	fov_over_limit(t_vector *vector, double fov)
+{
+	if (fov < 5.0 || fov > 180.0)
+		shut_down_parser(*vector, "Invalid fov");
 }
