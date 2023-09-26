@@ -13,7 +13,7 @@
 #include "vector.h"
 #include <stdio.h>
 
-char		*vector_to_string(t_vector *vector)
+char	*vector_to_string(t_vector *vector)
 {
 	size_t	i;
 	char	*str;

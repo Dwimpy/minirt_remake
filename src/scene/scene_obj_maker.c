@@ -16,7 +16,6 @@
 #include "cylinder.h"
 #include "plane.h"
 
-
 static int	mandatory_identifier(char *str)
 {
 	if (!ft_strncmp(str, "#", 2))

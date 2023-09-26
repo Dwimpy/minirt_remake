@@ -55,6 +55,15 @@ typedef struct s_thread_args
 	t_renderer	*renderer;
 }				t_thread_args;
 
+typedef struct s_tile_params
+{
+	int32_t		width;
+	int32_t		height;
+	size_t		i;
+	size_t		j;
+	t_real		aspect_ratio;
+}				t_tile_params;
+
 typedef struct s_thread_params
 {
 	t_ray		ray;
@@ -67,5 +76,8 @@ typedef struct s_thread_params
 
 void		create_tiles(t_vector *tiles, int32_t width, int32_t height);
 void		*render_tiles(void *arg);
+void		set_tile_settings(t_tile *tile, t_real aspect_ratio);
+void		initialize_params(t_tile_params *params, \
+	t_tile *tile, int32_t w, int32_t h);
 void		render_tile(t_thread_args *args);
 #endif

@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   disk_normal_at.c                                   :+:      :+:    :+:   */
+/*   initialize_params.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 19:49:16 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/12 19:49:16 by arobu            ###   ########.fr       */
+/*   Created: 2023/09/26 15:01:17 by arobu             #+#    #+#             */
+/*   Updated: 2023/09/26 15:01:17 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "disk.h"
+#include "tile.h"
 
-t_tuple	disk_normal_at(t_shape *shape, t_tuple isec_point)
+void	initialize_params(t_tile_params *params, \
+	t_tile *tile, int32_t w, int32_t h)
 {
-	t_tuple	normal;
-
-	(void)isec_point;
-	normal = tuple_new_vector(0, 1, 0);
-	normal = matrix_multiply_tuple(shape->transform.inv_tf_transpose, normal);
-	normal.w = 0;
-	return (tuple_normalize(normal));
+	params->j = 0;
+	params->width = w;
+	params->height = h;
+	params->aspect_ratio = (t_real)w / (t_real)h;
+	set_tile_settings(tile, params->aspect_ratio);
 }

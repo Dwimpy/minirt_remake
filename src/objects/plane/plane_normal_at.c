@@ -14,11 +14,11 @@
 
 t_tuple	plane_normal_at(t_shape *shape, t_tuple isec_point)
 {
-	(void)isec_point;
 	t_transform	*tf;
 	t_tuple		local_normal;
 	t_tuple		world_normal;
 
+	(void)isec_point;
 	tf = &shape->transform;
 	local_normal = tuple_new_vector(0, -1, 0);
 	world_normal = matrix_multiply_tuple(tf->inv_tf_transpose, local_normal);

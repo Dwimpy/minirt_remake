@@ -19,7 +19,8 @@ double	random_double(void)
 
 t_tuple	random_vec3(void)
 {
-	return (tuple_new_vector(random_double(), random_double(), random_double()));
+	return (tuple_new_vector(random_double(), \
+		random_double(), random_double()));
 }
 
 t_tuple	random_in_unit_sphere(void)

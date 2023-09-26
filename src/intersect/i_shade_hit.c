@@ -66,6 +66,7 @@ static inline double	shlick(t_computations *computations)
 		cos_t = sqrt(1.0 - sin2t);
 		cos_angle = cos_t;
 	}
-	r0 = pow((computations->n1 - computations->n2) / (computations->n1 + computations->n2), 2);
+	r0 = pow((computations->n1 - computations->n2) / \
+		(computations->n1 + computations->n2), 2);
 	return (r0 + (1 - r0) * pow(1.0 - cos_angle, 5));
 }

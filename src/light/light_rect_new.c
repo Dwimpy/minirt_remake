@@ -16,6 +16,17 @@
 #include "tuple.h"
 
 static t_coord	light_construct_uv(t_light *light, t_coord width_height);
+static void		initialize_light(t_light *light, t_rect_light **rect_light, \
+			t_light_type type, t_rect_light_params *p);
+
+static void	initialize_light(t_light *light, t_rect_light **rect_light, \
+	t_light_type type, t_rect_light_params *p)
+{
+	light->type = type;
+	light->origin = p->origin;
+	light->intensity = p->intensity;
+	light->data = *rect_light;
+}
 
 t_light	light_rect_new(t_rect_light_params p)
 {
@@ -29,10 +40,7 @@ t_light	light_rect_new(t_rect_light_params p)
 		exit(1);
 	}
 	p.normal = tuple_normalize(p.normal);
-	light.type = RECT_LIGHT;
-	light.origin = p.origin;
-	light.intensity = p.intensity;
-	light.data = rect_light;
+	initialize_light(&light, &rect_light, RECT_LIGHT, &p);
 	rect_light->up = tuple_new_vector(0, 1, 0);
 	rect_light->right = tuple_normalize(tuple_cross(p.normal, rect_light->up));
 	if (tuple_equal(rect_light->right, tuple_new_vector(0, 0, 0)))
