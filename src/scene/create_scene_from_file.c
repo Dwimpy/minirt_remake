@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:02:53 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/25 15:05:06 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/26 10:42:35 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,27 @@ int	check_res_size(t_vector *vector, char **str)
 	return (i);
 }
 
+int	inspect_res_value(char **str, int n)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	j = 0;
+	while (str[i][j] && i < n)
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (!ft_isdigit(str[i][j]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	send_to_res(t_vector *vector, t_renderer *renderer)
 {
 	char		**str;
@@ -63,6 +84,8 @@ void	send_to_res(t_vector *vector, t_renderer *renderer)
 
 	str = *(char ***)vector_at(vector, 0);
 	size = check_res_size(vector, str);
+	if (!inspect_res_value(str, 2))
+		shut_down_parser(*vector, "Resolution values are not digits");
 	if (str && !ft_strncmp(str[0], "R", 2))
 	{
 		if (validator(str, &ft_isdigit, 2))
