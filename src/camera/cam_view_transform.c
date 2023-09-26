@@ -12,14 +12,23 @@
 
 #include "camera.h"
 
+static	int max(t_real a, t_real b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
 void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to)
 {
 	t_onb			onb;
 	t_transform		translation;
 
 	translation = tf_new();
+	from.z = max(1, from.z);
 	onb.forward = tuple_normalize(tuple_subtract(to, from));
-	onb.left = tuple_cross(onb.forward, tuple_new_vector(0, 1, 0));
+	onb.left = tuple_normalize(tuple_cross(onb.forward, tuple_new_vector(0, 1, 0)));
 	onb.up = tuple_cross(onb.left, onb.forward);
 	camera->onb.up = onb.up;
 	camera->onb.left = onb.left;
