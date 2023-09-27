@@ -6,7 +6,7 @@
 /*   By: apaghera <apaghera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 12:23:07 by apaghera          #+#    #+#             */
-/*   Updated: 2023/09/26 17:04:44 by apaghera         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:07:31 by apaghera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	sphere_cube_size(t_vector *vector, t_shape *obj, int idx, int column)
 	char	**str;
 
 	str = *(char ***)vector_at(vector, idx);
-	if (str[column])
+	if (str[column] && ft_isdigit(str[column][0]))
 	{
 		radius = ft_atof(str[column]);
-		shape_scale(obj, radius, radius, radius);
+		shape_scale(obj, radius / 2, radius / 2, radius / 2);
 	}
 	else
 		shut_down_parser(*vector, "Value not found");
