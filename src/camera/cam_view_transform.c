@@ -6,30 +6,38 @@
 /*   By: arobu <arobu@student.42heilbronn.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 15:40:47 by arobu             #+#    #+#             */
-/*   Updated: 2023/08/08 03:57:02 by arobu            ###   ########.fr       */
+/*   Updated: 2023/09/27 12:40:59 by arobu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
 
-static t_real max(t_real a, t_real b)
+static void	compute_up_vector(t_tuple *up, t_tuple forward)
 {
-	if (a > b)
-		return (a);
-	else
-		return (b);
+	*up = tuple_new_vector(0, 1, 0);
+	if (fabs(forward.x) < M_EPSILON && fabs(forward.z) < M_EPSILON)
+	{
+		if (forward.y > 0)
+			*up = tuple_new_vector(0, 0, -1);
+		else
+			*up = tuple_new_vector(0, 0, 1);
+	}
 }
 
 void	camera_view_transform(t_camera *camera, t_tuple from, t_tuple to)
 {
 	t_onb			onb;
 	t_transform		translation;
+	t_tuple			up;
 
 	translation = tf_new();
-//	from.z = max(0.0, from.z);
 	onb.forward = tuple_normalize(tuple_subtract(to, from));
-	onb.left = tuple_cross(onb.forward, tuple_new_vector(0, 1, 0));
+	compute_up_vector(&up, onb.forward);
+	onb.left = tuple_cross(onb.forward, up);
 	onb.up = tuple_cross(onb.left, onb.forward);
+	tuple_print(onb.forward);
+	tuple_print(onb.left);
+	tuple_print(onb.up);
 	camera->onb.up = onb.up;
 	camera->onb.left = onb.left;
 	camera->onb.forward = onb.forward;

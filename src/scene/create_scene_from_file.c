@@ -33,27 +33,12 @@ int	validator(char **str, int (*comparator)(int c), int n)
 	return (true);
 }
 
-int	validator_special(char **str, int (*comparator)(int c), int n)
-{
-	int	i;
-
-	i = 0;
-	while (i <= n)
-	{
-		if (!valid_value(str[i], comparator))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
 void	check_limit_res(t_vector *vector, int width, int height)
 {
 	if (width < 100 || height < 100)
 		shut_down_parser(*vector, "Resolution too low");
 	else if (width > 1920 || height > 1080)
 		shut_down_parser(*vector, "Resolution too high");
-	
 }
 
 void	send_to_res(t_vector *vector, t_renderer *renderer)
