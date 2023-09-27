@@ -1,5 +1,5 @@
 #C FROM      TO        FOV
-C  0,0,5	0,0,0   80
+C  0,5,0	0,0,0   80
 A 1.0 255,255,255
 
 R  1920 1080 16
@@ -8,11 +8,22 @@ L 0,25,0 1	255,255,255
 
 # #obj   position   rotation   radius    color	material
 #
-# cy -2,0,-10   0.0,0.0,0.0 14.2 5 10,0,255
-sp -0,0,0  1  173,216,230 lambertian
+cy -2,0,-10   0.0,0.0,0.0 14.2 5 10,0,255
+# sp 0,0,0  1  173,216,230 lambertian
 # sp -40,8,0  8  173,255,122 lambertian
 # pl 0,0,0   0.0,0.0,0.0  50,50,50
-# cu  50,2,30  20 45,0,90	255,255,255
+cu  50,2,30  20 45,0,90	255,255,255
 
 
 
+
+
+#R 	width 	height	spp	bpr
+#C	from	to		FOV
+#L	from	ratio	color
+#A	ratio	color
+
+#cy obj		position	rotation	radius	height	color	mateiral
+#sp	obj		position	radius		color	material
+#pl	obj		position	rotation	color
+#cu obj		position	scale		rotation	color

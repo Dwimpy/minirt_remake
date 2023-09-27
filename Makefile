@@ -66,8 +66,8 @@ NORM_INCLUDE	= ./include
 # Modules
 
 # Compiler
-CC			= cc #-Wall -Werror -Wextra
-CFLAGS		=  #-march=nocona
+CC			= cc -Wall -Werror -Wextra
+CFLAGS		=  -march=nocona
 ASAN		=  #-fsanitize=address -g3
 CFLAGS		=  -Ofast -flto# -g3 -fsanitize=address -g3 #-g3 -Wall -Werror -Wextra -g3 #
 ifeq ($(shell uname), Darwin)

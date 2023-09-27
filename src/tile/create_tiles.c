@@ -48,7 +48,7 @@ size_t	get_tile_dim_width(t_tile *tile, t_tile_params *params)
 			tile->settings.tile_size_x) % tile->settings.tile_size_x);
 }
 
-void	process_row(t_vector *tiles, ssize_t h, \
+void	process_row(ssize_t h, \
 	t_tile *tile, t_tile_params *params)
 {
 			tile->corner.x = params->i * tile->settings.tile_size_x;
@@ -72,7 +72,7 @@ void	create_tiles(t_vector *tiles, int32_t width, int32_t height)
 		tile_dim_height = get_tile_dim_height(&tile, &params);
 		while (params.i * tile.settings.tile_size_x < (size_t)(width - 1))
 		{
-			process_row(tiles, tile_dim_height, &tile, &params);
+			process_row(tile_dim_height, &tile, &params);
 			params.i++;
 			vector_pushback(tiles, &tile);
 			if ((width - params.i * tile.settings.tile_size_x) <= 0)
